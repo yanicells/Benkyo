@@ -9,7 +9,12 @@ import {
   buildQueue,
   isSessionComplete,
 } from "@/lib/session";
-import type { Card, KanaSelectionKey, KanaScript, SessionCard } from "@/lib/types";
+import type {
+  Card,
+  KanaSelectionKey,
+  KanaScript,
+  SessionCard,
+} from "@/lib/types";
 import { TypingPracticeInput } from "@/components/session/typing-practice-input";
 
 type KanaSessionClientProps = {
@@ -39,7 +44,9 @@ export function KanaSessionClient({
   if (complete || !current) {
     return (
       <section className="space-y-4 rounded-3xl border border-emerald-600/20 bg-emerald-50 p-6 text-center sm:p-8">
-        <p className="text-xs uppercase tracking-[0.2em] text-emerald-800">Complete</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-emerald-800">
+          Complete
+        </p>
         <h2 className="font-display text-4xl text-emerald-900">Great work</h2>
         <p className="text-emerald-800">You cleared every kana in this set.</p>
         <Link
@@ -59,7 +66,8 @@ export function KanaSessionClient({
           Script: <span className="font-semibold text-slate-900">{script}</span>
         </p>
         <p>
-          Scope: <span className="font-semibold text-slate-900">{groupLabel}</span>
+          Scope:{" "}
+          <span className="font-semibold text-slate-900">{groupLabel}</span>
         </p>
         <p>{queue.length} kana left</p>
       </div>
@@ -95,8 +103,12 @@ export function KanaSessionClient({
       {showCheatSheet ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/45 p-4">
           <div className="w-full max-w-sm rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg">
-            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Cheat sheet</p>
-            <h3 className="mt-3 font-display text-4xl text-slate-900">{current.card.front}</h3>
+            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+              Cheat sheet
+            </p>
+            <h3 className="mt-3 font-display text-4xl text-slate-900">
+              {current.card.front}
+            </h3>
             <p className="mt-2 text-lg text-slate-700">{current.card.back}</p>
             <button
               type="button"

@@ -230,7 +230,8 @@ export function DeckSessionClient({
                 <button
                   type="button"
                   onClick={() => {
-                    const wasCorrect = selectedOption === multipleChoice.correct;
+                    const wasCorrect =
+                      selectedOption === multipleChoice.correct;
                     if (wasCorrect) {
                       moveNextCorrect();
                     } else {

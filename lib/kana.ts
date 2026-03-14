@@ -15,7 +15,11 @@ type KanaRowDefinition = {
 
 type FlatRows = Record<KanaGroup, KanaEntry[]>;
 
-function sliceRow(source: KanaEntry[], start: number, count: number): KanaEntry[] {
+function sliceRow(
+  source: KanaEntry[],
+  start: number,
+  count: number,
+): KanaEntry[] {
   return source.slice(start, start + count);
 }
 
@@ -252,32 +256,162 @@ function buildRows(script: KanaScript): KanaRowDefinition[] {
   const combo = flatRowsByScript[script].combo;
 
   return [
-    { key: "basic-a", group: "basic", label: "a · i · u · e · o", entries: sliceRow(basic, 0, 5) },
-    { key: "basic-ka", group: "basic", label: "ka · ki · ku · ke · ko", entries: sliceRow(basic, 5, 5) },
-    { key: "basic-sa", group: "basic", label: "sa · shi · su · se · so", entries: sliceRow(basic, 10, 5) },
-    { key: "basic-ta", group: "basic", label: "ta · chi · tsu · te · to", entries: sliceRow(basic, 15, 5) },
-    { key: "basic-na", group: "basic", label: "na · ni · nu · ne · no", entries: sliceRow(basic, 20, 5) },
-    { key: "basic-ha", group: "basic", label: "ha · hi · fu · he · ho", entries: sliceRow(basic, 25, 5) },
-    { key: "basic-ma", group: "basic", label: "ma · mi · mu · me · mo", entries: sliceRow(basic, 30, 5) },
-    { key: "basic-ya", group: "basic", label: "ya · yu · yo", entries: sliceRow(basic, 35, 3) },
-    { key: "basic-ra", group: "basic", label: "ra · ri · ru · re · ro", entries: sliceRow(basic, 38, 5) },
-    { key: "basic-wa", group: "basic", label: "wa · wo · n", entries: sliceRow(basic, 43, 3) },
-    { key: "dakuten-ga", group: "dakuten", label: "ga · gi · gu · ge · go", entries: sliceRow(dakuten, 0, 5) },
-    { key: "dakuten-za", group: "dakuten", label: "za · ji · zu · ze · zo", entries: sliceRow(dakuten, 5, 5) },
-    { key: "dakuten-da", group: "dakuten", label: "da · ji · zu · de · do", entries: sliceRow(dakuten, 10, 5) },
-    { key: "dakuten-ba", group: "dakuten", label: "ba · bi · bu · be · bo", entries: sliceRow(dakuten, 15, 5) },
-    { key: "dakuten-pa", group: "dakuten", label: "pa · pi · pu · pe · po", entries: sliceRow(dakuten, 20, 5) },
-    { key: "combo-kya", group: "combo", label: "kya · kyu · kyo", entries: sliceRow(combo, 0, 3) },
-    { key: "combo-sha", group: "combo", label: "sha · shu · sho", entries: sliceRow(combo, 3, 3) },
-    { key: "combo-cha", group: "combo", label: "cha · chu · cho", entries: sliceRow(combo, 6, 3) },
-    { key: "combo-nya", group: "combo", label: "nya · nyu · nyo", entries: sliceRow(combo, 9, 3) },
-    { key: "combo-hya", group: "combo", label: "hya · hyu · hyo", entries: sliceRow(combo, 12, 3) },
-    { key: "combo-mya", group: "combo", label: "mya · myu · myo", entries: sliceRow(combo, 15, 3) },
-    { key: "combo-rya", group: "combo", label: "rya · ryu · ryo", entries: sliceRow(combo, 18, 3) },
-    { key: "combo-gya", group: "combo", label: "gya · gyu · gyo", entries: sliceRow(combo, 21, 3) },
-    { key: "combo-ja", group: "combo", label: "ja · ju · jo", entries: sliceRow(combo, 24, 3) },
-    { key: "combo-bya", group: "combo", label: "bya · byu · byo", entries: sliceRow(combo, 27, 3) },
-    { key: "combo-pya", group: "combo", label: "pya · pyu · pyo", entries: sliceRow(combo, 30, 3) },
+    {
+      key: "basic-a",
+      group: "basic",
+      label: "a · i · u · e · o",
+      entries: sliceRow(basic, 0, 5),
+    },
+    {
+      key: "basic-ka",
+      group: "basic",
+      label: "ka · ki · ku · ke · ko",
+      entries: sliceRow(basic, 5, 5),
+    },
+    {
+      key: "basic-sa",
+      group: "basic",
+      label: "sa · shi · su · se · so",
+      entries: sliceRow(basic, 10, 5),
+    },
+    {
+      key: "basic-ta",
+      group: "basic",
+      label: "ta · chi · tsu · te · to",
+      entries: sliceRow(basic, 15, 5),
+    },
+    {
+      key: "basic-na",
+      group: "basic",
+      label: "na · ni · nu · ne · no",
+      entries: sliceRow(basic, 20, 5),
+    },
+    {
+      key: "basic-ha",
+      group: "basic",
+      label: "ha · hi · fu · he · ho",
+      entries: sliceRow(basic, 25, 5),
+    },
+    {
+      key: "basic-ma",
+      group: "basic",
+      label: "ma · mi · mu · me · mo",
+      entries: sliceRow(basic, 30, 5),
+    },
+    {
+      key: "basic-ya",
+      group: "basic",
+      label: "ya · yu · yo",
+      entries: sliceRow(basic, 35, 3),
+    },
+    {
+      key: "basic-ra",
+      group: "basic",
+      label: "ra · ri · ru · re · ro",
+      entries: sliceRow(basic, 38, 5),
+    },
+    {
+      key: "basic-wa",
+      group: "basic",
+      label: "wa · wo · n",
+      entries: sliceRow(basic, 43, 3),
+    },
+    {
+      key: "dakuten-ga",
+      group: "dakuten",
+      label: "ga · gi · gu · ge · go",
+      entries: sliceRow(dakuten, 0, 5),
+    },
+    {
+      key: "dakuten-za",
+      group: "dakuten",
+      label: "za · ji · zu · ze · zo",
+      entries: sliceRow(dakuten, 5, 5),
+    },
+    {
+      key: "dakuten-da",
+      group: "dakuten",
+      label: "da · ji · zu · de · do",
+      entries: sliceRow(dakuten, 10, 5),
+    },
+    {
+      key: "dakuten-ba",
+      group: "dakuten",
+      label: "ba · bi · bu · be · bo",
+      entries: sliceRow(dakuten, 15, 5),
+    },
+    {
+      key: "dakuten-pa",
+      group: "dakuten",
+      label: "pa · pi · pu · pe · po",
+      entries: sliceRow(dakuten, 20, 5),
+    },
+    {
+      key: "combo-kya",
+      group: "combo",
+      label: "kya · kyu · kyo",
+      entries: sliceRow(combo, 0, 3),
+    },
+    {
+      key: "combo-sha",
+      group: "combo",
+      label: "sha · shu · sho",
+      entries: sliceRow(combo, 3, 3),
+    },
+    {
+      key: "combo-cha",
+      group: "combo",
+      label: "cha · chu · cho",
+      entries: sliceRow(combo, 6, 3),
+    },
+    {
+      key: "combo-nya",
+      group: "combo",
+      label: "nya · nyu · nyo",
+      entries: sliceRow(combo, 9, 3),
+    },
+    {
+      key: "combo-hya",
+      group: "combo",
+      label: "hya · hyu · hyo",
+      entries: sliceRow(combo, 12, 3),
+    },
+    {
+      key: "combo-mya",
+      group: "combo",
+      label: "mya · myu · myo",
+      entries: sliceRow(combo, 15, 3),
+    },
+    {
+      key: "combo-rya",
+      group: "combo",
+      label: "rya · ryu · ryo",
+      entries: sliceRow(combo, 18, 3),
+    },
+    {
+      key: "combo-gya",
+      group: "combo",
+      label: "gya · gyu · gyo",
+      entries: sliceRow(combo, 21, 3),
+    },
+    {
+      key: "combo-ja",
+      group: "combo",
+      label: "ja · ju · jo",
+      entries: sliceRow(combo, 24, 3),
+    },
+    {
+      key: "combo-bya",
+      group: "combo",
+      label: "bya · byu · byo",
+      entries: sliceRow(combo, 27, 3),
+    },
+    {
+      key: "combo-pya",
+      group: "combo",
+      label: "pya · pyu · pyo",
+      entries: sliceRow(combo, 30, 3),
+    },
   ];
 }
 
@@ -297,7 +431,10 @@ export function getKanaRows(script: KanaScript): KanaRowDefinition[] {
   return kanaRowsByScript[script];
 }
 
-export function getKanaEntries(script: KanaScript, selections: KanaSelectionKey[]): KanaEntry[] {
+export function getKanaEntries(
+  script: KanaScript,
+  selections: KanaSelectionKey[],
+): KanaEntry[] {
   const selected = new Set(selections);
   const rows = kanaRowsByScript[script];
   const output: KanaEntry[] = [];

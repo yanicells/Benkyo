@@ -13,7 +13,10 @@ type DeckSessionRendererProps = {
 };
 
 const DeckSessionClient = dynamic(
-  () => import("@/components/session/deck-session-client").then((mod) => mod.DeckSessionClient),
+  () =>
+    import("@/components/session/deck-session-client").then(
+      (mod) => mod.DeckSessionClient,
+    ),
   { ssr: false },
 );
 

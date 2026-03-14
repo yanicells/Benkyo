@@ -31,7 +31,8 @@ export function KanaConfigForm() {
   const canStart = selectedRows.length > 0;
 
   const toggleGroup = (group: KanaGroup) => {
-    const groupRows = groupedRows.find((item) => item.group === group)?.rows ?? [];
+    const groupRows =
+      groupedRows.find((item) => item.group === group)?.rows ?? [];
     const groupKeys = groupRows.map((row) => row.key);
 
     setSelectedRows((previous) => {
@@ -66,7 +67,9 @@ export function KanaConfigForm() {
   return (
     <section className="space-y-5">
       <div className="rounded-2xl border border-rose-900/10 bg-white p-4 sm:p-5">
-        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Script</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+          Script
+        </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           <button
             type="button"
@@ -95,10 +98,15 @@ export function KanaConfigForm() {
 
       <div className="space-y-4">
         {groupedRows.map(({ group, rows }) => {
-          const allSelected = rows.every((row) => selectedRows.includes(row.key));
+          const allSelected = rows.every((row) =>
+            selectedRows.includes(row.key),
+          );
 
           return (
-            <section key={group} className="rounded-2xl border border-rose-900/10 bg-white p-4 sm:p-5">
+            <section
+              key={group}
+              className="rounded-2xl border border-rose-900/10 bg-white p-4 sm:p-5"
+            >
               <label className="mb-3 flex cursor-pointer items-center gap-2 border-b border-rose-900/10 pb-3">
                 <input
                   type="checkbox"
@@ -106,7 +114,9 @@ export function KanaConfigForm() {
                   onChange={() => toggleGroup(group)}
                   className="h-4 w-4"
                 />
-                <span className="font-semibold text-slate-900">{groupTitles[group]}</span>
+                <span className="font-semibold text-slate-900">
+                  {groupTitles[group]}
+                </span>
               </label>
 
               <div className="grid gap-2">

@@ -61,7 +61,9 @@ export function TypingPracticeInput({
   return (
     <div className="space-y-4">
       <div className="rounded-2xl border border-rose-950/10 bg-white/70 p-4">
-        <p className="mb-3 text-xs uppercase tracking-[0.2em] text-rose-700">{label}</p>
+        <p className="mb-3 text-xs uppercase tracking-[0.2em] text-rose-700">
+          {label}
+        </p>
         <div className="flex flex-wrap gap-1 text-xl sm:text-2xl">
           {showExpected
             ? normalizedExpected.split("").map((character, index) => {
@@ -91,7 +93,9 @@ export function TypingPracticeInput({
                   <span
                     key={`${character}-${index}`}
                     className={`rounded px-1 ${
-                      isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
+                      isCorrect
+                        ? "bg-emerald-100 text-emerald-700"
+                        : "bg-rose-100 text-rose-700"
                     }`}
                   >
                     {character}

@@ -11,7 +11,10 @@ type KanaSessionRendererProps = {
 };
 
 const KanaSessionClient = dynamic(
-  () => import("@/components/kana/kana-session-client").then((mod) => mod.KanaSessionClient),
+  () =>
+    import("@/components/kana/kana-session-client").then(
+      (mod) => mod.KanaSessionClient,
+    ),
   { ssr: false },
 );
 

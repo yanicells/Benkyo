@@ -30,7 +30,9 @@ export default async function KanaSessionPage({
   const groups = groupParam
     .split(",")
     .map((group) => group.trim())
-    .filter((group) => validGroups.has(group as KanaSelectionKey)) as KanaSelectionKey[];
+    .filter((group) =>
+      validGroups.has(group as KanaSelectionKey),
+    ) as KanaSelectionKey[];
 
   if (groups.length === 0) {
     redirect("/kana");

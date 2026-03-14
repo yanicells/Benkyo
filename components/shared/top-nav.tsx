@@ -35,7 +35,8 @@ export function TopNav({ backHref = "/" }: TopNavProps) {
 
       <nav className="flex items-center gap-2">
         {links.map((link) => {
-          const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+          const active =
+            pathname === link.href || pathname.startsWith(`${link.href}/`);
 
           return (
             <Link
