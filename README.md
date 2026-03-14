@@ -23,6 +23,16 @@ It focuses on fast, local practice with no accounts and no backend database.
 
 ## How To Use
 
+### Keybinds
+
+- `Enter`: Reveal, confirm, or proceed depending on mode
+- `1`, `2`, `3`, `4`: Select multiple choice option
+- `Tab`: Toggle Answer key modal in typing and kana sessions
+- Flashcard mode:
+  - `Enter`: Reveal answer
+  - `1`: Missed it
+  - `2` or `Enter`: Got it
+
 ### Deck Study
 
 1. Open the home page.

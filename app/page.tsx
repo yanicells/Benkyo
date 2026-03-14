@@ -43,6 +43,22 @@ export default function Home() {
           </p>
         </Link>
       </section>
+
+      <section className="rounded-3xl border border-rose-900/10 bg-white p-5">
+        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+          Keybinds
+        </p>
+        <ul className="mt-3 space-y-2 text-sm text-slate-700">
+          <li>
+            Enter: reveal, confirm, or go to next step depending on mode.
+          </li>
+          <li>1-4: select multiple-choice options.</li>
+          <li>
+            Flashcard mode: 1 = Missed it, 2 or Enter = Got it after reveal.
+          </li>
+          <li>Tab: toggle Answer key modal in typing and kana sessions.</li>
+        </ul>
+      </section>
     </PageShell>
   );
 }

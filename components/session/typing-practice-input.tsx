@@ -110,6 +110,17 @@ export function TypingPracticeInput({
           type="text"
           value={typed}
           onChange={(event) => onChange(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key !== "Enter" || !manualAdvance || !isReady) {
+              return;
+            }
+
+            event.preventDefault();
+            onComplete();
+            setTyped("");
+            setErrorState(false);
+            inputRef.current?.focus();
+          }}
           className={`w-full rounded-xl border bg-white px-4 py-3 text-lg lowercase outline-none transition ${
             errorState
               ? "border-red-500 ring-2 ring-red-200"
@@ -122,7 +133,6 @@ export function TypingPracticeInput({
           spellCheck={false}
           autoFocus
         />
-
       </div>
 
       {onGiveUp || manualAdvance ? (

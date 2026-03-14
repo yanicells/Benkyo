@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   answerCorrect,
@@ -65,17 +65,31 @@ export function KanaSessionClient({
     return `${groups.length} row selections`;
   }, [groups]);
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      event.preventDefault();
+      setShowAnswerKey((previous) => !previous);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   if (complete || !current) {
     return (
-      <section className="space-y-4 rounded-3xl border border-emerald-600/20 bg-emerald-50 p-6 text-center sm:p-8">
-        <p className="text-xs uppercase tracking-[0.2em] text-emerald-800">
+      <section className="space-y-4 rounded-3xl border border-rose-900/10 bg-rose-50/60 p-6 text-center sm:p-8">
+        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
           Complete
         </p>
-        <h2 className="font-display text-4xl text-emerald-900">Great work</h2>
-        <p className="text-emerald-800">You cleared every kana in this set.</p>
+        <h2 className="font-display text-4xl text-slate-900">Great work</h2>
+        <p className="text-slate-700">You cleared every kana in this set.</p>
         <Link
           href="/kana"
-          className="mx-auto inline-flex rounded-full bg-emerald-700 px-5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-600 sm:text-sm"
+          className="mx-auto inline-flex rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700 sm:text-sm"
         >
           Back to kana config
         </Link>
@@ -108,7 +122,7 @@ export function KanaSessionClient({
         <button
           type="button"
           onClick={() => setShowAnswerKey(true)}
-          className="absolute right-3 top-3 rounded-full border border-rose-900/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
+          className="absolute right-3 top-3 inline-flex items-center rounded-full border border-rose-900/20 px-3 py-2 text-xs font-semibold uppercase leading-none tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
         >
           Answer key
         </button>
@@ -138,7 +152,8 @@ export function KanaSessionClient({
             label={`Type romaji (${activeCards.length} at once)`}
             placeholder="romaji"
             showExpected={false}
-            giveUpInline
+            manualAdvance
+            controlsAlign="right"
             onComplete={() => {
               setShowAnswerKey(false);
               setQueue((previous) =>
@@ -152,6 +167,7 @@ export function KanaSessionClient({
               );
             }}
             giveUpLabel="Skip"
+            nextLabel="Next"
           />
         </div>
       </article>

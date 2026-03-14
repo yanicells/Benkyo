@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -86,15 +86,15 @@ export function DeckSessionClient({
     return { options, correct };
   }, [current, mode, answerSide, cards]);
 
-  const moveNextCorrect = () => {
+  const moveNextCorrect = useCallback(() => {
     setRevealed(false);
     setShowAnswerKey(false);
     setSelectedOption(null);
     setChoiceLocked(false);
     setQueue((previous) => answerCorrect(previous));
-  };
+  }, []);
 
-  const moveNextWrong = () => {
+  const moveNextWrong = useCallback(() => {
     if (!current) {
       return;
     }
@@ -110,7 +110,112 @@ export function DeckSessionClient({
     setSelectedOption(null);
     setChoiceLocked(false);
     setQueue((previous) => answerWrong(previous));
-  };
+  }, [current]);
+
+  const submitMultipleChoice = useCallback(() => {
+    if (!multipleChoice || !choiceLocked) {
+      return;
+    }
+
+    const wasCorrect = selectedOption === multipleChoice.correct;
+    if (wasCorrect) {
+      moveNextCorrect();
+    } else {
+      moveNextWrong();
+    }
+  }, [multipleChoice, choiceLocked, selectedOption, moveNextCorrect, moveNextWrong]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Tab" && mode === "typing") {
+        event.preventDefault();
+        setShowAnswerKey((previous) => !previous);
+        return;
+      }
+
+      if (showAnswerKey) {
+        return;
+      }
+
+      if (mode === "typing") {
+        return;
+      }
+
+      if (mode === "flashcard") {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          if (!revealed) {
+            setRevealed(true);
+          } else {
+            moveNextCorrect();
+          }
+          return;
+        }
+
+        if (!revealed) {
+          return;
+        }
+
+        if (event.key === "1") {
+          event.preventDefault();
+          moveNextWrong();
+          return;
+        }
+
+        if (event.key === "2") {
+          event.preventDefault();
+          moveNextCorrect();
+        }
+        return;
+      }
+
+      if (mode !== "multiple-choice" || !multipleChoice) {
+        return;
+      }
+
+      if (event.key === "Enter") {
+        if (!choiceLocked) {
+          return;
+        }
+
+        event.preventDefault();
+        submitMultipleChoice();
+        return;
+      }
+
+      const optionIndex = Number.parseInt(event.key, 10) - 1;
+      if (
+        Number.isNaN(optionIndex) ||
+        optionIndex < 0 ||
+        optionIndex > 3 ||
+        choiceLocked
+      ) {
+        return;
+      }
+
+      const option = multipleChoice.options[optionIndex];
+      if (!option) {
+        return;
+      }
+
+      event.preventDefault();
+      setSelectedOption(option);
+      setChoiceLocked(true);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [
+    mode,
+    revealed,
+    multipleChoice,
+    choiceLocked,
+    selectedOption,
+    showAnswerKey,
+    moveNextCorrect,
+    moveNextWrong,
+    submitMultipleChoice,
+  ]);
 
   if (!current) {
     return (
@@ -144,7 +249,7 @@ export function DeckSessionClient({
             <button
               type="button"
               onClick={() => setShowAnswerKey(true)}
-              className="rounded-full border border-rose-900/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
+              className="inline-flex items-center rounded-full border border-rose-900/20 px-3 py-2 text-xs font-semibold uppercase leading-none tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
             >
               Answer key
             </button>
@@ -183,17 +288,17 @@ export function DeckSessionClient({
                 <div className="flex flex-wrap justify-center gap-3">
                   <button
                     type="button"
-                    onClick={moveNextCorrect}
-                    className="font-sans rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-500 sm:text-sm"
-                  >
-                    Got it
-                  </button>
-                  <button
-                    type="button"
                     onClick={moveNextWrong}
                     className="font-sans rounded-full bg-rose-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose-600 sm:text-sm"
                   >
                     Missed it
+                  </button>
+                  <button
+                    type="button"
+                    onClick={moveNextCorrect}
+                    className="font-sans rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-500 sm:text-sm"
+                  >
+                    Got it
                   </button>
                 </div>
               </>
@@ -243,15 +348,7 @@ export function DeckSessionClient({
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={() => {
-                    const wasCorrect =
-                      selectedOption === multipleChoice.correct;
-                    if (wasCorrect) {
-                      moveNextCorrect();
-                    } else {
-                      moveNextWrong();
-                    }
-                  }}
+                  onClick={submitMultipleChoice}
                   className="rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
                 >
                   Next
