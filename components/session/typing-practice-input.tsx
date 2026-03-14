@@ -4,16 +4,17 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 type TypingPracticeInputProps = {
   expected: string;
-  label: string;
+  label?: string;
   placeholder: string;
   showExpected?: boolean;
+  giveUpInline?: boolean;
   onComplete: () => void;
   onGiveUp?: () => void;
   giveUpLabel?: string;
 };
 
 function normalize(value: string): string {
-  return value.trim().toLowerCase();
+  return value.toLowerCase().replace(/\s+/g, "").trim();
 }
 
 export function TypingPracticeInput({
@@ -21,6 +22,7 @@ export function TypingPracticeInput({
   label,
   placeholder,
   showExpected = true,
+  giveUpInline = false,
   onComplete,
   onGiveUp,
   giveUpLabel = "Give up",
@@ -66,9 +68,11 @@ export function TypingPracticeInput({
   return (
     <div className="space-y-4">
       <div className="rounded-2xl border border-rose-950/10 bg-white/70 p-4">
-        <p className="mb-3 text-xs uppercase tracking-[0.2em] text-rose-700">
-          {label}
-        </p>
+        {label ? (
+          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-rose-700">
+            {label}
+          </p>
+        ) : null}
         <div className="flex flex-wrap gap-1 text-xl sm:text-2xl">
           {showExpected
             ? normalizedExpected.split("").map((character, index) => {
@@ -110,25 +114,40 @@ export function TypingPracticeInput({
         </div>
       </div>
 
-      <input
-        ref={inputRef}
-        type="text"
-        value={typed}
-        onChange={(event) => onChange(event.target.value)}
-        className={`w-full rounded-xl border bg-white px-4 py-3 text-lg lowercase outline-none transition ${
-          errorState
-            ? "border-red-500 ring-2 ring-red-200"
-            : "border-rose-900/20 focus:border-rose-600 focus:ring-2 focus:ring-rose-200"
-        }`}
-        placeholder={placeholder}
-        autoComplete="off"
-        autoCapitalize="none"
-        autoCorrect="off"
-        spellCheck={false}
-        autoFocus
-      />
+      <div className={`flex items-center gap-2 ${giveUpInline ? "justify-between" : ""}`}>
+        <input
+          ref={inputRef}
+          type="text"
+          value={typed}
+          onChange={(event) => onChange(event.target.value)}
+          className={`w-full rounded-xl border bg-white px-4 py-3 text-lg lowercase outline-none transition ${
+            errorState
+              ? "border-red-500 ring-2 ring-red-200"
+              : "border-rose-900/20 focus:border-rose-600 focus:ring-2 focus:ring-rose-200"
+          }`}
+          placeholder={placeholder}
+          autoComplete="off"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
+          autoFocus
+        />
 
-      {onGiveUp ? (
+        {onGiveUp && giveUpInline ? (
+          <button
+            type="button"
+            onClick={() => {
+              onGiveUp();
+              inputRef.current?.focus();
+            }}
+            className="shrink-0 rounded-full border border-rose-900/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100 sm:text-sm"
+          >
+            {giveUpLabel}
+          </button>
+        ) : null}
+      </div>
+
+      {onGiveUp && !giveUpInline ? (
         <button
           type="button"
           onClick={() => {

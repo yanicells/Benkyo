@@ -51,7 +51,10 @@ export function KanaSessionClient({
   const [queue, setQueue] = useState<SessionCard[]>(() => buildQueue(cards));
   const [showAnswerKey, setShowAnswerKey] = useState(false);
 
-  const activeCards = useMemo(() => queue.slice(0, batchSize), [queue, batchSize]);
+  const activeCards = useMemo(
+    () => queue.slice(0, batchSize),
+    [queue, batchSize],
+  );
   const current = activeCards[0];
   const complete = isSessionComplete(queue);
 
@@ -65,7 +68,9 @@ export function KanaSessionClient({
   if (complete || !current) {
     return (
       <section className="space-y-4 rounded-3xl border border-emerald-600/20 bg-emerald-50 p-6 text-center sm:p-8">
-        <p className="text-xs uppercase tracking-[0.2em] text-emerald-800">Complete</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-emerald-800">
+          Complete
+        </p>
         <h2 className="font-display text-4xl text-emerald-900">Great work</h2>
         <p className="text-emerald-800">You cleared every kana in this set.</p>
         <Link
@@ -78,7 +83,7 @@ export function KanaSessionClient({
     );
   }
 
-  const expected = activeCards.map((card) => card.card.back).join(" ");
+  const expected = activeCards.map((card) => card.card.romaji ?? card.card.back).join("");
 
   return (
     <section className="space-y-4 sm:space-y-6">
@@ -87,10 +92,12 @@ export function KanaSessionClient({
           Script: <span className="font-semibold text-slate-900">{script}</span>
         </p>
         <p>
-          Scope: <span className="font-semibold text-slate-900">{groupLabel}</span>
+          Scope:{" "}
+          <span className="font-semibold text-slate-900">{groupLabel}</span>
         </p>
         <p>
-          Batch: <span className="font-semibold text-slate-900">{batchSize}</span>
+          Batch:{" "}
+          <span className="font-semibold text-slate-900">{batchSize}</span>
         </p>
         <p>{queue.length} kana left</p>
       </div>
@@ -106,9 +113,17 @@ export function KanaSessionClient({
 
         <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Kana</p>
 
-        <div className="mt-4 grid gap-3" style={{ gridTemplateColumns: `repeat(${activeCards.length}, minmax(0, 1fr))` }}>
-          {activeCards.map((item) => (
-            <p key={`${item.card.front}-${item.card.back}`} className="font-display text-7xl text-slate-900 sm:text-8xl">
+        <div
+          className="mt-4 grid gap-3"
+          style={{
+            gridTemplateColumns: `repeat(${activeCards.length}, minmax(0, 1fr))`,
+          }}
+        >
+          {activeCards.map((item, index) => (
+            <p
+              key={`${item.card.front}-${item.card.back}-${index}`}
+              className="font-display text-7xl text-slate-900 sm:text-8xl"
+            >
               {item.card.front}
             </p>
           ))}
@@ -116,18 +131,25 @@ export function KanaSessionClient({
 
         <div className="mx-auto mt-8 max-w-2xl text-left">
           <TypingPracticeInput
-            key={activeCards.map((card) => `${card.card.front}-${card.card.back}`).join("|")}
+            key={activeCards
+              .map((card, index) => `${card.card.front}-${card.card.back}-${index}`)
+              .join("|")}
             expected={expected}
-            label={`Type romaji (${activeCards.length} at once, separated by spaces)`}
-            placeholder={activeCards.length > 1 ? "e.g. a i u" : "romaji"}
+            label={`Type romaji (${activeCards.length} at once)`}
+            placeholder="romaji"
             showExpected={false}
+            giveUpInline
             onComplete={() => {
               setShowAnswerKey(false);
-              setQueue((previous) => processBatch(previous, activeCards.length, answerCorrect));
+              setQueue((previous) =>
+                processBatch(previous, activeCards.length, answerCorrect),
+              );
             }}
             onGiveUp={() => {
               setShowAnswerKey(false);
-              setQueue((previous) => processBatch(previous, activeCards.length, answerWrong));
+              setQueue((previous) =>
+                processBatch(previous, activeCards.length, answerWrong),
+              );
             }}
             giveUpLabel="Skip"
           />
@@ -135,14 +157,34 @@ export function KanaSessionClient({
       </article>
 
       {showAnswerKey ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg">
-            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Answer key</p>
-            <div className="mt-4 grid gap-3" style={{ gridTemplateColumns: `repeat(${activeCards.length}, minmax(0, 1fr))` }}>
-              {activeCards.map((item) => (
-                <div key={`${item.card.front}-${item.card.back}`} className="rounded-xl border border-slate-200 p-3 text-center">
-                  <p className="font-display text-5xl text-slate-900">{item.card.front}</p>
-                  <p className="mt-2 text-base text-slate-700">{item.card.back}</p>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowAnswerKey(false)}
+        >
+          <div
+            className="w-full max-w-2xl rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+              Answer key
+            </p>
+            <div
+              className="mt-4 grid gap-3"
+              style={{
+                gridTemplateColumns: `repeat(${activeCards.length}, minmax(0, 1fr))`,
+              }}
+            >
+              {activeCards.map((item, index) => (
+                <div
+                  key={`${item.card.front}-${item.card.back}-${index}`}
+                  className="rounded-xl border border-slate-200 p-3 text-center"
+                >
+                  <p className="font-display text-5xl text-slate-900">
+                    {item.card.front}
+                  </p>
+                  <p className="mt-2 text-base text-slate-700">
+                    {item.card.romaji ?? item.card.back}
+                  </p>
                 </div>
               ))}
             </div>

@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <PageShell
       eyebrow="Study hub"
-      title="Japanese study studio"
+      title="Benky\u014d"
       subtitle="Personal Genki-first drills for vocabulary and kana mastery. No accounts, no database, just focused reps."
       backHref="/"
     >

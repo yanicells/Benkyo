@@ -4,7 +4,13 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { getKanaRows } from "@/lib/kana";
-import type { KanaBatchSize, KanaEntry, KanaGroup, KanaRowKey, KanaScript } from "@/lib/types";
+import type {
+  KanaBatchSize,
+  KanaEntry,
+  KanaGroup,
+  KanaRowKey,
+  KanaScript,
+} from "@/lib/types";
 
 const groupOrder: KanaGroup[] = ["basic", "dakuten", "combo"];
 const batchOptions: KanaBatchSize[] = [1, 2, 3, 4];
@@ -44,7 +50,8 @@ export function KanaConfigForm() {
   const canStart = selectedRows.length > 0;
 
   const toggleGroup = (group: KanaGroup) => {
-    const groupRows = groupedRows.find((item) => item.group === group)?.rows ?? [];
+    const groupRows =
+      groupedRows.find((item) => item.group === group)?.rows ?? [];
     const groupKeys = groupRows.map((row) => row.key);
 
     setSelectedRows((previous) => {
@@ -80,13 +87,17 @@ export function KanaConfigForm() {
     }
 
     const serializedGroups = selectedRows.join(",");
-    router.push(`/kana/session?script=${script}&groups=${serializedGroups}&batch=${batchSize}`);
+    router.push(
+      `/kana/session?script=${script}&groups=${serializedGroups}&batch=${batchSize}`,
+    );
   };
 
   return (
     <section className="space-y-5">
       <div className="rounded-2xl border border-rose-900/10 bg-white p-4 sm:p-5">
-        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Script</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+          Script
+        </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           <button
             type="button"
@@ -97,7 +108,7 @@ export function KanaConfigForm() {
                 : "border-slate-300 bg-white hover:border-slate-500"
             }`}
           >
-            <p className="font-semibold text-slate-900">Hiragana</p>
+            <p className="font-display text-2xl text-slate-900">Hiragana</p>
           </button>
           <button
             type="button"
@@ -108,13 +119,15 @@ export function KanaConfigForm() {
                 : "border-slate-300 bg-white hover:border-slate-500"
             }`}
           >
-            <p className="font-semibold text-slate-900">Katakana</p>
+            <p className="font-display text-2xl text-slate-900">Katakana</p>
           </button>
         </div>
       </div>
 
       <div className="rounded-2xl border border-rose-900/10 bg-white p-4 sm:p-5">
-        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Practice size</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+          Practice size
+        </p>
         <div className="mt-3 grid grid-cols-4 gap-2">
           {batchOptions.map((size) => (
             <button
@@ -132,13 +145,16 @@ export function KanaConfigForm() {
           ))}
         </div>
         <p className="mt-2 text-xs text-slate-600">
-          Shows {batchSize} kana at a time and scales total reps to {batchSize}x.
+          Shows {batchSize} kana at a time and scales total reps to {batchSize}
+          x.
         </p>
       </div>
 
       <div className="space-y-4">
         {groupedRows.map(({ group, rows }) => {
-          const allSelected = rows.every((row) => selectedRows.includes(row.key));
+          const allSelected = rows.every((row) =>
+            selectedRows.includes(row.key),
+          );
           const isOpen = openGroups[group];
 
           return (
@@ -154,7 +170,9 @@ export function KanaConfigForm() {
                     onChange={() => toggleGroup(group)}
                     className="h-4 w-4"
                   />
-                  <span className="font-semibold text-slate-900">{groupTitles[group]}</span>
+                  <span className="font-semibold text-slate-900">
+                    {groupTitles[group]}
+                  </span>
                 </label>
 
                 <button
@@ -187,11 +205,16 @@ export function KanaConfigForm() {
                             onChange={() => toggleRow(row.key)}
                             className="mt-0.5 h-4 w-4"
                           />
-                          <span className="text-slate-800">{row.label}</span>
+                          <span className="font-display text-xl text-slate-800">{row.label}</span>
                         </label>
                         <button
                           type="button"
-                          onClick={() => setPreviewRow({ label: row.label, entries: row.entries })}
+                          onClick={() =>
+                            setPreviewRow({
+                              label: row.label,
+                              entries: row.entries,
+                            })
+                          }
                           className="shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-rose-700 hover:underline"
                         >
                           View
@@ -218,14 +241,29 @@ export function KanaConfigForm() {
       </div>
 
       {previewRow ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg">
-            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Answer key</p>
-            <h3 className="mt-2 font-display text-3xl text-slate-900">{previewRow.label}</h3>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setPreviewRow(null)}
+        >
+          <div
+            className="w-full max-w-2xl rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+              Answer key
+            </p>
+            <h3 className="mt-2 font-display text-3xl text-slate-900">
+              {previewRow.label}
+            </h3>
             <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5">
               {previewRow.entries.map((entry) => (
-                <div key={`${entry.kana}-${entry.romaji}`} className="rounded-xl border border-slate-200 bg-white p-2 text-center">
-                  <p className="font-display text-3xl text-slate-900">{entry.kana}</p>
+                <div
+                  key={`${entry.kana}-${entry.romaji}`}
+                  className="rounded-xl border border-slate-200 bg-white p-2 text-center"
+                >
+                  <p className="font-display text-3xl text-slate-900">
+                    {entry.kana}
+                  </p>
                   <p className="mt-1 text-sm text-slate-700">{entry.romaji}</p>
                 </div>
               ))}

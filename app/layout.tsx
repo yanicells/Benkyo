@@ -14,9 +14,31 @@ const bodySans = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "JPN Study Studio",
+  metadataBase: new URL("https://benkyo.ycells.com"),
+  title: {
+    default: "Benky\u014d",
+    template: "%s | Benky\u014d",
+  },
   description:
-    "Minimal Genki-focused Japanese study app for decks and kana drills.",
+    "Benky\u014d is a fast Japanese study app for lesson decks and kana practice.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Benky\u014d",
+    description:
+      "A personal Japanese study app for lesson decks, kana drills, and focused repetition.",
+    url: "https://benkyo.ycells.com",
+    siteName: "Benky\u014d",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Benky\u014d",
+    description:
+      "A personal Japanese study app for lesson decks, kana drills, and focused repetition.",
+  },
 };
 
 export default function RootLayout({

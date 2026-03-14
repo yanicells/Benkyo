@@ -106,24 +106,6 @@ export default async function DeckConfigPage({ params }: DeckConfigPageProps) {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-          <div className="mb-3 flex items-center justify-between gap-2">
-            <p className="text-xs uppercase tracking-[0.22em] text-rose-700">All cards</p>
-            <p className="text-xs text-slate-600">{lesson.cards.length} entries</p>
-          </div>
-          <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
-            {lesson.cards.map((card) => (
-              <div
-                key={`${card.front}-${card.back}`}
-                className="rounded-xl border border-slate-200 bg-white px-3 py-2"
-              >
-                <p className="font-display text-xl text-slate-900">{card.front}</p>
-                <p className="mt-1 text-sm text-slate-700">{card.back}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
         <div className="flex items-center justify-between gap-3">
           <Link
             href="/decks"
@@ -138,6 +120,30 @@ export default async function DeckConfigPage({ params }: DeckConfigPageProps) {
             Start session
           </button>
         </div>
+
+        <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+              All cards
+            </p>
+            <p className="text-xs text-slate-600">
+              {lesson.cards.length} entries
+            </p>
+          </div>
+          <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
+            {lesson.cards.map((card) => (
+              <div
+                key={`${card.front}-${card.back}`}
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2"
+              >
+                <p className="font-display text-xl text-slate-900">
+                  {card.front}
+                </p>
+                <p className="mt-1 text-sm text-slate-700">{card.back}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </form>
     </PageShell>
   );

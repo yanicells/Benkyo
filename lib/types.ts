@@ -1,4 +1,4 @@
-export type Card = { front: string; back: string };
+export type Card = { front: string; back: string; romaji?: string };
 
 export type Lesson = { id: string; title: string; cards: Card[] };
 

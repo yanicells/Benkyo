@@ -61,7 +61,9 @@ export default async function KanaSessionPage({
     ? (parsedBatch as KanaBatchSize)
     : 1;
 
-  const scaledCards: Card[] = Array.from({ length: batchSize }).flatMap(() => cards);
+  const scaledCards: Card[] = Array.from({ length: batchSize }).flatMap(
+    () => cards,
+  );
 
   return (
     <PageShell
