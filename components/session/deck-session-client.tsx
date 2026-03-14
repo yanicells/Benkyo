@@ -120,7 +120,8 @@ export function DeckSessionClient({
     );
   }
 
-  const prompt = mode === "typing" ? current.card.front : current.card[promptSide];
+  const prompt =
+    mode === "typing" ? current.card.front : current.card[promptSide];
   const expectedTyping = current.card.back;
 
   return (
@@ -239,7 +240,7 @@ export function DeckSessionClient({
             </div>
 
             {choiceLocked ? (
-              <div className="text-center">
+              <div className="flex justify-end">
                 <button
                   type="button"
                   onClick={() => {
@@ -279,8 +280,12 @@ export function DeckSessionClient({
       {showAnswerKey ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="w-full max-w-sm rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg">
-            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Answer key</p>
-            <h3 className="mt-3 font-display text-3xl text-slate-900">{current.card.front}</h3>
+            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+              Answer key
+            </p>
+            <h3 className="mt-3 font-display text-3xl text-slate-900">
+              {current.card.front}
+            </h3>
             <p className="mt-2 text-base text-slate-700">{current.card.back}</p>
             <button
               type="button"

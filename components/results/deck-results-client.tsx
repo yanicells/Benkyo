@@ -62,7 +62,7 @@ export function DeckResultsClient({
         </ul>
       ) : null}
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex items-center justify-between gap-3">
         <Link
           href="/decks"
           className="rounded-full border border-rose-900/20 px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100"

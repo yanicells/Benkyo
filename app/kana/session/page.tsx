@@ -3,7 +3,12 @@ import { redirect } from "next/navigation";
 import { PageShell } from "@/components/shared/page-shell";
 import { KanaSessionRenderer } from "@/components/kana/kana-session-renderer";
 import { getKanaEntries, kanaSelectionKeys } from "@/lib/kana";
-import type { Card, KanaScript, KanaSelectionKey } from "@/lib/types";
+import type {
+  Card,
+  KanaBatchSize,
+  KanaScript,
+  KanaSelectionKey,
+} from "@/lib/types";
 
 type KanaSessionPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -11,6 +16,7 @@ type KanaSessionPageProps = {
 
 const validScripts = new Set<KanaScript>(["hiragana", "katakana"]);
 const validGroups = new Set<KanaSelectionKey>(kanaSelectionKeys);
+const validBatchSizes = new Set<KanaBatchSize>([1, 2, 3, 4]);
 
 function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
@@ -22,6 +28,7 @@ export default async function KanaSessionPage({
   const query = await searchParams;
   const script = firstParam(query.script);
   const groupParam = firstParam(query.groups);
+  const batchParam = firstParam(query.batch);
 
   if (!script || !validScripts.has(script as KanaScript) || !groupParam) {
     redirect("/kana");
@@ -49,6 +56,13 @@ export default async function KanaSessionPage({
     back: entry.romaji,
   }));
 
+  const parsedBatch = Number(batchParam);
+  const batchSize = validBatchSizes.has(parsedBatch as KanaBatchSize)
+    ? (parsedBatch as KanaBatchSize)
+    : 1;
+
+  const scaledCards: Card[] = Array.from({ length: batchSize }).flatMap(() => cards);
+
   return (
     <PageShell
       eyebrow="Kana session"
@@ -59,7 +73,8 @@ export default async function KanaSessionPage({
       <KanaSessionRenderer
         script={script as KanaScript}
         groups={groups}
-        cards={cards}
+        cards={scaledCards}
+        batchSize={batchSize}
       />
     </PageShell>
   );

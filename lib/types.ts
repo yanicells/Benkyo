@@ -47,4 +47,6 @@ export type KanaSelectionKey = KanaGroup | KanaRowKey;
 
 export type KanaScript = "hiragana" | "katakana";
 
+export type KanaBatchSize = 1 | 2 | 3 | 4;
+
 export type KanaEntry = { kana: string; romaji: string };

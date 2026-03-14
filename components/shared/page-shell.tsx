@@ -21,13 +21,13 @@ export function PageShell({
       <div className="rounded-3xl border border-rose-900/15 bg-white p-4 shadow-sm sm:p-8">
         <TopNav backHref={backHref} />
         <header className="mb-5 space-y-2 border-b border-rose-950/10 pb-4 sm:mb-8 sm:space-y-3 sm:pb-6">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-rose-700">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-rose-700">
             {eyebrow}
           </p>
           <h1 className="font-display text-3xl leading-tight text-slate-900 sm:text-5xl">
             {title}
           </h1>
-          <p className="max-w-2xl text-sm text-slate-700 sm:text-base">
+          <p className="max-w-2xl text-sm leading-relaxed text-slate-700 sm:text-base">
             {subtitle}
           </p>
         </header>
