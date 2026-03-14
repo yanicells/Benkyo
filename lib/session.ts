@@ -64,7 +64,9 @@ export function isSessionComplete(queue: SessionCard[]): boolean {
 
 export function getWrongCards(original: Card[], queue: SessionCard[]): Card[] {
   const wrongKeys = new Set(
-    queue.filter((entry) => entry.correctsNeeded > 1).map((entry) => cardKey(entry.card)),
+    queue
+      .filter((entry) => entry.correctsNeeded > 1)
+      .map((entry) => cardKey(entry.card)),
   );
 
   return original.filter((card) => wrongKeys.has(cardKey(card)));

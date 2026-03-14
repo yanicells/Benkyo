@@ -16,7 +16,9 @@ function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
 }
 
-export default async function KanaSessionPage({ searchParams }: KanaSessionPageProps) {
+export default async function KanaSessionPage({
+  searchParams,
+}: KanaSessionPageProps) {
   const query = await searchParams;
   const script = firstParam(query.script);
   const groupParam = firstParam(query.groups);
@@ -40,7 +42,10 @@ export default async function KanaSessionPage({ searchParams }: KanaSessionPageP
     redirect("/kana");
   }
 
-  const cards: Card[] = entries.map((entry) => ({ front: entry.kana, back: entry.romaji }));
+  const cards: Card[] = entries.map((entry) => ({
+    front: entry.kana,
+    back: entry.romaji,
+  }));
 
   return (
     <PageShell
@@ -48,7 +53,11 @@ export default async function KanaSessionPage({ searchParams }: KanaSessionPageP
       title="Type what you read"
       subtitle="Wrong answers gain +2 required corrects and get shuffled back in."
     >
-      <KanaSessionClient script={script as KanaScript} groups={groups} cards={cards} />
+      <KanaSessionClient
+        script={script as KanaScript}
+        groups={groups}
+        cards={cards}
+      />
     </PageShell>
   );
 }

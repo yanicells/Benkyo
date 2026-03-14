@@ -229,7 +229,10 @@ export const kanaSets: Record<KanaScript, KanaCollection> = {
   },
 };
 
-export function getKanaEntries(script: KanaScript, groups: KanaGroup[]): KanaEntry[] {
+export function getKanaEntries(
+  script: KanaScript,
+  groups: KanaGroup[],
+): KanaEntry[] {
   const selected = new Set(groups);
   const entries: KanaEntry[] = [];
 
