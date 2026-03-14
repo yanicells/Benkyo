@@ -170,7 +170,7 @@ export function KanaConfigForm() {
                     onChange={() => toggleGroup(group)}
                     className="h-4 w-4"
                   />
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-display text-2xl text-slate-900">
                     {groupTitles[group]}
                   </span>
                 </label>
@@ -198,12 +198,12 @@ export function KanaConfigForm() {
                             : "border-slate-300 bg-white hover:border-slate-500"
                         }`}
                       >
-                        <label className="flex cursor-pointer items-start gap-2">
+                        <label className="flex cursor-pointer items-center gap-2">
                           <input
                             type="checkbox"
                             checked={checked}
                             onChange={() => toggleRow(row.key)}
-                            className="mt-0.5 h-4 w-4"
+                            className="h-4 w-4"
                           />
                           <span className="font-display text-xl text-slate-800">
                             {row.label}

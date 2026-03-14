@@ -165,7 +165,7 @@ export function DeckSessionClient({
                 <button
                   type="button"
                   onClick={() => setRevealed(true)}
-                  className="rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
+                  className="font-sans rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
                 >
                   Reveal answer
                 </button>
@@ -173,10 +173,10 @@ export function DeckSessionClient({
             ) : (
               <>
                 <div className="rounded-2xl border border-amber-500/20 bg-amber-50 p-4 text-center">
-                  <p className="text-xs uppercase tracking-[0.18em] text-amber-700">
+                  <p className="font-sans text-xs uppercase tracking-[0.18em] text-amber-700">
                     Answer
                   </p>
-                  <p className="mt-2 text-lg text-slate-900 sm:text-xl">
+                  <p className="font-display mt-2 text-2xl text-slate-900 sm:text-3xl">
                     {current.card[answerSide]}
                   </p>
                 </div>
@@ -184,14 +184,14 @@ export function DeckSessionClient({
                   <button
                     type="button"
                     onClick={moveNextCorrect}
-                    className="rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-500 sm:text-sm"
+                    className="font-sans rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-500 sm:text-sm"
                   >
                     Got it
                   </button>
                   <button
                     type="button"
                     onClick={moveNextWrong}
-                    className="rounded-full bg-rose-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose-600 sm:text-sm"
+                    className="font-sans rounded-full bg-rose-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose-600 sm:text-sm"
                   >
                     Missed it
                   </button>
@@ -231,7 +231,7 @@ export function DeckSessionClient({
                       setSelectedOption(option);
                       setChoiceLocked(true);
                     }}
-                    className={`min-h-20 rounded-2xl border px-3 py-3 text-center text-sm font-medium transition sm:min-h-24 sm:text-base ${stateClass}`}
+                    className={`font-display min-h-20 rounded-2xl border px-3 py-3 text-center text-lg transition sm:min-h-24 sm:text-xl ${stateClass}`}
                   >
                     {option}
                   </button>
