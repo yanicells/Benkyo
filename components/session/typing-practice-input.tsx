@@ -7,7 +7,9 @@ type TypingPracticeInputProps = {
   label?: string;
   placeholder: string;
   showExpected?: boolean;
-  giveUpInline?: boolean;
+  manualAdvance?: boolean;
+  nextLabel?: string;
+  controlsAlign?: "left" | "right" | "between";
   onComplete: () => void;
   onGiveUp?: () => void;
   giveUpLabel?: string;
@@ -22,10 +24,12 @@ export function TypingPracticeInput({
   label,
   placeholder,
   showExpected = true,
-  giveUpInline = false,
+  manualAdvance = false,
+  nextLabel = "Next",
+  controlsAlign = "left",
   onComplete,
   onGiveUp,
-  giveUpLabel = "Give up",
+  giveUpLabel = "Skip",
 }: TypingPracticeInputProps) {
   const [typed, setTyped] = useState("");
   const [errorState, setErrorState] = useState(false);
@@ -36,6 +40,8 @@ export function TypingPracticeInput({
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  const isReady = typed.length > 0 && typed === normalizedExpected;
 
   const onChange = (value: string) => {
     const normalizedIncoming = normalize(value);
@@ -51,10 +57,12 @@ export function TypingPracticeInput({
         normalizedIncoming.length > 0 &&
         normalizedIncoming === normalizedExpected
       ) {
-        onComplete();
-        setTyped("");
-        setErrorState(false);
-        return;
+        if (!manualAdvance) {
+          onComplete();
+          setTyped("");
+          setErrorState(false);
+          return;
+        }
       }
 
       setTyped(normalizedIncoming);
@@ -67,56 +75,36 @@ export function TypingPracticeInput({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-rose-950/10 bg-white/70 p-4">
-        {label ? (
-          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-rose-700">
-            {label}
-          </p>
-        ) : null}
-        <div className="flex flex-wrap gap-1 text-xl sm:text-2xl">
-          {showExpected
-            ? normalizedExpected.split("").map((character, index) => {
-                const typedCharacter = typed[index];
-                const isCorrect = typedCharacter === character;
-                const isCurrent = typed.length === index;
+      {label ? <p className="text-sm text-slate-700">{label}</p> : null}
 
-                return (
-                  <span
-                    key={`${character}-${index}`}
-                    className={`rounded px-1 transition ${
-                      isCorrect
-                        ? "bg-emerald-100 text-emerald-700"
-                        : isCurrent
-                          ? "bg-amber-100 text-amber-800"
-                          : "bg-slate-100 text-slate-400"
-                    }`}
-                  >
-                    {character}
-                  </span>
-                );
-              })
-            : typed.split("").map((character, index) => {
-                const isCorrect = normalizedExpected[index] === character;
+      {showExpected ? (
+        <div className="rounded-2xl border border-rose-950/10 bg-white/70 p-4">
+          <div className="flex flex-wrap gap-1 text-xl sm:text-2xl">
+            {normalizedExpected.split("").map((character, index) => {
+              const typedCharacter = typed[index];
+              const isCorrect = typedCharacter === character;
+              const isCurrent = typed.length === index;
 
-                return (
-                  <span
-                    key={`${character}-${index}`}
-                    className={`rounded px-1 ${
-                      isCorrect
-                        ? "bg-emerald-100 text-emerald-700"
-                        : "bg-rose-100 text-rose-700"
-                    }`}
-                  >
-                    {character}
-                  </span>
-                );
-              })}
+              return (
+                <span
+                  key={`${character}-${index}`}
+                  className={`rounded px-1 transition ${
+                    isCorrect
+                      ? "bg-emerald-100 text-emerald-700"
+                      : isCurrent
+                        ? "bg-amber-100 text-amber-800"
+                        : "bg-slate-100 text-slate-400"
+                  }`}
+                >
+                  {character}
+                </span>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : null}
 
-      <div
-        className={`flex items-center gap-2 ${giveUpInline ? "justify-between" : ""}`}
-      >
+      <div className="flex items-center gap-2">
         <input
           ref={inputRef}
           type="text"
@@ -135,31 +123,53 @@ export function TypingPracticeInput({
           autoFocus
         />
 
-        {onGiveUp && giveUpInline ? (
-          <button
-            type="button"
-            onClick={() => {
-              onGiveUp();
-              inputRef.current?.focus();
-            }}
-            className="shrink-0 rounded-full border border-rose-900/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100 sm:text-sm"
-          >
-            {giveUpLabel}
-          </button>
-        ) : null}
       </div>
 
-      {onGiveUp && !giveUpInline ? (
-        <button
-          type="button"
-          onClick={() => {
-            onGiveUp();
-            inputRef.current?.focus();
-          }}
-          className="rounded-full border border-rose-900/20 px-4 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100"
+      {onGiveUp || manualAdvance ? (
+        <div
+          className={`flex items-center gap-2 ${
+            controlsAlign === "right"
+              ? "justify-end"
+              : controlsAlign === "between"
+                ? "justify-between"
+                : "justify-start"
+          }`}
         >
-          {giveUpLabel}
-        </button>
+          {onGiveUp ? (
+            <button
+              type="button"
+              onClick={() => {
+                onGiveUp();
+                setTyped("");
+                setErrorState(false);
+                inputRef.current?.focus();
+              }}
+              className="rounded-full border border-rose-900/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100 sm:text-sm"
+            >
+              {giveUpLabel}
+            </button>
+          ) : null}
+
+          {manualAdvance ? (
+            <button
+              type="button"
+              disabled={!isReady}
+              onClick={() => {
+                if (!isReady) {
+                  return;
+                }
+
+                onComplete();
+                setTyped("");
+                setErrorState(false);
+                inputRef.current?.focus();
+              }}
+              className="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300 sm:text-sm"
+            >
+              {nextLabel}
+            </button>
+          ) : null}
+        </div>
       ) : null}
     </div>
   );

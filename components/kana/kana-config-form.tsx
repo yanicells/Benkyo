@@ -14,12 +14,26 @@ import type {
 
 const groupOrder: KanaGroup[] = ["basic", "dakuten", "combo"];
 const batchOptions: KanaBatchSize[] = [1, 2, 3, 4];
+const defaultBasicRows = getKanaRows("hiragana")
+  .filter((row) => row.group === "basic")
+  .map((row) => row.key);
 
 const groupTitles: Record<KanaGroup, string> = {
   basic: "Basic",
   dakuten: "Dakuten",
   combo: "Combo",
 };
+
+function getOpenState(
+  group: KanaGroup,
+  openGroups: Record<KanaGroup, boolean>,
+): boolean {
+  if (group === "combo") {
+    return openGroups.combo;
+  }
+
+  return openGroups.basic;
+}
 
 type PreviewRow = {
   label: string;
@@ -29,7 +43,8 @@ type PreviewRow = {
 export function KanaConfigForm() {
   const router = useRouter();
   const [script, setScript] = useState<KanaScript>("hiragana");
-  const [selectedRows, setSelectedRows] = useState<KanaRowKey[]>(["basic-a"]);
+  const [selectedRows, setSelectedRows] =
+    useState<KanaRowKey[]>(defaultBasicRows);
   const [batchSize, setBatchSize] = useState<KanaBatchSize>(1);
   const [openGroups, setOpenGroups] = useState<Record<KanaGroup, boolean>>({
     basic: false,
@@ -75,10 +90,22 @@ export function KanaConfigForm() {
   };
 
   const toggleOpenGroup = (group: KanaGroup) => {
-    setOpenGroups((previous) => ({
-      ...previous,
-      [group]: !previous[group],
-    }));
+    setOpenGroups((previous) => {
+      if (group === "combo") {
+        return {
+          ...previous,
+          combo: !previous.combo,
+        };
+      }
+
+      const nextOpen = !previous.basic;
+
+      return {
+        ...previous,
+        basic: nextOpen,
+        dakuten: nextOpen,
+      };
+    });
   };
 
   const startSession = () => {
@@ -150,17 +177,19 @@ export function KanaConfigForm() {
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         {groupedRows.map(({ group, rows }) => {
           const allSelected = rows.every((row) =>
             selectedRows.includes(row.key),
           );
-          const isOpen = openGroups[group];
+          const isOpen = getOpenState(group, openGroups);
 
           return (
             <section
               key={group}
-              className="rounded-2xl border border-rose-900/10 bg-white p-4 sm:p-5"
+              className={`rounded-2xl border border-rose-900/10 bg-white p-4 sm:p-5 ${
+                group === "combo" ? "sm:col-span-2" : ""
+              }`}
             >
               <div className="flex items-center justify-between gap-3">
                 <label className="flex cursor-pointer items-center gap-2">
@@ -217,9 +246,22 @@ export function KanaConfigForm() {
                               entries: row.entries,
                             })
                           }
-                          className="shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-rose-700 hover:underline"
+                          className="shrink-0 rounded-full border border-rose-900/20 p-1.5 text-rose-700 transition hover:border-rose-900/40 hover:bg-rose-50"
+                          aria-label={`Preview ${row.label}`}
+                          title={`Preview ${row.label}`}
                         >
-                          View
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="h-4 w-4"
+                            aria-hidden="true"
+                          >
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
                         </button>
                       </div>
                     );

@@ -269,9 +269,12 @@ export function DeckSessionClient({
               label=""
               placeholder="Type romaji..."
               showExpected={false}
+              manualAdvance
+              controlsAlign="between"
               onComplete={moveNextCorrect}
               onGiveUp={moveNextWrong}
-              giveUpLabel="Give up"
+              giveUpLabel="Skip"
+              nextLabel="Next"
             />
           </div>
         ) : null}

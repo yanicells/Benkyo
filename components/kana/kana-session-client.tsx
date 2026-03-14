@@ -115,12 +115,7 @@ export function KanaSessionClient({
 
         <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Kana</p>
 
-        <div
-          className="mt-4 grid gap-3"
-          style={{
-            gridTemplateColumns: `repeat(${activeCards.length}, minmax(0, 1fr))`,
-          }}
-        >
+        <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
           {activeCards.map((item, index) => (
             <p
               key={`${item.card.front}-${item.card.back}-${index}`}
@@ -173,16 +168,11 @@ export function KanaSessionClient({
             <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
               Answer key
             </p>
-            <div
-              className="mt-4 grid gap-3"
-              style={{
-                gridTemplateColumns: `repeat(${activeCards.length}, minmax(0, 1fr))`,
-              }}
-            >
+            <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
               {activeCards.map((item, index) => (
                 <div
                   key={`${item.card.front}-${item.card.back}-${index}`}
-                  className="rounded-xl border border-slate-200 p-3 text-center"
+                  className="min-w-20 rounded-xl border border-slate-200 p-3 text-center"
                 >
                   <p className="font-display text-5xl text-slate-900">
                     {item.card.front}
