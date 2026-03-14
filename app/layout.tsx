@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Noto_Sans_JP } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  Noto_Sans_JP,
+  Noto_Serif_JP,
+} from "next/font/google";
 import "./globals.css";
 
 const serifDisplay = Cormorant_Garamond({
@@ -11,6 +15,12 @@ const serifDisplay = Cormorant_Garamond({
 const bodySans = Noto_Sans_JP({
   variable: "--font-body",
   subsets: ["latin"],
+});
+
+const japaneseDisplay = Noto_Serif_JP({
+  variable: "--font-japanese-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -49,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${serifDisplay.variable} ${bodySans.variable} antialiased`}
+        className={`${serifDisplay.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased`}
       >
         {children}
       </body>

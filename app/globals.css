@@ -23,5 +23,5 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-display), var(--font-japanese-display), serif;
 }
