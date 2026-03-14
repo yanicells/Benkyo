@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import lessonsData from "@/data/lessons.json";
 import { PageShell } from "@/components/shared/page-shell";
-import { DeckSessionClient } from "@/components/session/deck-session-client";
+import { DeckSessionRenderer } from "@/components/session/deck-session-renderer";
 import type { FlipSetting, LessonsData, StudyMode } from "@/lib/types";
 
 type DeckSessionPageProps = {
@@ -52,8 +52,9 @@ export default async function DeckSessionPage({
       eyebrow="Active session"
       title={lesson.title}
       subtitle="Focus on one card at a time. Wrong cards get recycled until cleared."
+      backHref={`/decks/${lesson.id}`}
     >
-      <DeckSessionClient
+      <DeckSessionRenderer
         lessonId={lesson.id}
         lessonTitle={lesson.title}
         cards={lesson.cards}

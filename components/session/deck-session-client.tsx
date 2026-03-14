@@ -31,7 +31,13 @@ function shuffle<T>(items: T[]): T[] {
   return copy;
 }
 
-export function DeckSessionClient({ lessonId, lessonTitle, cards, mode, flip }: DeckSessionClientProps) {
+export function DeckSessionClient({
+  lessonId,
+  lessonTitle,
+  cards,
+  mode,
+  flip,
+}: DeckSessionClientProps) {
   const router = useRouter();
   const [queue, setQueue] = useState<SessionCard[]>(() => buildQueue(cards));
   const [revealed, setRevealed] = useState(false);
@@ -50,37 +56,43 @@ export function DeckSessionClient({ lessonId, lessonTitle, cards, mode, flip }: 
   }, [flip]);
 
   useEffect(() => {
-    if (queue.length === 0) {
-      const wrongCards = cards.filter((card) => wrongKeys.has(cardKey(card)));
-      window.sessionStorage.setItem(`deck-results:${lessonId}`, JSON.stringify(wrongCards));
-      router.replace(`/decks/${lessonId}/session/results`);
+    if (queue.length !== 0) {
+      return;
     }
+
+    const wrongCards = cards.filter((card) => wrongKeys.has(cardKey(card)));
+    window.sessionStorage.setItem(
+      `deck-results:${lessonId}`,
+      JSON.stringify(wrongCards),
+    );
+    router.replace(`/decks/${lessonId}/session/results`);
   }, [queue, cards, wrongKeys, lessonId, router]);
 
-  const choiceFeedback = useMemo(() => {
+  const multipleChoice = useMemo(() => {
     if (!current || mode !== "multiple-choice") {
-      return { options: [], correct: null as string | null };
+      return null;
     }
 
-    const correctAnswer = current.card[answerSide];
+    const correct = current.card[answerSide];
     const distractorPool = cards
       .filter((card) => cardKey(card) !== cardKey(current.card))
       .map((card) => card[answerSide])
-      .filter((value) => value !== correctAnswer);
-    const distractors = shuffle(distractorPool).slice(0, 3);
-    const options = shuffle(Array.from(new Set([correctAnswer, ...distractors])));
+      .filter((value) => value !== correct);
 
-    return { options, correct: correctAnswer };
+    const distractors = shuffle(distractorPool).slice(0, 3);
+    const options = shuffle(Array.from(new Set([correct, ...distractors])));
+
+    return { options, correct };
   }, [current, mode, answerSide, cards]);
 
-  const handleCorrect = () => {
+  const moveNextCorrect = () => {
     setRevealed(false);
     setSelectedOption(null);
     setChoiceLocked(false);
     setQueue((previous) => answerCorrect(previous));
   };
 
-  const handleWrong = () => {
+  const moveNextWrong = () => {
     if (!current) {
       return;
     }
@@ -99,121 +111,150 @@ export function DeckSessionClient({ lessonId, lessonTitle, cards, mode, flip }: 
 
   if (!current) {
     return (
-      <div className="rounded-2xl border border-rose-900/10 bg-white/70 p-8 text-center">
-        <p className="text-lg text-slate-700">Finalizing your results...</p>
+      <div className="rounded-2xl border border-rose-900/10 bg-white p-6 text-center">
+        <p className="text-base text-slate-700">Preparing session...</p>
       </div>
     );
   }
 
-  const prompt = mode === "typing" ? current.card.front : current.card[promptSide];
-  const expectedTyping = flip === "jp-to-en" ? current.card.back : current.card.front;
+  const prompt =
+    mode === "typing" ? current.card.front : current.card[promptSide];
+  const expectedTyping =
+    flip === "jp-to-en" ? current.card.back : current.card.front;
 
   return (
-    <section className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-rose-900/10 bg-white/70 px-4 py-3">
+    <section className="space-y-4 sm:space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-rose-900/10 bg-white px-3 py-2 sm:px-4 sm:py-3">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Now studying</p>
-          <h2 className="font-display text-2xl text-slate-900">{lessonTitle}</h2>
+          <p className="text-xs uppercase tracking-[0.18em] text-rose-700">
+            Now studying
+          </p>
+          <h2 className="font-display text-xl text-slate-900 sm:text-2xl">
+            {lessonTitle}
+          </h2>
         </div>
-        <p className="text-sm text-slate-700">{queue.length} cards remaining</p>
+        <p className="text-sm text-slate-700">{queue.length} cards left</p>
       </div>
 
-      <article className="rounded-3xl border border-rose-900/10 bg-gradient-to-br from-white to-rose-50 p-6 shadow-lg sm:p-8">
-        <p className="text-xs uppercase tracking-[0.24em] text-rose-700">Prompt</p>
-        <p className="mt-4 font-display text-4xl text-slate-900 sm:text-5xl">{prompt}</p>
+      <article className="rounded-3xl border border-rose-900/10 bg-white p-4 shadow-sm sm:p-8">
+        <p className="text-center text-xs uppercase tracking-[0.2em] text-rose-700">
+          Prompt
+        </p>
+        <p className="mt-4 text-center font-display text-5xl leading-tight text-slate-900 sm:text-7xl">
+          {prompt}
+        </p>
 
         {mode === "flashcard" ? (
-          <div className="mt-8 space-y-5">
+          <div className="mt-8 space-y-4">
             {!revealed ? (
-              <button
-                type="button"
-                onClick={() => setRevealed(true)}
-                className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
-              >
-                Reveal answer
-              </button>
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => setRevealed(true)}
+                  className="rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
+                >
+                  Reveal answer
+                </button>
+              </div>
             ) : (
-              <div className="space-y-5">
-                <div className="rounded-2xl border border-amber-500/20 bg-amber-50 p-4">
-                  <p className="text-xs uppercase tracking-[0.18em] text-amber-700">Answer</p>
-                  <p className="mt-2 text-xl text-slate-900">{current.card[answerSide]}</p>
+              <>
+                <div className="rounded-2xl border border-amber-500/20 bg-amber-50 p-4 text-center">
+                  <p className="text-xs uppercase tracking-[0.18em] text-amber-700">
+                    Answer
+                  </p>
+                  <p className="mt-2 text-lg text-slate-900 sm:text-xl">
+                    {current.card[answerSide]}
+                  </p>
                 </div>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap justify-center gap-3">
                   <button
                     type="button"
-                    onClick={handleCorrect}
-                    className="rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-500"
+                    onClick={moveNextCorrect}
+                    className="rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-500 sm:text-sm"
                   >
                     Got it
                   </button>
                   <button
                     type="button"
-                    onClick={handleWrong}
-                    className="rounded-full bg-rose-700 px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose-600"
+                    onClick={moveNextWrong}
+                    className="rounded-full bg-rose-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose-600 sm:text-sm"
                   >
                     Missed it
                   </button>
                 </div>
-              </div>
+              </>
             )}
           </div>
         ) : null}
 
-        {mode === "multiple-choice" ? (
-          <div className="mt-8 grid gap-3">
-            {choiceFeedback.options.map((option) => {
-              const isSelected = selectedOption === option;
-              const isCorrect = choiceFeedback.correct === option;
+        {mode === "multiple-choice" && multipleChoice ? (
+          <div className="mt-8 space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              {multipleChoice.options.map((option) => {
+                const isSelected = selectedOption === option;
+                const isCorrect = multipleChoice.correct === option;
 
-              let stateClass = "border-slate-300 bg-white hover:border-slate-500";
-              if (choiceLocked) {
-                if (isCorrect) {
-                  stateClass = "border-emerald-600 bg-emerald-100 text-emerald-900";
-                } else if (isSelected) {
-                  stateClass = "border-rose-600 bg-rose-100 text-rose-900";
+                let stateClass =
+                  "border-slate-300 bg-white hover:border-slate-500";
+                if (choiceLocked) {
+                  if (isCorrect) {
+                    stateClass =
+                      "border-emerald-600 bg-emerald-100 text-emerald-900";
+                  } else if (isSelected) {
+                    stateClass = "border-rose-600 bg-rose-100 text-rose-900";
+                  }
                 }
-              }
 
-              return (
-                <button
-                  key={option}
-                  type="button"
-                  disabled={choiceLocked}
-                  onClick={() => {
-                    if (choiceLocked || !choiceFeedback.correct) {
-                      return;
-                    }
-
-                    const wasCorrect = option === choiceFeedback.correct;
-                    setSelectedOption(option);
-                    setChoiceLocked(true);
-
-                    window.setTimeout(() => {
-                      if (wasCorrect) {
-                        handleCorrect();
-                      } else {
-                        handleWrong();
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    disabled={choiceLocked}
+                    onClick={() => {
+                      if (choiceLocked) {
+                        return;
                       }
-                    }, wasCorrect ? 380 : 700);
+                      setSelectedOption(option);
+                      setChoiceLocked(true);
+                    }}
+                    className={`min-h-20 rounded-2xl border px-3 py-3 text-center text-sm font-medium transition sm:min-h-24 sm:text-base ${stateClass}`}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+
+            {choiceLocked ? (
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const wasCorrect = selectedOption === multipleChoice.correct;
+                    if (wasCorrect) {
+                      moveNextCorrect();
+                    } else {
+                      moveNextWrong();
+                    }
                   }}
-                  className={`rounded-2xl border px-4 py-3 text-left text-sm font-medium transition sm:text-base ${stateClass}`}
+                  className="rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
                 >
-                  {option}
+                  Next
                 </button>
-              );
-            })}
+              </div>
+            ) : null}
           </div>
         ) : null}
 
         {mode === "typing" ? (
-          <div className="mt-8">
+          <div className="mx-auto mt-8 max-w-2xl">
             <TypingPracticeInput
               key={`${cardKey(current.card)}-${expectedTyping}`}
               expected={expectedTyping}
               label="Type this answer"
               placeholder="Type romaji..."
-              onComplete={handleCorrect}
-              onGiveUp={handleWrong}
+              onComplete={moveNextCorrect}
+              onGiveUp={moveNextWrong}
               giveUpLabel="Give up"
             />
           </div>
@@ -221,8 +262,11 @@ export function DeckSessionClient({ lessonId, lessonTitle, cards, mode, flip }: 
       </article>
 
       <div className="flex items-center justify-between text-sm text-slate-700">
-        <p>Wrong cards tracked: {wrongKeys.size}</p>
-        <Link href={`/decks/${lessonId}`} className="underline decoration-rose-400 underline-offset-4">
+        <p>Wrong cards: {wrongKeys.size}</p>
+        <Link
+          href={`/decks/${lessonId}`}
+          className="underline decoration-rose-400 underline-offset-4"
+        >
           Back to settings
         </Link>
       </div>

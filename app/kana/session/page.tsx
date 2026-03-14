@@ -1,16 +1,16 @@
 import { redirect } from "next/navigation";
 
 import { PageShell } from "@/components/shared/page-shell";
-import { KanaSessionClient } from "@/components/kana/kana-session-client";
-import { getKanaEntries } from "@/lib/kana";
-import type { Card, KanaGroup, KanaScript } from "@/lib/types";
+import { KanaSessionRenderer } from "@/components/kana/kana-session-renderer";
+import { getKanaEntries, kanaSelectionKeys } from "@/lib/kana";
+import type { Card, KanaScript, KanaSelectionKey } from "@/lib/types";
 
 type KanaSessionPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 const validScripts = new Set<KanaScript>(["hiragana", "katakana"]);
-const validGroups = new Set<KanaGroup>(["basic", "dakuten", "combo"]);
+const validGroups = new Set<KanaSelectionKey>(kanaSelectionKeys);
 
 function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
@@ -30,7 +30,7 @@ export default async function KanaSessionPage({
   const groups = groupParam
     .split(",")
     .map((group) => group.trim())
-    .filter((group) => validGroups.has(group as KanaGroup)) as KanaGroup[];
+    .filter((group) => validGroups.has(group as KanaSelectionKey)) as KanaSelectionKey[];
 
   if (groups.length === 0) {
     redirect("/kana");
@@ -52,8 +52,9 @@ export default async function KanaSessionPage({
       eyebrow="Kana session"
       title="Type what you read"
       subtitle="Wrong answers gain +2 required corrects and get shuffled back in."
+      backHref="/kana"
     >
-      <KanaSessionClient
+      <KanaSessionRenderer
         script={script as KanaScript}
         groups={groups}
         cards={cards}

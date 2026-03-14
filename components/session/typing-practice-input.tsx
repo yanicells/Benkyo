@@ -6,6 +6,7 @@ type TypingPracticeInputProps = {
   expected: string;
   label: string;
   placeholder: string;
+  showExpected?: boolean;
   onComplete: () => void;
   onGiveUp?: () => void;
   giveUpLabel?: string;
@@ -19,6 +20,7 @@ export function TypingPracticeInput({
   expected,
   label,
   placeholder,
+  showExpected = true,
   onComplete,
   onGiveUp,
   giveUpLabel = "Give up",
@@ -38,7 +40,10 @@ export function TypingPracticeInput({
     }
 
     if (normalizedExpected.startsWith(normalizedIncoming)) {
-      if (normalizedIncoming.length > 0 && normalizedIncoming === normalizedExpected) {
+      if (
+        normalizedIncoming.length > 0 &&
+        normalizedIncoming === normalizedExpected
+      ) {
         onComplete();
         setTyped("");
         setErrorState(false);
@@ -58,26 +63,41 @@ export function TypingPracticeInput({
       <div className="rounded-2xl border border-rose-950/10 bg-white/70 p-4">
         <p className="mb-3 text-xs uppercase tracking-[0.2em] text-rose-700">{label}</p>
         <div className="flex flex-wrap gap-1 text-xl sm:text-2xl">
-          {normalizedExpected.split("").map((character, index) => {
-            const typedCharacter = typed[index];
-            const isCorrect = typedCharacter === character;
-            const isCurrent = typed.length === index;
+          {showExpected
+            ? normalizedExpected.split("").map((character, index) => {
+                const typedCharacter = typed[index];
+                const isCorrect = typedCharacter === character;
+                const isCurrent = typed.length === index;
 
-            return (
-              <span
-                key={`${character}-${index}`}
-                className={`rounded px-1 transition ${
-                  isCorrect
-                    ? "bg-emerald-100 text-emerald-700"
-                    : isCurrent
-                      ? "bg-amber-100 text-amber-800"
-                      : "bg-slate-100 text-slate-400"
-                }`}
-              >
-                {character}
-              </span>
-            );
-          })}
+                return (
+                  <span
+                    key={`${character}-${index}`}
+                    className={`rounded px-1 transition ${
+                      isCorrect
+                        ? "bg-emerald-100 text-emerald-700"
+                        : isCurrent
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-slate-100 text-slate-400"
+                    }`}
+                  >
+                    {character}
+                  </span>
+                );
+              })
+            : typed.split("").map((character, index) => {
+                const isCorrect = normalizedExpected[index] === character;
+
+                return (
+                  <span
+                    key={`${character}-${index}`}
+                    className={`rounded px-1 ${
+                      isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
+                    }`}
+                  >
+                    {character}
+                  </span>
+                );
+              })}
         </div>
       </div>
 
@@ -92,7 +112,7 @@ export function TypingPracticeInput({
         }`}
         placeholder={placeholder}
         autoComplete="off"
-        autoCapitalize="off"
+        autoCapitalize="none"
         autoCorrect="off"
         spellCheck={false}
       />

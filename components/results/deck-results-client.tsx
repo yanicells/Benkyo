@@ -10,7 +10,10 @@ type DeckResultsClientProps = {
   lessonTitle: string;
 };
 
-export function DeckResultsClient({ lessonId, lessonTitle }: DeckResultsClientProps) {
+export function DeckResultsClient({
+  lessonId,
+  lessonTitle,
+}: DeckResultsClientProps) {
   const [wrongCards] = useState<Card[]>(() => {
     if (typeof window === "undefined") {
       return [];
@@ -30,8 +33,12 @@ export function DeckResultsClient({ lessonId, lessonTitle }: DeckResultsClientPr
   return (
     <section className="space-y-6">
       <header className="rounded-2xl border border-rose-900/10 bg-white/70 p-5">
-        <p className="text-xs uppercase tracking-[0.22em] text-rose-700">Session complete</p>
-        <h2 className="mt-2 font-display text-3xl text-slate-900">{lessonTitle}</h2>
+        <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+          Session complete
+        </p>
+        <h2 className="mt-2 font-display text-3xl text-slate-900">
+          {lessonTitle}
+        </h2>
         <p className="mt-2 text-slate-700">
           {wrongCards.length === 0
             ? "Perfect run. You did not miss any cards this time."
@@ -44,9 +51,11 @@ export function DeckResultsClient({ lessonId, lessonTitle }: DeckResultsClientPr
           {wrongCards.map((card) => (
             <li
               key={`${card.front}-${card.back}`}
-              className="rounded-2xl border border-rose-900/10 bg-gradient-to-r from-rose-50 to-amber-50 p-4"
+              className="rounded-2xl border border-rose-900/10 bg-white p-4"
             >
-              <p className="font-display text-2xl text-slate-900">{card.front}</p>
+              <p className="font-display text-2xl text-slate-900">
+                {card.front}
+              </p>
               <p className="mt-1 text-sm text-slate-700">{card.back}</p>
             </li>
           ))}

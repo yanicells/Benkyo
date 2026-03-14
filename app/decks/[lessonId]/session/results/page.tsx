@@ -25,6 +25,7 @@ export default async function DeckResultsPage({
       eyebrow="Results"
       title="Session summary"
       subtitle="Review cards you missed and run it again while memory is fresh."
+      backHref={`/decks/${lesson.id}`}
     >
       <DeckResultsClient lessonId={lesson.id} lessonTitle={lesson.title} />
     </PageShell>

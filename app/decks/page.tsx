@@ -11,6 +11,7 @@ export default function DecksPage() {
       eyebrow="Vocabulary"
       title="Lesson decks"
       subtitle="Choose any lesson and tune your session before starting."
+      backHref="/"
     >
       <LessonDeckGrid lessons={lessons} />
     </PageShell>

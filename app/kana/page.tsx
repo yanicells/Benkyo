@@ -7,6 +7,7 @@ export default function KanaPage() {
       eyebrow="Kana"
       title="Kana practice"
       subtitle="Pick script and groups, then drill romaji with strict character-by-character checks."
+      backHref="/"
     >
       <KanaConfigForm />
     </PageShell>

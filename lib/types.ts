@@ -15,6 +15,36 @@ export type SessionCard = {
 
 export type KanaGroup = "basic" | "dakuten" | "combo";
 
+export type KanaRowKey =
+  | "basic-a"
+  | "basic-ka"
+  | "basic-sa"
+  | "basic-ta"
+  | "basic-na"
+  | "basic-ha"
+  | "basic-ma"
+  | "basic-ya"
+  | "basic-ra"
+  | "basic-wa"
+  | "dakuten-ga"
+  | "dakuten-za"
+  | "dakuten-da"
+  | "dakuten-ba"
+  | "dakuten-pa"
+  | "combo-kya"
+  | "combo-sha"
+  | "combo-cha"
+  | "combo-nya"
+  | "combo-hya"
+  | "combo-mya"
+  | "combo-rya"
+  | "combo-gya"
+  | "combo-ja"
+  | "combo-bya"
+  | "combo-pya";
+
+export type KanaSelectionKey = KanaGroup | KanaRowKey;
+
 export type KanaScript = "hiragana" | "katakana";
 
 export type KanaEntry = { kana: string; romaji: string };

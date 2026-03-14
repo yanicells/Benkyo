@@ -47,6 +47,7 @@ export default async function DeckConfigPage({ params }: DeckConfigPageProps) {
       eyebrow="Session setup"
       title={lesson.title}
       subtitle="Pick study mode and direction. Settings are passed in URL params."
+      backHref="/decks"
     >
       <form action={`/decks/${lessonId}/session`} className="space-y-6">
         <section className="rounded-2xl border border-rose-900/10 bg-white/70 p-5">

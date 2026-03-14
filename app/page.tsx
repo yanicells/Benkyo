@@ -8,11 +8,12 @@ export default function Home() {
       eyebrow="Study hub"
       title="Japanese study studio"
       subtitle="Personal Genki-first drills for vocabulary and kana mastery. No accounts, no database, just focused reps."
+      backHref="/"
     >
       <section className="grid gap-4 sm:grid-cols-2">
         <Link
           href="/decks"
-          className="fade-in-up rounded-3xl border border-rose-900/15 bg-gradient-to-br from-white to-amber-50 p-6 shadow-lg transition hover:-translate-y-1 hover:border-rose-700/30"
+          className="fade-in-up rounded-3xl border border-rose-900/15 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-rose-700/30"
           style={{ animationDelay: "80ms" }}
         >
           <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
@@ -29,7 +30,7 @@ export default function Home() {
 
         <Link
           href="/kana"
-          className="fade-in-up rounded-3xl border border-rose-900/15 bg-gradient-to-br from-white to-orange-50 p-6 shadow-lg transition hover:-translate-y-1 hover:border-rose-700/30"
+          className="fade-in-up rounded-3xl border border-rose-900/15 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-rose-700/30"
           style={{ animationDelay: "170ms" }}
         >
           <p className="text-xs uppercase tracking-[0.2em] text-rose-700">

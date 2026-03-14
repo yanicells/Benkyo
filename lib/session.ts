@@ -6,6 +6,17 @@ function insertAt<T>(items: T[], index: number, item: T): T[] {
   return [...items.slice(0, index), item, ...items.slice(index)];
 }
 
+function shuffle<T>(items: T[]): T[] {
+  const copy = [...items];
+
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+
+  return copy;
+}
+
 function pickMiddleInsertIndex(restLength: number): number {
   if (restLength === 0) {
     return 0;
@@ -21,7 +32,7 @@ function pickMiddleInsertIndex(restLength: number): number {
 }
 
 export function buildQueue(cards: Card[]): SessionCard[] {
-  return cards.map((card) => ({ card, correctsNeeded: 1 }));
+  return shuffle(cards).map((card) => ({ card, correctsNeeded: 1 }));
 }
 
 export function answerCorrect(queue: SessionCard[]): SessionCard[] {

@@ -20,20 +20,6 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
-  background-image:
-    radial-gradient(circle at 18% 18%, rgb(251 191 36 / 36%), transparent 42%),
-    radial-gradient(circle at 88% 6%, rgb(190 24 93 / 25%), transparent 38%),
-    linear-gradient(125deg, #fff7ed, #fef2f2 52%, #fff1f2);
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.17;
-  background-image: radial-gradient(#7c2d12 0.4px, transparent 0.4px);
-  background-size: 5px 5px;
 }
 
 .font-display {
