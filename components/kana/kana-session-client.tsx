@@ -83,7 +83,9 @@ export function KanaSessionClient({
     );
   }
 
-  const expected = activeCards.map((card) => card.card.romaji ?? card.card.back).join("");
+  const expected = activeCards
+    .map((card) => card.card.romaji ?? card.card.back)
+    .join("");
 
   return (
     <section className="space-y-4 sm:space-y-6">
@@ -132,7 +134,10 @@ export function KanaSessionClient({
         <div className="mx-auto mt-8 max-w-2xl text-left">
           <TypingPracticeInput
             key={activeCards
-              .map((card, index) => `${card.card.front}-${card.card.back}-${index}`)
+              .map(
+                (card, index) =>
+                  `${card.card.front}-${card.card.back}-${index}`,
+              )
               .join("|")}
             expected={expected}
             label={`Type romaji (${activeCards.length} at once)`}

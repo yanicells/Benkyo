@@ -114,7 +114,9 @@ export function TypingPracticeInput({
         </div>
       </div>
 
-      <div className={`flex items-center gap-2 ${giveUpInline ? "justify-between" : ""}`}>
+      <div
+        className={`flex items-center gap-2 ${giveUpInline ? "justify-between" : ""}`}
+      >
         <input
           ref={inputRef}
           type="text"

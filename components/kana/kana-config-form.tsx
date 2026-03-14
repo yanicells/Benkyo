@@ -205,7 +205,9 @@ export function KanaConfigForm() {
                             onChange={() => toggleRow(row.key)}
                             className="mt-0.5 h-4 w-4"
                           />
-                          <span className="font-display text-xl text-slate-800">{row.label}</span>
+                          <span className="font-display text-xl text-slate-800">
+                            {row.label}
+                          </span>
                         </label>
                         <button
                           type="button"
