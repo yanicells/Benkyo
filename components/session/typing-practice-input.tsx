@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type TypingPracticeInputProps = {
   expected: string;
@@ -27,8 +27,13 @@ export function TypingPracticeInput({
 }: TypingPracticeInputProps) {
   const [typed, setTyped] = useState("");
   const [errorState, setErrorState] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const normalizedExpected = useMemo(() => normalize(expected), [expected]);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const onChange = (value: string) => {
     const normalizedIncoming = normalize(value);
@@ -106,6 +111,7 @@ export function TypingPracticeInput({
       </div>
 
       <input
+        ref={inputRef}
         type="text"
         value={typed}
         onChange={(event) => onChange(event.target.value)}
@@ -119,12 +125,16 @@ export function TypingPracticeInput({
         autoCapitalize="none"
         autoCorrect="off"
         spellCheck={false}
+        autoFocus
       />
 
       {onGiveUp ? (
         <button
           type="button"
-          onClick={onGiveUp}
+          onClick={() => {
+            onGiveUp();
+            inputRef.current?.focus();
+          }}
           className="rounded-full border border-rose-900/20 px-4 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100"
         >
           {giveUpLabel}

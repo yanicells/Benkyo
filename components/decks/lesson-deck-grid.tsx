@@ -9,12 +9,11 @@ type LessonDeckGridProps = {
 export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
   return (
     <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {lessons.map((lesson, index) => (
+      {lessons.map((lesson) => (
         <Link
           key={lesson.id}
           href={`/decks/${lesson.id}`}
-          className="fade-in-up group relative overflow-hidden rounded-3xl border border-rose-900/15 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-rose-700/30 hover:shadow-md"
-          style={{ animationDelay: `${index * 70}ms` }}
+          className="group relative overflow-hidden rounded-3xl border border-rose-900/15 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-rose-700/30 hover:shadow-md"
         >
           <p className="text-xs uppercase tracking-[0.25em] text-rose-700">
             Deck

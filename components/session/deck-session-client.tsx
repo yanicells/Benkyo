@@ -41,6 +41,7 @@ export function DeckSessionClient({
   const router = useRouter();
   const [queue, setQueue] = useState<SessionCard[]>(() => buildQueue(cards));
   const [revealed, setRevealed] = useState(false);
+  const [showAnswerKey, setShowAnswerKey] = useState(false);
   const [wrongKeys, setWrongKeys] = useState<Set<string>>(() => new Set());
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [choiceLocked, setChoiceLocked] = useState(false);
@@ -87,6 +88,7 @@ export function DeckSessionClient({
 
   const moveNextCorrect = () => {
     setRevealed(false);
+    setShowAnswerKey(false);
     setSelectedOption(null);
     setChoiceLocked(false);
     setQueue((previous) => answerCorrect(previous));
@@ -104,6 +106,7 @@ export function DeckSessionClient({
     });
 
     setRevealed(false);
+    setShowAnswerKey(false);
     setSelectedOption(null);
     setChoiceLocked(false);
     setQueue((previous) => answerWrong(previous));
@@ -117,10 +120,8 @@ export function DeckSessionClient({
     );
   }
 
-  const prompt =
-    mode === "typing" ? current.card.front : current.card[promptSide];
-  const expectedTyping =
-    flip === "jp-to-en" ? current.card.back : current.card.front;
+  const prompt = mode === "typing" ? current.card.front : current.card[promptSide];
+  const expectedTyping = current.card.back;
 
   return (
     <section className="space-y-4 sm:space-y-6">
@@ -137,6 +138,18 @@ export function DeckSessionClient({
       </div>
 
       <article className="rounded-3xl border border-rose-900/10 bg-white p-4 shadow-sm sm:p-8">
+        {mode === "typing" ? (
+          <div className="mb-2 flex justify-end">
+            <button
+              type="button"
+              onClick={() => setShowAnswerKey(true)}
+              className="rounded-full border border-rose-900/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
+            >
+              Answer key
+            </button>
+          </div>
+        ) : null}
+
         <p className="text-center text-xs uppercase tracking-[0.2em] text-rose-700">
           Prompt
         </p>
@@ -254,6 +267,7 @@ export function DeckSessionClient({
               expected={expectedTyping}
               label="Type this answer"
               placeholder="Type romaji..."
+              showExpected={false}
               onComplete={moveNextCorrect}
               onGiveUp={moveNextWrong}
               giveUpLabel="Give up"
@@ -261,6 +275,23 @@ export function DeckSessionClient({
           </div>
         ) : null}
       </article>
+
+      {showAnswerKey ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="w-full max-w-sm rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg">
+            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Answer key</p>
+            <h3 className="mt-3 font-display text-3xl text-slate-900">{current.card.front}</h3>
+            <p className="mt-2 text-base text-slate-700">{current.card.back}</p>
+            <button
+              type="button"
+              onClick={() => setShowAnswerKey(false)}
+              className="mt-5 rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       <div className="flex items-center justify-between text-sm text-slate-700">
         <p>Wrong cards: {wrongKeys.size}</p>

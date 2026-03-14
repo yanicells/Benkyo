@@ -18,7 +18,7 @@ export function PageShell({
 }: PageShellProps) {
   return (
     <main className="relative mx-auto min-h-screen w-full max-w-5xl px-3 py-4 sm:px-6 sm:py-8">
-      <div className="fade-in-up rounded-3xl border border-rose-900/15 bg-white p-4 shadow-sm sm:p-8">
+      <div className="rounded-3xl border border-rose-900/15 bg-white p-4 shadow-sm sm:p-8">
         <TopNav backHref={backHref} />
         <header className="mb-5 space-y-2 border-b border-rose-950/10 pb-4 sm:mb-8 sm:space-y-3 sm:pb-6">
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-rose-700">

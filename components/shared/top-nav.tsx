@@ -19,19 +19,20 @@ export function TopNav({ backHref = "/" }: TopNavProps) {
 
   return (
     <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-rose-900/10 pb-3">
-      <button
-        type="button"
-        onClick={() => {
+      <a
+        href={backHref}
+        onClick={(event) => {
+          event.preventDefault();
           if (window.history.length > 1) {
             router.back();
             return;
           }
           router.push(backHref);
         }}
-        className="rounded-full border border-rose-900/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
+        className="text-sm font-semibold text-rose-800 hover:underline"
       >
-        Back
-      </button>
+        &lt;- Back
+      </a>
 
       <nav className="flex items-center gap-2">
         {links.map((link) => {

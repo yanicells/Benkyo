@@ -29,7 +29,7 @@ export function KanaSessionClient({
   cards,
 }: KanaSessionClientProps) {
   const [queue, setQueue] = useState<SessionCard[]>(() => buildQueue(cards));
-  const [showCheatSheet, setShowCheatSheet] = useState(false);
+  const [showAnswerKey, setShowAnswerKey] = useState(false);
 
   const current = queue[0];
   const complete = isSessionComplete(queue);
@@ -75,10 +75,10 @@ export function KanaSessionClient({
       <article className="relative rounded-3xl border border-rose-900/10 bg-white p-5 text-center shadow-sm sm:p-8">
         <button
           type="button"
-          onClick={() => setShowCheatSheet(true)}
+          onClick={() => setShowAnswerKey(true)}
           className="absolute right-3 top-3 rounded-full border border-rose-900/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
         >
-          Cheat sheet
+          Answer key
         </button>
 
         <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Kana</p>
@@ -100,11 +100,11 @@ export function KanaSessionClient({
         </div>
       </article>
 
-      {showCheatSheet ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/45 p-4">
+      {showAnswerKey ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="w-full max-w-sm rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg">
             <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
-              Cheat sheet
+              Answer key
             </p>
             <h3 className="mt-3 font-display text-4xl text-slate-900">
               {current.card.front}
@@ -112,7 +112,7 @@ export function KanaSessionClient({
             <p className="mt-2 text-lg text-slate-700">{current.card.back}</p>
             <button
               type="button"
-              onClick={() => setShowCheatSheet(false)}
+              onClick={() => setShowAnswerKey(false)}
               className="mt-5 rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
             >
               Close
