@@ -6,6 +6,10 @@
   --ink-soft: #334155;
   --accent: #9f1239;
   --accent-bright: #f59e0b;
+  --surface: #fffdf9;
+  --surface-muted: #fff7f5;
+  --line-soft: #be9cab33;
+  --shadow-soft: 0 12px 28px #4a18200f;
 }
 
 @theme inline {
@@ -17,7 +21,10 @@
 
 body {
   min-height: 100vh;
-  background: var(--background);
+  background:
+    radial-gradient(circle at 12% 8%, #fff9f0 0%, transparent 28%),
+    radial-gradient(circle at 86% 0%, #fdece9 0%, transparent 24%),
+    var(--background);
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
 }

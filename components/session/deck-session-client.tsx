@@ -123,7 +123,13 @@ export function DeckSessionClient({
     } else {
       moveNextWrong();
     }
-  }, [multipleChoice, choiceLocked, selectedOption, moveNextCorrect, moveNextWrong]);
+  }, [
+    multipleChoice,
+    choiceLocked,
+    selectedOption,
+    moveNextCorrect,
+    moveNextWrong,
+  ]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
