@@ -4,406 +4,769 @@
       "id": "greetings",
       "title": "Greetings",
       "cards": [
-        { "front": "おはよう。", "back": "Good morning." },
-        { "front": "おはよう ございます。", "back": "Good morning. (polite)" },
-        { "front": "こんにちは。", "back": "Good afternoon." },
-        { "front": "こんばんは。", "back": "Good evening." },
-        { "front": "さようなら。", "back": "Good-bye." },
-        { "front": "おやすみ（なさい）。", "back": "Good night." },
-        { "front": "ありがとう。", "back": "Thank you." },
-        { "front": "ありがとう ございます。", "back": "Thank you. (polite)" },
-        { "front": "すみません。", "back": "Excuse me.; I'm sorry." },
-        { "front": "いいえ。", "back": "No.; Not at all." },
-        { "front": "いってきます。", "back": "I'll go and come back." },
-        { "front": "いってらっしゃい。", "back": "Please go and come back." },
-        { "front": "ただいま。", "back": "I'm home." },
-        { "front": "おかえり（なさい）。", "back": "Welcome home." },
+        { "front": "おはよう。", "back": "Good morning.", "romaji": "ohayou" },
+        {
+          "front": "おはよう ございます。",
+          "back": "Good morning. (polite)",
+          "romaji": "ohayou gozaimasu"
+        },
+        {
+          "front": "こんにちは。",
+          "back": "Good afternoon.",
+          "romaji": "konnichiwa"
+        },
+        {
+          "front": "こんばんは。",
+          "back": "Good evening.",
+          "romaji": "konbanwa"
+        },
+        { "front": "さようなら。", "back": "Good-bye.", "romaji": "sayounara" },
+        {
+          "front": "おやすみ（なさい）。",
+          "back": "Good night.",
+          "romaji": "oyasumi (nasai)"
+        },
+        { "front": "ありがとう。", "back": "Thank you.", "romaji": "arigatou" },
+        {
+          "front": "ありがとう ございます。",
+          "back": "Thank you. (polite)",
+          "romaji": "arigatou gozaimasu"
+        },
+        {
+          "front": "すみません。",
+          "back": "Excuse me.; I'm sorry.",
+          "romaji": "sumimasen"
+        },
+        { "front": "いいえ。", "back": "No.; Not at all.", "romaji": "iie" },
+        {
+          "front": "いってきます。",
+          "back": "I'll go and come back.",
+          "romaji": "ittekimasu"
+        },
+        {
+          "front": "いってらっしゃい。",
+          "back": "Please go and come back.",
+          "romaji": "itterasshai"
+        },
+        { "front": "ただいま。", "back": "I'm home.", "romaji": "tadaima" },
+        {
+          "front": "おかえり（なさい）。",
+          "back": "Welcome home.",
+          "romaji": "okaeri (nasai)"
+        },
         {
           "front": "いただきます。",
-          "back": "Thank you for the meal. (before eating)"
+          "back": "Thank you for the meal. (before eating)",
+          "romaji": "itadakimasu"
         },
         {
           "front": "ごちそうさま（でした）。",
-          "back": "Thank you for the meal. (after eating)"
+          "back": "Thank you for the meal. (after eating)",
+          "romaji": "gochisousama (deshita)"
         },
-        { "front": "はじめまして。", "back": "How do you do?" },
-        { "front": "〜です。", "back": "I am . . . ." },
-        { "front": "よろしく おねがいします。", "back": "Nice to meet you." }
+        {
+          "front": "はじめまして。",
+          "back": "How do you do?",
+          "romaji": "hajimemashite"
+        },
+        { "front": "〜です。", "back": "I am . . . .", "romaji": "desu" },
+        {
+          "front": "よろしく おねがいします。",
+          "back": "Nice to meet you.",
+          "romaji": "yoroshiku onegaishimasu"
+        }
       ]
     },
     {
       "id": "numbers",
       "title": "Numbers",
       "cards": [
-        { "front": "ゼロ／れい", "back": "0" },
-        { "front": "いち", "back": "1" },
-        { "front": "に", "back": "2" },
-        { "front": "さん", "back": "3" },
-        { "front": "よん／し／（よ）", "back": "4" },
-        { "front": "ご", "back": "5" },
-        { "front": "ろく", "back": "6" },
-        { "front": "なな／しち", "back": "7" },
-        { "front": "はち", "back": "8" },
-        { "front": "きゅう／く", "back": "9" },
-        { "front": "じゅう", "back": "10" },
-        { "front": "じゅういち", "back": "11" },
-        { "front": "じゅうに", "back": "12" },
-        { "front": "じゅうさん", "back": "13" },
-        { "front": "じゅうよん／じゅうし", "back": "14" },
-        { "front": "じゅうご", "back": "15" },
-        { "front": "じゅうろく", "back": "16" },
-        { "front": "じゅうなな／じゅうしち", "back": "17" },
-        { "front": "じゅうはち", "back": "18" },
-        { "front": "じゅうきゅう／じゅうく", "back": "19" },
-        { "front": "にじゅう", "back": "20" },
-        { "front": "さんじゅう", "back": "30" },
-        { "front": "よんじゅう", "back": "40" },
-        { "front": "ごじゅう", "back": "50" },
-        { "front": "ろくじゅう", "back": "60" },
-        { "front": "ななじゅう", "back": "70" },
-        { "front": "はちじゅう", "back": "80" },
-        { "front": "きゅうじゅう", "back": "90" },
-        { "front": "ひゃく", "back": "100" }
+        { "front": "ゼロ／れい", "back": "0", "romaji": "zero/rei" },
+        { "front": "いち", "back": "1", "romaji": "ichi" },
+        { "front": "に", "back": "2", "romaji": "ni" },
+        { "front": "さん", "back": "3", "romaji": "san" },
+        { "front": "よん／し／（よ）", "back": "4", "romaji": "yon/shi/(yo)" },
+        { "front": "ご", "back": "5", "romaji": "go" },
+        { "front": "ろく", "back": "6", "romaji": "roku" },
+        { "front": "なな／しち", "back": "7", "romaji": "nana/shichi" },
+        { "front": "はち", "back": "8", "romaji": "hachi" },
+        { "front": "きゅう／く", "back": "9", "romaji": "kyuu/ku" },
+        { "front": "じゅう", "back": "10", "romaji": "juu" },
+        { "front": "じゅういち", "back": "11", "romaji": "juuichi" },
+        { "front": "じゅうに", "back": "12", "romaji": "juuni" },
+        { "front": "じゅうさん", "back": "13", "romaji": "juusan" },
+        {
+          "front": "じゅうよん／じゅうし",
+          "back": "14",
+          "romaji": "juuyon/juushi"
+        },
+        { "front": "じゅうご", "back": "15", "romaji": "juugo" },
+        { "front": "じゅうろく", "back": "16", "romaji": "juuroku" },
+        {
+          "front": "じゅうなな／じゅうしち",
+          "back": "17",
+          "romaji": "juunana/juushichi"
+        },
+        { "front": "じゅうはち", "back": "18", "romaji": "juuhachi" },
+        {
+          "front": "じゅうきゅう／じゅうく",
+          "back": "19",
+          "romaji": "juukyuu/juuku"
+        },
+        { "front": "にじゅう", "back": "20", "romaji": "nijuu" },
+        { "front": "さんじゅう", "back": "30", "romaji": "sanjuu" },
+        { "front": "よんじゅう", "back": "40", "romaji": "yonjuu" },
+        { "front": "ごじゅう", "back": "50", "romaji": "gojuu" },
+        { "front": "ろくじゅう", "back": "60", "romaji": "rokujuu" },
+        { "front": "ななじゅう", "back": "70", "romaji": "nanajuu" },
+        { "front": "はちじゅう", "back": "80", "romaji": "hachijuu" },
+        { "front": "きゅうじゅう", "back": "90", "romaji": "kyuujuu" },
+        { "front": "ひゃく", "back": "100", "romaji": "hyaku" }
       ]
     },
     {
       "id": "lesson-1-vocab",
       "title": "Lesson 1: Vocabulary",
       "cards": [
-        { "front": "だいがく", "back": "college; university" },
-        { "front": "こうこう", "back": "high school" },
-        { "front": "がくせい", "back": "student" },
-        { "front": "だいがくせい", "back": "college student" },
-        { "front": "りゅうがくせい", "back": "international student" },
-        { "front": "せんせい", "back": "teacher; Professor . . ." },
-        { "front": "～ねんせい", "back": ". . . year student" },
-        { "front": "いちねんせい", "back": "first-year student" },
-        { "front": "せんこう", "back": "major" },
-        { "front": "わたし", "back": "I" },
-        { "front": "ともだち", "back": "friend" },
-        { "front": "～さん", "back": "Mr./Ms. . . ." },
-        { "front": "～じん", "back": ". . . people" },
-        { "front": "にほんじん", "back": "Japanese people" },
-        { "front": "いま", "back": "now" },
-        { "front": "ごぜん", "back": "A.M." },
-        { "front": "ごご", "back": "P.M." },
-        { "front": "～じ", "back": "o'clock" },
-        { "front": "いちじ", "back": "one o'clock" },
-        { "front": "はん", "back": "half" },
-        { "front": "にじはん", "back": "half past two" },
-        { "front": "にほん", "back": "Japan" },
-        { "front": "アメリカ", "back": "U.S.A." },
-        { "front": "～ご", "back": ". . . language" },
-        { "front": "にほんご", "back": "Japanese language" },
-        { "front": "～さい", "back": ". . . years old" },
-        { "front": "でんわ", "back": "telephone" },
-        { "front": "～ばん", "back": "number . . ." },
-        { "front": "ばんごう", "back": "number" },
-        { "front": "なまえ", "back": "name" },
-        { "front": "なん／なに", "back": "what" },
-        { "front": "あのう", "back": "um . . ." },
-        { "front": "はい", "back": "yes" },
-        { "front": "そうです", "back": "That's right." },
-        { "front": "そうですか", "back": "I see.; Is that so?" }
+        {
+          "front": "だいがく",
+          "back": "college; university",
+          "romaji": "daigaku"
+        },
+        { "front": "こうこう", "back": "high school", "romaji": "koukou" },
+        { "front": "がくせい", "back": "student", "romaji": "gakusei" },
+        {
+          "front": "だいがくせい",
+          "back": "college student",
+          "romaji": "daigakusei"
+        },
+        {
+          "front": "りゅうがくせい",
+          "back": "international student",
+          "romaji": "ryuugakusei"
+        },
+        {
+          "front": "せんせい",
+          "back": "teacher; Professor . . .",
+          "romaji": "sensei"
+        },
+        {
+          "front": "～ねんせい",
+          "back": ". . . year student",
+          "romaji": "nensei"
+        },
+        {
+          "front": "いちねんせい",
+          "back": "first-year student",
+          "romaji": "ichinensei"
+        },
+        { "front": "せんこう", "back": "major", "romaji": "senkou" },
+        { "front": "わたし", "back": "I", "romaji": "watashi" },
+        { "front": "ともだち", "back": "friend", "romaji": "tomodachi" },
+        { "front": "～さん", "back": "Mr./Ms. . . .", "romaji": "san" },
+        { "front": "～じん", "back": ". . . people", "romaji": "jin" },
+        {
+          "front": "にほんじん",
+          "back": "Japanese people",
+          "romaji": "nihonjin"
+        },
+        { "front": "いま", "back": "now", "romaji": "ima" },
+        { "front": "ごぜん", "back": "A.M.", "romaji": "gozen" },
+        { "front": "ごご", "back": "P.M.", "romaji": "gogo" },
+        { "front": "～じ", "back": "o'clock", "romaji": "ji" },
+        { "front": "いちじ", "back": "one o'clock", "romaji": "ichiji" },
+        { "front": "はん", "back": "half", "romaji": "han" },
+        { "front": "にじはん", "back": "half past two", "romaji": "nijihan" },
+        { "front": "にほん", "back": "Japan", "romaji": "nihon" },
+        { "front": "アメリカ", "back": "U.S.A.", "romaji": "Amerika" },
+        { "front": "～ご", "back": ". . . language", "romaji": "go" },
+        {
+          "front": "にほんご",
+          "back": "Japanese language",
+          "romaji": "nihongo"
+        },
+        { "front": "～さい", "back": ". . . years old", "romaji": "sai" },
+        { "front": "でんわ", "back": "telephone", "romaji": "denwa" },
+        { "front": "～ばん", "back": "number . . .", "romaji": "ban" },
+        { "front": "ばんごう", "back": "number", "romaji": "bangou" },
+        { "front": "なまえ", "back": "name", "romaji": "namae" },
+        { "front": "なん／なに", "back": "what", "romaji": "nan/nani" },
+        { "front": "あのう", "back": "um . . .", "romaji": "anou" },
+        { "front": "はい", "back": "yes", "romaji": "hai" },
+        { "front": "そうです", "back": "That's right.", "romaji": "soudesu" },
+        {
+          "front": "そうですか",
+          "back": "I see.; Is that so?",
+          "romaji": "soudesuka"
+        }
       ]
     },
     {
       "id": "lesson-2-vocab",
       "title": "Lesson 2: Vocabulary",
       "cards": [
-        { "front": "これ", "back": "this one" },
-        { "front": "それ", "back": "that one" },
-        { "front": "あれ", "back": "that one (over there)" },
-        { "front": "どれ", "back": "which one" },
-        { "front": "この", "back": "this . . ." },
-        { "front": "その", "back": "that . . ." },
-        { "front": "あの", "back": "that . . . (over there)" },
-        { "front": "どの", "back": "which . . ." },
-        { "front": "ここ", "back": "here" },
-        { "front": "そこ", "back": "there" },
-        { "front": "あそこ", "back": "over there" },
-        { "front": "どこ", "back": "where" },
-        { "front": "だれ", "back": "who" },
-        { "front": "おいしい", "back": "delicious" },
-        { "front": "さかな", "back": "fish" },
-        { "front": "とんかつ", "back": "pork cutlet" },
-        { "front": "にく", "back": "meat" },
-        { "front": "メニュー", "back": "menu" },
-        { "front": "やさい", "back": "vegetable" },
-        { "front": "かさ", "back": "umbrella" },
-        { "front": "かばん", "back": "bag" },
-        { "front": "くつ", "back": "shoes" },
-        { "front": "さいふ", "back": "wallet" },
-        { "front": "ジーンズ", "back": "jeans" },
-        { "front": "じてんしゃ", "back": "bicycle" },
-        { "front": "しんぶん", "back": "newspaper" },
-        { "front": "スマホ", "back": "smartphone; mobile" },
-        { "front": "Ｔシャツ", "back": "T-shirt" },
-        { "front": "とけい", "back": "watch; clock" },
-        { "front": "ノート", "back": "notebook" },
-        { "front": "ペン", "back": "pen" },
-        { "front": "ぼうし", "back": "hat; cap" },
-        { "front": "ほん", "back": "book" },
-        { "front": "ぎんこう", "back": "bank" },
-        { "front": "コンビニ", "back": "convenience store" },
-        { "front": "トイレ", "back": "toilet; restroom" },
-        { "front": "としょかん", "back": "library" },
-        { "front": "ゆうびんきょく", "back": "post office" },
-        { "front": "イギリス", "back": "Britain" },
-        { "front": "かんこく", "back": "Korea" },
-        { "front": "ちゅうごく", "back": "China" },
-        { "front": "えいご", "back": "English (language)" },
-        { "front": "けいざい", "back": "economics" },
-        { "front": "コンピューター", "back": "computer" },
-        { "front": "ビジネス", "back": "business" },
-        { "front": "れきし", "back": "history" },
-        { "front": "おかあさん", "back": "mother" },
-        { "front": "おとうさん", "back": "father" },
-        { "front": "いくら", "back": "how much" },
-        { "front": "～えん", "back": ". . . yen" },
-        { "front": "たかい", "back": "expensive; high" },
-        { "front": "いらっしゃいませ", "back": "Welcome (to our store)." },
-        { "front": "（～を）おねがいします", "back": ". . . , please." },
-        { "front": "（～を）ください", "back": "Please give me . . ." },
+        { "front": "これ", "back": "this one", "romaji": "kore" },
+        { "front": "それ", "back": "that one", "romaji": "sore" },
+        { "front": "あれ", "back": "that one (over there)", "romaji": "are" },
+        { "front": "どれ", "back": "which one", "romaji": "dore" },
+        { "front": "この", "back": "this . . .", "romaji": "kono" },
+        { "front": "その", "back": "that . . .", "romaji": "sono" },
+        { "front": "あの", "back": "that . . . (over there)", "romaji": "ano" },
+        { "front": "どの", "back": "which . . .", "romaji": "dono" },
+        { "front": "ここ", "back": "here", "romaji": "koko" },
+        { "front": "そこ", "back": "there", "romaji": "soko" },
+        { "front": "あそこ", "back": "over there", "romaji": "asoko" },
+        { "front": "どこ", "back": "where", "romaji": "doko" },
+        { "front": "だれ", "back": "who", "romaji": "dare" },
+        { "front": "おいしい", "back": "delicious", "romaji": "oishii" },
+        { "front": "さかな", "back": "fish", "romaji": "sakana" },
+        { "front": "とんかつ", "back": "pork cutlet", "romaji": "tonkatsu" },
+        { "front": "にく", "back": "meat", "romaji": "niku" },
+        { "front": "メニュー", "back": "menu", "romaji": "menyuu" },
+        { "front": "やさい", "back": "vegetable", "romaji": "yasai" },
+        { "front": "かさ", "back": "umbrella", "romaji": "kasa" },
+        { "front": "かばん", "back": "bag", "romaji": "kaban" },
+        { "front": "くつ", "back": "shoes", "romaji": "kutsu" },
+        { "front": "さいふ", "back": "wallet", "romaji": "saifu" },
+        { "front": "ジーンズ", "back": "jeans", "romaji": "jiinzu" },
+        { "front": "じてんしゃ", "back": "bicycle", "romaji": "jitensha" },
+        { "front": "しんぶん", "back": "newspaper", "romaji": "shinbun" },
+        { "front": "スマホ", "back": "smartphone; mobile", "romaji": "sumaho" },
+        { "front": "Ｔシャツ", "back": "T-shirt", "romaji": "T shatsu" },
+        { "front": "とけい", "back": "watch; clock", "romaji": "tokei" },
+        { "front": "ノート", "back": "notebook", "romaji": "nooto" },
+        { "front": "ペン", "back": "pen", "romaji": "pen" },
+        { "front": "ぼうし", "back": "hat; cap", "romaji": "boushi" },
+        { "front": "ほん", "back": "book", "romaji": "hon" },
+        { "front": "ぎんこう", "back": "bank", "romaji": "ginkou" },
+        {
+          "front": "コンビニ",
+          "back": "convenience store",
+          "romaji": "konbini"
+        },
+        { "front": "トイレ", "back": "toilet; restroom", "romaji": "toire" },
+        { "front": "としょかん", "back": "library", "romaji": "toshokan" },
+        {
+          "front": "ゆうびんきょく",
+          "back": "post office",
+          "romaji": "yuubinkyoku"
+        },
+        { "front": "イギリス", "back": "Britain", "romaji": "Igirisu" },
+        { "front": "かんこく", "back": "Korea", "romaji": "kankoku" },
+        { "front": "ちゅうごく", "back": "China", "romaji": "chuugoku" },
+        { "front": "えいご", "back": "English (language)", "romaji": "eigo" },
+        { "front": "けいざい", "back": "economics", "romaji": "keizai" },
+        {
+          "front": "コンピューター",
+          "back": "computer",
+          "romaji": "konpyuutaa"
+        },
+        { "front": "ビジネス", "back": "business", "romaji": "bijinesu" },
+        { "front": "れきし", "back": "history", "romaji": "rekishi" },
+        { "front": "おかあさん", "back": "mother", "romaji": "okaasan" },
+        { "front": "おとうさん", "back": "father", "romaji": "otousan" },
+        { "front": "いくら", "back": "how much", "romaji": "ikura" },
+        { "front": "～えん", "back": ". . . yen", "romaji": "en" },
+        { "front": "たかい", "back": "expensive; high", "romaji": "takai" },
+        {
+          "front": "いらっしゃいませ",
+          "back": "Welcome (to our store).",
+          "romaji": "irasshaimase"
+        },
+        {
+          "front": "（～を）おねがいします",
+          "back": ". . . , please.",
+          "romaji": "onegaishimasu"
+        },
+        {
+          "front": "（～を）ください",
+          "back": "Please give me . . .",
+          "romaji": "kudasai"
+        },
         {
           "front": "じゃあ",
-          "back": "then . . . ; if that is the case, . . ."
+          "back": "then . . . ; if that is the case, . . .",
+          "romaji": "jaa"
         },
-        { "front": "どうぞ", "back": "Please.; Here it is." },
-        { "front": "どうも", "back": "Thank you." }
+        {
+          "front": "どうぞ",
+          "back": "Please.; Here it is.",
+          "romaji": "douzo"
+        },
+        { "front": "どうも", "back": "Thank you.", "romaji": "doumo" }
       ]
     },
     {
       "id": "lesson-3-kanji",
       "title": "Lesson 3: Kanji",
       "cards": [
-        { "front": "一", "back": "いち (one)" },
-        { "front": "一時", "back": "いちじ (one o'clock)" },
-        { "front": "二", "back": "に (two)" },
-        { "front": "二時", "back": "にじ (two o'clock)" },
-        { "front": "三", "back": "さん (three)" },
-        { "front": "三時", "back": "さんじ (three o'clock)" },
-        { "front": "四", "back": "よん (four)" },
-        { "front": "四時", "back": "よじ (four o'clock)" },
-        { "front": "五", "back": "ご (five)" },
-        { "front": "五時", "back": "ごじ (five o'clock)" },
-        { "front": "六", "back": "ろく (six)" },
-        { "front": "六時", "back": "ろくじ (six o'clock)" },
-        { "front": "六百", "back": "ろっぴゃく (six hundred)" },
-        { "front": "七", "back": "しち／なな (seven)" },
-        { "front": "七時", "back": "しちじ (seven o'clock)" },
-        { "front": "八", "back": "はち (eight)" },
-        { "front": "八時", "back": "はちじ (eight o'clock)" },
-        { "front": "八百", "back": "はっぴゃく (eight hundred)" },
-        { "front": "九", "back": "きゅう (nine)" },
-        { "front": "九時", "back": "くじ (nine o'clock)" },
-        { "front": "十", "back": "じゅう (ten)" },
-        { "front": "十時", "back": "じゅうじ (ten o'clock)" },
-        { "front": "百", "back": "ひゃく (one hundred)" },
-        { "front": "三百", "back": "さんびゃく (three hundred)" },
-        { "front": "千", "back": "せん (one thousand)" },
-        { "front": "三千", "back": "さんぜん (three thousand)" },
-        { "front": "八千", "back": "はっせん (eight thousand)" },
-        { "front": "千円", "back": "せんえん (one thousand yen)" },
-        { "front": "一万", "back": "いちまん (ten thousand)" },
-        { "front": "十万", "back": "じゅうまん (one hundred thousand)" },
-        { "front": "百万", "back": "ひゃくまん (one million)" },
-        { "front": "百円", "back": "ひゃくえん (one hundred yen)" }
+        { "front": "一", "back": "いち (one)", "romaji": "ichi" },
+        { "front": "一時", "back": "いちじ (one o'clock)", "romaji": "ichiji" },
+        { "front": "二", "back": "に (two)", "romaji": "ni" },
+        { "front": "二時", "back": "にじ (two o'clock)", "romaji": "niji" },
+        { "front": "三", "back": "さん (three)", "romaji": "san" },
+        {
+          "front": "三時",
+          "back": "さんじ (three o'clock)",
+          "romaji": "sanji"
+        },
+        { "front": "四", "back": "よん (four)", "romaji": "yon" },
+        { "front": "四時", "back": "よじ (four o'clock)", "romaji": "yoji" },
+        { "front": "五", "back": "ご (five)", "romaji": "go" },
+        { "front": "五時", "back": "ごじ (five o'clock)", "romaji": "goji" },
+        { "front": "六", "back": "ろく (six)", "romaji": "roku" },
+        { "front": "六時", "back": "ろくじ (six o'clock)", "romaji": "rokuji" },
+        {
+          "front": "六百",
+          "back": "ろっぴゃく (six hundred)",
+          "romaji": "roppyaku"
+        },
+        {
+          "front": "七",
+          "back": "しち／なな (seven)",
+          "romaji": "shichi/nana"
+        },
+        {
+          "front": "七時",
+          "back": "しちじ (seven o'clock)",
+          "romaji": "shichiji"
+        },
+        { "front": "八", "back": "はち (eight)", "romaji": "hachi" },
+        {
+          "front": "八時",
+          "back": "はちじ (eight o'clock)",
+          "romaji": "hachiji"
+        },
+        {
+          "front": "八百",
+          "back": "はっぴゃく (eight hundred)",
+          "romaji": "happyaku"
+        },
+        { "front": "九", "back": "きゅう (nine)", "romaji": "kyuu" },
+        { "front": "九時", "back": "くじ (nine o'clock)", "romaji": "kuji" },
+        { "front": "十", "back": "じゅう (ten)", "romaji": "juu" },
+        {
+          "front": "十時",
+          "back": "じゅうじ (ten o'clock)",
+          "romaji": "juuji"
+        },
+        { "front": "百", "back": "ひゃく (one hundred)", "romaji": "hyaku" },
+        {
+          "front": "三百",
+          "back": "さんびゃく (three hundred)",
+          "romaji": "sanbyaku"
+        },
+        { "front": "千", "back": "せん (one thousand)", "romaji": "sen" },
+        {
+          "front": "三千",
+          "back": "さんぜん (three thousand)",
+          "romaji": "sanzen"
+        },
+        {
+          "front": "八千",
+          "back": "はっせん (eight thousand)",
+          "romaji": "hassen"
+        },
+        {
+          "front": "千円",
+          "back": "せんえん (one thousand yen)",
+          "romaji": "senen"
+        },
+        {
+          "front": "一万",
+          "back": "いちまん (ten thousand)",
+          "romaji": "ichiman"
+        },
+        {
+          "front": "十万",
+          "back": "じゅうまん (one hundred thousand)",
+          "romaji": "juuman"
+        },
+        {
+          "front": "百万",
+          "back": "ひゃくまん (one million)",
+          "romaji": "hyakuman"
+        },
+        {
+          "front": "百円",
+          "back": "ひゃくえん (one hundred yen)",
+          "romaji": "hyakuen"
+        }
       ]
     },
     {
       "id": "lesson-3-vocab",
       "title": "Lesson 3: Vocabulary",
       "cards": [
-        { "front": "えいが", "back": "movie" },
-        { "front": "おんがく", "back": "music" },
-        { "front": "ざっし", "back": "magazine" },
-        { "front": "スポーツ", "back": "sports" },
-        { "front": "デート", "back": "date (romantic, not calendar)" },
-        { "front": "テニス", "back": "tennis" },
-        { "front": "テレビ", "back": "TV" },
-        { "front": "アイスクリーム", "back": "ice cream" },
-        { "front": "ハンバーガー", "back": "hamburger" },
-        { "front": "おさけ", "back": "sake; alcoholic drink" },
-        { "front": "おちゃ", "back": "green tea" },
-        { "front": "コーヒー", "back": "coffee" },
-        { "front": "みず", "back": "water" },
-        { "front": "あさごはん", "back": "breakfast" },
-        { "front": "ひるごはん", "back": "lunch" },
-        { "front": "ばんごはん", "back": "dinner" },
-        { "front": "いえ", "back": "home; house" },
-        { "front": "うち", "back": "home; house; my place" },
-        { "front": "がっこう", "back": "school" },
-        { "front": "カフェ", "back": "cafe" },
-        { "front": "あした", "back": "tomorrow" },
-        { "front": "きょう", "back": "today" },
-        { "front": "あさ", "back": "morning" },
-        { "front": "こんばん", "back": "tonight" },
-        { "front": "まいにち", "back": "every day" },
-        { "front": "まいばん", "back": "every night" },
-        { "front": "しゅうまつ", "back": "weekend" },
-        { "front": "どようび", "back": "Saturday" },
-        { "front": "にちようび", "back": "Sunday" },
-        { "front": "いつ", "back": "when" },
-        { "front": "～ごろ", "back": "at about . . ." },
-        { "front": "いく", "back": "to go" },
-        { "front": "かえる", "back": "to go back; to return" },
-        { "front": "きく", "back": "to listen; to hear" },
-        { "front": "のむ", "back": "to drink" },
-        { "front": "はなす", "back": "to speak; to talk" },
-        { "front": "よむ", "back": "to read" },
-        { "front": "おきる", "back": "to get up" },
-        { "front": "たべる", "back": "to eat" },
-        { "front": "ねる", "back": "to sleep; to go to sleep" },
-        { "front": "みる", "back": "to see; to look at; to watch" },
-        { "front": "くる", "back": "to come" },
-        { "front": "する", "back": "to do" },
-        { "front": "べんきょうする", "back": "to study" },
-        { "front": "いい", "back": "good" },
-        { "front": "はやい", "back": "early" },
-        { "front": "あまり ＋ negative", "back": "not much" },
-        { "front": "ぜんぜん ＋ negative", "back": "not at all" },
-        { "front": "たいてい", "back": "usually" },
-        { "front": "ちょっと", "back": "a little" },
-        { "front": "ときどき", "back": "sometimes" },
-        { "front": "よく", "back": "often; much" },
-        { "front": "そうですね", "back": "That's right.; Let me see." },
-        { "front": "でも", "back": "but" },
-        { "front": "どうですか", "back": "How about . . . ?; How is . . . ?" },
-        { "front": "ええ", "back": "yes" }
+        { "front": "えいが", "back": "movie", "romaji": "eiga" },
+        { "front": "おんがく", "back": "music", "romaji": "ongaku" },
+        { "front": "ざっし", "back": "magazine", "romaji": "zasshi" },
+        { "front": "スポーツ", "back": "sports", "romaji": "supootsu" },
+        {
+          "front": "デート",
+          "back": "date (romantic, not calendar)",
+          "romaji": "deeto"
+        },
+        { "front": "テニス", "back": "tennis", "romaji": "tenisu" },
+        { "front": "テレビ", "back": "TV", "romaji": "terebi" },
+        {
+          "front": "アイスクリーム",
+          "back": "ice cream",
+          "romaji": "aisukuriimu"
+        },
+        { "front": "ハンバーガー", "back": "hamburger", "romaji": "hanbaagaa" },
+        {
+          "front": "おさけ",
+          "back": "sake; alcoholic drink",
+          "romaji": "osake"
+        },
+        { "front": "おちゃ", "back": "green tea", "romaji": "ocha" },
+        { "front": "コーヒー", "back": "coffee", "romaji": "koohii" },
+        { "front": "みず", "back": "water", "romaji": "mizu" },
+        { "front": "あさごはん", "back": "breakfast", "romaji": "asagohan" },
+        { "front": "ひるごはん", "back": "lunch", "romaji": "hirugohan" },
+        { "front": "ばんごはん", "back": "dinner", "romaji": "bangohan" },
+        { "front": "いえ", "back": "home; house", "romaji": "ie" },
+        { "front": "うち", "back": "home; house; my place", "romaji": "uchi" },
+        { "front": "がっこう", "back": "school", "romaji": "gakkou" },
+        { "front": "カフェ", "back": "cafe", "romaji": "kafe" },
+        { "front": "あした", "back": "tomorrow", "romaji": "ashita" },
+        { "front": "きょう", "back": "today", "romaji": "kyou" },
+        { "front": "あさ", "back": "morning", "romaji": "asa" },
+        { "front": "こんばん", "back": "tonight", "romaji": "konban" },
+        { "front": "まいにち", "back": "every day", "romaji": "mainichi" },
+        { "front": "まいばん", "back": "every night", "romaji": "maiban" },
+        { "front": "しゅうまつ", "back": "weekend", "romaji": "shuumatsu" },
+        { "front": "どようび", "back": "Saturday", "romaji": "doyoubi" },
+        { "front": "にちようび", "back": "Sunday", "romaji": "nichiyoubi" },
+        { "front": "いつ", "back": "when", "romaji": "itsu" },
+        { "front": "～ごろ", "back": "at about . . .", "romaji": "goro" },
+        { "front": "いく", "back": "to go", "romaji": "iku" },
+        {
+          "front": "かえる",
+          "back": "to go back; to return",
+          "romaji": "kaeru"
+        },
+        { "front": "きく", "back": "to listen; to hear", "romaji": "kiku" },
+        { "front": "のむ", "back": "to drink", "romaji": "nomu" },
+        { "front": "はなす", "back": "to speak; to talk", "romaji": "hanasu" },
+        { "front": "よむ", "back": "to read", "romaji": "yomu" },
+        { "front": "おきる", "back": "to get up", "romaji": "okiru" },
+        { "front": "たべる", "back": "to eat", "romaji": "taberu" },
+        {
+          "front": "ねる",
+          "back": "to sleep; to go to sleep",
+          "romaji": "neru"
+        },
+        {
+          "front": "みる",
+          "back": "to see; to look at; to watch",
+          "romaji": "miru"
+        },
+        { "front": "くる", "back": "to come", "romaji": "kuru" },
+        { "front": "する", "back": "to do", "romaji": "suru" },
+        {
+          "front": "べんきょうする",
+          "back": "to study",
+          "romaji": "benkyousuru"
+        },
+        { "front": "いい", "back": "good", "romaji": "ii" },
+        { "front": "はやい", "back": "early", "romaji": "hayai" },
+        {
+          "front": "あまり ＋ negative",
+          "back": "not much",
+          "romaji": "amari"
+        },
+        {
+          "front": "ぜんぜん ＋ negative",
+          "back": "not at all",
+          "romaji": "zenzen"
+        },
+        { "front": "たいてい", "back": "usually", "romaji": "taitei" },
+        { "front": "ちょっと", "back": "a little", "romaji": "chotto" },
+        { "front": "ときどき", "back": "sometimes", "romaji": "tokidoki" },
+        { "front": "よく", "back": "often; much", "romaji": "yoku" },
+        {
+          "front": "そうですね",
+          "back": "That's right.; Let me see.",
+          "romaji": "soudesune"
+        },
+        { "front": "でも", "back": "but", "romaji": "demo" },
+        {
+          "front": "どうですか",
+          "back": "How about . . . ?; How is . . . ?",
+          "romaji": "doudesuka"
+        },
+        { "front": "ええ", "back": "yes", "romaji": "ee" }
       ]
     },
     {
       "id": "lesson-3-verb-masu",
       "title": "Lesson 3: Verb Masu-form",
       "cards": [
-        { "front": "いく（to go）", "back": "いきます" },
-        { "front": "くる（to come）", "back": "きます" },
-        { "front": "みる（to see; to look at; to watch）", "back": "みます" },
-        { "front": "たべる（to eat）", "back": "たべます" },
-        { "front": "かえる（to go back; to return）", "back": "かえります" },
-        { "front": "きく（to listen; to hear）", "back": "ききます" },
-        { "front": "のむ（to drink）", "back": "のみます" },
-        { "front": "はなす（to speak; to talk）", "back": "はなします" },
-        { "front": "ねる（to sleep; to go to sleep）", "back": "ねます" },
-        { "front": "する（to do）", "back": "します" },
-        { "front": "よむ（to read）", "back": "よみます" },
-        { "front": "おきる（to get up）", "back": "おきます" },
-        { "front": "べんきょうする（to study）", "back": "べんきょうします" }
+        { "front": "いく（to go）", "back": "いきます", "romaji": "iku" },
+        { "front": "くる（to come）", "back": "きます", "romaji": "kuru" },
+        {
+          "front": "みる（to see; to look at; to watch）",
+          "back": "みます",
+          "romaji": "miru"
+        },
+        { "front": "たべる（to eat）", "back": "たべます", "romaji": "taberu" },
+        {
+          "front": "かえる（to go back; to return）",
+          "back": "かえります",
+          "romaji": "kaeru"
+        },
+        {
+          "front": "きく（to listen; to hear）",
+          "back": "ききます",
+          "romaji": "kiku"
+        },
+        { "front": "のむ（to drink）", "back": "のみます", "romaji": "nomu" },
+        {
+          "front": "はなす（to speak; to talk）",
+          "back": "はなします",
+          "romaji": "hanasu"
+        },
+        {
+          "front": "ねる（to sleep; to go to sleep）",
+          "back": "ねます",
+          "romaji": "neru"
+        },
+        { "front": "する（to do）", "back": "します", "romaji": "suru" },
+        { "front": "よむ（to read）", "back": "よみます", "romaji": "yomu" },
+        {
+          "front": "おきる（to get up）",
+          "back": "おきます",
+          "romaji": "okiru"
+        },
+        {
+          "front": "べんきょうする（to study）",
+          "back": "べんきょうします",
+          "romaji": "benkyousuru"
+        }
       ]
     },
     {
       "id": "lesson-4-kanji",
       "title": "Lesson 4: Kanji",
       "cards": [
-        { "front": "日本", "back": "にほん (Japan)" },
-        { "front": "日曜日", "back": "にちようび (Sunday)" },
-        { "front": "本", "back": "ほん (book)" },
-        { "front": "日本人", "back": "にほんじん (Japanese person)" },
-        { "front": "一人で", "back": "ひとりで (alone)" },
-        { "front": "この人", "back": "このひと (this person)" },
-        { "front": "月曜日", "back": "げつようび (Monday)" },
-        { "front": "一月", "back": "いちがつ (January)" },
-        { "front": "火曜日", "back": "かようび (Tuesday)" },
-        { "front": "水曜日", "back": "すいようび (Wednesday)" },
-        { "front": "水", "back": "みず (water)" },
-        { "front": "木曜日", "back": "もくようび (Thursday)" },
-        { "front": "金曜日", "back": "きんようび (Friday)" },
-        { "front": "土曜日", "back": "どようび (Saturday)" },
-        { "front": "上", "back": "うえ (above; on)" },
-        { "front": "下", "back": "した (below; under)" },
-        { "front": "中", "back": "なか (inside; middle)" },
-        { "front": "三時半", "back": "さんじはん (half past three)" }
+        { "front": "日本", "back": "にほん (Japan)", "romaji": "nihon" },
+        {
+          "front": "日曜日",
+          "back": "にちようび (Sunday)",
+          "romaji": "nichiyoubi"
+        },
+        { "front": "本", "back": "ほん (book)", "romaji": "hon" },
+        {
+          "front": "日本人",
+          "back": "にほんじん (Japanese person)",
+          "romaji": "nihonjin"
+        },
+        { "front": "一人で", "back": "ひとりで (alone)", "romaji": "hitoride" },
+        {
+          "front": "この人",
+          "back": "このひと (this person)",
+          "romaji": "konohito"
+        },
+        {
+          "front": "月曜日",
+          "back": "げつようび (Monday)",
+          "romaji": "getsuyoubi"
+        },
+        {
+          "front": "一月",
+          "back": "いちがつ (January)",
+          "romaji": "ichigatsu"
+        },
+        {
+          "front": "火曜日",
+          "back": "かようび (Tuesday)",
+          "romaji": "kayoubi"
+        },
+        {
+          "front": "水曜日",
+          "back": "すいようび (Wednesday)",
+          "romaji": "suiyoubi"
+        },
+        { "front": "水", "back": "みず (water)", "romaji": "mizu" },
+        {
+          "front": "木曜日",
+          "back": "もくようび (Thursday)",
+          "romaji": "mokuyoubi"
+        },
+        {
+          "front": "金曜日",
+          "back": "きんようび (Friday)",
+          "romaji": "kinyoubi"
+        },
+        {
+          "front": "土曜日",
+          "back": "どようび (Saturday)",
+          "romaji": "doyoubi"
+        },
+        { "front": "上", "back": "うえ (above; on)", "romaji": "ue" },
+        { "front": "下", "back": "した (below; under)", "romaji": "shita" },
+        { "front": "中", "back": "なか (inside; middle)", "romaji": "naka" },
+        {
+          "front": "三時半",
+          "back": "さんじはん (half past three)",
+          "romaji": "sanjihan"
+        }
       ]
     },
     {
       "id": "lesson-4-vocab",
       "title": "Lesson 4: Vocabulary",
       "cards": [
-        { "front": "ゲーム", "back": "game" },
-        { "front": "アルバイト", "back": "part-time job" },
-        { "front": "かいもの", "back": "shopping" },
-        { "front": "クラス", "back": "class" },
-        { "front": "いぬ", "back": "dog" },
-        { "front": "ねこ", "back": "cat" },
-        { "front": "ひと", "back": "person" },
-        { "front": "こども", "back": "child" },
-        { "front": "あなた", "back": "you" },
-        { "front": "いす", "back": "chair" },
-        { "front": "つくえ", "back": "desk" },
-        { "front": "しゃしん", "back": "picture; photograph" },
-        { "front": "はな", "back": "flower" },
-        { "front": "レポート", "back": "(term) paper" },
-        { "front": "ごはん", "back": "rice; meal" },
-        { "front": "パン", "back": "bread" },
-        { "front": "おてら", "back": "temple" },
-        { "front": "こうえん", "back": "park" },
-        { "front": "スーパー", "back": "supermarket" },
-        { "front": "バスてい", "back": "bus stop" },
-        { "front": "びょういん", "back": "hospital" },
-        { "front": "ホテル", "back": "hotel" },
-        { "front": "ほんや", "back": "bookstore" },
-        { "front": "まち", "back": "town; city" },
-        { "front": "レストラン", "back": "restaurant" },
-        { "front": "きのう", "back": "yesterday" },
-        { "front": "～じかん", "back": ". . . hours" },
-        { "front": "いちじかん", "back": "one hour" },
-        { "front": "せんしゅう", "back": "last week" },
-        { "front": "とき", "back": "when . . . ; at the time of . . ." },
-        { "front": "げつようび", "back": "Monday" },
-        { "front": "かようび", "back": "Tuesday" },
-        { "front": "すいようび", "back": "Wednesday" },
-        { "front": "もくようび", "back": "Thursday" },
-        { "front": "きんようび", "back": "Friday" },
-        { "front": "あう", "back": "to meet; to see (a person)" },
-        { "front": "ある", "back": "there is . . ." },
-        { "front": "かう", "back": "to buy" },
-        { "front": "かく", "back": "to write" },
-        { "front": "とる", "back": "to take (a picture)" },
-        { "front": "まつ", "back": "to wait" },
-        { "front": "わかる", "back": "to understand" },
-        { "front": "いる", "back": "(a person) is in . . . ; stays at . . ." },
-        { "front": "～ぐらい", "back": "about (approximate measurement)" },
-        { "front": "ごめんなさい", "back": "I'm sorry." },
-        { "front": "それから", "back": "and then" },
-        { "front": "だから", "back": "so; therefore" },
-        { "front": "たくさん", "back": "many; a lot" },
-        { "front": "～と", "back": "together with (a person); and" },
-        { "front": "どうして", "back": "why" },
-        { "front": "ひとりで", "back": "alone" },
-        { "front": "もしもし", "back": "Hello? (used on the phone)" },
-        { "front": "みぎ", "back": "right" },
-        { "front": "ひだり", "back": "left" },
-        { "front": "まえ", "back": "front" },
-        { "front": "うしろ", "back": "back" },
-        { "front": "なか", "back": "inside" },
-        { "front": "うえ", "back": "on" },
-        { "front": "した", "back": "under" },
-        { "front": "ちかく", "back": "near; nearby" },
-        { "front": "となり", "back": "next" },
-        { "front": "あいだ", "back": "between" }
+        { "front": "ゲーム", "back": "game", "romaji": "geemu" },
+        {
+          "front": "アルバイト",
+          "back": "part-time job",
+          "romaji": "arubaito"
+        },
+        { "front": "かいもの", "back": "shopping", "romaji": "kaimono" },
+        { "front": "クラス", "back": "class", "romaji": "kurasu" },
+        { "front": "いぬ", "back": "dog", "romaji": "inu" },
+        { "front": "ねこ", "back": "cat", "romaji": "neko" },
+        { "front": "ひと", "back": "person", "romaji": "hito" },
+        { "front": "こども", "back": "child", "romaji": "kodomo" },
+        { "front": "あなた", "back": "you", "romaji": "anata" },
+        { "front": "いす", "back": "chair", "romaji": "isu" },
+        { "front": "つくえ", "back": "desk", "romaji": "tsukue" },
+        {
+          "front": "しゃしん",
+          "back": "picture; photograph",
+          "romaji": "shashin"
+        },
+        { "front": "はな", "back": "flower", "romaji": "hana" },
+        { "front": "レポート", "back": "(term) paper", "romaji": "repooto" },
+        { "front": "ごはん", "back": "rice; meal", "romaji": "gohan" },
+        { "front": "パン", "back": "bread", "romaji": "pan" },
+        { "front": "おてら", "back": "temple", "romaji": "otera" },
+        { "front": "こうえん", "back": "park", "romaji": "kouen" },
+        { "front": "スーパー", "back": "supermarket", "romaji": "suupaa" },
+        { "front": "バスてい", "back": "bus stop", "romaji": "basutei" },
+        { "front": "びょういん", "back": "hospital", "romaji": "byouin" },
+        { "front": "ホテル", "back": "hotel", "romaji": "hoteru" },
+        { "front": "ほんや", "back": "bookstore", "romaji": "honya" },
+        { "front": "まち", "back": "town; city", "romaji": "machi" },
+        { "front": "レストラン", "back": "restaurant", "romaji": "resutoran" },
+        { "front": "きのう", "back": "yesterday", "romaji": "kinou" },
+        { "front": "～じかん", "back": ". . . hours", "romaji": "jikan" },
+        { "front": "いちじかん", "back": "one hour", "romaji": "ichijikan" },
+        { "front": "せんしゅう", "back": "last week", "romaji": "senshuu" },
+        {
+          "front": "とき",
+          "back": "when . . . ; at the time of . . .",
+          "romaji": "toki"
+        },
+        { "front": "げつようび", "back": "Monday", "romaji": "getsuyoubi" },
+        { "front": "かようび", "back": "Tuesday", "romaji": "kayoubi" },
+        { "front": "すいようび", "back": "Wednesday", "romaji": "suiyoubi" },
+        { "front": "もくようび", "back": "Thursday", "romaji": "mokuyoubi" },
+        { "front": "きんようび", "back": "Friday", "romaji": "kinyoubi" },
+        {
+          "front": "あう",
+          "back": "to meet; to see (a person)",
+          "romaji": "au"
+        },
+        { "front": "ある", "back": "there is . . .", "romaji": "aru" },
+        { "front": "かう", "back": "to buy", "romaji": "kau" },
+        { "front": "かく", "back": "to write", "romaji": "kaku" },
+        { "front": "とる", "back": "to take (a picture)", "romaji": "toru" },
+        { "front": "まつ", "back": "to wait", "romaji": "matsu" },
+        { "front": "わかる", "back": "to understand", "romaji": "wakaru" },
+        {
+          "front": "いる",
+          "back": "(a person) is in . . . ; stays at . . .",
+          "romaji": "iru"
+        },
+        {
+          "front": "～ぐらい",
+          "back": "about (approximate measurement)",
+          "romaji": "gurai"
+        },
+        {
+          "front": "ごめんなさい",
+          "back": "I'm sorry.",
+          "romaji": "gomennasai"
+        },
+        { "front": "それから", "back": "and then", "romaji": "sorekara" },
+        { "front": "だから", "back": "so; therefore", "romaji": "dakara" },
+        { "front": "たくさん", "back": "many; a lot", "romaji": "takusan" },
+        {
+          "front": "～と",
+          "back": "together with (a person); and",
+          "romaji": "to"
+        },
+        { "front": "どうして", "back": "why", "romaji": "doushite" },
+        { "front": "ひとりで", "back": "alone", "romaji": "hitoride" },
+        {
+          "front": "もしもし",
+          "back": "Hello? (used on the phone)",
+          "romaji": "moshimoshi"
+        },
+        { "front": "みぎ", "back": "right", "romaji": "migi" },
+        { "front": "ひだり", "back": "left", "romaji": "hidari" },
+        { "front": "まえ", "back": "front", "romaji": "mae" },
+        { "front": "うしろ", "back": "back", "romaji": "ushiro" },
+        { "front": "なか", "back": "inside", "romaji": "naka" },
+        { "front": "うえ", "back": "on", "romaji": "ue" },
+        { "front": "した", "back": "under", "romaji": "shita" },
+        { "front": "ちかく", "back": "near; nearby", "romaji": "chikaku" },
+        { "front": "となり", "back": "next", "romaji": "tonari" },
+        { "front": "あいだ", "back": "between", "romaji": "aida" }
       ]
     },
     {
       "id": "lesson-5-kanji",
       "title": "Lesson 5: Kanji",
       "cards": [
-        { "front": "山", "back": "やま (mountain)" },
-        { "front": "山川さん", "back": "やまかわさん (Mr./Ms. Yamakawa)" },
-        { "front": "川", "back": "かわ (river)" },
-        { "front": "元気な", "back": "げんきな (healthy; energetic)" },
-        { "front": "天気", "back": "てんき (weather)" },
-        { "front": "私", "back": "わたし (I; me)" },
-        { "front": "今", "back": "いま (now)" },
-        { "front": "今日", "back": "きょう (today)" },
-        { "front": "田中さん", "back": "たなかさん (Mr./Ms. Tanaka)" },
-        { "front": "山田さん", "back": "やまださん (Mr./Ms. Yamada)" },
-        { "front": "女の人", "back": "おんなのひと (woman)" },
-        { "front": "男の人", "back": "おとこのひと (man)" },
-        { "front": "見る", "back": "みる (to see; to watch)" },
-        { "front": "行く", "back": "いく (to go)" },
-        { "front": "食べる", "back": "たべる (to eat)" },
-        { "front": "飲む", "back": "のむ (to drink)" }
+        { "front": "山", "back": "やま (mountain)", "romaji": "yama" },
+        {
+          "front": "山川さん",
+          "back": "やまかわさん (Mr./Ms. Yamakawa)",
+          "romaji": "yamakawasan"
+        },
+        { "front": "川", "back": "かわ (river)", "romaji": "kawa" },
+        {
+          "front": "元気な",
+          "back": "げんきな (healthy; energetic)",
+          "romaji": "genkina"
+        },
+        { "front": "天気", "back": "てんき (weather)", "romaji": "tenki" },
+        { "front": "私", "back": "わたし (I; me)", "romaji": "watashi" },
+        { "front": "今", "back": "いま (now)", "romaji": "ima" },
+        { "front": "今日", "back": "きょう (today)", "romaji": "kyou" },
+        {
+          "front": "田中さん",
+          "back": "たなかさん (Mr./Ms. Tanaka)",
+          "romaji": "tanakasan"
+        },
+        {
+          "front": "山田さん",
+          "back": "やまださん (Mr./Ms. Yamada)",
+          "romaji": "yamadasan"
+        },
+        {
+          "front": "女の人",
+          "back": "おんなのひと (woman)",
+          "romaji": "onnanohito"
+        },
+        {
+          "front": "男の人",
+          "back": "おとこのひと (man)",
+          "romaji": "otokonohito"
+        },
+        {
+          "front": "見る",
+          "back": "みる (to see; to watch)",
+          "romaji": "miru"
+        },
+        { "front": "行く", "back": "いく (to go)", "romaji": "iku" },
+        { "front": "食べる", "back": "たべる (to eat)", "romaji": "taberu" },
+        { "front": "飲む", "back": "のむ (to drink)", "romaji": "nomu" }
       ]
     },
     {
@@ -412,101 +775,262 @@
       "cards": [
         {
           "front": "おもしろい（interesting; funny）",
-          "back": "おもしろくないです"
+          "back": "おもしろくないです",
+          "romaji": "omoshiroi"
         },
-        { "front": "たのしい（fun）", "back": "たのしくないです" },
+        {
+          "front": "たのしい（fun）",
+          "back": "たのしくないです",
+          "romaji": "tanoshii"
+        },
         {
           "front": "げんきな（healthy; energetic）",
-          "back": "げんきじゃないです"
+          "back": "げんきじゃないです",
+          "romaji": "genkina"
         },
-        { "front": "あたらしい（new）", "back": "あたらしくないです" },
-        { "front": "たかい（expensive; high）", "back": "たかくないです" },
+        {
+          "front": "あたらしい（new）",
+          "back": "あたらしくないです",
+          "romaji": "atarashii"
+        },
+        {
+          "front": "たかい（expensive; high）",
+          "back": "たかくないです",
+          "romaji": "takai"
+        },
         {
           "front": "きらいな（disgusted with; to dislike）",
-          "back": "きらいじゃないです"
+          "back": "きらいじゃないです",
+          "romaji": "kiraina"
         },
-        { "front": "おおきい（large）", "back": "おおきくないです" },
-        { "front": "いい（good）", "back": "よくないです" },
-        { "front": "ふるい（old (thing)）", "back": "ふるくないです" },
-        { "front": "しずかな（quiet）", "back": "しずかじゃないです" },
-        { "front": "さむい（cold (weather)）", "back": "さむくないです" },
+        {
+          "front": "おおきい（large）",
+          "back": "おおきくないです",
+          "romaji": "ookii"
+        },
+        { "front": "いい（good）", "back": "よくないです", "romaji": "ii" },
+        {
+          "front": "ふるい（old (thing)）",
+          "back": "ふるくないです",
+          "romaji": "furui"
+        },
+        {
+          "front": "しずかな（quiet）",
+          "back": "しずかじゃないです",
+          "romaji": "shizukana"
+        },
+        {
+          "front": "さむい（cold (weather)）",
+          "back": "さむくないです",
+          "romaji": "samui"
+        },
         {
           "front": "ひまな（not busy; free (time)）",
-          "back": "ひまじゃないです"
+          "back": "ひまじゃないです",
+          "romaji": "himana"
         },
-        { "front": "むずかしい（difficult）", "back": "むずかしくないです" },
-        { "front": "あつい（hot）", "back": "あつくないです" },
-        { "front": "おいしい（delicious）", "back": "おいしくないです" },
-        { "front": "にぎやかな（lively）", "back": "にぎやかじゃないです" },
-        { "front": "かっこいい（good-looking）", "back": "かっこよくないです" },
+        {
+          "front": "むずかしい（difficult）",
+          "back": "むずかしくないです",
+          "romaji": "muzukashii"
+        },
+        {
+          "front": "あつい（hot）",
+          "back": "あつくないです",
+          "romaji": "atsui"
+        },
+        {
+          "front": "おいしい（delicious）",
+          "back": "おいしくないです",
+          "romaji": "oishii"
+        },
+        {
+          "front": "にぎやかな（lively）",
+          "back": "にぎやかじゃないです",
+          "romaji": "nigiyakana"
+        },
+        {
+          "front": "かっこいい（good-looking）",
+          "back": "かっこよくないです",
+          "romaji": "kakkoii"
+        },
         {
           "front": "やさしい（easy (problem); kind (person)）",
-          "back": "やさしくないです"
+          "back": "やさしくないです",
+          "romaji": "yasashii"
         },
         {
           "front": "きれいな（beautiful; clean）",
-          "back": "きれいじゃないです"
+          "back": "きれいじゃないです",
+          "romaji": "kireina"
         },
-        { "front": "ちいさい（small）", "back": "ちいさくないです" },
-        { "front": "はやい（early）", "back": "はやくないです" },
-        { "front": "こわい（frightening）", "back": "こわくないです" },
+        {
+          "front": "ちいさい（small）",
+          "back": "ちいさくないです",
+          "romaji": "chiisai"
+        },
+        {
+          "front": "はやい（early）",
+          "back": "はやくないです",
+          "romaji": "hayai"
+        },
+        {
+          "front": "こわい（frightening）",
+          "back": "こわくないです",
+          "romaji": "kowai"
+        },
         {
           "front": "やすい（inexpensive; cheap (thing)）",
-          "back": "やすくないです"
+          "back": "やすくないです",
+          "romaji": "yasui"
         },
-        { "front": "すきな（fond of; to like）", "back": "すきじゃないです" },
+        {
+          "front": "すきな（fond of; to like）",
+          "back": "すきじゃないです",
+          "romaji": "sukina"
+        },
         {
           "front": "いそがしい（busy (people/days)）",
-          "back": "いそがしくないです"
+          "back": "いそがしくないです",
+          "romaji": "isogashii"
         },
-        { "front": "つまらない（boring）", "back": "つまらなくないです" }
+        {
+          "front": "つまらない（boring）",
+          "back": "つまらなくないです",
+          "romaji": "tsumaranai"
+        }
       ]
     },
     {
       "id": "lesson-5-2-adj-past-affirmative",
       "title": "Lesson 5-2: Adjective Past Affirmative",
       "cards": [
-        { "front": "おいしい（delicious）", "back": "おいしかったです" },
-        { "front": "にぎやかな（lively）", "back": "にぎやかでした" },
-        { "front": "おおきい（large）", "back": "おおきかったです" },
-        { "front": "いい（good）", "back": "よかったです" },
-        { "front": "はやい（early）", "back": "はやかったです" },
-        { "front": "こわい（frightening）", "back": "こわかったです" },
-        { "front": "たかい（expensive; high）", "back": "たかかったです" },
-        { "front": "たのしい（fun）", "back": "たのしかったです" },
+        {
+          "front": "おいしい（delicious）",
+          "back": "おいしかったです",
+          "romaji": "oishii"
+        },
+        {
+          "front": "にぎやかな（lively）",
+          "back": "にぎやかでした",
+          "romaji": "nigiyakana"
+        },
+        {
+          "front": "おおきい（large）",
+          "back": "おおきかったです",
+          "romaji": "ookii"
+        },
+        { "front": "いい（good）", "back": "よかったです", "romaji": "ii" },
+        {
+          "front": "はやい（early）",
+          "back": "はやかったです",
+          "romaji": "hayai"
+        },
+        {
+          "front": "こわい（frightening）",
+          "back": "こわかったです",
+          "romaji": "kowai"
+        },
+        {
+          "front": "たかい（expensive; high）",
+          "back": "たかかったです",
+          "romaji": "takai"
+        },
+        {
+          "front": "たのしい（fun）",
+          "back": "たのしかったです",
+          "romaji": "tanoshii"
+        },
         {
           "front": "やすい（inexpensive; cheap (thing)）",
-          "back": "やすかったです"
+          "back": "やすかったです",
+          "romaji": "yasui"
         },
-        { "front": "げんきな（healthy; energetic）", "back": "げんきでした" },
-        { "front": "ふるい（old (thing)）", "back": "ふるかったです" },
-        { "front": "あたらしい（new）", "back": "あたらしかったです" },
-        { "front": "つまらない（boring）", "back": "つまらなかったです" },
-        { "front": "しずかな（quiet）", "back": "しずかでした" },
+        {
+          "front": "げんきな（healthy; energetic）",
+          "back": "げんきでした",
+          "romaji": "genkina"
+        },
+        {
+          "front": "ふるい（old (thing)）",
+          "back": "ふるかったです",
+          "romaji": "furui"
+        },
+        {
+          "front": "あたらしい（new）",
+          "back": "あたらしかったです",
+          "romaji": "atarashii"
+        },
+        {
+          "front": "つまらない（boring）",
+          "back": "つまらなかったです",
+          "romaji": "tsumaranai"
+        },
+        {
+          "front": "しずかな（quiet）",
+          "back": "しずかでした",
+          "romaji": "shizukana"
+        },
         {
           "front": "いそがしい（busy (people/days)）",
-          "back": "いそがしかったです"
+          "back": "いそがしかったです",
+          "romaji": "isogashii"
         },
         {
           "front": "やさしい（easy (problem); kind (person)）",
-          "back": "やさしかったです"
+          "back": "やさしかったです",
+          "romaji": "yasashii"
         },
         {
           "front": "きらいな（disgusted with; to dislike）",
-          "back": "きらいでした"
+          "back": "きらいでした",
+          "romaji": "kiraina"
         },
-        { "front": "ちいさい（small）", "back": "ちいさかったです" },
-        { "front": "ひまな（not busy; free (time)）", "back": "ひまでした" },
+        {
+          "front": "ちいさい（small）",
+          "back": "ちいさかったです",
+          "romaji": "chiisai"
+        },
+        {
+          "front": "ひまな（not busy; free (time)）",
+          "back": "ひまでした",
+          "romaji": "himana"
+        },
         {
           "front": "おもしろい（interesting; funny）",
-          "back": "おもしろかったです"
+          "back": "おもしろかったです",
+          "romaji": "omoshiroi"
         },
-        { "front": "あつい（hot）", "back": "あつかったです" },
-        { "front": "すきな（fond of; to like）", "back": "すきでした" },
-        { "front": "さむい（cold (weather)）", "back": "さむかったです" },
-        { "front": "むずかしい（difficult）", "back": "むずかしかったです" },
-        { "front": "きれいな（beautiful; clean）", "back": "きれいでした" },
-        { "front": "かっこいい（good-looking）", "back": "かっこよかったです" }
+        {
+          "front": "あつい（hot）",
+          "back": "あつかったです",
+          "romaji": "atsui"
+        },
+        {
+          "front": "すきな（fond of; to like）",
+          "back": "すきでした",
+          "romaji": "sukina"
+        },
+        {
+          "front": "さむい（cold (weather)）",
+          "back": "さむかったです",
+          "romaji": "samui"
+        },
+        {
+          "front": "むずかしい（difficult）",
+          "back": "むずかしかったです",
+          "romaji": "muzukashii"
+        },
+        {
+          "front": "きれいな（beautiful; clean）",
+          "back": "きれいでした",
+          "romaji": "kireina"
+        },
+        {
+          "front": "かっこいい（good-looking）",
+          "back": "かっこよかったです",
+          "romaji": "kakkoii"
+        }
       ]
     },
     {
@@ -515,62 +1039,129 @@
       "cards": [
         {
           "front": "すきな（fond of; to like）",
-          "back": "すきじゃなかったです"
+          "back": "すきじゃなかったです",
+          "romaji": "sukina"
         },
-        { "front": "ちいさい（small）", "back": "ちいさくなかったです" },
+        {
+          "front": "ちいさい（small）",
+          "back": "ちいさくなかったです",
+          "romaji": "chiisai"
+        },
         {
           "front": "げんきな（healthy; energetic）",
-          "back": "げんきじゃなかったです"
+          "back": "げんきじゃなかったです",
+          "romaji": "genkina"
         },
-        { "front": "ふるい（old (thing)）", "back": "ふるくなかったです" },
-        { "front": "いい（good）", "back": "よくなかったです" },
-        { "front": "つまらない（boring）", "back": "つまらなくなかったです" },
-        { "front": "たかい（expensive; high）", "back": "たかくなかったです" },
+        {
+          "front": "ふるい（old (thing)）",
+          "back": "ふるくなかったです",
+          "romaji": "furui"
+        },
+        { "front": "いい（good）", "back": "よくなかったです", "romaji": "ii" },
+        {
+          "front": "つまらない（boring）",
+          "back": "つまらなくなかったです",
+          "romaji": "tsumaranai"
+        },
+        {
+          "front": "たかい（expensive; high）",
+          "back": "たかくなかったです",
+          "romaji": "takai"
+        },
         {
           "front": "きれいな（beautiful; clean）",
-          "back": "きれいじゃなかったです"
+          "back": "きれいじゃなかったです",
+          "romaji": "kireina"
         },
         {
           "front": "むずかしい（difficult）",
-          "back": "むずかしくなかったです"
+          "back": "むずかしくなかったです",
+          "romaji": "muzukashii"
         },
-        { "front": "あたらしい（new）", "back": "あたらしくなかったです" },
-        { "front": "おおきい（large）", "back": "おおきくなかったです" },
-        { "front": "おいしい（delicious）", "back": "おいしくなかったです" },
+        {
+          "front": "あたらしい（new）",
+          "back": "あたらしくなかったです",
+          "romaji": "atarashii"
+        },
+        {
+          "front": "おおきい（large）",
+          "back": "おおきくなかったです",
+          "romaji": "ookii"
+        },
+        {
+          "front": "おいしい（delicious）",
+          "back": "おいしくなかったです",
+          "romaji": "oishii"
+        },
         {
           "front": "やさしい（easy (problem); kind (person)）",
-          "back": "やさしくなかったです"
+          "back": "やさしくなかったです",
+          "romaji": "yasashii"
         },
         {
           "front": "きらいな（disgusted with; to dislike）",
-          "back": "きらいじゃなかったです"
+          "back": "きらいじゃなかったです",
+          "romaji": "kiraina"
         },
-        { "front": "さむい（cold (weather)）", "back": "さむくなかったです" },
+        {
+          "front": "さむい（cold (weather)）",
+          "back": "さむくなかったです",
+          "romaji": "samui"
+        },
         {
           "front": "かっこいい（good-looking）",
-          "back": "かっこよくなかったです"
+          "back": "かっこよくなかったです",
+          "romaji": "kakkoii"
         },
-        { "front": "こわい（frightening）", "back": "こわくなかったです" },
-        { "front": "はやい（early）", "back": "はやくなかったです" },
-        { "front": "しずかな（quiet）", "back": "しずかじゃなかったです" },
+        {
+          "front": "こわい（frightening）",
+          "back": "こわくなかったです",
+          "romaji": "kowai"
+        },
+        {
+          "front": "はやい（early）",
+          "back": "はやくなかったです",
+          "romaji": "hayai"
+        },
+        {
+          "front": "しずかな（quiet）",
+          "back": "しずかじゃなかったです",
+          "romaji": "shizukana"
+        },
         {
           "front": "ひまな（not busy; free (time)）",
-          "back": "ひまじゃなかったです"
+          "back": "ひまじゃなかったです",
+          "romaji": "himana"
         },
         {
           "front": "いそがしい（busy (people/days)）",
-          "back": "いそがしくなかったです"
+          "back": "いそがしくなかったです",
+          "romaji": "isogashii"
         },
-        { "front": "あつい（hot）", "back": "あつくなかったです" },
-        { "front": "たのしい（fun）", "back": "たのしくなかったです" },
-        { "front": "にぎやかな（lively）", "back": "にぎやかじゃなかったです" },
+        {
+          "front": "あつい（hot）",
+          "back": "あつくなかったです",
+          "romaji": "atsui"
+        },
+        {
+          "front": "たのしい（fun）",
+          "back": "たのしくなかったです",
+          "romaji": "tanoshii"
+        },
+        {
+          "front": "にぎやかな（lively）",
+          "back": "にぎやかじゃなかったです",
+          "romaji": "nigiyakana"
+        },
         {
           "front": "やすい（inexpensive; cheap (thing)）",
-          "back": "やすくなかったです"
+          "back": "やすくなかったです",
+          "romaji": "yasui"
         },
         {
           "front": "おもしろい（interesting; funny）",
-          "back": "おもしろくなかったです"
+          "back": "おもしろくなかったです",
+          "romaji": "omoshiroi"
         }
       ]
     }
