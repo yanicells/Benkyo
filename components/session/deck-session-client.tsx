@@ -314,7 +314,7 @@ export function DeckSessionClient({
 
         {mode === "multiple-choice" && multipleChoice ? (
           <div className="mt-8 space-y-4">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3">
               {multipleChoice.options.map((option) => {
                 const isSelected = selectedOption === option;
                 const isCorrect = multipleChoice.correct === option;
