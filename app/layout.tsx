@@ -4,6 +4,7 @@ import {
   Noto_Sans_JP,
   Noto_Serif_JP,
 } from "next/font/google";
+import { PwaInit } from "@/components/shared/pwa-init";
 import "./globals.css";
 
 const serifDisplay = Cormorant_Garamond({
@@ -25,12 +26,27 @@ const japaneseDisplay = Noto_Serif_JP({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://benkyo.ycells.com"),
+  applicationName: "Benkyo",
   title: {
     default: "Benky\u014d",
     template: "%s | Benky\u014d",
   },
   description:
     "Benky\u014d is a fast Japanese study app for lesson decks and kana practice.",
+  manifest: "/manifest.webmanifest",
+  themeColor: "#f7efe4",
+  appleWebApp: {
+    capable: true,
+    title: "Benkyo",
+    statusBarStyle: "default",
+  },
+  icons: {
+    icon: [
+      { url: "/icon-192.svg", sizes: "192x192", type: "image/svg+xml" },
+      { url: "/icon-512.svg", sizes: "512x512", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.svg", type: "image/svg+xml" }],
+  },
   alternates: {
     canonical: "/",
   },
@@ -61,6 +77,7 @@ export default function RootLayout({
       <body
         className={`${serifDisplay.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased`}
       >
+        <PwaInit />
         {children}
       </body>
     </html>
