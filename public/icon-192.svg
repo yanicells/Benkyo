@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Benkyo icon">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#9f1239" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="url(#bg)" />
+  <circle cx="96" cy="96" r="60" fill="#fff7f5" opacity="0.95" />
+  <text
+    x="96"
+    y="112"
+    text-anchor="middle"
+    font-size="74"
+    font-family="Noto Serif JP, Georgia, serif"
+    fill="#9f1239"
+  >
+    B
+  </text>
+</svg>
