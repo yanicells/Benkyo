@@ -68,7 +68,9 @@ self.addEventListener("fetch", (event) => {
           }
 
           const copy = response.clone();
-          caches.open(RUNTIME_CACHE).then((cache) => cache.put(event.request, copy));
+          caches
+            .open(RUNTIME_CACHE)
+            .then((cache) => cache.put(event.request, copy));
           return response;
         });
       }),
@@ -84,9 +86,15 @@ self.addEventListener("fetch", (event) => {
         }
 
         const copy = response.clone();
-        caches.open(RUNTIME_CACHE).then((cache) => cache.put(event.request, copy));
+        caches
+          .open(RUNTIME_CACHE)
+          .then((cache) => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match("/"))),
+      .catch(() =>
+        caches
+          .match(event.request)
+          .then((cached) => cached || caches.match("/")),
+      ),
   );
 });

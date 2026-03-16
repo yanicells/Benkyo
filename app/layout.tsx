@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Cormorant_Garamond,
   Noto_Sans_JP,
   Noto_Serif_JP,
 } from "next/font/google";
-import { PwaInit } from "@/components/shared/pwa-init";
+import { PwaInit } from "../components/shared/pwa-init";
 import "./globals.css";
 
 const serifDisplay = Cormorant_Garamond({
@@ -34,7 +34,6 @@ export const metadata: Metadata = {
   description:
     "Benky\u014d is a fast Japanese study app for lesson decks and kana practice.",
   manifest: "/manifest.webmanifest",
-  themeColor: "#f7efe4",
   appleWebApp: {
     capable: true,
     title: "Benkyo",
@@ -65,6 +64,10 @@ export const metadata: Metadata = {
     description:
       "A personal Japanese study app for lesson decks, kana drills, and focused repetition.",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f7efe4",
 };
 
 export default function RootLayout({
