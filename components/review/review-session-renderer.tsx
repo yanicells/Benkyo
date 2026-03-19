@@ -1,9 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
+import { useSyncExternalStore } from "react";
 
-import type { Card, FlipSetting, Lesson, StudyMode } from "@/lib/types";
+import type { FlipSetting, Lesson, StudyMode } from "@/lib/types";
 import { getDueCards } from "@/lib/srs";
 
 type ReviewSessionRendererProps = {
@@ -20,43 +21,28 @@ const DeckSessionClient = dynamic(
   { ssr: false },
 );
 
+const subscribe = () => () => {};
+const serverSnapshot = () => null;
+
 export function ReviewSessionRenderer({
   lessons,
   mode,
   flip,
 }: ReviewSessionRendererProps) {
-  const [ready, setReady] = useState(false);
-  const [cards, setCards] = useState<Card[]>([]);
-  const [cardSubDeckIds, setCardSubDeckIds] = useState<string[]>([]);
-  const [cardIndexes, setCardIndexes] = useState<number[]>([]);
-  const [reviewLabels, setReviewLabels] = useState<string[]>([]);
-  const [allLessonCards, setAllLessonCards] = useState<Card[]>([]);
+  const dataRef = useRef<ReturnType<typeof buildReviewData> | null>(null);
 
-  useEffect(() => {
-    const due = getDueCards(lessons);
+  const clientData = useSyncExternalStore(
+    subscribe,
+    () => {
+      if (!dataRef.current) {
+        dataRef.current = buildReviewData(lessons);
+      }
+      return dataRef.current;
+    },
+    serverSnapshot,
+  );
 
-    if (due.length === 0) {
-      setReady(true);
-      return;
-    }
-
-    // Shuffle due cards
-    const shuffled = [...due].sort(() => Math.random() - 0.5);
-
-    setCards(shuffled.map((d) => d.card));
-    setCardSubDeckIds(shuffled.map((d) => d.subDeckId));
-    setCardIndexes(
-      shuffled.map((d) => {
-        const parts = d.cardId.split(":");
-        return Number.parseInt(parts[parts.length - 1], 10);
-      }),
-    );
-    setReviewLabels(shuffled.map((d) => d.subDeckTitle));
-    setAllLessonCards(lessons.flatMap((l) => l.subDecks.flatMap((sd) => sd.cards)));
-    setReady(true);
-  }, [lessons]);
-
-  if (!ready) {
+  if (!clientData) {
     return (
       <div className="rounded-2xl border border-rose-900/10 bg-white p-6 text-center">
         <p className="text-base text-slate-700">Loading due cards...</p>
@@ -64,7 +50,7 @@ export function ReviewSessionRenderer({
     );
   }
 
-  if (cards.length === 0) {
+  if (clientData.cards.length === 0) {
     return (
       <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
         <p className="text-base text-emerald-800">
@@ -79,14 +65,29 @@ export function ReviewSessionRenderer({
       lessonId="review"
       subDeckId="review"
       lessonTitle="Review — Due Cards"
-      cards={cards}
+      cards={clientData.cards}
       mode={mode}
       flip={flip}
-      cardSubDeckIds={cardSubDeckIds}
-      cardIndexes={cardIndexes}
-      allLessonCards={allLessonCards}
+      cardSubDeckIds={clientData.subDeckIds}
+      cardIndexes={clientData.indexes}
+      allLessonCards={clientData.allCards}
       isReview
-      reviewLabels={reviewLabels}
+      reviewLabels={clientData.labels}
     />
   );
+}
+
+function buildReviewData(lessons: Lesson[]) {
+  const due = getDueCards(lessons);
+  const shuffled = [...due].sort(() => Math.random() - 0.5);
+  return {
+    cards: shuffled.map((d) => d.card),
+    subDeckIds: shuffled.map((d) => d.subDeckId),
+    indexes: shuffled.map((d) => {
+      const parts = d.cardId.split(":");
+      return Number.parseInt(parts[parts.length - 1], 10);
+    }),
+    labels: shuffled.map((d) => d.subDeckTitle),
+    allCards: lessons.flatMap((l) => l.subDecks.flatMap((sd) => sd.cards)),
+  };
 }

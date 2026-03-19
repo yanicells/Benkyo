@@ -9,7 +9,6 @@ type SubDeckConfigClientProps = {
   lessonId: string;
   subDeckId: string;
   cardTypes: CardType[];
-  cardCount: number;
 };
 
 const modeOptions: { value: StudyMode; label: string; description: string }[] =
@@ -44,7 +43,6 @@ export function SubDeckConfigClient({
   lessonId,
   subDeckId,
   cardTypes,
-  cardCount,
 }: SubDeckConfigClientProps) {
   const [mode, setMode] = useState<StudyMode>("flashcard");
   const [flip, setFlip] = useState<FlipSetting>("jp-to-en");

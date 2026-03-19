@@ -1,11 +1,13 @@
-const CACHE_VERSION = "benkyo-v1";
+const CACHE_VERSION = "benkyo-v2";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
 const APP_SHELL_URLS = [
   "/",
   "/decks",
+  "/review",
   "/kana",
+  "/stats",
   "/manifest.webmanifest",
   "/icon-192.svg",
   "/icon-512.svg",

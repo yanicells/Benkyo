@@ -83,11 +83,15 @@ export function DeckSessionClient({
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [choiceLocked, setChoiceLocked] = useState(false);
   const [showSRSRating, setShowSRSRating] = useState(false);
-  const [mcWasCorrect, setMcWasCorrect] = useState(false);
-  const sessionStart = useRef(Date.now());
-  const cardStart = useRef(Date.now());
+  const sessionStart = useRef(0);
+  const cardStart = useRef(0);
   const totalReviewed = useRef(0);
   const totalCorrectRef = useRef(0);
+
+  useEffect(() => {
+    sessionStart.current = Date.now();
+    cardStart.current = Date.now();
+  }, []);
 
   const current = queue[0];
 
@@ -199,7 +203,7 @@ export function DeckSessionClient({
       setSelectedOption(null);
       setChoiceLocked(false);
       setShowSRSRating(false);
-      setMcWasCorrect(false);
+
       cardStart.current = Date.now();
     },
     [current, currentOriginalIndex, cardSubDeckIds, cardIndexes],
@@ -210,14 +214,12 @@ export function DeckSessionClient({
     if (!multipleChoice || !choiceLocked) return;
 
     const wasCorrect = selectedOption === multipleChoice.correct;
-    setMcWasCorrect(wasCorrect);
-
-    if (!wasCorrect) {
-      // Wrong answer = auto-rate Again
-      doSRSReview(0);
-    } else {
+    if (wasCorrect) {
       // Correct answer = show Good/Easy choice
       setShowSRSRating(true);
+    } else {
+      // Wrong answer = auto-rate Again
+      doSRSReview(0);
     }
   }, [multipleChoice, choiceLocked, selectedOption, doSRSReview]);
 

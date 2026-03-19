@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 import type { FlipSetting, Lesson, StudyMode } from "@/lib/types";
@@ -10,14 +10,17 @@ type ReviewConfigClientProps = {
   lessons: Lesson[];
 };
 
+const subscribe = () => () => {};
+const serverSnapshot = () => 0;
+
 export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
-  const [dueCount, setDueCount] = useState(0);
+  const dueCount = useSyncExternalStore(
+    subscribe,
+    () => getDueCards(lessons).length,
+    serverSnapshot,
+  );
   const [mode, setMode] = useState<StudyMode>("flashcard");
   const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
-
-  useEffect(() => {
-    setDueCount(getDueCards(lessons).length);
-  }, [lessons]);
 
   const searchParams = new URLSearchParams({ mode, flip });
 

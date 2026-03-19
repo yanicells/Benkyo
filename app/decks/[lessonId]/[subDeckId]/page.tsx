@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import lessonsData from "@/data/lessons.json";
@@ -49,7 +48,6 @@ export default async function SubDeckConfigPage({
         lessonId={lessonId}
         subDeckId={subDeckId}
         cardTypes={cardTypes}
-        cardCount={cards.length}
       />
 
       <section className="mt-6 rounded-2xl border border-rose-900/10 bg-white p-5">

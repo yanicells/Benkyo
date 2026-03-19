@@ -52,6 +52,7 @@ export default async function KanaSessionPage({
   }
 
   const cards: Card[] = entries.map((entry) => ({
+    type: "vocab" as const,
     front: entry.kana,
     back: entry.romaji,
   }));

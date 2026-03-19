@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 import type { CardType, Lesson } from "@/lib/types";
 import { getMasteryPercent, getSubDeckAccuracy } from "@/lib/srs";
@@ -35,20 +35,13 @@ function getDeckPrimaryType(cards: { type: CardType }[]): CardType {
   return max;
 }
 
-export function SubDeckGrid({ lesson }: SubDeckGridProps) {
-  const [masteryMap, setMasteryMap] = useState<Record<string, number>>({});
-  const [accuracyMap, setAccuracyMap] = useState<Record<string, number>>({});
+const subscribe = () => () => {};
+const emptySnapshot = () => "server";
+const clientSnapshot = () => "client";
 
-  useEffect(() => {
-    const m: Record<string, number> = {};
-    const a: Record<string, number> = {};
-    for (const sd of lesson.subDecks) {
-      m[sd.id] = getMasteryPercent(sd.id, sd.cards.length);
-      a[sd.id] = getSubDeckAccuracy(sd.id, sd.cards.length);
-    }
-    setMasteryMap(m);
-    setAccuracyMap(a);
-  }, [lesson]);
+export function SubDeckGrid({ lesson }: SubDeckGridProps) {
+  const env = useSyncExternalStore(subscribe, clientSnapshot, emptySnapshot);
+  const isClient = env === "client";
 
   return (
     <section className="space-y-4">
@@ -64,8 +57,12 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {lesson.subDecks.map((subDeck) => {
           const primaryType = getDeckPrimaryType(subDeck.cards);
-          const mastery = masteryMap[subDeck.id] ?? 0;
-          const accuracy = accuracyMap[subDeck.id] ?? 0;
+          const mastery = isClient
+            ? getMasteryPercent(subDeck.id, subDeck.cards.length)
+            : 0;
+          const accuracy = isClient
+            ? getSubDeckAccuracy(subDeck.id, subDeck.cards.length)
+            : 0;
 
           return (
             <Link

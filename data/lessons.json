@@ -381,17 +381,42 @@
               "back": "0",
               "romaji": "zero/rei"
             },
-            { "type": "vocab", "front": "いち", "back": "1", "romaji": "ichi" },
-            { "type": "vocab", "front": "に", "back": "2", "romaji": "ni" },
-            { "type": "vocab", "front": "さん", "back": "3", "romaji": "san" },
+            {
+              "type": "vocab",
+              "front": "いち",
+              "back": "1",
+              "romaji": "ichi"
+            },
+            {
+              "type": "vocab",
+              "front": "に",
+              "back": "2",
+              "romaji": "ni"
+            },
+            {
+              "type": "vocab",
+              "front": "さん",
+              "back": "3",
+              "romaji": "san"
+            },
             {
               "type": "vocab",
               "front": "よん／し／（よ）",
               "back": "4",
               "romaji": "yon/shi/(yo)"
             },
-            { "type": "vocab", "front": "ご", "back": "5", "romaji": "go" },
-            { "type": "vocab", "front": "ろく", "back": "6", "romaji": "roku" },
+            {
+              "type": "vocab",
+              "front": "ご",
+              "back": "5",
+              "romaji": "go"
+            },
+            {
+              "type": "vocab",
+              "front": "ろく",
+              "back": "6",
+              "romaji": "roku"
+            },
             {
               "type": "vocab",
               "front": "なな／しち",
@@ -2887,6 +2912,180 @@
               "front": "てんき",
               "back": "weather",
               "romaji": "tenki"
+            },
+            {
+              "type": "vocab",
+              "front": "たべもの",
+              "back": "food",
+              "romaji": "tabemono"
+            },
+            {
+              "type": "vocab",
+              "front": "のみもの",
+              "back": "drink",
+              "romaji": "nomimono"
+            },
+            {
+              "type": "vocab",
+              "front": "くだもの",
+              "back": "fruit",
+              "romaji": "kudamono"
+            },
+            {
+              "type": "vocab",
+              "front": "やすみ",
+              "back": "holiday; day off; absence",
+              "romaji": "yasumi"
+            },
+            {
+              "type": "vocab",
+              "front": "りょこう",
+              "back": "travel",
+              "romaji": "ryokou"
+            },
+            {
+              "type": "vocab",
+              "front": "うみ",
+              "back": "sea",
+              "romaji": "umi"
+            },
+            {
+              "type": "vocab",
+              "front": "サーフィン",
+              "back": "surfing",
+              "romaji": "saafin"
+            },
+            {
+              "type": "vocab",
+              "front": "おみやげ",
+              "back": "souvenir",
+              "romaji": "omiyage"
+            },
+            {
+              "type": "vocab",
+              "front": "バス",
+              "back": "bus",
+              "romaji": "basu"
+            },
+            {
+              "type": "vocab",
+              "front": "しゅくだい",
+              "back": "homework",
+              "romaji": "shukudai"
+            },
+            {
+              "type": "vocab",
+              "front": "テスト",
+              "back": "test",
+              "romaji": "tesuto"
+            },
+            {
+              "type": "vocab",
+              "front": "たんじょうび",
+              "back": "birthday",
+              "romaji": "tanjoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "へや",
+              "back": "room",
+              "romaji": "heya"
+            },
+            {
+              "type": "vocab",
+              "front": "ぼく",
+              "back": "I (used by men)",
+              "romaji": "boku"
+            },
+            {
+              "type": "vocab",
+              "front": "Ｌサイズ（エルサイズ）",
+              "back": "size L",
+              "romaji": "eru saizu"
+            },
+            {
+              "type": "vocab",
+              "front": "だいすきな",
+              "back": "very fond of; to love (na-adj)",
+              "romaji": "daisukina"
+            },
+            {
+              "type": "vocab",
+              "front": "だいきらいな",
+              "back": "to hate (na-adj)",
+              "romaji": "daikirai na"
+            },
+            {
+              "type": "vocab",
+              "front": "あつい（もの）",
+              "back": "hot (thing)",
+              "romaji": "atsui"
+            },
+            {
+              "type": "vocab",
+              "front": "およぐ",
+              "back": "to swim (u-verb)",
+              "romaji": "oyogu"
+            },
+            {
+              "type": "vocab",
+              "front": "きく（たずねる）",
+              "back": "to ask (u-verb)",
+              "romaji": "kiku"
+            },
+            {
+              "type": "vocab",
+              "front": "のる",
+              "back": "to ride; to board (u-verb)",
+              "romaji": "noru"
+            },
+            {
+              "type": "vocab",
+              "front": "やる",
+              "back": "to do; to perform (u-verb)",
+              "romaji": "yaru"
+            },
+            {
+              "type": "vocab",
+              "front": "でかける",
+              "back": "to go out (ru-verb)",
+              "romaji": "dekakeru"
+            },
+            {
+              "type": "vocab",
+              "front": "いっしょに",
+              "back": "together",
+              "romaji": "issho ni"
+            },
+            {
+              "type": "vocab",
+              "front": "すごく",
+              "back": "extremely",
+              "romaji": "sugoku"
+            },
+            {
+              "type": "vocab",
+              "front": "だいじょうぶ",
+              "back": "It's okay.; Not to worry.",
+              "romaji": "daijoubu"
+            },
+            {
+              "type": "vocab",
+              "front": "とても",
+              "back": "very",
+              "romaji": "totemo"
+            },
+            {
+              "type": "vocab",
+              "front": "どんな",
+              "back": "what kind of . . .",
+              "romaji": "donna"
+            },
+            {
+              "type": "vocab",
+              "front": "～まい",
+              "back": "(counter for flat objects)",
+              "romaji": "mai"
             }
           ]
         },
