@@ -6,10 +6,16 @@ import type { Card, FlipSetting, StudyMode } from "@/lib/types";
 
 type DeckSessionRendererProps = {
   lessonId: string;
+  subDeckId: string;
   lessonTitle: string;
   cards: Card[];
   mode: StudyMode;
   flip: FlipSetting;
+  cardSubDeckIds: string[];
+  cardIndexes: number[];
+  allLessonCards: Card[];
+  isReview?: boolean;
+  reviewLabels?: string[];
 };
 
 const DeckSessionClient = dynamic(
