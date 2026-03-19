@@ -1,19 +1,46 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { answerCorrect, answerWrong, buildQueue } from "@/lib/session";
-import type { Card, FlipSetting, SessionCard, StudyMode } from "@/lib/types";
-import { TypingPracticeInput } from "@/components/session/typing-practice-input";
+import {
+  reviewCard,
+  makeCardId,
+  recordDailyReview,
+  updateStreak,
+} from "@/lib/srs";
+import type {
+  Card,
+  CardType,
+  FlipSetting,
+  SRSRating,
+  SessionCard,
+  StudyMode,
+} from "@/lib/types";
 
 type DeckSessionClientProps = {
   lessonId: string;
+  subDeckId: string;
   lessonTitle: string;
   cards: Card[];
   mode: StudyMode;
   flip: FlipSetting;
+  cardSubDeckIds: string[];
+  cardIndexes: number[];
+  allLessonCards: Card[];
+  isReview?: boolean;
+  reviewLabels?: string[];
+};
+
+const typeIcons: Record<CardType, string> = {
+  vocab: "語",
+  grammar: "文",
+  "fill-in": "✎",
+  conjugation: "変",
+  translate: "訳",
+  culture: "文化",
 };
 
 function cardKey(card: Card): string {
@@ -22,31 +49,52 @@ function cardKey(card: Card): string {
 
 function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
-
   for (let index = copy.length - 1; index > 0; index -= 1) {
     const swapIndex = Math.floor(Math.random() * (index + 1));
     [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
   }
-
   return copy;
 }
 
+const ratingButtons: { rating: SRSRating; label: string; key: string; color: string }[] = [
+  { rating: 0, label: "Again", key: "1", color: "bg-red-600 hover:bg-red-500" },
+  { rating: 1, label: "Hard", key: "2", color: "bg-amber-600 hover:bg-amber-500" },
+  { rating: 2, label: "Good", key: "3", color: "bg-emerald-600 hover:bg-emerald-500" },
+  { rating: 3, label: "Easy", key: "4", color: "bg-sky-600 hover:bg-sky-500" },
+];
+
 export function DeckSessionClient({
   lessonId,
+  subDeckId,
   lessonTitle,
   cards,
   mode,
   flip,
+  cardSubDeckIds,
+  cardIndexes,
+  allLessonCards,
+  isReview = false,
+  reviewLabels,
 }: DeckSessionClientProps) {
   const router = useRouter();
   const [queue, setQueue] = useState<SessionCard[]>(() => buildQueue(cards));
   const [revealed, setRevealed] = useState(false);
-  const [showAnswerKey, setShowAnswerKey] = useState(false);
   const [wrongKeys, setWrongKeys] = useState<Set<string>>(() => new Set());
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [choiceLocked, setChoiceLocked] = useState(false);
+  const [showSRSRating, setShowSRSRating] = useState(false);
+  const [mcWasCorrect, setMcWasCorrect] = useState(false);
+  const sessionStart = useRef(Date.now());
+  const cardStart = useRef(Date.now());
+  const totalReviewed = useRef(0);
+  const totalCorrectRef = useRef(0);
 
   const current = queue[0];
+
+  const currentOriginalIndex = useMemo(() => {
+    if (!current) return -1;
+    return cards.indexOf(current.card);
+  }, [current, cards]);
 
   const promptSide = useMemo(() => {
     return flip === "jp-to-en" ? "front" : "back";
@@ -56,157 +104,179 @@ export function DeckSessionClient({
     return flip === "jp-to-en" ? "back" : "front";
   }, [flip]);
 
+  // Navigate to results when session is complete
   useEffect(() => {
-    if (queue.length !== 0) {
-      return;
-    }
+    if (queue.length !== 0) return;
 
     const wrongCards = cards.filter((card) => wrongKeys.has(cardKey(card)));
+    const elapsed = Math.round((Date.now() - sessionStart.current) / 1000);
+
+    const resultsData = {
+      wrongCards,
+      totalReviewed: totalReviewed.current,
+      totalCorrect: totalCorrectRef.current,
+      timeSeconds: elapsed,
+    };
+
     window.sessionStorage.setItem(
-      `deck-results:${lessonId}`,
-      JSON.stringify(wrongCards),
+      `deck-results:${lessonId}:${subDeckId}`,
+      JSON.stringify(resultsData),
     );
-    router.replace(`/decks/${lessonId}/session/results`);
-  }, [queue, cards, wrongKeys, lessonId, router]);
 
-  const multipleChoice = useMemo(() => {
-    if (!current || mode !== "multiple-choice") {
-      return null;
+    if (isReview) {
+      router.replace("/review/session/results");
+    } else {
+      router.replace(`/decks/${lessonId}/${subDeckId}/session/results`);
     }
+  }, [queue, cards, wrongKeys, lessonId, subDeckId, router, isReview]);
 
+  // Generate MC options
+  const multipleChoice = useMemo(() => {
+    if (!current || mode !== "multiple-choice") return null;
+
+    const isFillIn = current.card.type === "fill-in";
     const correct = current.card[answerSide];
-    const distractorPool = cards
-      .filter((card) => cardKey(card) !== cardKey(current.card))
-      .map((card) => card[answerSide])
-      .filter((value) => value !== correct);
+
+    let distractorPool: string[];
+
+    if (isFillIn) {
+      // For fill-in: pull from other fill-in cards' back values
+      distractorPool = allLessonCards
+        .filter(
+          (c) =>
+            c.type === "fill-in" && cardKey(c) !== cardKey(current.card),
+        )
+        .map((c) => c.back)
+        .filter((v) => v !== correct);
+    } else {
+      distractorPool = allLessonCards
+        .filter((card) => cardKey(card) !== cardKey(current.card))
+        .map((card) => card[answerSide])
+        .filter((value) => value !== correct);
+    }
 
     const distractors = shuffle(distractorPool).slice(0, 3);
     const options = shuffle(Array.from(new Set([correct, ...distractors])));
 
     return { options, correct };
-  }, [current, mode, answerSide, cards]);
+  }, [current, mode, answerSide, allLessonCards]);
 
-  const moveNextCorrect = useCallback(() => {
-    setRevealed(false);
-    setShowAnswerKey(false);
-    setSelectedOption(null);
-    setChoiceLocked(false);
-    setQueue((previous) => answerCorrect(previous));
-  }, []);
+  const doSRSReview = useCallback(
+    (rating: SRSRating) => {
+      if (!current || currentOriginalIndex < 0) return;
 
-  const moveNextWrong = useCallback(() => {
-    if (!current) {
-      return;
-    }
+      const sdId = cardSubDeckIds[currentOriginalIndex];
+      const idx = cardIndexes[currentOriginalIndex];
 
-    setWrongKeys((previous) => {
-      const next = new Set(previous);
-      next.add(cardKey(current.card));
-      return next;
-    });
+      if (sdId !== undefined && idx !== undefined) {
+        const srsCardId = makeCardId(sdId, idx);
+        reviewCard(srsCardId, rating);
+      }
 
-    setRevealed(false);
-    setShowAnswerKey(false);
-    setSelectedOption(null);
-    setChoiceLocked(false);
-    setQueue((previous) => answerWrong(previous));
-  }, [current]);
+      const elapsed = Math.round((Date.now() - cardStart.current) / 1000);
+      const isCorrect = rating >= 2;
+      recordDailyReview(isCorrect, elapsed);
+      updateStreak();
+      totalReviewed.current += 1;
+      if (isCorrect) totalCorrectRef.current += 1;
 
+      // Update queue
+      if (isCorrect) {
+        setQueue((prev) => answerCorrect(prev));
+      } else {
+        if (current) {
+          setWrongKeys((prev) => {
+            const next = new Set(prev);
+            next.add(cardKey(current.card));
+            return next;
+          });
+        }
+        setQueue((prev) => answerWrong(prev));
+      }
+
+      // Reset state
+      setRevealed(false);
+      setSelectedOption(null);
+      setChoiceLocked(false);
+      setShowSRSRating(false);
+      setMcWasCorrect(false);
+      cardStart.current = Date.now();
+    },
+    [current, currentOriginalIndex, cardSubDeckIds, cardIndexes],
+  );
+
+  // MC submit: lock + show rating
   const submitMultipleChoice = useCallback(() => {
-    if (!multipleChoice || !choiceLocked) {
-      return;
-    }
+    if (!multipleChoice || !choiceLocked) return;
 
     const wasCorrect = selectedOption === multipleChoice.correct;
-    if (wasCorrect) {
-      moveNextCorrect();
-    } else {
-      moveNextWrong();
-    }
-  }, [
-    multipleChoice,
-    choiceLocked,
-    selectedOption,
-    moveNextCorrect,
-    moveNextWrong,
-  ]);
+    setMcWasCorrect(wasCorrect);
 
+    if (!wasCorrect) {
+      // Wrong answer = auto-rate Again
+      doSRSReview(0);
+    } else {
+      // Correct answer = show Good/Easy choice
+      setShowSRSRating(true);
+    }
+  }, [multipleChoice, choiceLocked, selectedOption, doSRSReview]);
+
+  // Keyboard handler
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Tab" && mode === "typing") {
-        event.preventDefault();
-        setShowAnswerKey((previous) => !previous);
-        return;
-      }
-
-      if (showAnswerKey) {
-        return;
-      }
-
-      if (mode === "typing") {
+      // SRS rating mode
+      if (showSRSRating) {
+        const num = Number.parseInt(event.key, 10);
+        if (num >= 1 && num <= 4) {
+          event.preventDefault();
+          doSRSReview((num - 1) as SRSRating);
+        }
         return;
       }
 
       if (mode === "flashcard") {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           if (!revealed) {
             setRevealed(true);
-          } else {
-            moveNextCorrect();
           }
           return;
         }
 
-        if (!revealed) {
+        if (revealed) {
+          const num = Number.parseInt(event.key, 10);
+          if (num >= 1 && num <= 4) {
+            event.preventDefault();
+            doSRSReview((num - 1) as SRSRating);
+          }
+        }
+        return;
+      }
+
+      if (mode === "multiple-choice" && multipleChoice) {
+        if (event.key === "Enter") {
+          if (choiceLocked && !showSRSRating) {
+            event.preventDefault();
+            submitMultipleChoice();
+          }
           return;
         }
 
-        if (event.key === "1") {
-          event.preventDefault();
-          moveNextWrong();
-          return;
+        const optionIndex = Number.parseInt(event.key, 10) - 1;
+        if (
+          !Number.isNaN(optionIndex) &&
+          optionIndex >= 0 &&
+          optionIndex <= 3 &&
+          !choiceLocked
+        ) {
+          const option = multipleChoice.options[optionIndex];
+          if (option) {
+            event.preventDefault();
+            setSelectedOption(option);
+            setChoiceLocked(true);
+          }
         }
-
-        if (event.key === "2") {
-          event.preventDefault();
-          moveNextCorrect();
-        }
-        return;
       }
-
-      if (mode !== "multiple-choice" || !multipleChoice) {
-        return;
-      }
-
-      if (event.key === "Enter") {
-        if (!choiceLocked) {
-          return;
-        }
-
-        event.preventDefault();
-        submitMultipleChoice();
-        return;
-      }
-
-      const optionIndex = Number.parseInt(event.key, 10) - 1;
-      if (
-        Number.isNaN(optionIndex) ||
-        optionIndex < 0 ||
-        optionIndex > 3 ||
-        choiceLocked
-      ) {
-        return;
-      }
-
-      const option = multipleChoice.options[optionIndex];
-      if (!option) {
-        return;
-      }
-
-      event.preventDefault();
-      setSelectedOption(option);
-      setChoiceLocked(true);
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -216,10 +286,8 @@ export function DeckSessionClient({
     revealed,
     multipleChoice,
     choiceLocked,
-    selectedOption,
-    showAnswerKey,
-    moveNextCorrect,
-    moveNextWrong,
+    showSRSRating,
+    doSRSReview,
     submitMultipleChoice,
   ]);
 
@@ -231,14 +299,13 @@ export function DeckSessionClient({
     );
   }
 
-  const prompt =
-    mode === "typing" ? current.card.front : current.card[promptSide];
-  const expectedTyping = current.card.romaji ?? current.card.back;
+  const prompt = current.card[promptSide];
+  const reviewLabel = reviewLabels?.[currentOriginalIndex];
 
   return (
     <section className="space-y-4 sm:space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-rose-900/10 bg-white px-3 py-2 sm:px-4 sm:py-3">
-        <div>
+        <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.18em] text-rose-700">
             Now studying
           </p>
@@ -250,33 +317,40 @@ export function DeckSessionClient({
       </div>
 
       <article className="rounded-3xl border border-rose-900/10 bg-white p-4 shadow-sm sm:p-8">
-        {mode === "typing" ? (
-          <div className="mb-2 flex justify-end">
-            <button
-              type="button"
-              onClick={() => setShowAnswerKey(true)}
-              className="inline-flex items-center rounded-full border border-rose-900/20 px-3 py-2 text-xs font-semibold uppercase leading-none tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
-            >
-              Answer key
-            </button>
-          </div>
-        ) : null}
+        <div className="mb-2 flex items-center justify-between">
+          <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-800">
+            <span>{typeIcons[current.card.type]}</span>
+            <span className="uppercase tracking-wider">{current.card.type}</span>
+          </span>
+          {reviewLabel && (
+            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+              {reviewLabel}
+            </span>
+          )}
+        </div>
 
-        <p className="text-center text-xs uppercase tracking-[0.2em] text-rose-700">
+        <p className="mt-2 text-center text-xs uppercase tracking-[0.2em] text-rose-700">
           Prompt
         </p>
         <p className="mt-4 text-center font-display text-5xl leading-tight text-slate-900 sm:text-7xl">
           {prompt}
         </p>
 
-        {mode === "flashcard" ? (
+        {current.card.hint && (
+          <p className="mt-3 text-center text-sm text-slate-500 italic">
+            Hint: {current.card.hint}
+          </p>
+        )}
+
+        {/* Flashcard mode */}
+        {mode === "flashcard" && (
           <div className="mt-8 space-y-4">
             {!revealed ? (
               <div className="text-center">
                 <button
                   type="button"
                   onClick={() => setRevealed(true)}
-                  className="font-sans rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
+                  className="rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
                 >
                   Reveal answer
                 </button>
@@ -284,38 +358,36 @@ export function DeckSessionClient({
             ) : (
               <>
                 <div className="rounded-2xl border border-amber-500/20 bg-amber-50 p-4 text-center">
-                  <p className="font-sans text-xs uppercase tracking-[0.18em] text-amber-700">
+                  <p className="text-xs uppercase tracking-[0.18em] text-amber-700">
                     Answer
                   </p>
-                  <p className="font-display mt-2 text-2xl text-slate-900 sm:text-3xl">
+                  <p className="mt-2 font-display text-2xl text-slate-900 sm:text-3xl">
                     {current.card[answerSide]}
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center gap-3">
-                  <button
-                    type="button"
-                    onClick={moveNextWrong}
-                    className="font-sans rounded-full bg-rose-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-rose-600 sm:text-sm"
-                  >
-                    Missed it
-                  </button>
-                  <button
-                    type="button"
-                    onClick={moveNextCorrect}
-                    className="font-sans rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-emerald-500 sm:text-sm"
-                  >
-                    Got it
-                  </button>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {ratingButtons.map((btn) => (
+                    <button
+                      key={btn.rating}
+                      type="button"
+                      onClick={() => doSRSReview(btn.rating)}
+                      className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition sm:text-sm ${btn.color}`}
+                    >
+                      <span className="mr-1 opacity-60">{btn.key}</span>
+                      {btn.label}
+                    </button>
+                  ))}
                 </div>
               </>
             )}
           </div>
-        ) : null}
+        )}
 
-        {mode === "multiple-choice" && multipleChoice ? (
+        {/* Multiple choice mode */}
+        {mode === "multiple-choice" && multipleChoice && (
           <div className="mt-8 space-y-4">
             <div className="grid grid-cols-1 gap-3">
-              {multipleChoice.options.map((option) => {
+              {multipleChoice.options.map((option, i) => {
                 const isSelected = selectedOption === option;
                 const isCorrect = multipleChoice.correct === option;
 
@@ -332,13 +404,11 @@ export function DeckSessionClient({
 
                 return (
                   <button
-                    key={option}
+                    key={`${option}-${i}`}
                     type="button"
                     disabled={choiceLocked}
                     onClick={() => {
-                      if (choiceLocked) {
-                        return;
-                      }
+                      if (choiceLocked) return;
                       setSelectedOption(option);
                       setChoiceLocked(true);
                     }}
@@ -350,7 +420,7 @@ export function DeckSessionClient({
               })}
             </div>
 
-            {choiceLocked ? (
+            {choiceLocked && !showSRSRating && (
               <div className="flex justify-end">
                 <button
                   type="button"
@@ -360,62 +430,40 @@ export function DeckSessionClient({
                   Next
                 </button>
               </div>
-            ) : null}
-          </div>
-        ) : null}
+            )}
 
-        {mode === "typing" ? (
-          <div className="mx-auto mt-8 max-w-2xl">
-            <TypingPracticeInput
-              key={`${cardKey(current.card)}-${expectedTyping}`}
-              expected={expectedTyping}
-              label=""
-              placeholder="Type romaji..."
-              showExpected={false}
-              manualAdvance
-              controlsAlign="between"
-              onComplete={moveNextCorrect}
-              onGiveUp={moveNextWrong}
-              giveUpLabel="Skip"
-              nextLabel="Next"
-            />
+            {showSRSRating && (
+              <div className="space-y-2">
+                <p className="text-center text-xs uppercase tracking-wider text-slate-600">
+                  How well did you know this?
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {ratingButtons
+                    .filter((b) => b.rating >= 2)
+                    .map((btn) => (
+                      <button
+                        key={btn.rating}
+                        type="button"
+                        onClick={() => doSRSReview(btn.rating)}
+                        className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition sm:text-sm ${btn.color}`}
+                      >
+                        <span className="mr-1 opacity-60">{btn.key}</span>
+                        {btn.label}
+                      </button>
+                    ))}
+                </div>
+              </div>
+            )}
           </div>
-        ) : null}
+        )}
       </article>
-
-      {showAnswerKey ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          onClick={() => setShowAnswerKey(false)}
-        >
-          <div
-            className="w-full max-w-sm rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
-              Answer key
-            </p>
-            <h3 className="mt-3 font-display text-3xl text-slate-900">
-              {current.card.front}
-            </h3>
-            <p className="mt-2 text-base text-slate-700">
-              {current.card.romaji ?? current.card.back}
-            </p>
-            <button
-              type="button"
-              onClick={() => setShowAnswerKey(false)}
-              className="mt-5 rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      ) : null}
 
       <div className="flex items-center justify-between text-sm text-slate-700">
         <p>Wrong cards: {wrongKeys.size}</p>
         <Link
-          href={`/decks/${lessonId}`}
+          href={
+            isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`
+          }
           className="underline decoration-rose-400 underline-offset-4"
         >
           Back to settings

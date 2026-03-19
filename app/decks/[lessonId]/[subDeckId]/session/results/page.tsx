@@ -6,28 +6,39 @@ import { DeckResultsClient } from "@/components/results/deck-results-client";
 import type { LessonsData } from "@/lib/types";
 
 type DeckResultsPageProps = {
-  params: Promise<{ lessonId: string }>;
+  params: Promise<{ lessonId: string; subDeckId: string }>;
 };
 
 export default async function DeckResultsPage({
   params,
 }: DeckResultsPageProps) {
-  const { lessonId } = await params;
-  const lessons = (lessonsData as LessonsData).lessons;
+  const { lessonId, subDeckId } = await params;
+  const lessons = (lessonsData as unknown as LessonsData).lessons;
   const lesson = lessons.find((item) => item.id === lessonId);
 
   if (!lesson) {
     redirect("/decks");
   }
 
+  const isStudyAll = subDeckId === "all";
+  const subDeck = isStudyAll
+    ? null
+    : lesson.subDecks.find((sd) => sd.id === subDeckId);
+
+  const title = isStudyAll ? `${lesson.title} — All` : subDeck?.title ?? lesson.title;
+
   return (
     <PageShell
       eyebrow="Results"
       title="Session summary"
       subtitle="Review cards you missed and run it again while memory is fresh."
-      backHref={`/decks/${lesson.id}`}
+      backHref={`/decks/${lessonId}/${subDeckId}`}
     >
-      <DeckResultsClient lessonId={lesson.id} lessonTitle={lesson.title} />
+      <DeckResultsClient
+        lessonId={lessonId}
+        subDeckId={subDeckId}
+        lessonTitle={title}
+      />
     </PageShell>
   );
 }

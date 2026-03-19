@@ -2,32 +2,24 @@ import { redirect } from "next/navigation";
 
 import lessonsData from "@/data/lessons.json";
 import { PageShell } from "@/components/shared/page-shell";
-import { DeckSessionRenderer } from "@/components/session/deck-session-renderer";
+import { ReviewSessionRenderer } from "@/components/review/review-session-renderer";
 import type { FlipSetting, LessonsData, StudyMode } from "@/lib/types";
 
-type DeckSessionPageProps = {
-  params: Promise<{ lessonId: string }>;
+type ReviewSessionPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-const validModes = new Set<StudyMode>([
-  "flashcard",
-  "multiple-choice",
-  "typing",
-]);
+const validModes = new Set<StudyMode>(["flashcard", "multiple-choice"]);
 const validFlips = new Set<FlipSetting>(["jp-to-en", "en-to-jp"]);
 
 function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
 }
 
-export default async function DeckSessionPage({
-  params,
+export default async function ReviewSessionPage({
   searchParams,
-}: DeckSessionPageProps) {
-  const { lessonId } = await params;
+}: ReviewSessionPageProps) {
   const query = await searchParams;
-
   const rawMode = firstParam(query.mode);
   const rawFlip = firstParam(query.flip);
 
@@ -37,27 +29,20 @@ export default async function DeckSessionPage({
     !validModes.has(rawMode as StudyMode) ||
     !validFlips.has(rawFlip as FlipSetting)
   ) {
-    redirect(`/decks/${lessonId}`);
+    redirect("/review");
   }
 
-  const lessons = (lessonsData as LessonsData).lessons;
-  const lesson = lessons.find((item) => item.id === lessonId);
-
-  if (!lesson) {
-    redirect("/decks");
-  }
+  const lessons = (lessonsData as unknown as LessonsData).lessons;
 
   return (
     <PageShell
-      eyebrow="Active session"
-      title={lesson.title}
-      subtitle="Focus on one card at a time. Wrong cards get recycled until cleared."
-      backHref={`/decks/${lesson.id}`}
+      eyebrow="Review session"
+      title="Due cards"
+      subtitle="Reviewing cards due across all decks. Rate your confidence after each answer."
+      backHref="/review"
     >
-      <DeckSessionRenderer
-        lessonId={lesson.id}
-        lessonTitle={lesson.title}
-        cards={lesson.cards}
+      <ReviewSessionRenderer
+        lessons={lessons}
         mode={rawMode as StudyMode}
         flip={rawFlip as FlipSetting}
       />
