@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
+import { useState } from "react";
 
 import type { Lesson } from "@/lib/types";
 import {
@@ -15,8 +15,21 @@ type HomeClientProps = {
   lessons: Lesson[];
 };
 
-const subscribe = () => () => {};
-const serverSnapshot = () => null;
+type ClientData = {
+  dueCount: number;
+  streakDays: number;
+  todayReviewed: number;
+  dailyGoal: number;
+};
+
+function readClientData(lessons: Lesson[]): ClientData {
+  return {
+    dueCount: getDueCards(lessons).length,
+    streakDays: getStreak().current,
+    todayReviewed: getTodayStats().reviewed,
+    dailyGoal: getSettings().dailyGoal,
+  };
+}
 
 function DailyGoalRing({
   reviewed,
@@ -87,21 +100,15 @@ function DailyGoalRing({
 }
 
 export function HomeClient({ lessons }: HomeClientProps) {
-  const clientData = useSyncExternalStore(
-    subscribe,
-    () => ({
-      dueCount: getDueCards(lessons).length,
-      streakDays: getStreak().current,
-      todayReviewed: getTodayStats().reviewed,
-      dailyGoal: getSettings().dailyGoal,
-    }),
-    serverSnapshot,
-  );
+  const [data] = useState<ClientData | null>(() => {
+    if (typeof window === "undefined") return null;
+    return readClientData(lessons);
+  });
 
-  const dueCount = clientData?.dueCount ?? 0;
-  const streakDays = clientData?.streakDays ?? 0;
-  const todayReviewed = clientData?.todayReviewed ?? 0;
-  const dailyGoal = clientData?.dailyGoal ?? 20;
+  const dueCount = data?.dueCount ?? 0;
+  const streakDays = data?.streakDays ?? 0;
+  const todayReviewed = data?.todayReviewed ?? 0;
+  const dailyGoal = data?.dailyGoal ?? 20;
 
   return (
     <div className="space-y-6">
@@ -183,7 +190,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
       </section>
 
       {/* Keyboard shortcuts */}
-      <section className="space-y-3">
+      <section>
         <div className="grid gap-3 sm:grid-cols-2">
           <article className="rounded-2xl border border-rose-900/10 bg-white/90 p-4">
             <p className="text-xs uppercase tracking-[0.16em] text-rose-700">

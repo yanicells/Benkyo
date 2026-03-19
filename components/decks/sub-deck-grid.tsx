@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
+import { useState } from "react";
 
 import type { CardType, Lesson } from "@/lib/types";
 import { getMasteryPercent, getSubDeckAccuracy } from "@/lib/srs";
@@ -35,13 +35,20 @@ function getDeckPrimaryType(cards: { type: CardType }[]): CardType {
   return max;
 }
 
-const subscribe = () => () => {};
-const emptySnapshot = () => "server";
-const clientSnapshot = () => "client";
+type SubDeckStats = Record<string, { mastery: number; accuracy: number }>;
 
 export function SubDeckGrid({ lesson }: SubDeckGridProps) {
-  const env = useSyncExternalStore(subscribe, clientSnapshot, emptySnapshot);
-  const isClient = env === "client";
+  const [stats] = useState<SubDeckStats>(() => {
+    if (typeof window === "undefined") return {};
+    const result: SubDeckStats = {};
+    for (const sd of lesson.subDecks) {
+      result[sd.id] = {
+        mastery: getMasteryPercent(sd.id, sd.cards.length),
+        accuracy: getSubDeckAccuracy(sd.id, sd.cards.length),
+      };
+    }
+    return result;
+  });
 
   return (
     <section className="space-y-4">
@@ -57,12 +64,8 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {lesson.subDecks.map((subDeck) => {
           const primaryType = getDeckPrimaryType(subDeck.cards);
-          const mastery = isClient
-            ? getMasteryPercent(subDeck.id, subDeck.cards.length)
-            : 0;
-          const accuracy = isClient
-            ? getSubDeckAccuracy(subDeck.id, subDeck.cards.length)
-            : 0;
+          const mastery = stats[subDeck.id]?.mastery ?? 0;
+          const accuracy = stats[subDeck.id]?.accuracy ?? 0;
 
           return (
             <Link
@@ -86,9 +89,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
 
               <div className="mt-3 flex items-center gap-3 text-xs text-slate-600">
                 <span>{mastery}% mastered</span>
-                {accuracy > 0 && (
-                  <span>&middot; {accuracy}% accuracy</span>
-                )}
+                {accuracy > 0 && <span>&middot; {accuracy}% accuracy</span>}
               </div>
 
               <div className="mt-2 h-1 overflow-hidden rounded-full bg-rose-100">

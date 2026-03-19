@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 import type { FlipSetting, Lesson, StudyMode } from "@/lib/types";
@@ -10,15 +10,11 @@ type ReviewConfigClientProps = {
   lessons: Lesson[];
 };
 
-const subscribe = () => () => {};
-const serverSnapshot = () => 0;
-
 export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
-  const dueCount = useSyncExternalStore(
-    subscribe,
-    () => getDueCards(lessons).length,
-    serverSnapshot,
-  );
+  const [dueCount] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    return getDueCards(lessons).length;
+  });
   const [mode, setMode] = useState<StudyMode>("flashcard");
   const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
 
@@ -100,8 +96,14 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {(
                 [
-                  { value: "jp-to-en" as FlipSetting, label: "Japanese → English" },
-                  { value: "en-to-jp" as FlipSetting, label: "English → Japanese" },
+                  {
+                    value: "jp-to-en" as FlipSetting,
+                    label: "Japanese → English",
+                  },
+                  {
+                    value: "en-to-jp" as FlipSetting,
+                    label: "English → Japanese",
+                  },
                 ] as const
               ).map((opt) => (
                 <label

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 
 import type { Lesson } from "@/lib/types";
 import {
@@ -20,24 +20,29 @@ type StatsClientProps = {
   lessons: Lesson[];
 };
 
-const subscribe = () => () => {};
-const serverSnapshot = () => null;
+type StatsData = {
+  lifetime: ReturnType<typeof getLifetimeStats>;
+  streak: ReturnType<typeof getStreak>;
+  today: ReturnType<typeof getTodayStats>;
+  dueCount: number;
+  chartData: ReturnType<typeof getLast30DaysAccuracy>;
+  weak: ReturnType<typeof getWeakCards>;
+};
 
 export function StatsClient({ lessons }: StatsClientProps) {
   const [showSettings, setShowSettings] = useState(false);
 
-  const data = useSyncExternalStore(
-    subscribe,
-    () => ({
+  const [data] = useState<StatsData | null>(() => {
+    if (typeof window === "undefined") return null;
+    return {
       lifetime: getLifetimeStats(lessons),
       streak: getStreak(),
       today: getTodayStats(),
       dueCount: getDueCards(lessons).length,
       chartData: getLast30DaysAccuracy(),
       weak: getWeakCards(lessons),
-    }),
-    serverSnapshot,
-  );
+    };
+  });
 
   if (!data) {
     return (
@@ -187,7 +192,11 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
           stroke="currentColor"
           strokeWidth={2}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="m19 9-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m19 9-7 7-7-7"
+          />
         </svg>
       </button>
 

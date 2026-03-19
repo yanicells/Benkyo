@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
+import { useState } from "react";
 
 import type { Lesson } from "@/lib/types";
 import { getLessonMastery } from "@/lib/srs";
@@ -10,13 +10,11 @@ type LessonDeckGridProps = {
   lessons: Lesson[];
 };
 
-const subscribe = () => () => {};
-const serverSnapshot = () => "server";
-const clientSnapshot = () => "client";
-
 function LessonCard({ lesson }: { lesson: Lesson }) {
-  const env = useSyncExternalStore(subscribe, clientSnapshot, serverSnapshot);
-  const mastery = env === "client" ? getLessonMastery(lesson) : 0;
+  const [mastery] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    return getLessonMastery(lesson);
+  });
 
   const totalCards = lesson.subDecks.reduce(
     (sum, sd) => sum + sd.cards.length,
