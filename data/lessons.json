@@ -1,1167 +1,3305 @@
 {
+  "version": "2.0",
+  "schema": {
+    "description": "Each card has a 'type' field and optional fields depending on type.",
+    "types": {
+      "vocab": "Standard vocabulary card (front/back/romaji)",
+      "grammar": "Grammar pattern explanation (front=pattern, back=explanation+example)",
+      "fill-in": "Sentence with a blank to fill (front=sentence with ___, back=answer, hint=optional clue)",
+      "conjugation": "Conjugation drill (front=base form+target, back=conjugated form)",
+      "translate": "Full sentence translation (front=English or Japanese sentence, back=translation)",
+      "culture": "Culture note (front=topic, back=explanation)"
+    }
+  },
   "lessons": [
     {
+      "id": "writing-system",
+      "title": "Japanese Writing System",
+      "subDecks": [
+        {
+          "id": "pronunciation-rules",
+          "title": "Pronunciation Rules",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "Long Vowels",
+              "back": "Extend vowel duration. aa, ii, uu, ei/ee, ou/oo. In hiragana: おかあさん (okaasan), おにいさん (oniisan). For 'oo', write おう (e.g., おはよう).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "The Sound ん (n)",
+              "back": "Pronounced 'm' before b/m/p (e.g., さんぽ = sampo). Pronounced 'ng' before k/g (e.g., まんが = manga). Otherwise 'n'.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Vowel Dropping (Silent u/i)",
+              "back": "The 'u' in です (desu) and ます (masu) is often silent. The 'i' in すき (suki) can be devoiced between voiceless consonants.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Pitch Accent vs. Stress Accent",
+              "back": "Japanese uses pitch (high/low) rather than stress (loud/soft). はし can mean 'bridge' (LH) or 'chopsticks' (HL) depending on pitch.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Double Consonants (っ)",
+              "back": "Small tsu (っ) creates a pause/glottal stop before the next consonant. きって (kitte) = stamp. がっこう (gakkou) = school.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Contracted Sounds (拗音)",
+              "back": "Combine i-column kana with small ya/yu/yo: きゃ (kya), しゅ (shu), ちょ (cho). The ya/yu/yo must be written small.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Dakuten (゛) & Handakuten (゜)",
+              "back": "Dakuten voices consonants: k→g, s→z, t→d, h→b. Handakuten: h→p. E.g., か→が, さ→ざ, は→ば, は→ぱ.",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "おか___さん (mother)",
+              "back": "あ",
+              "hint": "Long vowel 'aa'",
+              "romaji": "okaasan"
+            },
+            {
+              "type": "fill-in",
+              "front": "が___こう (school)",
+              "back": "っ",
+              "hint": "Double consonant before こ",
+              "romaji": "gakkou"
+            }
+          ]
+        },
+        {
+          "id": "katakana-rules",
+          "title": "Katakana & Loanwords",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "When to use Katakana",
+              "back": "Used for: foreign loanwords (コーヒー), foreign names (メアリー), onomatopoeia, emphasis, and scientific terms.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Long Vowels in Katakana",
+              "back": "Use ー (long dash) instead of vowel kana: コーヒー (koohii), ケーキ (keeki), ノート (nooto).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Special Katakana Combinations",
+              "back": "For sounds not native to Japanese: ティ (ti), ディ (di), ファ (fa), フェ (fe), フィ (fi), ヴ (vu).",
+              "romaji": ""
+            },
+            {
+              "type": "vocab",
+              "front": "コンピューター",
+              "back": "computer",
+              "romaji": "konpyuutaa"
+            },
+            {
+              "type": "vocab",
+              "front": "アイスクリーム",
+              "back": "ice cream",
+              "romaji": "aisukuriimu"
+            },
+            {
+              "type": "vocab",
+              "front": "ハンバーガー",
+              "back": "hamburger",
+              "romaji": "hanbaagaa"
+            },
+            {
+              "type": "vocab",
+              "front": "Ｔシャツ",
+              "back": "T-shirt",
+              "romaji": "T shatsu"
+            },
+            {
+              "type": "vocab",
+              "front": "ジーンズ",
+              "back": "jeans",
+              "romaji": "jiinzu"
+            },
+            {
+              "type": "vocab",
+              "front": "スマホ",
+              "back": "smartphone",
+              "romaji": "sumaho"
+            }
+          ]
+        },
+        {
+          "id": "kanji-intro",
+          "title": "Introduction to Kanji",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "Kanji Formation: Pictograms (象形文字)",
+              "back": "Characters derived from pictures of objects. 木 (tree), 山 (mountain), 川 (river), 日 (sun).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Kanji Formation: Simple Ideograms (指事文字)",
+              "back": "Abstract concepts shown with symbols. 上 (above), 下 (below), 一 (one), 二 (two), 三 (three).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Kanji Formation: Compound Ideograms (会意文字)",
+              "back": "Two or more elements combined for meaning. 明 (bright) = 日 (sun) + 月 (moon). 休 (rest) = 人 (person) + 木 (tree).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "On-yomi vs. Kun-yomi",
+              "back": "On-yomi: Chinese-derived reading, used in compound words (e.g., 山 = サン in 火山/kazan). Kun-yomi: native Japanese reading, used alone (e.g., 山 = やま).",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "明 combines 日 (___) and 月 (___) to mean 'bright'",
+              "back": "sun, moon",
+              "hint": "Two celestial objects",
+              "romaji": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "greetings",
-      "title": "Greetings",
-      "cards": [
-        { "front": "おはよう。", "back": "Good morning.", "romaji": "ohayou" },
+      "title": "Greetings & Expressions",
+      "subDecks": [
         {
-          "front": "おはよう ございます。",
-          "back": "Good morning. (polite)",
-          "romaji": "ohayou gozaimasu"
+          "id": "greetings-basic",
+          "title": "Standard Greetings",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "おはよう。",
+              "back": "Good morning.",
+              "romaji": "ohayou"
+            },
+            {
+              "type": "vocab",
+              "front": "おはよう ございます。",
+              "back": "Good morning. (polite)",
+              "romaji": "ohayou gozaimasu"
+            },
+            {
+              "type": "vocab",
+              "front": "こんにちは。",
+              "back": "Good afternoon.",
+              "romaji": "konnichiwa"
+            },
+            {
+              "type": "vocab",
+              "front": "こんばんは。",
+              "back": "Good evening.",
+              "romaji": "konbanwa"
+            },
+            {
+              "type": "vocab",
+              "front": "さようなら。",
+              "back": "Good-bye.",
+              "romaji": "sayounara"
+            },
+            {
+              "type": "vocab",
+              "front": "おやすみ（なさい）。",
+              "back": "Good night.",
+              "romaji": "oyasumi (nasai)"
+            },
+            {
+              "type": "fill-in",
+              "front": "It's 8 AM. You greet your teacher: ＿＿＿＿ ございます。",
+              "back": "おはよう",
+              "hint": "Morning greeting (polite)",
+              "romaji": "ohayou gozaimasu"
+            },
+            {
+              "type": "fill-in",
+              "front": "It's 3 PM. You meet a friend: ＿＿＿＿。",
+              "back": "こんにちは",
+              "hint": "Afternoon greeting",
+              "romaji": "konnichiwa"
+            }
+          ]
         },
         {
-          "front": "こんにちは。",
-          "back": "Good afternoon.",
-          "romaji": "konnichiwa"
+          "id": "greetings-daily",
+          "title": "Daily Ritual Expressions",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "いってきます。",
+              "back": "I'll go and come back. (said when leaving home)",
+              "romaji": "ittekimasu"
+            },
+            {
+              "type": "vocab",
+              "front": "いってらっしゃい。",
+              "back": "Please go and come back. (response to above)",
+              "romaji": "itterasshai"
+            },
+            {
+              "type": "vocab",
+              "front": "ただいま。",
+              "back": "I'm home.",
+              "romaji": "tadaima"
+            },
+            {
+              "type": "vocab",
+              "front": "おかえり（なさい）。",
+              "back": "Welcome home.",
+              "romaji": "okaeri (nasai)"
+            },
+            {
+              "type": "vocab",
+              "front": "いただきます。",
+              "back": "Thank you for the meal. (before eating)",
+              "romaji": "itadakimasu"
+            },
+            {
+              "type": "vocab",
+              "front": "ごちそうさま（でした）。",
+              "back": "Thank you for the meal. (after eating)",
+              "romaji": "gochisousama (deshita)"
+            },
+            {
+              "type": "fill-in",
+              "front": "You're about to eat dinner. You say: ＿＿＿＿。",
+              "back": "いただきます",
+              "hint": "Said before eating",
+              "romaji": "itadakimasu"
+            },
+            {
+              "type": "fill-in",
+              "front": "You just got home. You say: ＿＿＿＿。 Your family responds: ＿＿＿＿。",
+              "back": "ただいま / おかえり",
+              "hint": "Home arrival pair",
+              "romaji": "tadaima / okaeri"
+            }
+          ]
         },
         {
-          "front": "こんばんは。",
-          "back": "Good evening.",
-          "romaji": "konbanwa"
-        },
-        { "front": "さようなら。", "back": "Good-bye.", "romaji": "sayounara" },
-        {
-          "front": "おやすみ（なさい）。",
-          "back": "Good night.",
-          "romaji": "oyasumi (nasai)"
-        },
-        { "front": "ありがとう。", "back": "Thank you.", "romaji": "arigatou" },
-        {
-          "front": "ありがとう ございます。",
-          "back": "Thank you. (polite)",
-          "romaji": "arigatou gozaimasu"
-        },
-        {
-          "front": "すみません。",
-          "back": "Excuse me.; I'm sorry.",
-          "romaji": "sumimasen"
-        },
-        { "front": "いいえ。", "back": "No.; Not at all.", "romaji": "iie" },
-        {
-          "front": "いってきます。",
-          "back": "I'll go and come back.",
-          "romaji": "ittekimasu"
-        },
-        {
-          "front": "いってらっしゃい。",
-          "back": "Please go and come back.",
-          "romaji": "itterasshai"
-        },
-        { "front": "ただいま。", "back": "I'm home.", "romaji": "tadaima" },
-        {
-          "front": "おかえり（なさい）。",
-          "back": "Welcome home.",
-          "romaji": "okaeri (nasai)"
-        },
-        {
-          "front": "いただきます。",
-          "back": "Thank you for the meal. (before eating)",
-          "romaji": "itadakimasu"
-        },
-        {
-          "front": "ごちそうさま（でした）。",
-          "back": "Thank you for the meal. (after eating)",
-          "romaji": "gochisousama (deshita)"
-        },
-        {
-          "front": "はじめまして。",
-          "back": "How do you do?",
-          "romaji": "hajimemashite"
-        },
-        { "front": "〜です。", "back": "I am . . . .", "romaji": "desu" },
-        {
-          "front": "よろしく おねがいします。",
-          "back": "Nice to meet you.",
-          "romaji": "yoroshiku onegaishimasu"
+          "id": "greetings-social",
+          "title": "Social Expressions",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "ありがとう。",
+              "back": "Thank you.",
+              "romaji": "arigatou"
+            },
+            {
+              "type": "vocab",
+              "front": "ありがとう ございます。",
+              "back": "Thank you. (polite)",
+              "romaji": "arigatou gozaimasu"
+            },
+            {
+              "type": "vocab",
+              "front": "すみません。",
+              "back": "Excuse me.; I'm sorry.",
+              "romaji": "sumimasen"
+            },
+            {
+              "type": "vocab",
+              "front": "いいえ。",
+              "back": "No.; Not at all.",
+              "romaji": "iie"
+            },
+            {
+              "type": "vocab",
+              "front": "はじめまして。",
+              "back": "How do you do?",
+              "romaji": "hajimemashite"
+            },
+            {
+              "type": "vocab",
+              "front": "〜です。",
+              "back": "I am . . .",
+              "romaji": "desu"
+            },
+            {
+              "type": "vocab",
+              "front": "よろしく おねがいします。",
+              "back": "Nice to meet you.",
+              "romaji": "yoroshiku onegaishimasu"
+            },
+            {
+              "type": "grammar",
+              "front": "すみません (3 uses)",
+              "back": "1. Excuse me (getting attention). 2. I'm sorry (apology). 3. Thank you (for trouble caused). Context determines meaning.",
+              "romaji": "sumimasen"
+            },
+            {
+              "type": "translate",
+              "front": "How do you do? I am Tanaka. Nice to meet you.",
+              "back": "はじめまして。たなかです。よろしくおねがいします。",
+              "romaji": "hajimemashite. tanaka desu. yoroshiku onegaishimasu."
+            },
+            {
+              "type": "culture",
+              "front": "Bowing (おじぎ)",
+              "back": "Bowing is the standard Japanese greeting. Deeper bows show more respect. A casual nod (15°) for friends, 30° for business, 45° for deep apologies.",
+              "romaji": ""
+            },
+            {
+              "type": "culture",
+              "front": "Business Cards (めいし)",
+              "back": "Exchange with both hands. Receive and read it carefully. Never write on someone's card or put it in your back pocket.",
+              "romaji": ""
+            }
+          ]
         }
       ]
     },
     {
       "id": "numbers",
       "title": "Numbers",
-      "cards": [
-        { "front": "ゼロ／れい", "back": "0", "romaji": "zero/rei" },
-        { "front": "いち", "back": "1", "romaji": "ichi" },
-        { "front": "に", "back": "2", "romaji": "ni" },
-        { "front": "さん", "back": "3", "romaji": "san" },
-        { "front": "よん／し／（よ）", "back": "4", "romaji": "yon/shi/(yo)" },
-        { "front": "ご", "back": "5", "romaji": "go" },
-        { "front": "ろく", "back": "6", "romaji": "roku" },
-        { "front": "なな／しち", "back": "7", "romaji": "nana/shichi" },
-        { "front": "はち", "back": "8", "romaji": "hachi" },
-        { "front": "きゅう／く", "back": "9", "romaji": "kyuu/ku" },
-        { "front": "じゅう", "back": "10", "romaji": "juu" },
-        { "front": "じゅういち", "back": "11", "romaji": "juuichi" },
-        { "front": "じゅうに", "back": "12", "romaji": "juuni" },
-        { "front": "じゅうさん", "back": "13", "romaji": "juusan" },
+      "subDecks": [
         {
-          "front": "じゅうよん／じゅうし",
-          "back": "14",
-          "romaji": "juuyon/juushi"
+          "id": "numbers-basic",
+          "title": "Numbers 0-100",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "ゼロ／れい",
+              "back": "0",
+              "romaji": "zero/rei"
+            },
+            { "type": "vocab", "front": "いち", "back": "1", "romaji": "ichi" },
+            { "type": "vocab", "front": "に", "back": "2", "romaji": "ni" },
+            { "type": "vocab", "front": "さん", "back": "3", "romaji": "san" },
+            {
+              "type": "vocab",
+              "front": "よん／し／（よ）",
+              "back": "4",
+              "romaji": "yon/shi/(yo)"
+            },
+            { "type": "vocab", "front": "ご", "back": "5", "romaji": "go" },
+            { "type": "vocab", "front": "ろく", "back": "6", "romaji": "roku" },
+            {
+              "type": "vocab",
+              "front": "なな／しち",
+              "back": "7",
+              "romaji": "nana/shichi"
+            },
+            {
+              "type": "vocab",
+              "front": "はち",
+              "back": "8",
+              "romaji": "hachi"
+            },
+            {
+              "type": "vocab",
+              "front": "きゅう／く",
+              "back": "9",
+              "romaji": "kyuu/ku"
+            },
+            {
+              "type": "vocab",
+              "front": "じゅう",
+              "back": "10",
+              "romaji": "juu"
+            },
+            {
+              "type": "vocab",
+              "front": "じゅういち",
+              "back": "11",
+              "romaji": "juuichi"
+            },
+            {
+              "type": "vocab",
+              "front": "じゅうに",
+              "back": "12",
+              "romaji": "juuni"
+            },
+            {
+              "type": "vocab",
+              "front": "にじゅう",
+              "back": "20",
+              "romaji": "nijuu"
+            },
+            {
+              "type": "vocab",
+              "front": "さんじゅう",
+              "back": "30",
+              "romaji": "sanjuu"
+            },
+            {
+              "type": "vocab",
+              "front": "よんじゅう",
+              "back": "40",
+              "romaji": "yonjuu"
+            },
+            {
+              "type": "vocab",
+              "front": "ごじゅう",
+              "back": "50",
+              "romaji": "gojuu"
+            },
+            {
+              "type": "vocab",
+              "front": "ろくじゅう",
+              "back": "60",
+              "romaji": "rokujuu"
+            },
+            {
+              "type": "vocab",
+              "front": "ななじゅう",
+              "back": "70",
+              "romaji": "nanajuu"
+            },
+            {
+              "type": "vocab",
+              "front": "はちじゅう",
+              "back": "80",
+              "romaji": "hachijuu"
+            },
+            {
+              "type": "vocab",
+              "front": "きゅうじゅう",
+              "back": "90",
+              "romaji": "kyuujuu"
+            },
+            {
+              "type": "vocab",
+              "front": "ひゃく",
+              "back": "100",
+              "romaji": "hyaku"
+            }
+          ]
         },
-        { "front": "じゅうご", "back": "15", "romaji": "juugo" },
-        { "front": "じゅうろく", "back": "16", "romaji": "juuroku" },
         {
-          "front": "じゅうなな／じゅうしち",
-          "back": "17",
-          "romaji": "juunana/juushichi"
-        },
-        { "front": "じゅうはち", "back": "18", "romaji": "juuhachi" },
-        {
-          "front": "じゅうきゅう／じゅうく",
-          "back": "19",
-          "romaji": "juukyuu/juuku"
-        },
-        { "front": "にじゅう", "back": "20", "romaji": "nijuu" },
-        { "front": "さんじゅう", "back": "30", "romaji": "sanjuu" },
-        { "front": "よんじゅう", "back": "40", "romaji": "yonjuu" },
-        { "front": "ごじゅう", "back": "50", "romaji": "gojuu" },
-        { "front": "ろくじゅう", "back": "60", "romaji": "rokujuu" },
-        { "front": "ななじゅう", "back": "70", "romaji": "nanajuu" },
-        { "front": "はちじゅう", "back": "80", "romaji": "hachijuu" },
-        { "front": "きゅうじゅう", "back": "90", "romaji": "kyuujuu" },
-        { "front": "ひゃく", "back": "100", "romaji": "hyaku" }
-      ]
-    },
-    {
-      "id": "lesson-1-vocab",
-      "title": "Lesson 1: Vocabulary",
-      "cards": [
-        {
-          "front": "だいがく",
-          "back": "college; university",
-          "romaji": "daigaku"
-        },
-        { "front": "こうこう", "back": "high school", "romaji": "koukou" },
-        { "front": "がくせい", "back": "student", "romaji": "gakusei" },
-        {
-          "front": "だいがくせい",
-          "back": "college student",
-          "romaji": "daigakusei"
-        },
-        {
-          "front": "りゅうがくせい",
-          "back": "international student",
-          "romaji": "ryuugakusei"
-        },
-        {
-          "front": "せんせい",
-          "back": "teacher; Professor . . .",
-          "romaji": "sensei"
-        },
-        {
-          "front": "～ねんせい",
-          "back": ". . . year student",
-          "romaji": "nensei"
-        },
-        {
-          "front": "いちねんせい",
-          "back": "first-year student",
-          "romaji": "ichinensei"
-        },
-        { "front": "せんこう", "back": "major", "romaji": "senkou" },
-        { "front": "わたし", "back": "I", "romaji": "watashi" },
-        { "front": "ともだち", "back": "friend", "romaji": "tomodachi" },
-        { "front": "～さん", "back": "Mr./Ms. . . .", "romaji": "san" },
-        { "front": "～じん", "back": ". . . people", "romaji": "jin" },
-        {
-          "front": "にほんじん",
-          "back": "Japanese people",
-          "romaji": "nihonjin"
-        },
-        { "front": "いま", "back": "now", "romaji": "ima" },
-        { "front": "ごぜん", "back": "A.M.", "romaji": "gozen" },
-        { "front": "ごご", "back": "P.M.", "romaji": "gogo" },
-        { "front": "～じ", "back": "o'clock", "romaji": "ji" },
-        { "front": "いちじ", "back": "one o'clock", "romaji": "ichiji" },
-        { "front": "はん", "back": "half", "romaji": "han" },
-        { "front": "にじはん", "back": "half past two", "romaji": "nijihan" },
-        { "front": "にほん", "back": "Japan", "romaji": "nihon" },
-        { "front": "アメリカ", "back": "U.S.A.", "romaji": "Amerika" },
-        { "front": "～ご", "back": ". . . language", "romaji": "go" },
-        {
-          "front": "にほんご",
-          "back": "Japanese language",
-          "romaji": "nihongo"
-        },
-        { "front": "～さい", "back": ". . . years old", "romaji": "sai" },
-        { "front": "でんわ", "back": "telephone", "romaji": "denwa" },
-        { "front": "～ばん", "back": "number . . .", "romaji": "ban" },
-        { "front": "ばんごう", "back": "number", "romaji": "bangou" },
-        { "front": "なまえ", "back": "name", "romaji": "namae" },
-        { "front": "なん／なに", "back": "what", "romaji": "nan/nani" },
-        { "front": "あのう", "back": "um . . .", "romaji": "anou" },
-        { "front": "はい", "back": "yes", "romaji": "hai" },
-        { "front": "そうです", "back": "That's right.", "romaji": "soudesu" },
-        {
-          "front": "そうですか",
-          "back": "I see.; Is that so?",
-          "romaji": "soudesuka"
+          "id": "numbers-large",
+          "title": "Large Numbers & Currency",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "せん",
+              "back": "1,000 (one thousand)",
+              "romaji": "sen"
+            },
+            {
+              "type": "vocab",
+              "front": "さんぜん",
+              "back": "3,000",
+              "romaji": "sanzen"
+            },
+            {
+              "type": "vocab",
+              "front": "はっせん",
+              "back": "8,000",
+              "romaji": "hassen"
+            },
+            {
+              "type": "vocab",
+              "front": "いちまん",
+              "back": "10,000 (ten thousand)",
+              "romaji": "ichiman"
+            },
+            {
+              "type": "vocab",
+              "front": "じゅうまん",
+              "back": "100,000",
+              "romaji": "juuman"
+            },
+            {
+              "type": "vocab",
+              "front": "ひゃくまん",
+              "back": "1,000,000",
+              "romaji": "hyakuman"
+            },
+            {
+              "type": "vocab",
+              "front": "～えん",
+              "back": ". . . yen",
+              "romaji": "en"
+            },
+            {
+              "type": "grammar",
+              "front": "Irregular number + ひゃく",
+              "back": "300 = さんびゃく (not さんひゃく). 600 = ろっぴゃく. 800 = はっぴゃく. Sound changes are required.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Irregular number + せん",
+              "back": "3,000 = さんぜん (not さんせん). 8,000 = はっせん (not はちせん).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Japanese large number system",
+              "back": "Japanese counts in units of 10,000 (まん), not 1,000. So 100,000 = じゅうまん (10 x 10,000), 1,000,000 = ひゃくまん (100 x 10,000).",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "三百 is read as さん＿＿＿",
+              "back": "びゃく",
+              "hint": "Sound change: h→b after ん",
+              "romaji": "sanbyaku"
+            },
+            {
+              "type": "fill-in",
+              "front": "八千 is read as は＿＿＿",
+              "back": "っせん",
+              "hint": "Sound change for 8",
+              "romaji": "hassen"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "lesson-2-vocab",
-      "title": "Lesson 2: Vocabulary",
-      "cards": [
-        { "front": "これ", "back": "this one", "romaji": "kore" },
-        { "front": "それ", "back": "that one", "romaji": "sore" },
-        { "front": "あれ", "back": "that one (over there)", "romaji": "are" },
-        { "front": "どれ", "back": "which one", "romaji": "dore" },
-        { "front": "この", "back": "this . . .", "romaji": "kono" },
-        { "front": "その", "back": "that . . .", "romaji": "sono" },
-        { "front": "あの", "back": "that . . . (over there)", "romaji": "ano" },
-        { "front": "どの", "back": "which . . .", "romaji": "dono" },
-        { "front": "ここ", "back": "here", "romaji": "koko" },
-        { "front": "そこ", "back": "there", "romaji": "soko" },
-        { "front": "あそこ", "back": "over there", "romaji": "asoko" },
-        { "front": "どこ", "back": "where", "romaji": "doko" },
-        { "front": "だれ", "back": "who", "romaji": "dare" },
-        { "front": "おいしい", "back": "delicious", "romaji": "oishii" },
-        { "front": "さかな", "back": "fish", "romaji": "sakana" },
-        { "front": "とんかつ", "back": "pork cutlet", "romaji": "tonkatsu" },
-        { "front": "にく", "back": "meat", "romaji": "niku" },
-        { "front": "メニュー", "back": "menu", "romaji": "menyuu" },
-        { "front": "やさい", "back": "vegetable", "romaji": "yasai" },
-        { "front": "かさ", "back": "umbrella", "romaji": "kasa" },
-        { "front": "かばん", "back": "bag", "romaji": "kaban" },
-        { "front": "くつ", "back": "shoes", "romaji": "kutsu" },
-        { "front": "さいふ", "back": "wallet", "romaji": "saifu" },
-        { "front": "ジーンズ", "back": "jeans", "romaji": "jiinzu" },
-        { "front": "じてんしゃ", "back": "bicycle", "romaji": "jitensha" },
-        { "front": "しんぶん", "back": "newspaper", "romaji": "shinbun" },
-        { "front": "スマホ", "back": "smartphone; mobile", "romaji": "sumaho" },
-        { "front": "Ｔシャツ", "back": "T-shirt", "romaji": "T shatsu" },
-        { "front": "とけい", "back": "watch; clock", "romaji": "tokei" },
-        { "front": "ノート", "back": "notebook", "romaji": "nooto" },
-        { "front": "ペン", "back": "pen", "romaji": "pen" },
-        { "front": "ぼうし", "back": "hat; cap", "romaji": "boushi" },
-        { "front": "ほん", "back": "book", "romaji": "hon" },
-        { "front": "ぎんこう", "back": "bank", "romaji": "ginkou" },
+      "id": "lesson-1",
+      "title": "Lesson 1: New Friends",
+      "subDecks": [
         {
-          "front": "コンビニ",
-          "back": "convenience store",
-          "romaji": "konbini"
+          "id": "lesson-1-vocab",
+          "title": "L1: Vocabulary",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "だいがく",
+              "back": "college; university",
+              "romaji": "daigaku"
+            },
+            {
+              "type": "vocab",
+              "front": "こうこう",
+              "back": "high school",
+              "romaji": "koukou"
+            },
+            {
+              "type": "vocab",
+              "front": "がくせい",
+              "back": "student",
+              "romaji": "gakusei"
+            },
+            {
+              "type": "vocab",
+              "front": "だいがくせい",
+              "back": "college student",
+              "romaji": "daigakusei"
+            },
+            {
+              "type": "vocab",
+              "front": "りゅうがくせい",
+              "back": "international student",
+              "romaji": "ryuugakusei"
+            },
+            {
+              "type": "vocab",
+              "front": "せんせい",
+              "back": "teacher; Professor . . .",
+              "romaji": "sensei"
+            },
+            {
+              "type": "vocab",
+              "front": "～ねんせい",
+              "back": ". . . year student",
+              "romaji": "nensei"
+            },
+            {
+              "type": "vocab",
+              "front": "いちねんせい",
+              "back": "first-year student",
+              "romaji": "ichinensei"
+            },
+            {
+              "type": "vocab",
+              "front": "せんこう",
+              "back": "major",
+              "romaji": "senkou"
+            },
+            {
+              "type": "vocab",
+              "front": "わたし",
+              "back": "I",
+              "romaji": "watashi"
+            },
+            {
+              "type": "vocab",
+              "front": "ともだち",
+              "back": "friend",
+              "romaji": "tomodachi"
+            },
+            {
+              "type": "vocab",
+              "front": "～さん",
+              "back": "Mr./Ms. . . .",
+              "romaji": "san"
+            },
+            {
+              "type": "vocab",
+              "front": "～じん",
+              "back": ". . . people",
+              "romaji": "jin"
+            },
+            {
+              "type": "vocab",
+              "front": "にほんじん",
+              "back": "Japanese people",
+              "romaji": "nihonjin"
+            },
+            {
+              "type": "vocab",
+              "front": "いま",
+              "back": "now",
+              "romaji": "ima"
+            },
+            {
+              "type": "vocab",
+              "front": "ごぜん",
+              "back": "A.M.",
+              "romaji": "gozen"
+            },
+            {
+              "type": "vocab",
+              "front": "ごご",
+              "back": "P.M.",
+              "romaji": "gogo"
+            },
+            {
+              "type": "vocab",
+              "front": "～じ",
+              "back": "o'clock",
+              "romaji": "ji"
+            },
+            {
+              "type": "vocab",
+              "front": "はん",
+              "back": "half",
+              "romaji": "han"
+            },
+            {
+              "type": "vocab",
+              "front": "にほん",
+              "back": "Japan",
+              "romaji": "nihon"
+            },
+            {
+              "type": "vocab",
+              "front": "アメリカ",
+              "back": "U.S.A.",
+              "romaji": "Amerika"
+            },
+            {
+              "type": "vocab",
+              "front": "～ご",
+              "back": ". . . language",
+              "romaji": "go"
+            },
+            {
+              "type": "vocab",
+              "front": "にほんご",
+              "back": "Japanese language",
+              "romaji": "nihongo"
+            },
+            {
+              "type": "vocab",
+              "front": "～さい",
+              "back": ". . . years old",
+              "romaji": "sai"
+            },
+            {
+              "type": "vocab",
+              "front": "でんわ",
+              "back": "telephone",
+              "romaji": "denwa"
+            },
+            {
+              "type": "vocab",
+              "front": "ばんごう",
+              "back": "number",
+              "romaji": "bangou"
+            },
+            {
+              "type": "vocab",
+              "front": "なまえ",
+              "back": "name",
+              "romaji": "namae"
+            },
+            {
+              "type": "vocab",
+              "front": "なん／なに",
+              "back": "what",
+              "romaji": "nan/nani"
+            },
+            {
+              "type": "vocab",
+              "front": "あのう",
+              "back": "um . . .",
+              "romaji": "anou"
+            },
+            {
+              "type": "vocab",
+              "front": "はい",
+              "back": "yes",
+              "romaji": "hai"
+            },
+            {
+              "type": "vocab",
+              "front": "そうです",
+              "back": "That's right.",
+              "romaji": "soudesu"
+            },
+            {
+              "type": "vocab",
+              "front": "そうですか",
+              "back": "I see.; Is that so?",
+              "romaji": "soudesuka"
+            }
+          ]
         },
-        { "front": "トイレ", "back": "toilet; restroom", "romaji": "toire" },
-        { "front": "としょかん", "back": "library", "romaji": "toshokan" },
         {
-          "front": "ゆうびんきょく",
-          "back": "post office",
-          "romaji": "yuubinkyoku"
-        },
-        { "front": "イギリス", "back": "Britain", "romaji": "Igirisu" },
-        { "front": "かんこく", "back": "Korea", "romaji": "kankoku" },
-        { "front": "ちゅうごく", "back": "China", "romaji": "chuugoku" },
-        { "front": "えいご", "back": "English (language)", "romaji": "eigo" },
-        { "front": "けいざい", "back": "economics", "romaji": "keizai" },
-        {
-          "front": "コンピューター",
-          "back": "computer",
-          "romaji": "konpyuutaa"
-        },
-        { "front": "ビジネス", "back": "business", "romaji": "bijinesu" },
-        { "front": "れきし", "back": "history", "romaji": "rekishi" },
-        { "front": "おかあさん", "back": "mother", "romaji": "okaasan" },
-        { "front": "おとうさん", "back": "father", "romaji": "otousan" },
-        { "front": "いくら", "back": "how much", "romaji": "ikura" },
-        { "front": "～えん", "back": ". . . yen", "romaji": "en" },
-        { "front": "たかい", "back": "expensive; high", "romaji": "takai" },
-        {
-          "front": "いらっしゃいませ",
-          "back": "Welcome (to our store).",
-          "romaji": "irasshaimase"
-        },
-        {
-          "front": "（～を）おねがいします",
-          "back": ". . . , please.",
-          "romaji": "onegaishimasu"
-        },
-        {
-          "front": "（～を）ください",
-          "back": "Please give me . . .",
-          "romaji": "kudasai"
-        },
-        {
-          "front": "じゃあ",
-          "back": "then . . . ; if that is the case, . . .",
-          "romaji": "jaa"
-        },
-        {
-          "front": "どうぞ",
-          "back": "Please.; Here it is.",
-          "romaji": "douzo"
-        },
-        { "front": "どうも", "back": "Thank you.", "romaji": "doumo" }
-      ]
-    },
-    {
-      "id": "lesson-3-kanji",
-      "title": "Lesson 3: Kanji",
-      "cards": [
-        { "front": "一", "back": "いち (one)", "romaji": "ichi" },
-        { "front": "一時", "back": "いちじ (one o'clock)", "romaji": "ichiji" },
-        { "front": "二", "back": "に (two)", "romaji": "ni" },
-        { "front": "二時", "back": "にじ (two o'clock)", "romaji": "niji" },
-        { "front": "三", "back": "さん (three)", "romaji": "san" },
-        {
-          "front": "三時",
-          "back": "さんじ (three o'clock)",
-          "romaji": "sanji"
-        },
-        { "front": "四", "back": "よん (four)", "romaji": "yon" },
-        { "front": "四時", "back": "よじ (four o'clock)", "romaji": "yoji" },
-        { "front": "五", "back": "ご (five)", "romaji": "go" },
-        { "front": "五時", "back": "ごじ (five o'clock)", "romaji": "goji" },
-        { "front": "六", "back": "ろく (six)", "romaji": "roku" },
-        { "front": "六時", "back": "ろくじ (six o'clock)", "romaji": "rokuji" },
-        {
-          "front": "六百",
-          "back": "ろっぴゃく (six hundred)",
-          "romaji": "roppyaku"
-        },
-        {
-          "front": "七",
-          "back": "しち／なな (seven)",
-          "romaji": "shichi/nana"
-        },
-        {
-          "front": "七時",
-          "back": "しちじ (seven o'clock)",
-          "romaji": "shichiji"
-        },
-        { "front": "八", "back": "はち (eight)", "romaji": "hachi" },
-        {
-          "front": "八時",
-          "back": "はちじ (eight o'clock)",
-          "romaji": "hachiji"
-        },
-        {
-          "front": "八百",
-          "back": "はっぴゃく (eight hundred)",
-          "romaji": "happyaku"
-        },
-        { "front": "九", "back": "きゅう (nine)", "romaji": "kyuu" },
-        { "front": "九時", "back": "くじ (nine o'clock)", "romaji": "kuji" },
-        { "front": "十", "back": "じゅう (ten)", "romaji": "juu" },
-        {
-          "front": "十時",
-          "back": "じゅうじ (ten o'clock)",
-          "romaji": "juuji"
-        },
-        { "front": "百", "back": "ひゃく (one hundred)", "romaji": "hyaku" },
-        {
-          "front": "三百",
-          "back": "さんびゃく (three hundred)",
-          "romaji": "sanbyaku"
-        },
-        { "front": "千", "back": "せん (one thousand)", "romaji": "sen" },
-        {
-          "front": "三千",
-          "back": "さんぜん (three thousand)",
-          "romaji": "sanzen"
+          "id": "lesson-1-grammar",
+          "title": "L1: Grammar",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "X は Y です (Identity)",
+              "back": "は (wa) marks the topic. です (desu) = 'is'. わたしはがくせいです。= I am a student. The subject is often omitted when clear from context.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Question marker か",
+              "back": "Add か to the end of a statement to make it a question. がくせいです → がくせいですか？ No change in word order needed.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Question word なん",
+              "back": "なん/なに = 'what'. せんこうはなんですか。= What is your major? なんじですか。= What time is it? Use なん before です, じ, ねんせい.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Particle の (possessive/modifier)",
+              "back": "Connects two nouns: Noun1 の Noun2. にほんごのがくせい = a student of Japanese. たけしさんのでんわばんごう = Takeshi's phone number.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Honorific titles: さん, くん, ちゃん",
+              "back": "さん: default polite (Mr./Ms.). くん: for boys/male subordinates. ちゃん: for children/close friends. Never use on yourself.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "せんせい vs. きょうし",
+              "back": "せんせい is used to address/refer to a teacher (honorific). きょうし is used to describe your own occupation modestly. Never call yourself せんせい.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Why あなた is rarely used",
+              "back": "あなた (you) is considered rude in most contexts. Use the person's name + さん instead. E.g., たけしさんはがくせいですか。",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "わたし＿＿がくせいです。(I am a student.)",
+              "back": "は",
+              "hint": "Topic marker particle",
+              "romaji": "wa"
+            },
+            {
+              "type": "fill-in",
+              "front": "せんこう＿＿なんですか。(What is [your] major?)",
+              "back": "は",
+              "hint": "Topic marker particle",
+              "romaji": "wa"
+            },
+            {
+              "type": "fill-in",
+              "front": "にほんご＿＿せんせい (a teacher of Japanese)",
+              "back": "の",
+              "hint": "Possessive/modifier particle",
+              "romaji": "no"
+            },
+            {
+              "type": "translate",
+              "front": "I am a second-year student.",
+              "back": "にねんせいです。",
+              "romaji": "ninensei desu."
+            },
+            {
+              "type": "translate",
+              "front": "What time is it now?",
+              "back": "いまなんじですか。",
+              "romaji": "ima nanji desu ka."
+            },
+            {
+              "type": "translate",
+              "front": "I am a student of economics at the University of Tokyo.",
+              "back": "とうきょうだいがくのけいざいのがくせいです。",
+              "romaji": "toukyou daigaku no keizai no gakusei desu."
+            },
+            {
+              "type": "translate",
+              "front": "It is 2:30 PM.",
+              "back": "ごごにじはんです。",
+              "romaji": "gogo niji han desu."
+            }
+          ]
         },
         {
-          "front": "八千",
-          "back": "はっせん (eight thousand)",
-          "romaji": "hassen"
-        },
-        {
-          "front": "千円",
-          "back": "せんえん (one thousand yen)",
-          "romaji": "senen"
-        },
-        {
-          "front": "一万",
-          "back": "いちまん (ten thousand)",
-          "romaji": "ichiman"
-        },
-        {
-          "front": "十万",
-          "back": "じゅうまん (one hundred thousand)",
-          "romaji": "juuman"
-        },
-        {
-          "front": "百万",
-          "back": "ひゃくまん (one million)",
-          "romaji": "hyakuman"
-        },
-        {
-          "front": "百円",
-          "back": "ひゃくえん (one hundred yen)",
-          "romaji": "hyakuen"
+          "id": "lesson-1-time",
+          "title": "L1: Telling Time",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "いちじ",
+              "back": "1 o'clock",
+              "romaji": "ichiji"
+            },
+            {
+              "type": "vocab",
+              "front": "にじ",
+              "back": "2 o'clock",
+              "romaji": "niji"
+            },
+            {
+              "type": "vocab",
+              "front": "さんじ",
+              "back": "3 o'clock",
+              "romaji": "sanji"
+            },
+            {
+              "type": "vocab",
+              "front": "よじ",
+              "back": "4 o'clock (NOT よんじ)",
+              "romaji": "yoji"
+            },
+            {
+              "type": "vocab",
+              "front": "ごじ",
+              "back": "5 o'clock",
+              "romaji": "goji"
+            },
+            {
+              "type": "vocab",
+              "front": "ろくじ",
+              "back": "6 o'clock",
+              "romaji": "rokuji"
+            },
+            {
+              "type": "vocab",
+              "front": "しちじ",
+              "back": "7 o'clock",
+              "romaji": "shichiji"
+            },
+            {
+              "type": "vocab",
+              "front": "はちじ",
+              "back": "8 o'clock",
+              "romaji": "hachiji"
+            },
+            {
+              "type": "vocab",
+              "front": "くじ",
+              "back": "9 o'clock (NOT きゅうじ)",
+              "romaji": "kuji"
+            },
+            {
+              "type": "vocab",
+              "front": "じゅうじ",
+              "back": "10 o'clock",
+              "romaji": "juuji"
+            },
+            {
+              "type": "vocab",
+              "front": "じゅういちじ",
+              "back": "11 o'clock",
+              "romaji": "juuichiji"
+            },
+            {
+              "type": "vocab",
+              "front": "じゅうにじ",
+              "back": "12 o'clock",
+              "romaji": "juuniji"
+            },
+            {
+              "type": "vocab",
+              "front": "にじはん",
+              "back": "half past two",
+              "romaji": "nijihan"
+            },
+            {
+              "type": "grammar",
+              "front": "Irregular time readings",
+              "back": "4 o'clock = よじ (not よんじ). 7 o'clock = しちじ (not ななじ). 9 o'clock = くじ (not きゅうじ).",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "4 o'clock = ＿＿じ",
+              "back": "よ",
+              "hint": "Irregular: not よん",
+              "romaji": "yoji"
+            },
+            {
+              "type": "fill-in",
+              "front": "9 o'clock = ＿＿じ",
+              "back": "く",
+              "hint": "Irregular: not きゅう",
+              "romaji": "kuji"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "lesson-3-vocab",
-      "title": "Lesson 3: Vocabulary",
-      "cards": [
-        { "front": "えいが", "back": "movie", "romaji": "eiga" },
-        { "front": "おんがく", "back": "music", "romaji": "ongaku" },
-        { "front": "ざっし", "back": "magazine", "romaji": "zasshi" },
-        { "front": "スポーツ", "back": "sports", "romaji": "supootsu" },
+      "id": "lesson-2",
+      "title": "Lesson 2: Shopping",
+      "subDecks": [
         {
-          "front": "デート",
-          "back": "date (romantic, not calendar)",
-          "romaji": "deeto"
+          "id": "lesson-2-vocab",
+          "title": "L2: Vocabulary",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "これ",
+              "back": "this one",
+              "romaji": "kore"
+            },
+            {
+              "type": "vocab",
+              "front": "それ",
+              "back": "that one",
+              "romaji": "sore"
+            },
+            {
+              "type": "vocab",
+              "front": "あれ",
+              "back": "that one (over there)",
+              "romaji": "are"
+            },
+            {
+              "type": "vocab",
+              "front": "どれ",
+              "back": "which one",
+              "romaji": "dore"
+            },
+            {
+              "type": "vocab",
+              "front": "この",
+              "back": "this . . .",
+              "romaji": "kono"
+            },
+            {
+              "type": "vocab",
+              "front": "その",
+              "back": "that . . .",
+              "romaji": "sono"
+            },
+            {
+              "type": "vocab",
+              "front": "あの",
+              "back": "that . . . (over there)",
+              "romaji": "ano"
+            },
+            {
+              "type": "vocab",
+              "front": "どの",
+              "back": "which . . .",
+              "romaji": "dono"
+            },
+            {
+              "type": "vocab",
+              "front": "ここ",
+              "back": "here",
+              "romaji": "koko"
+            },
+            {
+              "type": "vocab",
+              "front": "そこ",
+              "back": "there",
+              "romaji": "soko"
+            },
+            {
+              "type": "vocab",
+              "front": "あそこ",
+              "back": "over there",
+              "romaji": "asoko"
+            },
+            {
+              "type": "vocab",
+              "front": "どこ",
+              "back": "where",
+              "romaji": "doko"
+            },
+            {
+              "type": "vocab",
+              "front": "だれ",
+              "back": "who",
+              "romaji": "dare"
+            },
+            {
+              "type": "vocab",
+              "front": "おいしい",
+              "back": "delicious",
+              "romaji": "oishii"
+            },
+            {
+              "type": "vocab",
+              "front": "さかな",
+              "back": "fish",
+              "romaji": "sakana"
+            },
+            {
+              "type": "vocab",
+              "front": "とんかつ",
+              "back": "pork cutlet",
+              "romaji": "tonkatsu"
+            },
+            {
+              "type": "vocab",
+              "front": "にく",
+              "back": "meat",
+              "romaji": "niku"
+            },
+            {
+              "type": "vocab",
+              "front": "メニュー",
+              "back": "menu",
+              "romaji": "menyuu"
+            },
+            {
+              "type": "vocab",
+              "front": "やさい",
+              "back": "vegetable",
+              "romaji": "yasai"
+            },
+            {
+              "type": "vocab",
+              "front": "かさ",
+              "back": "umbrella",
+              "romaji": "kasa"
+            },
+            {
+              "type": "vocab",
+              "front": "かばん",
+              "back": "bag",
+              "romaji": "kaban"
+            },
+            {
+              "type": "vocab",
+              "front": "くつ",
+              "back": "shoes",
+              "romaji": "kutsu"
+            },
+            {
+              "type": "vocab",
+              "front": "さいふ",
+              "back": "wallet",
+              "romaji": "saifu"
+            },
+            {
+              "type": "vocab",
+              "front": "じてんしゃ",
+              "back": "bicycle",
+              "romaji": "jitensha"
+            },
+            {
+              "type": "vocab",
+              "front": "しんぶん",
+              "back": "newspaper",
+              "romaji": "shinbun"
+            },
+            {
+              "type": "vocab",
+              "front": "とけい",
+              "back": "watch; clock",
+              "romaji": "tokei"
+            },
+            {
+              "type": "vocab",
+              "front": "ノート",
+              "back": "notebook",
+              "romaji": "nooto"
+            },
+            {
+              "type": "vocab",
+              "front": "ペン",
+              "back": "pen",
+              "romaji": "pen"
+            },
+            {
+              "type": "vocab",
+              "front": "ぼうし",
+              "back": "hat; cap",
+              "romaji": "boushi"
+            },
+            {
+              "type": "vocab",
+              "front": "ほん",
+              "back": "book",
+              "romaji": "hon"
+            },
+            {
+              "type": "vocab",
+              "front": "ぎんこう",
+              "back": "bank",
+              "romaji": "ginkou"
+            },
+            {
+              "type": "vocab",
+              "front": "コンビニ",
+              "back": "convenience store",
+              "romaji": "konbini"
+            },
+            {
+              "type": "vocab",
+              "front": "トイレ",
+              "back": "toilet; restroom",
+              "romaji": "toire"
+            },
+            {
+              "type": "vocab",
+              "front": "としょかん",
+              "back": "library",
+              "romaji": "toshokan"
+            },
+            {
+              "type": "vocab",
+              "front": "ゆうびんきょく",
+              "back": "post office",
+              "romaji": "yuubinkyoku"
+            },
+            {
+              "type": "vocab",
+              "front": "イギリス",
+              "back": "Britain",
+              "romaji": "Igirisu"
+            },
+            {
+              "type": "vocab",
+              "front": "かんこく",
+              "back": "Korea",
+              "romaji": "kankoku"
+            },
+            {
+              "type": "vocab",
+              "front": "ちゅうごく",
+              "back": "China",
+              "romaji": "chuugoku"
+            },
+            {
+              "type": "vocab",
+              "front": "えいご",
+              "back": "English (language)",
+              "romaji": "eigo"
+            },
+            {
+              "type": "vocab",
+              "front": "けいざい",
+              "back": "economics",
+              "romaji": "keizai"
+            },
+            {
+              "type": "vocab",
+              "front": "ビジネス",
+              "back": "business",
+              "romaji": "bijinesu"
+            },
+            {
+              "type": "vocab",
+              "front": "れきし",
+              "back": "history",
+              "romaji": "rekishi"
+            },
+            {
+              "type": "vocab",
+              "front": "おかあさん",
+              "back": "mother",
+              "romaji": "okaasan"
+            },
+            {
+              "type": "vocab",
+              "front": "おとうさん",
+              "back": "father",
+              "romaji": "otousan"
+            },
+            {
+              "type": "vocab",
+              "front": "いくら",
+              "back": "how much",
+              "romaji": "ikura"
+            },
+            {
+              "type": "vocab",
+              "front": "たかい",
+              "back": "expensive; high",
+              "romaji": "takai"
+            },
+            {
+              "type": "vocab",
+              "front": "いらっしゃいませ",
+              "back": "Welcome (to our store).",
+              "romaji": "irasshaimase"
+            },
+            {
+              "type": "vocab",
+              "front": "（～を）おねがいします",
+              "back": ". . . , please.",
+              "romaji": "onegaishimasu"
+            },
+            {
+              "type": "vocab",
+              "front": "（～を）ください",
+              "back": "Please give me . . .",
+              "romaji": "kudasai"
+            },
+            {
+              "type": "vocab",
+              "front": "じゃあ",
+              "back": "then . . . ; if that is the case",
+              "romaji": "jaa"
+            },
+            {
+              "type": "vocab",
+              "front": "どうぞ",
+              "back": "Please.; Here it is.",
+              "romaji": "douzo"
+            },
+            {
+              "type": "vocab",
+              "front": "どうも",
+              "back": "Thank you.",
+              "romaji": "doumo"
+            }
+          ]
         },
-        { "front": "テニス", "back": "tennis", "romaji": "tenisu" },
-        { "front": "テレビ", "back": "TV", "romaji": "terebi" },
         {
-          "front": "アイスクリーム",
-          "back": "ice cream",
-          "romaji": "aisukuriimu"
-        },
-        { "front": "ハンバーガー", "back": "hamburger", "romaji": "hanbaagaa" },
-        {
-          "front": "おさけ",
-          "back": "sake; alcoholic drink",
-          "romaji": "osake"
-        },
-        { "front": "おちゃ", "back": "green tea", "romaji": "ocha" },
-        { "front": "コーヒー", "back": "coffee", "romaji": "koohii" },
-        { "front": "みず", "back": "water", "romaji": "mizu" },
-        { "front": "あさごはん", "back": "breakfast", "romaji": "asagohan" },
-        { "front": "ひるごはん", "back": "lunch", "romaji": "hirugohan" },
-        { "front": "ばんごはん", "back": "dinner", "romaji": "bangohan" },
-        { "front": "いえ", "back": "home; house", "romaji": "ie" },
-        { "front": "うち", "back": "home; house; my place", "romaji": "uchi" },
-        { "front": "がっこう", "back": "school", "romaji": "gakkou" },
-        { "front": "カフェ", "back": "cafe", "romaji": "kafe" },
-        { "front": "あした", "back": "tomorrow", "romaji": "ashita" },
-        { "front": "きょう", "back": "today", "romaji": "kyou" },
-        { "front": "あさ", "back": "morning", "romaji": "asa" },
-        { "front": "こんばん", "back": "tonight", "romaji": "konban" },
-        { "front": "まいにち", "back": "every day", "romaji": "mainichi" },
-        { "front": "まいばん", "back": "every night", "romaji": "maiban" },
-        { "front": "しゅうまつ", "back": "weekend", "romaji": "shuumatsu" },
-        { "front": "どようび", "back": "Saturday", "romaji": "doyoubi" },
-        { "front": "にちようび", "back": "Sunday", "romaji": "nichiyoubi" },
-        { "front": "いつ", "back": "when", "romaji": "itsu" },
-        { "front": "～ごろ", "back": "at about . . .", "romaji": "goro" },
-        { "front": "いく", "back": "to go", "romaji": "iku" },
-        {
-          "front": "かえる",
-          "back": "to go back; to return",
-          "romaji": "kaeru"
-        },
-        { "front": "きく", "back": "to listen; to hear", "romaji": "kiku" },
-        { "front": "のむ", "back": "to drink", "romaji": "nomu" },
-        { "front": "はなす", "back": "to speak; to talk", "romaji": "hanasu" },
-        { "front": "よむ", "back": "to read", "romaji": "yomu" },
-        { "front": "おきる", "back": "to get up", "romaji": "okiru" },
-        { "front": "たべる", "back": "to eat", "romaji": "taberu" },
-        {
-          "front": "ねる",
-          "back": "to sleep; to go to sleep",
-          "romaji": "neru"
-        },
-        {
-          "front": "みる",
-          "back": "to see; to look at; to watch",
-          "romaji": "miru"
-        },
-        { "front": "くる", "back": "to come", "romaji": "kuru" },
-        { "front": "する", "back": "to do", "romaji": "suru" },
-        {
-          "front": "べんきょうする",
-          "back": "to study",
-          "romaji": "benkyousuru"
-        },
-        { "front": "いい", "back": "good", "romaji": "ii" },
-        { "front": "はやい", "back": "early", "romaji": "hayai" },
-        {
-          "front": "あまり ＋ negative",
-          "back": "not much",
-          "romaji": "amari"
-        },
-        {
-          "front": "ぜんぜん ＋ negative",
-          "back": "not at all",
-          "romaji": "zenzen"
-        },
-        { "front": "たいてい", "back": "usually", "romaji": "taitei" },
-        { "front": "ちょっと", "back": "a little", "romaji": "chotto" },
-        { "front": "ときどき", "back": "sometimes", "romaji": "tokidoki" },
-        { "front": "よく", "back": "often; much", "romaji": "yoku" },
-        {
-          "front": "そうですね",
-          "back": "That's right.; Let me see.",
-          "romaji": "soudesune"
-        },
-        { "front": "でも", "back": "but", "romaji": "demo" },
-        {
-          "front": "どうですか",
-          "back": "How about . . . ?; How is . . . ?",
-          "romaji": "doudesuka"
-        },
-        { "front": "ええ", "back": "yes", "romaji": "ee" }
-      ]
-    },
-    {
-      "id": "lesson-3-verb-masu",
-      "title": "Lesson 3: Verb Masu-form",
-      "cards": [
-        { "front": "いく（to go）", "back": "いきます", "romaji": "iku" },
-        { "front": "くる（to come）", "back": "きます", "romaji": "kuru" },
-        {
-          "front": "みる（to see; to look at; to watch）",
-          "back": "みます",
-          "romaji": "miru"
-        },
-        { "front": "たべる（to eat）", "back": "たべます", "romaji": "taberu" },
-        {
-          "front": "かえる（to go back; to return）",
-          "back": "かえります",
-          "romaji": "kaeru"
-        },
-        {
-          "front": "きく（to listen; to hear）",
-          "back": "ききます",
-          "romaji": "kiku"
-        },
-        { "front": "のむ（to drink）", "back": "のみます", "romaji": "nomu" },
-        {
-          "front": "はなす（to speak; to talk）",
-          "back": "はなします",
-          "romaji": "hanasu"
-        },
-        {
-          "front": "ねる（to sleep; to go to sleep）",
-          "back": "ねます",
-          "romaji": "neru"
-        },
-        { "front": "する（to do）", "back": "します", "romaji": "suru" },
-        { "front": "よむ（to read）", "back": "よみます", "romaji": "yomu" },
-        {
-          "front": "おきる（to get up）",
-          "back": "おきます",
-          "romaji": "okiru"
-        },
-        {
-          "front": "べんきょうする（to study）",
-          "back": "べんきょうします",
-          "romaji": "benkyousuru"
+          "id": "lesson-2-grammar",
+          "title": "L2: Grammar",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "Ko-So-A-Do System (Things)",
+              "back": "これ (this, near me) / それ (that, near you) / あれ (that over there) / どれ (which). Used as standalone pronouns: これはなんですか。",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Ko-So-A-Do System (Modifiers)",
+              "back": "この/その/あの/どの + noun. These must be followed by a noun: このほんはいくらですか。(How much is this book?)",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Ko-So-A-Do System (Places)",
+              "back": "ここ (here) / そこ (there) / あそこ (over there) / どこ (where). としょかんはどこですか。= Where is the library?",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Particle も (also/too)",
+              "back": "Replaces は to mean 'also'. たけしさんはにほんじんです。みちこさんもにほんじんです。= Michiko is also Japanese.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Noun negation: じゃないです",
+              "back": "X は Y じゃないです = X is not Y. Formal: じゃありません or ではありません. これはにくじゃないです。= This is not meat.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Sentence tag ～ね",
+              "back": "Added to seek confirmation (right?). いいてんきですね。= Nice weather, isn't it? Use when you expect agreement.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Sentence tag ～よ",
+              "back": "Added to convey new information or assert. このえいがはおもしろいですよ。= This movie is interesting, you know. Use sparingly to avoid sounding pushy.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "ください vs. おねがいします",
+              "back": "ください = 'please give me' (with を). おねがいします = 'please' (politer, used for requests/services). コーヒーをください。/ コーヒー、おねがいします。",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "これ＿＿ペンです。(This is a pen.)",
+              "back": "は",
+              "hint": "Topic marker",
+              "romaji": "wa"
+            },
+            {
+              "type": "fill-in",
+              "front": "それはにく＿＿＿＿です。(That is not meat.)",
+              "back": "じゃない",
+              "hint": "Noun negation",
+              "romaji": "janai"
+            },
+            {
+              "type": "fill-in",
+              "front": "たけしさんはにほんじんです。メアリーさん＿＿にほんじんですか。(Is Mary also Japanese?)",
+              "back": "も",
+              "hint": "Particle for 'also'",
+              "romaji": "mo"
+            },
+            {
+              "type": "fill-in",
+              "front": "＿＿ノートはいくらですか。(How much is that notebook near you?)",
+              "back": "その",
+              "hint": "Ko-So-A-Do modifier for 'near listener'",
+              "romaji": "sono"
+            },
+            {
+              "type": "fill-in",
+              "front": "としょかんは＿＿ですか。(Where is the library?)",
+              "back": "どこ",
+              "hint": "Ko-So-A-Do place question",
+              "romaji": "doko"
+            },
+            {
+              "type": "translate",
+              "front": "This is not a Japanese book.",
+              "back": "これはにほんごのほんじゃないです。",
+              "romaji": "kore wa nihongo no hon janai desu."
+            },
+            {
+              "type": "translate",
+              "front": "How much is that watch over there?",
+              "back": "あのとけいはいくらですか。",
+              "romaji": "ano tokei wa ikura desu ka."
+            },
+            {
+              "type": "translate",
+              "front": "Please give me this bag.",
+              "back": "このかばんをください。",
+              "romaji": "kono kaban o kudasai."
+            },
+            {
+              "type": "translate",
+              "front": "Where is the post office?",
+              "back": "ゆうびんきょくはどこですか。",
+              "romaji": "yuubinkyoku wa doko desu ka."
+            }
+          ]
         }
       ]
     },
     {
-      "id": "lesson-4-kanji",
-      "title": "Lesson 4: Kanji",
-      "cards": [
-        { "front": "日本", "back": "にほん (Japan)", "romaji": "nihon" },
+      "id": "lesson-3",
+      "title": "Lesson 3: Making a Date",
+      "subDecks": [
         {
-          "front": "日曜日",
-          "back": "にちようび (Sunday)",
-          "romaji": "nichiyoubi"
+          "id": "lesson-3-vocab",
+          "title": "L3: Vocabulary",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "えいが",
+              "back": "movie",
+              "romaji": "eiga"
+            },
+            {
+              "type": "vocab",
+              "front": "おんがく",
+              "back": "music",
+              "romaji": "ongaku"
+            },
+            {
+              "type": "vocab",
+              "front": "ざっし",
+              "back": "magazine",
+              "romaji": "zasshi"
+            },
+            {
+              "type": "vocab",
+              "front": "スポーツ",
+              "back": "sports",
+              "romaji": "supootsu"
+            },
+            {
+              "type": "vocab",
+              "front": "デート",
+              "back": "date (romantic)",
+              "romaji": "deeto"
+            },
+            {
+              "type": "vocab",
+              "front": "テニス",
+              "back": "tennis",
+              "romaji": "tenisu"
+            },
+            {
+              "type": "vocab",
+              "front": "テレビ",
+              "back": "TV",
+              "romaji": "terebi"
+            },
+            {
+              "type": "vocab",
+              "front": "おさけ",
+              "back": "sake; alcoholic drink",
+              "romaji": "osake"
+            },
+            {
+              "type": "vocab",
+              "front": "おちゃ",
+              "back": "green tea",
+              "romaji": "ocha"
+            },
+            {
+              "type": "vocab",
+              "front": "コーヒー",
+              "back": "coffee",
+              "romaji": "koohii"
+            },
+            {
+              "type": "vocab",
+              "front": "みず",
+              "back": "water",
+              "romaji": "mizu"
+            },
+            {
+              "type": "vocab",
+              "front": "あさごはん",
+              "back": "breakfast",
+              "romaji": "asagohan"
+            },
+            {
+              "type": "vocab",
+              "front": "ひるごはん",
+              "back": "lunch",
+              "romaji": "hirugohan"
+            },
+            {
+              "type": "vocab",
+              "front": "ばんごはん",
+              "back": "dinner",
+              "romaji": "bangohan"
+            },
+            {
+              "type": "vocab",
+              "front": "いえ／うち",
+              "back": "home; house",
+              "romaji": "ie/uchi"
+            },
+            {
+              "type": "vocab",
+              "front": "がっこう",
+              "back": "school",
+              "romaji": "gakkou"
+            },
+            {
+              "type": "vocab",
+              "front": "カフェ",
+              "back": "cafe",
+              "romaji": "kafe"
+            },
+            {
+              "type": "vocab",
+              "front": "あした",
+              "back": "tomorrow",
+              "romaji": "ashita"
+            },
+            {
+              "type": "vocab",
+              "front": "きょう",
+              "back": "today",
+              "romaji": "kyou"
+            },
+            {
+              "type": "vocab",
+              "front": "あさ",
+              "back": "morning",
+              "romaji": "asa"
+            },
+            {
+              "type": "vocab",
+              "front": "こんばん",
+              "back": "tonight",
+              "romaji": "konban"
+            },
+            {
+              "type": "vocab",
+              "front": "まいにち",
+              "back": "every day",
+              "romaji": "mainichi"
+            },
+            {
+              "type": "vocab",
+              "front": "まいばん",
+              "back": "every night",
+              "romaji": "maiban"
+            },
+            {
+              "type": "vocab",
+              "front": "しゅうまつ",
+              "back": "weekend",
+              "romaji": "shuumatsu"
+            },
+            {
+              "type": "vocab",
+              "front": "どようび",
+              "back": "Saturday",
+              "romaji": "doyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "にちようび",
+              "back": "Sunday",
+              "romaji": "nichiyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "いつ",
+              "back": "when",
+              "romaji": "itsu"
+            },
+            {
+              "type": "vocab",
+              "front": "～ごろ",
+              "back": "at about . . .",
+              "romaji": "goro"
+            },
+            {
+              "type": "vocab",
+              "front": "いい",
+              "back": "good",
+              "romaji": "ii"
+            },
+            {
+              "type": "vocab",
+              "front": "はやい",
+              "back": "early",
+              "romaji": "hayai"
+            },
+            {
+              "type": "vocab",
+              "front": "たいてい",
+              "back": "usually",
+              "romaji": "taitei"
+            },
+            {
+              "type": "vocab",
+              "front": "ちょっと",
+              "back": "a little",
+              "romaji": "chotto"
+            },
+            {
+              "type": "vocab",
+              "front": "ときどき",
+              "back": "sometimes",
+              "romaji": "tokidoki"
+            },
+            {
+              "type": "vocab",
+              "front": "よく",
+              "back": "often; much",
+              "romaji": "yoku"
+            },
+            {
+              "type": "vocab",
+              "front": "あまり ＋ negative",
+              "back": "not much",
+              "romaji": "amari"
+            },
+            {
+              "type": "vocab",
+              "front": "ぜんぜん ＋ negative",
+              "back": "not at all",
+              "romaji": "zenzen"
+            },
+            {
+              "type": "vocab",
+              "front": "そうですね",
+              "back": "That's right.; Let me see.",
+              "romaji": "soudesune"
+            },
+            {
+              "type": "vocab",
+              "front": "でも",
+              "back": "but",
+              "romaji": "demo"
+            },
+            {
+              "type": "vocab",
+              "front": "どうですか",
+              "back": "How about . . . ?",
+              "romaji": "doudesuka"
+            }
+          ]
         },
-        { "front": "本", "back": "ほん (book)", "romaji": "hon" },
         {
-          "front": "日本人",
-          "back": "にほんじん (Japanese person)",
-          "romaji": "nihonjin"
+          "id": "lesson-3-verbs",
+          "title": "L3: Verbs (Dictionary Form)",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "いく",
+              "back": "to go (u-verb)",
+              "romaji": "iku"
+            },
+            {
+              "type": "vocab",
+              "front": "かえる",
+              "back": "to go back; to return (u-verb)",
+              "romaji": "kaeru"
+            },
+            {
+              "type": "vocab",
+              "front": "きく",
+              "back": "to listen; to hear (u-verb)",
+              "romaji": "kiku"
+            },
+            {
+              "type": "vocab",
+              "front": "のむ",
+              "back": "to drink (u-verb)",
+              "romaji": "nomu"
+            },
+            {
+              "type": "vocab",
+              "front": "はなす",
+              "back": "to speak; to talk (u-verb)",
+              "romaji": "hanasu"
+            },
+            {
+              "type": "vocab",
+              "front": "よむ",
+              "back": "to read (u-verb)",
+              "romaji": "yomu"
+            },
+            {
+              "type": "vocab",
+              "front": "おきる",
+              "back": "to get up (ru-verb)",
+              "romaji": "okiru"
+            },
+            {
+              "type": "vocab",
+              "front": "たべる",
+              "back": "to eat (ru-verb)",
+              "romaji": "taberu"
+            },
+            {
+              "type": "vocab",
+              "front": "ねる",
+              "back": "to sleep (ru-verb)",
+              "romaji": "neru"
+            },
+            {
+              "type": "vocab",
+              "front": "みる",
+              "back": "to see; to watch (ru-verb)",
+              "romaji": "miru"
+            },
+            {
+              "type": "vocab",
+              "front": "くる",
+              "back": "to come (irregular)",
+              "romaji": "kuru"
+            },
+            {
+              "type": "vocab",
+              "front": "する",
+              "back": "to do (irregular)",
+              "romaji": "suru"
+            },
+            {
+              "type": "vocab",
+              "front": "べんきょうする",
+              "back": "to study (irregular)",
+              "romaji": "benkyousuru"
+            }
+          ]
         },
-        { "front": "一人で", "back": "ひとりで (alone)", "romaji": "hitoride" },
         {
-          "front": "この人",
-          "back": "このひと (this person)",
-          "romaji": "konohito"
+          "id": "lesson-3-verb-conjugation",
+          "title": "L3: Verb Masu-form Conjugation",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "Ru-verb → masu form",
+              "back": "Drop る, add ます. たべる → たべます. みる → みます. ねる → ねます.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "U-verb → masu form",
+              "back": "Change final u-sound to i-sound, add ます. いく → いきます. のむ → のみます. はなす → はなします.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Irregular verb masu forms",
+              "back": "する → します. くる → きます. These two must be memorized.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Negative masu form",
+              "back": "Replace ます with ません. たべます → たべません. いきます → いきません.",
+              "romaji": ""
+            },
+            {
+              "type": "conjugation",
+              "front": "いく → masu form",
+              "back": "いきます",
+              "romaji": "ikimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "くる → masu form",
+              "back": "きます",
+              "romaji": "kimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "みる → masu form",
+              "back": "みます",
+              "romaji": "mimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "たべる → masu form",
+              "back": "たべます",
+              "romaji": "tabemasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "かえる → masu form",
+              "back": "かえります",
+              "romaji": "kaerimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "きく → masu form",
+              "back": "ききます",
+              "romaji": "kikimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "のむ → masu form",
+              "back": "のみます",
+              "romaji": "nomimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "はなす → masu form",
+              "back": "はなします",
+              "romaji": "hanashimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "ねる → masu form",
+              "back": "ねます",
+              "romaji": "nemasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "する → masu form",
+              "back": "します",
+              "romaji": "shimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "よむ → masu form",
+              "back": "よみます",
+              "romaji": "yomimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "おきる → masu form",
+              "back": "おきます",
+              "romaji": "okimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "べんきょうする → masu form",
+              "back": "べんきょうします",
+              "romaji": "benkyoushimasu"
+            },
+            {
+              "type": "conjugation",
+              "front": "のむ → negative masu form",
+              "back": "のみません",
+              "romaji": "nomimasen"
+            },
+            {
+              "type": "conjugation",
+              "front": "たべる → negative masu form",
+              "back": "たべません",
+              "romaji": "tabemasen"
+            },
+            {
+              "type": "conjugation",
+              "front": "いく → negative masu form",
+              "back": "いきません",
+              "romaji": "ikimasen"
+            }
+          ]
         },
         {
-          "front": "月曜日",
-          "back": "げつようび (Monday)",
-          "romaji": "getsuyoubi"
+          "id": "lesson-3-grammar",
+          "title": "L3: Grammar & Particles",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "Particle を (direct object)",
+              "back": "Marks the direct object of a verb. コーヒーをのみます。= I drink coffee. おんがくをききます。= I listen to music.",
+              "romaji": "o"
+            },
+            {
+              "type": "grammar",
+              "front": "Particle で (place of action)",
+              "back": "Marks where an action takes place. カフェでコーヒーをのみます。= I drink coffee at a cafe. Don't confuse with に.",
+              "romaji": "de"
+            },
+            {
+              "type": "grammar",
+              "front": "Particle に (goal of movement)",
+              "back": "Marks destination with movement verbs. がっこうにいきます。= I go to school. Also: うちにかえります。",
+              "romaji": "ni"
+            },
+            {
+              "type": "grammar",
+              "front": "Particle へ (direction)",
+              "back": "Read as 'e'. Interchangeable with に for direction. がっこうへいきます。= I go to school. Slightly softer/vaguer than に.",
+              "romaji": "e"
+            },
+            {
+              "type": "grammar",
+              "front": "Particle に (time)",
+              "back": "Marks specific time of event. にちようびにいきます。Use with specific times/days. Do NOT use with relative words like きょう, あした, まいにち.",
+              "romaji": "ni"
+            },
+            {
+              "type": "grammar",
+              "front": "に with time: when to use/not use",
+              "back": "USE に: days of week (にちようびに), specific hours (さんじに), dates. DON'T use に: きょう, あした, まいにち, こんばん, しゅうまつ.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Invitation: ～ませんか",
+              "back": "Verb (negative masu) + か = 'Won't you...?' / 'Shall we...?'. えいがをみませんか。= Won't you watch a movie (with me)?",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Frequency adverbs",
+              "back": "よく (often) > ときどき (sometimes) > あまり + neg (not much) > ぜんぜん + neg (not at all). Place before the verb.",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "コーヒー＿＿のみます。(I drink coffee.)",
+              "back": "を",
+              "hint": "Direct object particle",
+              "romaji": "o"
+            },
+            {
+              "type": "fill-in",
+              "front": "カフェ＿＿べんきょうします。(I study at a cafe.)",
+              "back": "で",
+              "hint": "Place of action particle",
+              "romaji": "de"
+            },
+            {
+              "type": "fill-in",
+              "front": "がっこう＿＿いきます。(I go to school.)",
+              "back": "に",
+              "hint": "Goal/destination particle",
+              "romaji": "ni"
+            },
+            {
+              "type": "fill-in",
+              "front": "どようび＿＿えいがをみます。(I watch a movie on Saturday.)",
+              "back": "に",
+              "hint": "Time particle (specific day)",
+              "romaji": "ni"
+            },
+            {
+              "type": "fill-in",
+              "front": "わたしはコーヒーを＿＿＿＿のみません。(I don't drink coffee much.)",
+              "back": "あまり",
+              "hint": "Frequency adverb + negative",
+              "romaji": "amari"
+            },
+            {
+              "type": "translate",
+              "front": "I usually eat breakfast at home.",
+              "back": "たいていうちであさごはんをたべます。",
+              "romaji": "taitei uchi de asagohan o tabemasu."
+            },
+            {
+              "type": "translate",
+              "front": "Shall we go to a cafe on Saturday?",
+              "back": "どようびにカフェにいきませんか。",
+              "romaji": "doyoubi ni kafe ni ikimasen ka."
+            },
+            {
+              "type": "translate",
+              "front": "I don't watch TV at all.",
+              "back": "ぜんぜんテレビをみません。",
+              "romaji": "zenzen terebi o mimasen."
+            },
+            {
+              "type": "translate",
+              "front": "I sometimes listen to music at school.",
+              "back": "ときどきがっこうでおんがくをききます。",
+              "romaji": "tokidoki gakkou de ongaku o kikimasu."
+            },
+            {
+              "type": "translate",
+              "front": "What time do you get up every day?",
+              "back": "まいにちなんじにおきますか。",
+              "romaji": "mainichi nanji ni okimasu ka."
+            }
+          ]
         },
         {
-          "front": "一月",
-          "back": "いちがつ (January)",
-          "romaji": "ichigatsu"
-        },
-        {
-          "front": "火曜日",
-          "back": "かようび (Tuesday)",
-          "romaji": "kayoubi"
-        },
-        {
-          "front": "水曜日",
-          "back": "すいようび (Wednesday)",
-          "romaji": "suiyoubi"
-        },
-        { "front": "水", "back": "みず (water)", "romaji": "mizu" },
-        {
-          "front": "木曜日",
-          "back": "もくようび (Thursday)",
-          "romaji": "mokuyoubi"
-        },
-        {
-          "front": "金曜日",
-          "back": "きんようび (Friday)",
-          "romaji": "kinyoubi"
-        },
-        {
-          "front": "土曜日",
-          "back": "どようび (Saturday)",
-          "romaji": "doyoubi"
-        },
-        { "front": "上", "back": "うえ (above; on)", "romaji": "ue" },
-        { "front": "下", "back": "した (below; under)", "romaji": "shita" },
-        { "front": "中", "back": "なか (inside; middle)", "romaji": "naka" },
-        {
-          "front": "三時半",
-          "back": "さんじはん (half past three)",
-          "romaji": "sanjihan"
+          "id": "lesson-3-kanji",
+          "title": "L3: Kanji",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "一",
+              "back": "いち (one)",
+              "romaji": "ichi"
+            },
+            {
+              "type": "vocab",
+              "front": "二",
+              "back": "に (two)",
+              "romaji": "ni"
+            },
+            {
+              "type": "vocab",
+              "front": "三",
+              "back": "さん (three)",
+              "romaji": "san"
+            },
+            {
+              "type": "vocab",
+              "front": "四",
+              "back": "よん (four)",
+              "romaji": "yon"
+            },
+            {
+              "type": "vocab",
+              "front": "五",
+              "back": "ご (five)",
+              "romaji": "go"
+            },
+            {
+              "type": "vocab",
+              "front": "六",
+              "back": "ろく (six)",
+              "romaji": "roku"
+            },
+            {
+              "type": "vocab",
+              "front": "七",
+              "back": "しち／なな (seven)",
+              "romaji": "shichi/nana"
+            },
+            {
+              "type": "vocab",
+              "front": "八",
+              "back": "はち (eight)",
+              "romaji": "hachi"
+            },
+            {
+              "type": "vocab",
+              "front": "九",
+              "back": "きゅう (nine)",
+              "romaji": "kyuu"
+            },
+            {
+              "type": "vocab",
+              "front": "十",
+              "back": "じゅう (ten)",
+              "romaji": "juu"
+            },
+            {
+              "type": "vocab",
+              "front": "百",
+              "back": "ひゃく (hundred)",
+              "romaji": "hyaku"
+            },
+            {
+              "type": "vocab",
+              "front": "千",
+              "back": "せん (thousand)",
+              "romaji": "sen"
+            },
+            {
+              "type": "vocab",
+              "front": "一万",
+              "back": "いちまん (ten thousand)",
+              "romaji": "ichiman"
+            },
+            {
+              "type": "vocab",
+              "front": "四時",
+              "back": "よじ (four o'clock)",
+              "romaji": "yoji"
+            },
+            {
+              "type": "vocab",
+              "front": "六百",
+              "back": "ろっぴゃく (six hundred)",
+              "romaji": "roppyaku"
+            },
+            {
+              "type": "vocab",
+              "front": "八百",
+              "back": "はっぴゃく (eight hundred)",
+              "romaji": "happyaku"
+            },
+            {
+              "type": "vocab",
+              "front": "三千",
+              "back": "さんぜん (three thousand)",
+              "romaji": "sanzen"
+            },
+            {
+              "type": "vocab",
+              "front": "八千",
+              "back": "はっせん (eight thousand)",
+              "romaji": "hassen"
+            },
+            {
+              "type": "vocab",
+              "front": "千円",
+              "back": "せんえん (one thousand yen)",
+              "romaji": "senen"
+            },
+            {
+              "type": "vocab",
+              "front": "百円",
+              "back": "ひゃくえん (one hundred yen)",
+              "romaji": "hyakuen"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "lesson-4-vocab",
-      "title": "Lesson 4: Vocabulary",
-      "cards": [
-        { "front": "ゲーム", "back": "game", "romaji": "geemu" },
+      "id": "lesson-4",
+      "title": "Lesson 4: The First Date",
+      "subDecks": [
         {
-          "front": "アルバイト",
-          "back": "part-time job",
-          "romaji": "arubaito"
-        },
-        { "front": "かいもの", "back": "shopping", "romaji": "kaimono" },
-        { "front": "クラス", "back": "class", "romaji": "kurasu" },
-        { "front": "いぬ", "back": "dog", "romaji": "inu" },
-        { "front": "ねこ", "back": "cat", "romaji": "neko" },
-        { "front": "ひと", "back": "person", "romaji": "hito" },
-        { "front": "こども", "back": "child", "romaji": "kodomo" },
-        { "front": "あなた", "back": "you", "romaji": "anata" },
-        { "front": "いす", "back": "chair", "romaji": "isu" },
-        { "front": "つくえ", "back": "desk", "romaji": "tsukue" },
-        {
-          "front": "しゃしん",
-          "back": "picture; photograph",
-          "romaji": "shashin"
-        },
-        { "front": "はな", "back": "flower", "romaji": "hana" },
-        { "front": "レポート", "back": "(term) paper", "romaji": "repooto" },
-        { "front": "ごはん", "back": "rice; meal", "romaji": "gohan" },
-        { "front": "パン", "back": "bread", "romaji": "pan" },
-        { "front": "おてら", "back": "temple", "romaji": "otera" },
-        { "front": "こうえん", "back": "park", "romaji": "kouen" },
-        { "front": "スーパー", "back": "supermarket", "romaji": "suupaa" },
-        { "front": "バスてい", "back": "bus stop", "romaji": "basutei" },
-        { "front": "びょういん", "back": "hospital", "romaji": "byouin" },
-        { "front": "ホテル", "back": "hotel", "romaji": "hoteru" },
-        { "front": "ほんや", "back": "bookstore", "romaji": "honya" },
-        { "front": "まち", "back": "town; city", "romaji": "machi" },
-        { "front": "レストラン", "back": "restaurant", "romaji": "resutoran" },
-        { "front": "きのう", "back": "yesterday", "romaji": "kinou" },
-        { "front": "～じかん", "back": ". . . hours", "romaji": "jikan" },
-        { "front": "いちじかん", "back": "one hour", "romaji": "ichijikan" },
-        { "front": "せんしゅう", "back": "last week", "romaji": "senshuu" },
-        {
-          "front": "とき",
-          "back": "when . . . ; at the time of . . .",
-          "romaji": "toki"
-        },
-        { "front": "げつようび", "back": "Monday", "romaji": "getsuyoubi" },
-        { "front": "かようび", "back": "Tuesday", "romaji": "kayoubi" },
-        { "front": "すいようび", "back": "Wednesday", "romaji": "suiyoubi" },
-        { "front": "もくようび", "back": "Thursday", "romaji": "mokuyoubi" },
-        { "front": "きんようび", "back": "Friday", "romaji": "kinyoubi" },
-        {
-          "front": "あう",
-          "back": "to meet; to see (a person)",
-          "romaji": "au"
-        },
-        { "front": "ある", "back": "there is . . .", "romaji": "aru" },
-        { "front": "かう", "back": "to buy", "romaji": "kau" },
-        { "front": "かく", "back": "to write", "romaji": "kaku" },
-        { "front": "とる", "back": "to take (a picture)", "romaji": "toru" },
-        { "front": "まつ", "back": "to wait", "romaji": "matsu" },
-        { "front": "わかる", "back": "to understand", "romaji": "wakaru" },
-        {
-          "front": "いる",
-          "back": "(a person) is in . . . ; stays at . . .",
-          "romaji": "iru"
-        },
-        {
-          "front": "～ぐらい",
-          "back": "about (approximate measurement)",
-          "romaji": "gurai"
-        },
-        {
-          "front": "ごめんなさい",
-          "back": "I'm sorry.",
-          "romaji": "gomennasai"
-        },
-        { "front": "それから", "back": "and then", "romaji": "sorekara" },
-        { "front": "だから", "back": "so; therefore", "romaji": "dakara" },
-        { "front": "たくさん", "back": "many; a lot", "romaji": "takusan" },
-        {
-          "front": "～と",
-          "back": "together with (a person); and",
-          "romaji": "to"
-        },
-        { "front": "どうして", "back": "why", "romaji": "doushite" },
-        { "front": "ひとりで", "back": "alone", "romaji": "hitoride" },
-        {
-          "front": "もしもし",
-          "back": "Hello? (used on the phone)",
-          "romaji": "moshimoshi"
-        },
-        { "front": "みぎ", "back": "right", "romaji": "migi" },
-        { "front": "ひだり", "back": "left", "romaji": "hidari" },
-        { "front": "まえ", "back": "front", "romaji": "mae" },
-        { "front": "うしろ", "back": "back", "romaji": "ushiro" },
-        { "front": "なか", "back": "inside", "romaji": "naka" },
-        { "front": "うえ", "back": "on", "romaji": "ue" },
-        { "front": "した", "back": "under", "romaji": "shita" },
-        { "front": "ちかく", "back": "near; nearby", "romaji": "chikaku" },
-        { "front": "となり", "back": "next", "romaji": "tonari" },
-        { "front": "あいだ", "back": "between", "romaji": "aida" }
-      ]
-    },
-    {
-      "id": "lesson-5-kanji",
-      "title": "Lesson 5: Kanji",
-      "cards": [
-        { "front": "山", "back": "やま (mountain)", "romaji": "yama" },
-        {
-          "front": "山川さん",
-          "back": "やまかわさん (Mr./Ms. Yamakawa)",
-          "romaji": "yamakawasan"
-        },
-        { "front": "川", "back": "かわ (river)", "romaji": "kawa" },
-        {
-          "front": "元気な",
-          "back": "げんきな (healthy; energetic)",
-          "romaji": "genkina"
-        },
-        { "front": "天気", "back": "てんき (weather)", "romaji": "tenki" },
-        { "front": "私", "back": "わたし (I; me)", "romaji": "watashi" },
-        { "front": "今", "back": "いま (now)", "romaji": "ima" },
-        { "front": "今日", "back": "きょう (today)", "romaji": "kyou" },
-        {
-          "front": "田中さん",
-          "back": "たなかさん (Mr./Ms. Tanaka)",
-          "romaji": "tanakasan"
-        },
-        {
-          "front": "山田さん",
-          "back": "やまださん (Mr./Ms. Yamada)",
-          "romaji": "yamadasan"
-        },
-        {
-          "front": "女の人",
-          "back": "おんなのひと (woman)",
-          "romaji": "onnanohito"
-        },
-        {
-          "front": "男の人",
-          "back": "おとこのひと (man)",
-          "romaji": "otokonohito"
-        },
-        {
-          "front": "見る",
-          "back": "みる (to see; to watch)",
-          "romaji": "miru"
-        },
-        { "front": "行く", "back": "いく (to go)", "romaji": "iku" },
-        { "front": "食べる", "back": "たべる (to eat)", "romaji": "taberu" },
-        { "front": "飲む", "back": "のむ (to drink)", "romaji": "nomu" }
-      ]
-    },
-    {
-      "id": "lesson-5-1-adj-present-negative",
-      "title": "Lesson 5-1: Adjective Present Negative",
-      "cards": [
-        {
-          "front": "おもしろい（interesting; funny）",
-          "back": "おもしろくないです",
-          "romaji": "omoshiroi"
-        },
-        {
-          "front": "たのしい（fun）",
-          "back": "たのしくないです",
-          "romaji": "tanoshii"
-        },
-        {
-          "front": "げんきな（healthy; energetic）",
-          "back": "げんきじゃないです",
-          "romaji": "genkina"
-        },
-        {
-          "front": "あたらしい（new）",
-          "back": "あたらしくないです",
-          "romaji": "atarashii"
-        },
-        {
-          "front": "たかい（expensive; high）",
-          "back": "たかくないです",
-          "romaji": "takai"
-        },
-        {
-          "front": "きらいな（disgusted with; to dislike）",
-          "back": "きらいじゃないです",
-          "romaji": "kiraina"
-        },
-        {
-          "front": "おおきい（large）",
-          "back": "おおきくないです",
-          "romaji": "ookii"
-        },
-        { "front": "いい（good）", "back": "よくないです", "romaji": "ii" },
-        {
-          "front": "ふるい（old (thing)）",
-          "back": "ふるくないです",
-          "romaji": "furui"
-        },
-        {
-          "front": "しずかな（quiet）",
-          "back": "しずかじゃないです",
-          "romaji": "shizukana"
-        },
-        {
-          "front": "さむい（cold (weather)）",
-          "back": "さむくないです",
-          "romaji": "samui"
-        },
-        {
-          "front": "ひまな（not busy; free (time)）",
-          "back": "ひまじゃないです",
-          "romaji": "himana"
-        },
-        {
-          "front": "むずかしい（difficult）",
-          "back": "むずかしくないです",
-          "romaji": "muzukashii"
-        },
-        {
-          "front": "あつい（hot）",
-          "back": "あつくないです",
-          "romaji": "atsui"
-        },
-        {
-          "front": "おいしい（delicious）",
-          "back": "おいしくないです",
-          "romaji": "oishii"
-        },
-        {
-          "front": "にぎやかな（lively）",
-          "back": "にぎやかじゃないです",
-          "romaji": "nigiyakana"
-        },
-        {
-          "front": "かっこいい（good-looking）",
-          "back": "かっこよくないです",
-          "romaji": "kakkoii"
-        },
-        {
-          "front": "やさしい（easy (problem); kind (person)）",
-          "back": "やさしくないです",
-          "romaji": "yasashii"
-        },
-        {
-          "front": "きれいな（beautiful; clean）",
-          "back": "きれいじゃないです",
-          "romaji": "kireina"
-        },
-        {
-          "front": "ちいさい（small）",
-          "back": "ちいさくないです",
-          "romaji": "chiisai"
+          "id": "lesson-4-vocab",
+          "title": "L4: Vocabulary",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "ゲーム",
+              "back": "game",
+              "romaji": "geemu"
+            },
+            {
+              "type": "vocab",
+              "front": "アルバイト",
+              "back": "part-time job",
+              "romaji": "arubaito"
+            },
+            {
+              "type": "vocab",
+              "front": "かいもの",
+              "back": "shopping",
+              "romaji": "kaimono"
+            },
+            {
+              "type": "vocab",
+              "front": "クラス",
+              "back": "class",
+              "romaji": "kurasu"
+            },
+            {
+              "type": "vocab",
+              "front": "いぬ",
+              "back": "dog",
+              "romaji": "inu"
+            },
+            {
+              "type": "vocab",
+              "front": "ねこ",
+              "back": "cat",
+              "romaji": "neko"
+            },
+            {
+              "type": "vocab",
+              "front": "ひと",
+              "back": "person",
+              "romaji": "hito"
+            },
+            {
+              "type": "vocab",
+              "front": "こども",
+              "back": "child",
+              "romaji": "kodomo"
+            },
+            {
+              "type": "vocab",
+              "front": "いす",
+              "back": "chair",
+              "romaji": "isu"
+            },
+            {
+              "type": "vocab",
+              "front": "つくえ",
+              "back": "desk",
+              "romaji": "tsukue"
+            },
+            {
+              "type": "vocab",
+              "front": "しゃしん",
+              "back": "picture; photograph",
+              "romaji": "shashin"
+            },
+            {
+              "type": "vocab",
+              "front": "はな",
+              "back": "flower",
+              "romaji": "hana"
+            },
+            {
+              "type": "vocab",
+              "front": "レポート",
+              "back": "(term) paper",
+              "romaji": "repooto"
+            },
+            {
+              "type": "vocab",
+              "front": "ごはん",
+              "back": "rice; meal",
+              "romaji": "gohan"
+            },
+            {
+              "type": "vocab",
+              "front": "パン",
+              "back": "bread",
+              "romaji": "pan"
+            },
+            {
+              "type": "vocab",
+              "front": "おてら",
+              "back": "temple",
+              "romaji": "otera"
+            },
+            {
+              "type": "vocab",
+              "front": "こうえん",
+              "back": "park",
+              "romaji": "kouen"
+            },
+            {
+              "type": "vocab",
+              "front": "スーパー",
+              "back": "supermarket",
+              "romaji": "suupaa"
+            },
+            {
+              "type": "vocab",
+              "front": "バスてい",
+              "back": "bus stop",
+              "romaji": "basutei"
+            },
+            {
+              "type": "vocab",
+              "front": "びょういん",
+              "back": "hospital",
+              "romaji": "byouin"
+            },
+            {
+              "type": "vocab",
+              "front": "ホテル",
+              "back": "hotel",
+              "romaji": "hoteru"
+            },
+            {
+              "type": "vocab",
+              "front": "ほんや",
+              "back": "bookstore",
+              "romaji": "honya"
+            },
+            {
+              "type": "vocab",
+              "front": "まち",
+              "back": "town; city",
+              "romaji": "machi"
+            },
+            {
+              "type": "vocab",
+              "front": "レストラン",
+              "back": "restaurant",
+              "romaji": "resutoran"
+            },
+            {
+              "type": "vocab",
+              "front": "きのう",
+              "back": "yesterday",
+              "romaji": "kinou"
+            },
+            {
+              "type": "vocab",
+              "front": "～じかん",
+              "back": ". . . hours",
+              "romaji": "jikan"
+            },
+            {
+              "type": "vocab",
+              "front": "せんしゅう",
+              "back": "last week",
+              "romaji": "senshuu"
+            },
+            {
+              "type": "vocab",
+              "front": "げつようび",
+              "back": "Monday",
+              "romaji": "getsuyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "かようび",
+              "back": "Tuesday",
+              "romaji": "kayoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "すいようび",
+              "back": "Wednesday",
+              "romaji": "suiyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "もくようび",
+              "back": "Thursday",
+              "romaji": "mokuyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "きんようび",
+              "back": "Friday",
+              "romaji": "kinyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "～ぐらい",
+              "back": "about (approximate)",
+              "romaji": "gurai"
+            },
+            {
+              "type": "vocab",
+              "front": "ごめんなさい",
+              "back": "I'm sorry.",
+              "romaji": "gomennasai"
+            },
+            {
+              "type": "vocab",
+              "front": "それから",
+              "back": "and then",
+              "romaji": "sorekara"
+            },
+            {
+              "type": "vocab",
+              "front": "だから",
+              "back": "so; therefore",
+              "romaji": "dakara"
+            },
+            {
+              "type": "vocab",
+              "front": "たくさん",
+              "back": "many; a lot",
+              "romaji": "takusan"
+            },
+            {
+              "type": "vocab",
+              "front": "～と",
+              "back": "together with; and",
+              "romaji": "to"
+            },
+            {
+              "type": "vocab",
+              "front": "どうして",
+              "back": "why",
+              "romaji": "doushite"
+            },
+            {
+              "type": "vocab",
+              "front": "ひとりで",
+              "back": "alone",
+              "romaji": "hitoride"
+            }
+          ]
         },
         {
-          "front": "はやい（early）",
-          "back": "はやくないです",
-          "romaji": "hayai"
+          "id": "lesson-4-verbs",
+          "title": "L4: New Verbs",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "あう",
+              "back": "to meet; to see (a person) (u-verb)",
+              "romaji": "au"
+            },
+            {
+              "type": "vocab",
+              "front": "ある",
+              "back": "there is . . . (non-living) (u-verb)",
+              "romaji": "aru"
+            },
+            {
+              "type": "vocab",
+              "front": "かう",
+              "back": "to buy (u-verb)",
+              "romaji": "kau"
+            },
+            {
+              "type": "vocab",
+              "front": "かく",
+              "back": "to write (u-verb)",
+              "romaji": "kaku"
+            },
+            {
+              "type": "vocab",
+              "front": "とる",
+              "back": "to take (a picture) (u-verb)",
+              "romaji": "toru"
+            },
+            {
+              "type": "vocab",
+              "front": "まつ",
+              "back": "to wait (u-verb)",
+              "romaji": "matsu"
+            },
+            {
+              "type": "vocab",
+              "front": "わかる",
+              "back": "to understand (u-verb)",
+              "romaji": "wakaru"
+            },
+            {
+              "type": "vocab",
+              "front": "いる",
+              "back": "(a person) is in . . . (ru-verb)",
+              "romaji": "iru"
+            }
+          ]
         },
         {
-          "front": "こわい（frightening）",
-          "back": "こわくないです",
-          "romaji": "kowai"
+          "id": "lesson-4-grammar",
+          "title": "L4: Grammar",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "あります vs. います",
+              "back": "あります = existence of non-living things (books, buildings). います = existence of living things (people, animals). テーブルのうえにほんがあります。こうえんにねこがいます。",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Location pattern: Place に Thing が あります/います",
+              "back": "Describes what exists at a location. としょかんにがくせいがいます。= There are students at the library.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Location pattern: Thing は Place に あります/います",
+              "back": "Describes where something is located. ほんはつくえのうえにあります。= The book is on the desk.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Location words",
+              "back": "みぎ (right), ひだり (left), まえ (front), うしろ (back), なか (inside), うえ (on/above), した (under/below), となり (next to), あいだ (between), ちかく (nearby).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Past tense: Noun + でした",
+              "back": "Affirmative past: がくせいでした (was a student). Negative past: がくせいじゃなかったです (was not a student).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Past tense: Verb ～ました/～ませんでした",
+              "back": "Affirmative: たべました (ate). Negative: たべませんでした (did not eat).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Particle と (with/and)",
+              "back": "Connects nouns: パンとコーヒー (bread and coffee). 'Together with': ともだちとえいがをみました (watched a movie with a friend).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Duration: ～じかん (no particle)",
+              "back": "Duration of time needs no particle. にじかんべんきょうしました。= I studied for two hours. NOT にじかんをべんきょうしました。",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Particle も replacing は/を but appending to に/で",
+              "back": "も replaces は and を: コーヒーもいいです。But appends to に and で: カフェにもいきます。としょかんでもべんきょうします。",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Placement of たくさん",
+              "back": "たくさん can go before or after the noun + を: しゃしんをたくさんとりました = たくさんしゃしんをとりました。",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "つくえの＿＿にほんがあります。(There is a book on the desk.)",
+              "back": "うえ",
+              "hint": "Location word: on/above",
+              "romaji": "ue"
+            },
+            {
+              "type": "fill-in",
+              "front": "こうえんにねこ＿＿います。(There is a cat in the park.)",
+              "back": "が",
+              "hint": "Subject marker for existence",
+              "romaji": "ga"
+            },
+            {
+              "type": "fill-in",
+              "front": "きのうえいがを＿＿＿＿。(I watched a movie yesterday.)",
+              "back": "みました",
+              "hint": "Past tense of みます",
+              "romaji": "mimashita"
+            },
+            {
+              "type": "fill-in",
+              "front": "ともだち＿＿レストランにいきました。(I went to a restaurant with a friend.)",
+              "back": "と",
+              "hint": "Particle: together with",
+              "romaji": "to"
+            },
+            {
+              "type": "fill-in",
+              "front": "きのうべんきょう＿＿＿＿＿＿。(I did not study yesterday.)",
+              "back": "しませんでした",
+              "hint": "Past negative of します",
+              "romaji": "shimasendeshita"
+            },
+            {
+              "type": "translate",
+              "front": "There is a bank next to the post office.",
+              "back": "ゆうびんきょくのとなりにぎんこうがあります。",
+              "romaji": "yuubinkyoku no tonari ni ginkou ga arimasu."
+            },
+            {
+              "type": "translate",
+              "front": "I took a lot of pictures yesterday.",
+              "back": "きのうしゃしんをたくさんとりました。",
+              "romaji": "kinou shashin o takusan torimashita."
+            },
+            {
+              "type": "translate",
+              "front": "I waited for about one hour.",
+              "back": "いちじかんぐらいまちました。",
+              "romaji": "ichijikan gurai machimashita."
+            },
+            {
+              "type": "translate",
+              "front": "There is a cat between the desk and the chair.",
+              "back": "つくえといすのあいだにねこがいます。",
+              "romaji": "tsukue to isu no aida ni neko ga imasu."
+            }
+          ]
         },
         {
-          "front": "やすい（inexpensive; cheap (thing)）",
-          "back": "やすくないです",
-          "romaji": "yasui"
+          "id": "lesson-4-location-words",
+          "title": "L4: Location Words",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "みぎ",
+              "back": "right",
+              "romaji": "migi"
+            },
+            {
+              "type": "vocab",
+              "front": "ひだり",
+              "back": "left",
+              "romaji": "hidari"
+            },
+            {
+              "type": "vocab",
+              "front": "まえ",
+              "back": "front",
+              "romaji": "mae"
+            },
+            {
+              "type": "vocab",
+              "front": "うしろ",
+              "back": "back; behind",
+              "romaji": "ushiro"
+            },
+            {
+              "type": "vocab",
+              "front": "なか",
+              "back": "inside",
+              "romaji": "naka"
+            },
+            {
+              "type": "vocab",
+              "front": "うえ",
+              "back": "on; above",
+              "romaji": "ue"
+            },
+            {
+              "type": "vocab",
+              "front": "した",
+              "back": "under; below",
+              "romaji": "shita"
+            },
+            {
+              "type": "vocab",
+              "front": "ちかく",
+              "back": "near; nearby",
+              "romaji": "chikaku"
+            },
+            {
+              "type": "vocab",
+              "front": "となり",
+              "back": "next to",
+              "romaji": "tonari"
+            },
+            {
+              "type": "vocab",
+              "front": "あいだ",
+              "back": "between",
+              "romaji": "aida"
+            },
+            {
+              "type": "fill-in",
+              "front": "ぎんこうはとしょかんの＿＿にあります。(The bank is to the right of the library.)",
+              "back": "みぎ",
+              "hint": "Direction word",
+              "romaji": "migi"
+            },
+            {
+              "type": "fill-in",
+              "front": "ねこはテーブルの＿＿にいます。(The cat is under the table.)",
+              "back": "した",
+              "hint": "Location: below",
+              "romaji": "shita"
+            }
+          ]
         },
         {
-          "front": "すきな（fond of; to like）",
-          "back": "すきじゃないです",
-          "romaji": "sukina"
+          "id": "lesson-4-kanji",
+          "title": "L4: Kanji",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "日本",
+              "back": "にほん (Japan)",
+              "romaji": "nihon"
+            },
+            {
+              "type": "vocab",
+              "front": "日曜日",
+              "back": "にちようび (Sunday)",
+              "romaji": "nichiyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "本",
+              "back": "ほん (book)",
+              "romaji": "hon"
+            },
+            {
+              "type": "vocab",
+              "front": "人",
+              "back": "ひと (person) / じん (people)",
+              "romaji": "hito/jin"
+            },
+            {
+              "type": "vocab",
+              "front": "一人で",
+              "back": "ひとりで (alone)",
+              "romaji": "hitoride"
+            },
+            {
+              "type": "vocab",
+              "front": "月曜日",
+              "back": "げつようび (Monday)",
+              "romaji": "getsuyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "一月",
+              "back": "いちがつ (January)",
+              "romaji": "ichigatsu"
+            },
+            {
+              "type": "vocab",
+              "front": "火曜日",
+              "back": "かようび (Tuesday)",
+              "romaji": "kayoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "水曜日",
+              "back": "すいようび (Wednesday)",
+              "romaji": "suiyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "水",
+              "back": "みず (water)",
+              "romaji": "mizu"
+            },
+            {
+              "type": "vocab",
+              "front": "木曜日",
+              "back": "もくようび (Thursday)",
+              "romaji": "mokuyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "金曜日",
+              "back": "きんようび (Friday)",
+              "romaji": "kinyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "土曜日",
+              "back": "どようび (Saturday)",
+              "romaji": "doyoubi"
+            },
+            {
+              "type": "vocab",
+              "front": "上",
+              "back": "うえ (above; on)",
+              "romaji": "ue"
+            },
+            {
+              "type": "vocab",
+              "front": "下",
+              "back": "した (below; under)",
+              "romaji": "shita"
+            },
+            {
+              "type": "vocab",
+              "front": "中",
+              "back": "なか (inside; middle)",
+              "romaji": "naka"
+            },
+            {
+              "type": "vocab",
+              "front": "三時半",
+              "back": "さんじはん (half past three)",
+              "romaji": "sanjihan"
+            }
+          ]
         },
         {
-          "front": "いそがしい（busy (people/days)）",
-          "back": "いそがしくないです",
-          "romaji": "isogashii"
-        },
-        {
-          "front": "つまらない（boring）",
-          "back": "つまらなくないです",
-          "romaji": "tsumaranai"
+          "id": "lesson-4-culture",
+          "title": "L4: Culture Notes",
+          "cards": [
+            {
+              "type": "culture",
+              "front": "Japanese Houses (traditional)",
+              "back": "Features: tatami (straw mat flooring), fusuma (sliding doors), genkan (entryway where shoes are removed). Rooms measured in tatami mats (e.g., 6-mat room).",
+              "romaji": ""
+            },
+            {
+              "type": "culture",
+              "front": "Japanese National Holidays",
+              "back": "Japan has 16 national holidays. When a holiday falls on Sunday, the following Monday becomes a substitute holiday (振替休日). Golden Week is late April to early May.",
+              "romaji": ""
+            }
+          ]
         }
       ]
     },
     {
-      "id": "lesson-5-2-adj-past-affirmative",
-      "title": "Lesson 5-2: Adjective Past Affirmative",
-      "cards": [
+      "id": "lesson-5",
+      "title": "Lesson 5: A Trip to Okinawa",
+      "subDecks": [
         {
-          "front": "おいしい（delicious）",
-          "back": "おいしかったです",
-          "romaji": "oishii"
+          "id": "lesson-5-vocab",
+          "title": "L5: Vocabulary",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "おもしろい",
+              "back": "interesting; funny (i-adj)",
+              "romaji": "omoshiroi"
+            },
+            {
+              "type": "vocab",
+              "front": "たのしい",
+              "back": "fun (i-adj)",
+              "romaji": "tanoshii"
+            },
+            {
+              "type": "vocab",
+              "front": "あたらしい",
+              "back": "new (i-adj)",
+              "romaji": "atarashii"
+            },
+            {
+              "type": "vocab",
+              "front": "ふるい",
+              "back": "old (thing) (i-adj)",
+              "romaji": "furui"
+            },
+            {
+              "type": "vocab",
+              "front": "おおきい",
+              "back": "large (i-adj)",
+              "romaji": "ookii"
+            },
+            {
+              "type": "vocab",
+              "front": "ちいさい",
+              "back": "small (i-adj)",
+              "romaji": "chiisai"
+            },
+            {
+              "type": "vocab",
+              "front": "さむい",
+              "back": "cold (weather) (i-adj)",
+              "romaji": "samui"
+            },
+            {
+              "type": "vocab",
+              "front": "あつい",
+              "back": "hot (weather) (i-adj)",
+              "romaji": "atsui"
+            },
+            {
+              "type": "vocab",
+              "front": "むずかしい",
+              "back": "difficult (i-adj)",
+              "romaji": "muzukashii"
+            },
+            {
+              "type": "vocab",
+              "front": "やさしい",
+              "back": "easy; kind (i-adj)",
+              "romaji": "yasashii"
+            },
+            {
+              "type": "vocab",
+              "front": "やすい",
+              "back": "inexpensive; cheap (i-adj)",
+              "romaji": "yasui"
+            },
+            {
+              "type": "vocab",
+              "front": "いそがしい",
+              "back": "busy (i-adj)",
+              "romaji": "isogashii"
+            },
+            {
+              "type": "vocab",
+              "front": "つまらない",
+              "back": "boring (i-adj)",
+              "romaji": "tsumaranai"
+            },
+            {
+              "type": "vocab",
+              "front": "こわい",
+              "back": "frightening (i-adj)",
+              "romaji": "kowai"
+            },
+            {
+              "type": "vocab",
+              "front": "かっこいい",
+              "back": "good-looking (i-adj)",
+              "romaji": "kakkoii"
+            },
+            {
+              "type": "vocab",
+              "front": "げんきな",
+              "back": "healthy; energetic (na-adj)",
+              "romaji": "genkina"
+            },
+            {
+              "type": "vocab",
+              "front": "しずかな",
+              "back": "quiet (na-adj)",
+              "romaji": "shizukana"
+            },
+            {
+              "type": "vocab",
+              "front": "にぎやかな",
+              "back": "lively (na-adj)",
+              "romaji": "nigiyakana"
+            },
+            {
+              "type": "vocab",
+              "front": "ひまな",
+              "back": "not busy; free (na-adj)",
+              "romaji": "himana"
+            },
+            {
+              "type": "vocab",
+              "front": "きれいな",
+              "back": "beautiful; clean (na-adj)",
+              "romaji": "kireina"
+            },
+            {
+              "type": "vocab",
+              "front": "すきな",
+              "back": "fond of; to like (na-adj)",
+              "romaji": "sukina"
+            },
+            {
+              "type": "vocab",
+              "front": "きらいな",
+              "back": "to dislike (na-adj)",
+              "romaji": "kiraina"
+            },
+            {
+              "type": "vocab",
+              "front": "てんき",
+              "back": "weather",
+              "romaji": "tenki"
+            }
+          ]
         },
         {
-          "front": "にぎやかな（lively）",
-          "back": "にぎやかでした",
-          "romaji": "nigiyakana"
+          "id": "lesson-5-grammar",
+          "title": "L5: Adjective Grammar",
+          "cards": [
+            {
+              "type": "grammar",
+              "front": "i-adjective vs. na-adjective",
+              "back": "i-adj end in い: おもしろい, たかい. na-adj don't: げんき(な), しずか(な). EXCEPTION: きれい and きらい look like i-adj but are na-adj.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "i-adj present negative",
+              "back": "Drop い, add くないです. おもしろい → おもしろくないです. EXCEPTION: いい → よくないです.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "na-adj present negative",
+              "back": "Drop な, add じゃないです. げんきな → げんきじゃないです. しずかな → しずかじゃないです.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "i-adj past affirmative",
+              "back": "Drop い, add かったです. おもしろい → おもしろかったです. EXCEPTION: いい → よかったです.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "na-adj past affirmative",
+              "back": "Drop な, add でした. げんきな → げんきでした. きれいな → きれいでした.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "i-adj past negative",
+              "back": "Drop い, add くなかったです. おもしろい → おもしろくなかったです. EXCEPTION: いい → よくなかったです.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "na-adj past negative",
+              "back": "Drop な, add じゃなかったです. げんきな → げんきじゃなかったです.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "Adjective + Noun modification",
+              "back": "i-adj directly modifies: おもしろいえいが (interesting movie). na-adj uses な: きれいなまち (beautiful town).",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "すき and きらい (Likes/Dislikes)",
+              "back": "X は Y がすきです = X likes Y. Use が (not を) with すき/きらい. だいすき = love. だいきらい = hate.",
+              "romaji": ""
+            },
+            {
+              "type": "grammar",
+              "front": "～ましょう (Let's...)",
+              "back": "Drop ます, add ましょう. たべます → たべましょう. いきます → いきましょう. Used for suggestions.",
+              "romaji": ""
+            },
+            {
+              "type": "fill-in",
+              "front": "このえいがは＿＿＿＿＿＿です。(This movie was not interesting.)",
+              "back": "おもしろくなかった",
+              "hint": "i-adj past negative",
+              "romaji": "omoshirokunakatta"
+            },
+            {
+              "type": "fill-in",
+              "front": "きのうのてんきは＿＿＿＿。(Yesterday's weather was good.)",
+              "back": "よかったです",
+              "hint": "Irregular past of いい",
+              "romaji": "yokatta desu"
+            },
+            {
+              "type": "fill-in",
+              "front": "わたしはさかな＿＿すきです。(I like fish.)",
+              "back": "が",
+              "hint": "Particle used with すき",
+              "romaji": "ga"
+            },
+            {
+              "type": "translate",
+              "front": "This town is quiet and beautiful.",
+              "back": "このまちはしずかできれいです。",
+              "romaji": "kono machi wa shizuka de kirei desu."
+            },
+            {
+              "type": "translate",
+              "front": "Yesterday's test was not difficult.",
+              "back": "きのうのテストはむずかしくなかったです。",
+              "romaji": "kinou no tesuto wa muzukashikunakatta desu."
+            },
+            {
+              "type": "translate",
+              "front": "Let's eat lunch together.",
+              "back": "いっしょにひるごはんをたべましょう。",
+              "romaji": "issho ni hirugohan o tabemashou."
+            }
+          ]
         },
         {
-          "front": "おおきい（large）",
-          "back": "おおきかったです",
-          "romaji": "ookii"
-        },
-        { "front": "いい（good）", "back": "よかったです", "romaji": "ii" },
-        {
-          "front": "はやい（early）",
-          "back": "はやかったです",
-          "romaji": "hayai"
-        },
-        {
-          "front": "こわい（frightening）",
-          "back": "こわかったです",
-          "romaji": "kowai"
-        },
-        {
-          "front": "たかい（expensive; high）",
-          "back": "たかかったです",
-          "romaji": "takai"
-        },
-        {
-          "front": "たのしい（fun）",
-          "back": "たのしかったです",
-          "romaji": "tanoshii"
-        },
-        {
-          "front": "やすい（inexpensive; cheap (thing)）",
-          "back": "やすかったです",
-          "romaji": "yasui"
-        },
-        {
-          "front": "げんきな（healthy; energetic）",
-          "back": "げんきでした",
-          "romaji": "genkina"
-        },
-        {
-          "front": "ふるい（old (thing)）",
-          "back": "ふるかったです",
-          "romaji": "furui"
-        },
-        {
-          "front": "あたらしい（new）",
-          "back": "あたらしかったです",
-          "romaji": "atarashii"
-        },
-        {
-          "front": "つまらない（boring）",
-          "back": "つまらなかったです",
-          "romaji": "tsumaranai"
-        },
-        {
-          "front": "しずかな（quiet）",
-          "back": "しずかでした",
-          "romaji": "shizukana"
-        },
-        {
-          "front": "いそがしい（busy (people/days)）",
-          "back": "いそがしかったです",
-          "romaji": "isogashii"
-        },
-        {
-          "front": "やさしい（easy (problem); kind (person)）",
-          "back": "やさしかったです",
-          "romaji": "yasashii"
-        },
-        {
-          "front": "きらいな（disgusted with; to dislike）",
-          "back": "きらいでした",
-          "romaji": "kiraina"
-        },
-        {
-          "front": "ちいさい（small）",
-          "back": "ちいさかったです",
-          "romaji": "chiisai"
-        },
-        {
-          "front": "ひまな（not busy; free (time)）",
-          "back": "ひまでした",
-          "romaji": "himana"
+          "id": "lesson-5-adj-present-neg",
+          "title": "L5: Adjective Present Negative Drill",
+          "cards": [
+            {
+              "type": "conjugation",
+              "front": "おもしろい → present negative",
+              "back": "おもしろくないです",
+              "romaji": "omoshirokunai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "たのしい → present negative",
+              "back": "たのしくないです",
+              "romaji": "tanoshikunai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "いい → present negative",
+              "back": "よくないです",
+              "romaji": "yokunai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "たかい → present negative",
+              "back": "たかくないです",
+              "romaji": "takakunai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "おおきい → present negative",
+              "back": "おおきくないです",
+              "romaji": "ookikunai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "さむい → present negative",
+              "back": "さむくないです",
+              "romaji": "samukunai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "かっこいい → present negative",
+              "back": "かっこよくないです",
+              "romaji": "kakkoyokunai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "げんきな → present negative",
+              "back": "げんきじゃないです",
+              "romaji": "genki janai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "しずかな → present negative",
+              "back": "しずかじゃないです",
+              "romaji": "shizuka janai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "きれいな → present negative",
+              "back": "きれいじゃないです",
+              "romaji": "kirei janai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "すきな → present negative",
+              "back": "すきじゃないです",
+              "romaji": "suki janai desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "ひまな → present negative",
+              "back": "ひまじゃないです",
+              "romaji": "hima janai desu"
+            }
+          ]
         },
         {
-          "front": "おもしろい（interesting; funny）",
-          "back": "おもしろかったです",
-          "romaji": "omoshiroi"
+          "id": "lesson-5-adj-past-aff",
+          "title": "L5: Adjective Past Affirmative Drill",
+          "cards": [
+            {
+              "type": "conjugation",
+              "front": "おもしろい → past affirmative",
+              "back": "おもしろかったです",
+              "romaji": "omoshirokatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "いい → past affirmative",
+              "back": "よかったです",
+              "romaji": "yokatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "たのしい → past affirmative",
+              "back": "たのしかったです",
+              "romaji": "tanoshikatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "たかい → past affirmative",
+              "back": "たかかったです",
+              "romaji": "takakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "さむい → past affirmative",
+              "back": "さむかったです",
+              "romaji": "samukatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "かっこいい → past affirmative",
+              "back": "かっこよかったです",
+              "romaji": "kakkoyokatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "げんきな → past affirmative",
+              "back": "げんきでした",
+              "romaji": "genki deshita"
+            },
+            {
+              "type": "conjugation",
+              "front": "しずかな → past affirmative",
+              "back": "しずかでした",
+              "romaji": "shizuka deshita"
+            },
+            {
+              "type": "conjugation",
+              "front": "きれいな → past affirmative",
+              "back": "きれいでした",
+              "romaji": "kirei deshita"
+            },
+            {
+              "type": "conjugation",
+              "front": "にぎやかな → past affirmative",
+              "back": "にぎやかでした",
+              "romaji": "nigiyaka deshita"
+            }
+          ]
         },
         {
-          "front": "あつい（hot）",
-          "back": "あつかったです",
-          "romaji": "atsui"
+          "id": "lesson-5-adj-past-neg",
+          "title": "L5: Adjective Past Negative Drill",
+          "cards": [
+            {
+              "type": "conjugation",
+              "front": "おもしろい → past negative",
+              "back": "おもしろくなかったです",
+              "romaji": "omoshirokunakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "いい → past negative",
+              "back": "よくなかったです",
+              "romaji": "yokunakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "たのしい → past negative",
+              "back": "たのしくなかったです",
+              "romaji": "tanoshikunakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "たかい → past negative",
+              "back": "たかくなかったです",
+              "romaji": "takakunakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "むずかしい → past negative",
+              "back": "むずかしくなかったです",
+              "romaji": "muzukashikunakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "かっこいい → past negative",
+              "back": "かっこよくなかったです",
+              "romaji": "kakkoyokunakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "げんきな → past negative",
+              "back": "げんきじゃなかったです",
+              "romaji": "genki janakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "きれいな → past negative",
+              "back": "きれいじゃなかったです",
+              "romaji": "kirei janakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "しずかな → past negative",
+              "back": "しずかじゃなかったです",
+              "romaji": "shizuka janakatta desu"
+            },
+            {
+              "type": "conjugation",
+              "front": "すきな → past negative",
+              "back": "すきじゃなかったです",
+              "romaji": "suki janakatta desu"
+            }
+          ]
         },
         {
-          "front": "すきな（fond of; to like）",
-          "back": "すきでした",
-          "romaji": "sukina"
-        },
-        {
-          "front": "さむい（cold (weather)）",
-          "back": "さむかったです",
-          "romaji": "samui"
-        },
-        {
-          "front": "むずかしい（difficult）",
-          "back": "むずかしかったです",
-          "romaji": "muzukashii"
-        },
-        {
-          "front": "きれいな（beautiful; clean）",
-          "back": "きれいでした",
-          "romaji": "kireina"
-        },
-        {
-          "front": "かっこいい（good-looking）",
-          "back": "かっこよかったです",
-          "romaji": "kakkoii"
-        }
-      ]
-    },
-    {
-      "id": "lesson-5-3-adj-past-negative",
-      "title": "Lesson 5-3: Adjective Past Negative",
-      "cards": [
-        {
-          "front": "すきな（fond of; to like）",
-          "back": "すきじゃなかったです",
-          "romaji": "sukina"
-        },
-        {
-          "front": "ちいさい（small）",
-          "back": "ちいさくなかったです",
-          "romaji": "chiisai"
-        },
-        {
-          "front": "げんきな（healthy; energetic）",
-          "back": "げんきじゃなかったです",
-          "romaji": "genkina"
-        },
-        {
-          "front": "ふるい（old (thing)）",
-          "back": "ふるくなかったです",
-          "romaji": "furui"
-        },
-        { "front": "いい（good）", "back": "よくなかったです", "romaji": "ii" },
-        {
-          "front": "つまらない（boring）",
-          "back": "つまらなくなかったです",
-          "romaji": "tsumaranai"
-        },
-        {
-          "front": "たかい（expensive; high）",
-          "back": "たかくなかったです",
-          "romaji": "takai"
-        },
-        {
-          "front": "きれいな（beautiful; clean）",
-          "back": "きれいじゃなかったです",
-          "romaji": "kireina"
-        },
-        {
-          "front": "むずかしい（difficult）",
-          "back": "むずかしくなかったです",
-          "romaji": "muzukashii"
-        },
-        {
-          "front": "あたらしい（new）",
-          "back": "あたらしくなかったです",
-          "romaji": "atarashii"
-        },
-        {
-          "front": "おおきい（large）",
-          "back": "おおきくなかったです",
-          "romaji": "ookii"
-        },
-        {
-          "front": "おいしい（delicious）",
-          "back": "おいしくなかったです",
-          "romaji": "oishii"
-        },
-        {
-          "front": "やさしい（easy (problem); kind (person)）",
-          "back": "やさしくなかったです",
-          "romaji": "yasashii"
-        },
-        {
-          "front": "きらいな（disgusted with; to dislike）",
-          "back": "きらいじゃなかったです",
-          "romaji": "kiraina"
-        },
-        {
-          "front": "さむい（cold (weather)）",
-          "back": "さむくなかったです",
-          "romaji": "samui"
-        },
-        {
-          "front": "かっこいい（good-looking）",
-          "back": "かっこよくなかったです",
-          "romaji": "kakkoii"
-        },
-        {
-          "front": "こわい（frightening）",
-          "back": "こわくなかったです",
-          "romaji": "kowai"
-        },
-        {
-          "front": "はやい（early）",
-          "back": "はやくなかったです",
-          "romaji": "hayai"
-        },
-        {
-          "front": "しずかな（quiet）",
-          "back": "しずかじゃなかったです",
-          "romaji": "shizukana"
-        },
-        {
-          "front": "ひまな（not busy; free (time)）",
-          "back": "ひまじゃなかったです",
-          "romaji": "himana"
-        },
-        {
-          "front": "いそがしい（busy (people/days)）",
-          "back": "いそがしくなかったです",
-          "romaji": "isogashii"
-        },
-        {
-          "front": "あつい（hot）",
-          "back": "あつくなかったです",
-          "romaji": "atsui"
-        },
-        {
-          "front": "たのしい（fun）",
-          "back": "たのしくなかったです",
-          "romaji": "tanoshii"
-        },
-        {
-          "front": "にぎやかな（lively）",
-          "back": "にぎやかじゃなかったです",
-          "romaji": "nigiyakana"
-        },
-        {
-          "front": "やすい（inexpensive; cheap (thing)）",
-          "back": "やすくなかったです",
-          "romaji": "yasui"
-        },
-        {
-          "front": "おもしろい（interesting; funny）",
-          "back": "おもしろくなかったです",
-          "romaji": "omoshiroi"
+          "id": "lesson-5-kanji",
+          "title": "L5: Kanji",
+          "cards": [
+            {
+              "type": "vocab",
+              "front": "山",
+              "back": "やま (mountain)",
+              "romaji": "yama"
+            },
+            {
+              "type": "vocab",
+              "front": "川",
+              "back": "かわ (river)",
+              "romaji": "kawa"
+            },
+            {
+              "type": "vocab",
+              "front": "元気",
+              "back": "げんき (healthy; energetic)",
+              "romaji": "genki"
+            },
+            {
+              "type": "vocab",
+              "front": "天気",
+              "back": "てんき (weather)",
+              "romaji": "tenki"
+            },
+            {
+              "type": "vocab",
+              "front": "私",
+              "back": "わたし (I; me)",
+              "romaji": "watashi"
+            },
+            {
+              "type": "vocab",
+              "front": "今",
+              "back": "いま (now)",
+              "romaji": "ima"
+            },
+            {
+              "type": "vocab",
+              "front": "今日",
+              "back": "きょう (today)",
+              "romaji": "kyou"
+            },
+            {
+              "type": "vocab",
+              "front": "女の人",
+              "back": "おんなのひと (woman)",
+              "romaji": "onnanohito"
+            },
+            {
+              "type": "vocab",
+              "front": "男の人",
+              "back": "おとこのひと (man)",
+              "romaji": "otokonohito"
+            },
+            {
+              "type": "vocab",
+              "front": "見る",
+              "back": "みる (to see; to watch)",
+              "romaji": "miru"
+            },
+            {
+              "type": "vocab",
+              "front": "行く",
+              "back": "いく (to go)",
+              "romaji": "iku"
+            },
+            {
+              "type": "vocab",
+              "front": "食べる",
+              "back": "たべる (to eat)",
+              "romaji": "taberu"
+            },
+            {
+              "type": "vocab",
+              "front": "飲む",
+              "back": "のむ (to drink)",
+              "romaji": "nomu"
+            },
+            {
+              "type": "vocab",
+              "front": "田中さん",
+              "back": "たなかさん (Mr./Ms. Tanaka)",
+              "romaji": "tanakasan"
+            },
+            {
+              "type": "vocab",
+              "front": "山田さん",
+              "back": "やまださん (Mr./Ms. Yamada)",
+              "romaji": "yamadasan"
+            }
+          ]
         }
       ]
     }
