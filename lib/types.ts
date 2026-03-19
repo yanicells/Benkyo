@@ -1,10 +1,40 @@
-export type Card = { front: string; back: string; romaji?: string };
+// Card types
+export type CardType =
+  | "vocab"
+  | "grammar"
+  | "fill-in"
+  | "conjugation"
+  | "translate"
+  | "culture";
 
-export type Lesson = { id: string; title: string; cards: Card[] };
+export type Card = {
+  type: CardType;
+  front: string;
+  back: string;
+  romaji?: string;
+  hint?: string;
+};
 
-export type LessonsData = { lessons: Lesson[] };
+export type SubDeck = {
+  id: string;
+  title: string;
+  cards: Card[];
+};
 
-export type StudyMode = "flashcard" | "multiple-choice" | "typing";
+export type Lesson = {
+  id: string;
+  title: string;
+  subDecks: SubDeck[];
+};
+
+export type LessonsData = {
+  version: string;
+  schema: { description: string; types: Record<string, string> };
+  lessons: Lesson[];
+};
+
+// Study modes (typing removed in v2)
+export type StudyMode = "flashcard" | "multiple-choice";
 
 export type FlipSetting = "jp-to-en" | "en-to-jp";
 
@@ -13,6 +43,35 @@ export type SessionCard = {
   correctsNeeded: number;
 };
 
+// SRS types
+export type SRSRating = 0 | 1 | 2 | 3; // Again, Hard, Good, Easy
+
+export type CardSRS = {
+  ease: number;
+  interval: number;
+  dueDate: string;
+  repetitions: number;
+  lastReview: string;
+  totalReviews: number;
+  totalCorrect: number;
+};
+
+export type DailyStats = {
+  reviewed: number;
+  correct: number;
+  timeSpentSeconds: number;
+};
+
+export type BenkyoSettings = {
+  dailyGoal: number;
+};
+
+export type StreakData = {
+  current: number;
+  lastDate: string;
+};
+
+// Kana types (unchanged)
 export type KanaGroup = "basic" | "dakuten" | "combo";
 
 export type KanaRowKey =

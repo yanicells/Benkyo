@@ -4,7 +4,7 @@ import { PageShell } from "@/components/shared/page-shell";
 import type { LessonsData } from "@/lib/types";
 
 export default function DecksPage() {
-  const lessons = (lessonsData as LessonsData).lessons;
+  const lessons = (lessonsData as unknown as LessonsData).lessons;
 
   return (
     <PageShell

@@ -10,7 +10,9 @@ type TopNavProps = {
 const links = [
   { href: "/", label: "Home" },
   { href: "/decks", label: "Decks" },
+  { href: "/review", label: "Review" },
   { href: "/kana", label: "Kana" },
+  { href: "/stats", label: "Stats" },
 ];
 
 export function TopNav({ backHref = "/" }: TopNavProps) {
