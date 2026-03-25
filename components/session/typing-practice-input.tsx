@@ -154,7 +154,7 @@ export function TypingPracticeInput({
                 setErrorState(false);
                 inputRef.current?.focus();
               }}
-              className="rounded-full border border-rose-900/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100 sm:text-sm"
+              className="min-h-11 rounded-full border border-rose-900/20 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100"
             >
               {giveUpLabel}
             </button>
@@ -174,7 +174,7 @@ export function TypingPracticeInput({
                 setErrorState(false);
                 inputRef.current?.focus();
               }}
-              className="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300 sm:text-sm"
+              className="min-h-11 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               {nextLabel}
             </button>

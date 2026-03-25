@@ -334,7 +334,7 @@ export function DeckSessionClient({
         <p className="mt-2 text-center text-xs uppercase tracking-[0.2em] text-rose-700">
           Prompt
         </p>
-        <p className="mt-4 text-center font-display text-5xl leading-tight text-slate-900 sm:text-7xl">
+        <p className="mt-4 text-center font-display text-4xl leading-tight text-slate-900 sm:text-7xl">
           {prompt}
         </p>
 
@@ -352,7 +352,7 @@ export function DeckSessionClient({
                 <button
                   type="button"
                   onClick={() => setRevealed(true)}
-                  className="rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
+                  className="min-h-11 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
                 >
                   Reveal answer
                 </button>
@@ -367,13 +367,13 @@ export function DeckSessionClient({
                     {current.card[answerSide]}
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center gap-2">
+                <div className="flex flex-wrap justify-center gap-3">
                   {ratingButtons.map((btn) => (
                     <button
                       key={btn.rating}
                       type="button"
                       onClick={() => doSRSReview(btn.rating)}
-                      className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition sm:text-sm ${btn.color}`}
+                      className={`min-h-11 rounded-full px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition ${btn.color}`}
                     >
                       <span className="mr-1 opacity-60">{btn.key}</span>
                       {btn.label}
@@ -427,7 +427,7 @@ export function DeckSessionClient({
                 <button
                   type="button"
                   onClick={submitMultipleChoice}
-                  className="rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 sm:text-sm"
+                  className="min-h-11 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
                 >
                   Next
                 </button>
@@ -439,7 +439,7 @@ export function DeckSessionClient({
                 <p className="text-center text-xs uppercase tracking-wider text-slate-600">
                   How well did you know this?
                 </p>
-                <div className="flex flex-wrap justify-center gap-2">
+                <div className="flex flex-wrap justify-center gap-3">
                   {ratingButtons
                     .filter((b) => b.rating >= 2)
                     .map((btn) => (
@@ -447,7 +447,7 @@ export function DeckSessionClient({
                         key={btn.rating}
                         type="button"
                         onClick={() => doSRSReview(btn.rating)}
-                        className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition sm:text-sm ${btn.color}`}
+                        className={`min-h-11 rounded-full px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition ${btn.color}`}
                       >
                         <span className="mr-1 opacity-60">{btn.key}</span>
                         {btn.label}

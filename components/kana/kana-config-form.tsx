@@ -161,7 +161,7 @@ export function KanaConfigForm() {
               key={size}
               type="button"
               onClick={() => setBatchSize(size)}
-              className={`rounded-xl border px-3 py-2 text-sm font-semibold transition ${
+              className={`min-h-11 rounded-xl border px-3 py-2 text-sm font-semibold transition ${
                 batchSize === size
                   ? "border-rose-700 bg-rose-100 text-rose-900"
                   : "border-slate-300 bg-white text-slate-700 hover:border-slate-500"
@@ -246,7 +246,7 @@ export function KanaConfigForm() {
                               entries: row.entries,
                             })
                           }
-                          className="shrink-0 rounded-full border border-rose-900/20 p-1.5 text-rose-700 transition hover:border-rose-900/40 hover:bg-rose-50"
+                          className="shrink-0 rounded-full border border-rose-900/20 p-2.5 text-rose-700 transition hover:border-rose-900/40 hover:bg-rose-50"
                           aria-label={`Preview ${row.label}`}
                           title={`Preview ${row.label}`}
                         >
@@ -256,7 +256,7 @@ export function KanaConfigForm() {
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
-                            className="h-4 w-4"
+                            className="h-5 w-5"
                             aria-hidden="true"
                           >
                             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
@@ -286,7 +286,7 @@ export function KanaConfigForm() {
 
       {previewRow ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
           onClick={() => setPreviewRow(null)}
         >
           <div
@@ -316,7 +316,7 @@ export function KanaConfigForm() {
               <button
                 type="button"
                 onClick={() => setPreviewRow(null)}
-                className="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
+                className="min-h-11 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
               >
                 Close
               </button>

@@ -20,7 +20,7 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   background:
     radial-gradient(circle at 12% 8%, #fff9f0 0%, transparent 28%),
     radial-gradient(circle at 86% 0%, #fdece9 0%, transparent 24%),
@@ -31,4 +31,12 @@ body {
 
 .font-display {
   font-family: var(--font-display), var(--font-japanese-display), serif;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

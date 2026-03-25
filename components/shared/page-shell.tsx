@@ -17,10 +17,10 @@ export function PageShell({
   children,
 }: PageShellProps) {
   return (
-    <main className="relative mx-auto min-h-screen w-full max-w-6xl px-3 py-4 sm:px-6 sm:py-8">
-      <div className="rounded-[2rem] border border-rose-900/10 bg-white/80 p-4 shadow-[0_10px_24px_rgba(74,24,32,0.10)] backdrop-blur-sm sm:p-8">
+    <main className="relative mx-auto min-h-screen w-full max-w-6xl px-2 py-3 sm:px-6 sm:py-8">
+      <div className="rounded-2xl border border-rose-900/10 bg-white/80 p-3 shadow-[0_10px_24px_rgba(74,24,32,0.10)] backdrop-blur-sm sm:rounded-[2rem] sm:p-8">
         <TopNav backHref={backHref} />
-        <header className="mb-5 space-y-2 border-b border-rose-950/10 pb-5 sm:mb-8 sm:space-y-3 sm:pb-7">
+        <header className="mb-3 space-y-1.5 border-b border-rose-950/10 pb-3 sm:mb-8 sm:space-y-3 sm:pb-7">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-rose-700">
             {eyebrow}
           </p>
