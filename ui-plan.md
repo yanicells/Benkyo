@@ -1,9 +1,16 @@
 # Plan: UI Design Migration - Fix Regressions & Restore Features
 
 ## Context
+
 Branch `gabe` (commits `da832b0`, `323d8d1`) did a complete UI overhaul based on a Stitch design. The new design looks good but broke several features and introduced stub/placeholder content. We need to fix all regressions while keeping the new design. Work happens on `feature/design-update` branched from `gabe`.
 
 Old implementations (pre-overhaul) are available via `git show main:<path>` and should be referenced to restore lost features with minimal new code.
+
+## Guardrails
+
+- Keep visual design language from `gabe`.
+- Restore feature parity with `main` first; stylistic polish second.
+- Avoid introducing new product scope (auth, real search, profiles) in this migration.
 
 ---
 
@@ -12,25 +19,27 @@ Old implementations (pre-overhaul) are available via `git show main:<path>` and 
 **Problem**: Kana went from typing practice to MC-only. Need both modes with a toggle.
 
 **Files to modify**:
+
 - `components/kana/kana-config-form.tsx` - Add mode selector (MC vs Typing)
 - `app/kana/session/page.tsx` - Read `mode` from searchParams, pass through
 - `components/kana/kana-session-renderer.tsx` - Pass `mode` prop
 - `components/kana/kana-session-client.tsx` - Conditional render: MC UI (existing) or Typing UI (restore from main)
 
 **Approach**:
-1. Add `mode` state to config form with a segmented toggle styled like the existing hiragana/katakana toggle
-2. Append `&mode=${mode}` to session URL (line 77 of config form)
-3. In session page, extract `mode` param, validate as `"mc" | "typing"`, default `"mc"`
+
+1. Add `mode` state to config form with a segmented toggle styled like the existing hiragana/katakana toggle.
+2. Append `&mode=${mode}` to session URL.
+3. In session page, extract `mode` param, validate as `"mc" | "typing"`, default `"mc"`.
 4. In `KanaSessionClient`:
-   - Add `mode` prop
-   - For `mode === "typing"`: restore `processBatch()`, `activeCards = queue.slice(0, batchSize)`, use existing `TypingPracticeInput` component, add answer key toggle (Tab)
-   - For `mode === "mc"`: keep current MC implementation unchanged
-   - Batch size only applies to typing mode; MC always shows 1 card
-5. Remove the `scaledCards` logic in page.tsx (line 65-67) - just pass `cards` directly; let the client handle batching
+   - Add `mode` prop.
+   - For `mode === "typing"`: restore `processBatch()`, `activeCards = queue.slice(0, batchSize)`, use existing `TypingPracticeInput`, add answer key toggle (Tab).
+   - For `mode === "mc"`: keep current MC implementation unchanged.
+   - Batch size only applies to typing mode; MC always shows 1 card.
+5. Remove `scaledCards` logic in page.tsx. Pass base `cards` only and let client handle batch behavior.
 
-**Reference**: `git show main:components/kana/kana-session-client.tsx` for the old typing flow (processBatch, activeCards, TypingPracticeInput usage)
+**Reference**: `git show main:components/kana/kana-session-client.tsx` for old typing flow.
 
-**Existing component to reuse**: `components/session/typing-practice-input.tsx` (still in codebase)
+**Existing component to reuse**: `components/session/typing-practice-input.tsx`.
 
 ---
 
@@ -39,156 +48,232 @@ Old implementations (pre-overhaul) are available via `git show main:<path>` and 
 **Problem**: Config form sends `shuffle` param in URL but session page never reads it.
 
 **Files to modify**:
+
 - `app/kana/session/page.tsx` - Extract `shuffle` param
 - `components/kana/kana-session-renderer.tsx` - Add `shuffle` prop
 - `components/kana/kana-session-client.tsx` - Accept `shuffle` prop, conditionally shuffle queue
 - `lib/session.ts` - Add `buildQueueOrdered()` export
 
 **Approach**:
-1. In page.tsx after line 31: `const shuffleParam = firstParam(query.shuffle);` then `const shouldShuffle = shuffleParam !== "false";`
-2. Pass `shuffle={shouldShuffle}` through renderer to client
+
+1. In page.tsx: `const shuffleParam = firstParam(query.shuffle); const shouldShuffle = shuffleParam !== "false";`
+2. Pass `shuffle={shouldShuffle}` through renderer to client.
 3. Add to `lib/session.ts`:
    ```ts
    export function buildQueueOrdered(cards: Card[]): SessionCard[] {
      return cards.map((card) => ({ card, correctsNeeded: 1 }));
    }
    ```
-4. In client: `useState(() => shuffle ? buildQueue(cards) : buildQueueOrdered(cards))`
+4. In client: `useState(() => shuffle ? buildQueue(cards) : buildQueueOrdered(cards))`.
 
 ---
 
-## Task 3: Reintroduce Review & Stats in Navigation
+## Task 3: Reintroduce Review & Stats in Navigation (And Keep Kana Reachable On Desktop)
 
-**Problem**: `/review` and `/stats` routes exist and are fully implemented but unreachable from nav.
+**Problem**: `/review` and `/stats` exist but are unreachable from active nav; desktop nav also lacks a direct Kana entry.
 
 **Files to modify**:
+
 - `components/shared/bottom-nav.tsx` - Add Review + Stats items (5 total)
-- `components/shared/desktop-sidebar.tsx` - Replace Community/Profile stubs with Review + Stats
+- `components/shared/desktop-sidebar.tsx` - Replace Community/Profile stubs and add Kana link
 - `components/shared/top-app-bar.tsx` - Add Review + Stats to drawer
 
 **Approach**:
-1. **bottom-nav.tsx**: Add Review (clock/refresh icon) and Stats (bar-chart icon) to items array. Reduce `min-w-[72px]` to `min-w-[60px]` and icon size from `h-6 w-6` to `h-5 w-5` for 5-item fit. Clean up the awkward `items[1].icon` reassignment at line 47 - inline the correct icon.
-2. **desktop-sidebar.tsx**: Replace `href="#"` Community link (lines 40-48) with `/review` link. Replace `href="#"` Profile link (lines 50-58) with `/stats` link. Add active state styling matching existing pattern. Keep Community/Profile concept for future - these are just being replaced, not preserved.
-3. **top-app-bar.tsx**: Add Review and Stats `<Link>` entries in the drawer menu section.
-4. Use appropriate icons: Review = refresh/clock, Stats = bar-chart/trending-up
+
+1. **bottom-nav.tsx**: Add Review and Stats items; keep 5-item fit (`min-w-[60px]`, `h-5 w-5` icons). Remove `items[1].icon` reassignment and inline final icon.
+2. **desktop-sidebar.tsx**:
+   - Add explicit `/kana` nav item.
+   - Replace `href="#"` Community/Profile with `/review` and `/stats`.
+   - Keep correct active-state logic per route.
+3. **top-app-bar.tsx**: Add Review and Stats links in drawer menu.
 
 ---
 
 ## Task 4: Remove Forced Lesson Lock
 
-**Problem**: `lesson-deck-grid.tsx` line 29 hardcodes `isLocked = index === 3`.
+**Problem**: `lesson-deck-grid.tsx` hardcodes `isLocked = index === 3`.
 
 **File to modify**: `components/decks/lesson-deck-grid.tsx`
 
 **Approach**:
-1. Delete `const isLocked = index === 3;` (line 29)
-2. Remove ternary in Link href: always use `/decks/${lesson.id}`
-3. Remove `pointer-events-none cursor-default` conditional class
-4. Remove entire locked state rendering block (the else branch with grey overlay, lock icon, "Complete previous lessons" message)
-5. `LessonCard` always renders the unlocked view
+
+1. Delete forced lock constant.
+2. Always use `/decks/${lesson.id}` in lesson cards.
+3. Remove lock-only styles and lock branch rendering.
+4. Keep one unlocked card template for all lessons.
 
 ---
 
 ## Task 5: Replace Hardcoded Deck Links
 
-**Problem**: Links to `"lesson-4"`, `"/decks/grammar-particles"` point to non-existent IDs.
+**Problem**: Links to `"lesson-4"`, `"/decks/grammar-particles"` point to invalid routes.
 
 **Files to modify**:
-- `components/home/home-client.tsx` - Fix fallback IDs
-- `components/decks/lesson-deck-grid.tsx` - Fix hardcoded grammar-particles link
+
+- `components/home/home-client.tsx`
+- `components/decks/lesson-deck-grid.tsx`
 
 **Approach**:
-1. In `home-client.tsx`: Replace `?? "lesson-4"` fallback with `?? lessons[0]?.id ?? ""`. Replace `?? "Genki I: Unit 4"` with `?? lessons[0]?.title ?? "Get Started"`.
-2. Replace `/decks/grammar-particles` reference in home-client.tsx with dynamic link using `lessons[1]?.id` or just `/decks`.
-3. In `lesson-deck-grid.tsx` line 220: Replace `/decks/grammar-particles` with `/decks` or a dynamic lesson reference.
+
+1. In `home-client.tsx`, make fallbacks route-safe:
+   - ID fallback: `lessons[0]?.id` and if unavailable route to `/decks`.
+   - Title fallback: `lessons[0]?.title ?? "Get Started"`.
+2. Replace `"/decks/grammar-particles"` with dynamic valid lesson IDs or `/decks`.
+3. Validate all `Link href` values resolve to existing routes.
 
 ---
 
-## Task 6: Keep Placeholder Shell Actions
+## Task 6: Placeholder Shell Actions Policy
 
-No changes. Search, settings, community/profile in desktop-header, and "Start Daily Session" button remain as-is.
+**Decision**: Keep placeholders, but avoid misleading interactivity.
+
+**Files to modify**:
+
+- `components/shared/desktop-header.tsx`
+- `components/shared/top-app-bar.tsx`
+
+**Approach**:
+
+1. Keep placeholder UI visible.
+2. Add non-functional labeling where needed (`Coming soon`, `aria-disabled`, tooltip/copy).
+3. Do not leave dead buttons that look active but do nothing silently.
 
 ---
 
 ## Task 7: Session Sidebar - Real Data + Collapsible
 
-**Problem**: Deck session sidebar (lines ~430-500 of `deck-session-client.tsx`) shows hardcoded mock data.
+**Problem**: Deck session sidebar uses hardcoded mock content.
 
 **File to modify**: `components/session/deck-session-client.tsx`
 
 **Approach**:
-1. Compute related cards from same sub-deck:
-   ```ts
-   const relatedCards = useMemo(() => {
-     const currentSdId = cardSubDeckIds[currentOriginalIndex];
-     return cards
-       .filter((c, i) => cardSubDeckIds[i] === currentSdId && i !== currentOriginalIndex)
-       .slice(0, 3);
-   }, [current, ...]);
-   ```
-2. Replace mock "Linked Vocabulary" entries with `relatedCards.map(...)` showing real `front` / `back` values
-3. Replace hardcoded mnemonic text with `current.card.hint` (show panel only when hint exists)
-4. Add collapsible state: `const [sidebarOpen, setSidebarOpen] = useState(false)` (hidden by default)
-5. Add toggle button (chevron) at top of sidebar panel
-6. On mobile, sidebar should be fully hidden (existing responsive layout likely handles this)
+
+1. Compute related cards from same sub-deck and render up to 3 real items.
+2. Replace hardcoded mnemonic copy with `current.card.hint` (conditional section).
+3. Add collapsible state (`sidebarOpen`, default false).
+4. Remove or disable non-functional speaker/audio buttons unless implemented.
+5. Keep sidebar hidden on mobile via responsive classes.
 
 ---
 
 ## Task 8: Kana Tab Deep Links
 
-**Problem**: `/kana?tab=hiragana` and `/kana?tab=katakana` links don't set initial script state.
+**Problem**: `/kana?tab=hiragana` and `/kana?tab=katakana` don’t initialize script selection.
 
 **Files to modify**:
-- `app/kana/page.tsx` - Read `searchParams`, pass `tab` to form
+
+- `app/kana/page.tsx` - Read `searchParams`, pass `tab`
 - `components/kana/kana-config-form.tsx` - Accept `initialScript` prop
 
 **Approach**:
-1. In `app/kana/page.tsx`:
-   ```tsx
-   type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
-   export default async function KanaPage({ searchParams }: Props) {
-     const query = await searchParams;
-     const tab = query.tab === "katakana" ? "katakana" : "hiragana";
-     return <PageShell ...><KanaConfigForm initialScript={tab} /></PageShell>;
-   }
-   ```
-2. In config form: Add `initialScript?: KanaScript` prop, use as default for `script` state and `selectedRows` initialization.
+
+1. Update `app/kana/page.tsx` to async server component receiving `searchParams`.
+2. Parse `tab` to `"hiragana" | "katakana"`, default hiragana.
+3. Pass `initialScript` to form and initialize script + selected rows accordingly.
 
 ---
 
-## Task 9: Clean Dead Code
+## Task 9: Clean Dead Code And Warnings
 
 **Files to modify**:
-- `components/shared/top-nav.tsx` - Delete entirely (unused, never imported in layout)
-- `components/shared/desktop-header.tsx` - Remove unused `import Image from "next/image"`
-- `components/home/home-client.tsx` - Remove unused `todayReviewed`, `dailyGoal` state/variables and related imports if orphaned
-- Run `npx next lint` and fix remaining warnings
+
+- `components/shared/top-nav.tsx` - Delete (unused)
+- `components/shared/desktop-header.tsx` - Remove unused `Image` import
+- `components/home/home-client.tsx` - Remove or wire all currently unused vars (`dueCount`, `todayReviewed`, `dailyGoal`, `quickStartTitle`, `quickStartMastery`)
+- `components/kana/kana-config-form.tsx` - Remove unused `KanaEntry`, `batchOptions`
+- `components/kana/kana-session-client.tsx` - Remove or wire unused `groups`, `batchSize`
+- `components/session/deck-session-client.tsx` - Remove unused `typeIcons`, `reviewLabels` if not used
+
+**Validation command**:
+
+- Run `pnpm lint` and clear new warnings introduced by migration work.
 
 ---
 
-## Implementation Order
+## Task 10: Fix Main Landmark Semantics (Accessibility)
 
-1. Task 4 (Remove lesson lock) - 5 min, simple deletion
-2. Task 5 (Fix hardcoded links) - 10 min, string replacements
-3. Task 2 (Wire shuffle) - 15 min, small pipeline change
-4. Task 8 (Kana deep links) - 10 min, small 2-file change
-5. Task 3 (Nav routes) - 20 min, 3 nav components
-6. Task 1 (Kana typing mode) - 45 min, largest change, depends on Task 2
-7. Task 7 (Session sidebar) - 30 min, isolated to one file
-8. Task 9 (Dead code cleanup) - 15 min, final sweep + lint
+**Problem**: App layout now renders a global `<main>`, and `PageShell` still renders another `<main>`.
+
+**Files to modify**:
+
+- `components/shared/page-shell.tsx`
+
+**Approach**:
+
+1. Change `PageShell` root element from `<main>` to `<section>` (or `<div>`).
+2. Keep visual styles unchanged.
+3. Ensure one primary main landmark per page.
+
+---
+
+## Task 11: Static Metric Integrity (Avoid Misleading Numbers)
+
+**Problem**: Some new UI cards show hardcoded percentages and metrics that can mislead users at launch.
+
+**Files to review/modify**:
+
+- `components/home/home-client.tsx`
+- `components/decks/lesson-deck-grid.tsx`
+
+**Approach**:
+
+1. Either wire cards to real SRS-derived values, or
+2. Mark sections as editorial/preview with non-quantitative copy.
+3. Do not ship fake precision values (e.g., static 85%, 42%, 12.4 hours) without data source.
+
+---
+
+## Suggested Batch Execution (Lowest Risk -> Highest Risk)
+
+### Batch 1 (Recommended One-Shot While Credits Are Limited)
+
+Low-risk, high-confidence, mostly deterministic edits:
+
+- Task 4: Remove forced lesson lock
+- Task 5: Replace hardcoded invalid links
+- Task 3: Restore nav reachability (Review/Stats + Kana desktop entry)
+- Task 9: Dead code cleanup + `pnpm lint`
+- Task 10: Main landmark semantic fix
+
+### Batch 2
+
+Light plumbing changes with small behavior impact:
+
+- Task 2: Shuffle end-to-end
+- Task 8: Kana tab deep links
+
+### Batch 3
+
+Largest behavior restoration and highest integration risk:
+
+- Task 1: Kana dual mode (Typing + MC)
+
+### Batch 4
+
+Moderate complexity, isolated to one area:
+
+- Task 7: Session sidebar real-data refactor + collapsible
+
+### Batch 5 (Optional but recommended before launch)
+
+Data trust and product clarity polish:
+
+- Task 11: Static metric integrity pass
+- Task 6: Placeholder shell action labeling polish
 
 ---
 
 ## Verification
 
-1. `npm run build` - Ensure production build passes
-2. `npx next lint` - Zero errors, minimal warnings
+1. `pnpm build` - Ensure production build passes
+2. `pnpm lint` - No errors; warnings only if explicitly accepted
 3. Manual testing:
-   - Navigate to Review and Stats from both mobile and desktop nav
-   - Start a kana session in MC mode - verify it works as before
-   - Start a kana session in Typing mode - verify typing flow with batch sizes 1-4
-   - Toggle shuffle off, verify cards appear in order
-   - Click `/kana?tab=katakana` deep link, verify katakana is pre-selected
-   - Verify all lesson cards are clickable (no locks)
-   - Verify home page links go to valid lessons
-   - Open a deck session, verify sidebar shows real related cards and can be collapsed
+   - Navigate to Review and Stats from mobile and desktop nav
+   - Confirm desktop has direct Kana entry
+   - Start Kana in MC mode
+   - Start Kana in Typing mode with batch sizes 1-4
+   - Toggle shuffle off and verify stable order
+   - Open `/kana?tab=katakana` and verify preselection
+   - Verify all lesson cards are clickable (no forced lock)
+   - Verify home/deck links route to valid pages
+   - Open a deck session and confirm sidebar uses real related cards + collapse behavior
