@@ -65,9 +65,18 @@ Use it as source material for future planning.
 - [ ] Review mobile spacing and tap targets to keep controls comfortable on small screens.
 - [ ] Add/verify accessible labels for icon-only controls and maintain visible keyboard focus styles.
 
+## D) Functionality Improvements / Features
+
+- [ ] Add a progress graph powered by Mayumi cards data (daily activity, accuracy trend, and mastery trend).
+- [ ] Improve the study algorithm (Anki SM-2, better scheduling, lapse handling, and difficulty progression).
+- [ ] Add accounts + database so progress syncs across devices and sessions.
+- [ ] Improve learning flow with a guided path (Duolingo-style ladder: start here, then next lesson, then next milestone).
+- [ ] Ensure strong mobile responsiveness and complete PWA behavior (installability, offline handling, and stable mobile navigation).
+
 ## Suggested Order (for future planning)
 
 - [ ] Pass 1: Remove misleading mock numbers and fake recommendation signals.
 - [ ] Pass 2: Typography cleanup and consistency pass.
 - [ ] Pass 3: CTA clarity, loading states, and interaction polish.
 - [ ] Pass 4: Landing-page visual refinement after data is fully real.
+- [ ] Pass 5: Functionality upgrades (graph, algorithm, accounts/db, guided ladder, PWA hardening).
