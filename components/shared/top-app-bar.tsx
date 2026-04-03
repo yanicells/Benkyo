@@ -87,6 +87,12 @@ export function TopAppBar() {
               <Link href="/kana" onClick={() => setMenuOpen(false)} className="text-lg font-bold text-foreground hover:text-primary transition-colors">
                 Kana Practice
               </Link>
+              <Link href="/review" onClick={() => setMenuOpen(false)} className="text-lg font-bold text-foreground hover:text-primary transition-colors">
+                Review
+              </Link>
+              <Link href="/stats" onClick={() => setMenuOpen(false)} className="text-lg font-bold text-foreground hover:text-primary transition-colors">
+                Stats
+              </Link>
             </nav>
 
             <div className="mt-auto pb-safe pb-8">

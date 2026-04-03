@@ -6,9 +6,7 @@ import { useState } from "react";
 import type { Lesson } from "@/lib/types";
 import {
   getDueCards,
-  getSettings,
   getStreak,
-  getTodayStats,
   getLessonMastery,
 } from "@/lib/srs";
 
@@ -19,10 +17,7 @@ type HomeClientProps = {
 type ClientData = {
   dueCount: number;
   streakDays: number;
-  todayReviewed: number;
-  dailyGoal: number;
   quickStartId: string;
-  quickStartTitle: string;
   quickStartMastery: number;
 };
 
@@ -39,11 +34,8 @@ function readClientData(lessons: Lesson[]): ClientData {
   return {
     dueCount: getDueCards(lessons).length,
     streakDays: getStreak().current,
-    todayReviewed: getTodayStats().reviewed,
-    dailyGoal: getSettings().dailyGoal,
-    quickStartId: qsl?.id ?? "lesson-4",
-    quickStartTitle: qsl?.title ?? "Genki I: Unit 4",
-    quickStartMastery: qsl ? getLessonMastery(qsl) : 65,
+    quickStartId: qsl?.id ?? lessons[0]?.id ?? "",
+    quickStartMastery: qsl ? getLessonMastery(qsl) : 0,
   };
 }
 
@@ -55,11 +47,8 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
   const dueCount = data?.dueCount ?? 0;
   const streakDays = data?.streakDays ?? 0;
-  const todayReviewed = data?.todayReviewed ?? 0;
-  const dailyGoal = data?.dailyGoal ?? 20;
 
-  const quickStartId = data?.quickStartId ?? "lesson-4";
-  const quickStartTitle = data?.quickStartTitle ?? "Genki I: Unit 4";
+  const quickStartId = data?.quickStartId ?? "";
   const quickStartMastery = data?.quickStartMastery ?? 0;
 
   return (
@@ -190,7 +179,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
            </Link>
 
            {/* Card 2 */}
-           <Link href="/decks/grammar-particles" className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex">
+           <Link href="/decks" className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex">
              <div className="w-[40%] bg-surface flex items-center justify-center relative overflow-hidden bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544257143-6c7025816fd8?q=80&w=600&auto=format&fit=crop')" }}>
                 {/* Fallback image style using css gradient if unavailable */}
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black mix-blend-multiply opacity-80"></div>

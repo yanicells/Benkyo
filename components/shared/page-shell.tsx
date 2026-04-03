@@ -14,7 +14,7 @@ export function PageShell({
   children,
 }: PageShellProps) {
   return (
-    <main className="relative mx-auto w-full max-w-4xl px-4 py-6 sm:px-8 sm:py-10">
+    <section className="relative mx-auto w-full max-w-4xl px-4 py-6 sm:px-8 sm:py-10">
       <header className="mb-6 space-y-1.5 sm:mb-10 sm:space-y-3">
         {eyebrow && (
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-on-surface-variant">
@@ -31,6 +31,6 @@ export function PageShell({
         )}
       </header>
       {children}
-    </main>
+    </section>
   );
 }

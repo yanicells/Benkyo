@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 export function DesktopHeader() {
   return (
     <header className="w-full h-20 px-8 flex items-center justify-between sticky top-0 z-30 bg-surface/80 backdrop-blur-md">
