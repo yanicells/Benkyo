@@ -32,7 +32,7 @@ export default async function DeckResultsPage({
       eyebrow="Results"
       title="Session summary"
       subtitle="Review cards you missed and run it again while memory is fresh."
-      backHref={`/decks/${lessonId}/${subDeckId}`}
+
     >
       <DeckResultsClient
         lessonId={lessonId}

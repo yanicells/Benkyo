@@ -7,7 +7,7 @@ export default function ReviewResultsPage() {
       eyebrow="Results"
       title="Review summary"
       subtitle="How your review session went."
-      backHref="/review"
+
     >
       <DeckResultsClient
         lessonId="review"

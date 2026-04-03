@@ -10,6 +10,7 @@
   --surface-low: #f2f4f6;
   --surface-lowest: #ffffff;
   --outline-variant: #c3c7cf;
+  --secondary: #5d6269;
   --secondary-container: #dde1e9;
   --error: #ba1a1a;
   --error-container: #ffdad6;
@@ -27,12 +28,14 @@
   --color-surface-lowest: var(--surface-lowest);
   --color-on-surface-variant: var(--on-surface-variant);
   --color-outline-variant: var(--outline-variant);
+  --color-secondary: var(--secondary);
   --color-secondary-container: var(--secondary-container);
   --color-error: var(--error);
   --color-error-container: var(--error-container);
   --color-success: var(--success);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
+  --font-japanese-display: var(--font-japanese-display);
 }
 
 body {

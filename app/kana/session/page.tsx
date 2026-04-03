@@ -71,7 +71,7 @@ export default async function KanaSessionPage({
       eyebrow="Kana session"
       title="Type what you read"
       subtitle="Wrong answers gain +2 required corrects and get shuffled back in."
-      backHref="/kana"
+
     >
       <KanaSessionRenderer
         script={script as KanaScript}

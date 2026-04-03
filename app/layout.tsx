@@ -3,6 +3,8 @@ import { Inter, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { PwaInit } from "../components/shared/pwa-init";
 import { TopAppBar } from "../components/shared/top-app-bar";
 import { BottomNav } from "../components/shared/bottom-nav";
+import { DesktopSidebar } from "../components/shared/desktop-sidebar";
+import { DesktopHeader } from "../components/shared/desktop-header";
 import "./globals.css";
 
 const displayFont = Inter({
@@ -79,14 +81,36 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-[100dvh] flex flex-col bg-surface`}
+        className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-[100dvh] bg-surface flex`}
       >
         <PwaInit />
-        <TopAppBar />
-        <div className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-[64px] sm:mb-0">
-          {children}
+
+        {/* Global Desktop Sidebar */}
+        <div className="hidden lg:block shrink-0">
+          <DesktopSidebar />
         </div>
-        <BottomNav />
+
+        <div className="flex-1 flex flex-col min-h-screen min-w-0">
+          {/* Desktop Header */}
+          <div className="hidden lg:block relative z-30">
+            <DesktopHeader />
+          </div>
+
+          {/* Mobile Top App Bar */}
+          <div className="lg:hidden relative z-30">
+            <TopAppBar />
+          </div>
+
+          {/* Main Content */}
+          <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-[64px] lg:mb-0 relative z-0">
+            {children}
+          </main>
+
+          {/* Mobile Bottom Navigation */}
+          <div className="lg:hidden relative z-40">
+            <BottomNav />
+          </div>
+        </div>
       </body>
     </html>
   );

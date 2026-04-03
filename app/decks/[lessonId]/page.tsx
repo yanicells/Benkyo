@@ -30,7 +30,7 @@ export default async function SubDeckListPage({
       eyebrow="Lesson"
       title={lesson.title}
       subtitle={`${lesson.subDecks.length} sub-decks with ${totalCards} cards total. Choose a sub-deck or study all.`}
-      backHref="/decks"
+
     >
       <SubDeckGrid lesson={lesson} />
     </PageShell>

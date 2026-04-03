@@ -11,7 +11,7 @@ export default function StatsPage() {
       eyebrow="Analytics"
       title="Progress"
       subtitle="Track your study habits, accuracy, and mastery across all decks."
-      backHref="/"
+
     >
       <StatsClient lessons={lessons} />
     </PageShell>

@@ -100,7 +100,7 @@ export default async function DeckSessionPage({
       eyebrow="Active session"
       title={sessionTitle}
       subtitle="Focus on one card at a time. Rate your confidence after each answer."
-      backHref={`/decks/${lessonId}/${subDeckId}`}
+
     >
       <DeckSessionRenderer
         lessonId={lessonId}

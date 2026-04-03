@@ -8,9 +8,9 @@ export default function DecksPage() {
 
   return (
     <PageShell
-      eyebrow="PATH TO FLUENCY"
-      title="Choose Your Lesson"
-      subtitle="Curated modules designed for precision learning. Select a deck to begin your daily mastery session."
+      eyebrow="CURRICULUM OVERVIEW"
+      title="Mastery Journey"
+      subtitle="Your path to Japanese fluency, structured through editorial precision and meditative focus. Progress through the foundations to reach N1 mastery."
     >
       <LessonDeckGrid lessons={lessons} />
     </PageShell>

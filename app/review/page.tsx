@@ -11,7 +11,7 @@ export default function ReviewPage() {
       eyebrow="Review"
       title="Review due cards"
       subtitle="Study cards that are due for review across all your decks."
-      backHref="/"
+
     >
       <ReviewConfigClient lessons={lessons} />
     </PageShell>

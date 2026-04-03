@@ -42,7 +42,7 @@ export default async function SubDeckConfigPage({
       eyebrow="Session setup"
       title={title}
       subtitle={`${cards.length} cards available. Pick study mode, direction, and card type filters.`}
-      backHref={`/decks/${lessonId}`}
+
     >
       <SubDeckConfigClient
         lessonId={lessonId}

@@ -39,7 +39,7 @@ export default async function ReviewSessionPage({
       eyebrow="Review session"
       title="Due cards"
       subtitle="Reviewing cards due across all decks. Rate your confidence after each answer."
-      backHref="/review"
+
     >
       <ReviewSessionRenderer
         lessons={lessons}
