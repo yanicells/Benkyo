@@ -14,6 +14,33 @@ Old implementations (pre-overhaul) are available via `git show main:<path>` and 
 
 ---
 
+## Execution Status (Updated 2026-04-03)
+
+### Completed: Batch 1
+
+- Task 3: Reintroduce Review/Stats nav and desktop Kana nav parity
+- Task 4: Remove forced lesson lock
+- Task 5: Replace hardcoded invalid deck links
+- Task 9: Dead-code and warning cleanup (now lint-clean)
+- Task 10: Main landmark semantics (`PageShell` root switched to section)
+
+### Completed: Batch 1.5
+
+- Task 12: Removed decorative Stroke Order Canvas blocks from Kana and Deck session UIs
+- Task 13: Desktop sidebar is now viewport-bound with persistent bottom CTA region
+- Hydration hotfix: Home page client state initialization now SSR-safe to prevent recurring hydration mismatch on first load
+
+### Remaining (Next Batches)
+
+- Task 1: Restore Kana typing workflow (dual mode)
+- Task 2: Wire shuffle end-to-end
+- Task 6: Placeholder shell action labeling
+- Task 7: Session sidebar real-data + collapsible
+- Task 8: Kana tab deep links
+- Task 11: Static metric integrity pass
+
+---
+
 ## Task 1: Restore Kana Typing Workflow (Dual Mode)
 
 **Problem**: Kana went from typing practice to MC-only. Need both modes with a toggle.
@@ -223,17 +250,45 @@ Old implementations (pre-overhaul) are available via `git show main:<path>` and 
 
 ---
 
-## Suggested Batch Execution (Lowest Risk -> Highest Risk)
+## Task 12: Remove Stroke Order Canvas Blocks
 
-### Batch 1 (Recommended One-Shot While Credits Are Limited)
+**Problem**: Both session UIs still render decorative "Stroke Order Canvas" stubs that are non-functional and create visual noise.
 
-Low-risk, high-confidence, mostly deterministic edits:
+**Files to modify**:
 
-- Task 4: Remove forced lesson lock
-- Task 5: Replace hardcoded invalid links
-- Task 3: Restore nav reachability (Review/Stats + Kana desktop entry)
-- Task 9: Dead code cleanup + `pnpm lint`
-- Task 10: Main landmark semantic fix
+- `components/kana/kana-session-client.tsx`
+- `components/session/deck-session-client.tsx`
+
+**Approach**:
+
+1. Remove the entire decorative "Stroke Order Canvas" sections in both files.
+2. Preserve surrounding spacing/layout so the main interaction area still reads cleanly.
+3. Do not replace with new features in this step; this is removal-only.
+
+---
+
+## Task 13: Fix Desktop Sidebar Sticky + Always-Visible CTA
+
+**Problem**: Desktop sidebar CTA ("Start Daily Session") drops below viewport and requires page scroll, which defeats persistent navigation behavior.
+
+**Files to modify**:
+
+- `components/shared/desktop-sidebar.tsx`
+- `app/layout.tsx` (only if wrapper constraints interfere)
+
+**Approach**:
+
+1. Make sidebar viewport-bound with `h-screen sticky top-0`.
+2. Use full-height flex layout so top logo/nav and bottom CTA are structurally separated.
+3. Make nav body the scrollable region (`flex-1 overflow-y-auto`) so CTA remains visible.
+4. Keep CTA pinned to bottom section with stable spacing/border/background.
+5. Optional: if needed on short heights, collapse nav density before hiding CTA.
+
+---
+
+## Suggested Batch Execution (After Batch 1.5)
+
+Batch 1 and Batch 1.5 are complete. Remaining work should proceed from lowest risk to highest risk as follows.
 
 ### Batch 2
 
@@ -266,14 +321,17 @@ Data trust and product clarity polish:
 ## Verification
 
 1. `pnpm build` - Ensure production build passes
-2. `pnpm lint` - No errors; warnings only if explicitly accepted
+2. `pnpm lint` - No errors or warnings
 3. Manual testing:
    - Navigate to Review and Stats from mobile and desktop nav
    - Confirm desktop has direct Kana entry
+   - Confirm desktop sidebar CTA is always visible without page scroll
    - Start Kana in MC mode
    - Start Kana in Typing mode with batch sizes 1-4
    - Toggle shuffle off and verify stable order
    - Open `/kana?tab=katakana` and verify preselection
+   - Verify no stroke order canvas stubs appear in Kana/Deck session UI
+   - Open `/` directly and confirm no hydration mismatch warning appears in console
    - Verify all lesson cards are clickable (no forced lock)
    - Verify home/deck links route to valid pages
    - Open a deck session and confirm sidebar uses real related cards + collapse behavior
