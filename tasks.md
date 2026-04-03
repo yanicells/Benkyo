@@ -61,6 +61,8 @@ Use it as source material for future planning.
 - [ ] Remove fake interactivity: icon buttons or action affordances that do not do anything should be disabled, hidden, or labeled as "coming soon".
 - [ ] Reduce first-load visual jumps on landing pages (show skeleton/loading state instead of showing temporary default numbers and then swapping).
 - [ ] Improve information hierarchy on Home and Decks so the primary action is obvious within 3 seconds.
+- [ ] Add a lesson pre-study landing step ("Read this first") before session start, with main notes and a concise cheat sheet so learners know what to focus on.
+- [ ] Include an optional embedded YouTube lesson guide on the lesson landing page for learners who want a quick walkthrough before drills.
 - [ ] Ensure all major cards have clear primary actions and consistent click behavior (whole-card click vs button click should not conflict).
 - [ ] Review mobile spacing and tap targets to keep controls comfortable on small screens.
 - [ ] Add/verify accessible labels for icon-only controls and maintain visible keyboard focus styles.
@@ -71,6 +73,7 @@ Use it as source material for future planning.
 - [ ] Improve the study algorithm (Anki SM-2, better scheduling, lapse handling, and difficulty progression).
 - [ ] Add accounts + database so progress syncs across devices and sessions.
 - [ ] Improve learning flow with a guided path (Duolingo-style ladder: start here, then next lesson, then next milestone).
+- [ ] Add lesson content metadata in data source (summary notes, cheat-sheet bullets, recommended YouTube URL, and guidance order) so the pre-study page is data-driven instead of hardcoded.
 - [ ] Ensure strong mobile responsiveness and complete PWA behavior (installability, offline handling, and stable mobile navigation).
 
 ## Suggested Order (for future planning)
