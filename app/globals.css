@@ -1,36 +1,61 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7efe4;
-  --foreground: #1f2937;
-  --ink-soft: #334155;
-  --accent: #9f1239;
-  --accent-bright: #f59e0b;
-  --surface: #fffdf9;
-  --surface-muted: #fff7f5;
-  --line-soft: #be9cab33;
-  --shadow-soft: 0 12px 28px #4a18200f;
+  --background: #f8f9fb;
+  --foreground: #191c1e;
+  --on-surface-variant: #43474e;
+  --primary: #002446;
+  --primary-container: #1a3a5f;
+  --surface: #f8f9fb;
+  --surface-low: #f2f4f6;
+  --surface-lowest: #ffffff;
+  --outline-variant: #c3c7cf;
+  --secondary-container: #dde1e9;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --success: #49b3a4;
+  --shadow-zen: 0 12px 32px rgba(0, 36, 70, 0.06);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-surface: var(--surface);
+  --color-surface-low: var(--surface-low);
+  --color-surface-lowest: var(--surface-lowest);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline-variant: var(--outline-variant);
+  --color-secondary-container: var(--secondary-container);
+  --color-error: var(--error);
+  --color-error-container: var(--error-container);
+  --color-success: var(--success);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
 }
 
 body {
   min-height: 100dvh;
-  background:
-    radial-gradient(circle at 12% 8%, #fff9f0 0%, transparent 28%),
-    radial-gradient(circle at 86% 0%, #fdece9 0%, transparent 24%),
-    var(--background);
+  background: var(--surface);
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .font-display {
   font-family: var(--font-display), var(--font-japanese-display), serif;
+}
+
+.btn-primary-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+}
+
+.glass {
+  background: rgba(248, 249, 251, 0.80);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -40,3 +65,4 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+

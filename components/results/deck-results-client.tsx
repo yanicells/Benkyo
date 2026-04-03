@@ -54,14 +54,14 @@ export function DeckResultsClient({
 
   return (
     <section className="space-y-6">
-      <header className="rounded-2xl border border-rose-900/10 bg-white/70 p-5">
-        <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+      <header className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Session complete
         </p>
-        <h2 className="mt-2 font-display text-3xl text-slate-900">
+        <h2 className="mt-2 font-display text-3xl text-foreground">
           {lessonTitle}
         </h2>
-        <div className="mt-3 flex flex-wrap gap-4 text-sm text-slate-700">
+        <div className="mt-3 flex flex-wrap gap-4 text-sm text-on-surface-variant">
           <span>{results.totalReviewed} cards reviewed</span>
           <span>{accuracy}% accuracy</span>
           <span>
@@ -69,7 +69,7 @@ export function DeckResultsClient({
             {seconds}s
           </span>
         </div>
-        <p className="mt-2 text-slate-700">
+        <p className="mt-2 text-on-surface-variant">
           {results.wrongCards.length === 0
             ? "Perfect run. You did not miss any cards this time."
             : `Cards missed at least once: ${results.wrongCards.length}`}
@@ -81,17 +81,17 @@ export function DeckResultsClient({
           {results.wrongCards.map((card, i) => (
             <li
               key={`${card.front}-${card.back}-${i}`}
-              className="rounded-2xl border border-rose-900/10 bg-white p-4"
+              className="rounded-lg bg-surface-lowest p-4 shadow-[0_12px_32px_rgba(0,36,70,0.06)]"
             >
               <div className="flex items-start gap-2">
-                <span className="shrink-0 rounded bg-rose-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-rose-700">
+                <span className="shrink-0 rounded-lg bg-surface-low px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                   {card.type}
                 </span>
                 <div>
-                  <p className="font-display text-2xl text-slate-900">
+                  <p className="font-display text-2xl text-foreground">
                     {card.front}
                   </p>
-                  <p className="mt-1 text-sm text-slate-700">{card.back}</p>
+                  <p className="mt-1 text-sm text-on-surface-variant">{card.back}</p>
                 </div>
               </div>
             </li>
@@ -102,7 +102,7 @@ export function DeckResultsClient({
       <div className="flex items-center justify-between gap-3">
         <Link
           href={isReview ? "/" : "/decks"}
-          className="rounded-full border border-rose-900/20 px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100"
+          className="rounded-lg bg-surface-low px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-secondary-container"
         >
           {isReview ? "Home" : "Back to decks"}
         </Link>
@@ -112,7 +112,7 @@ export function DeckResultsClient({
               ? "/review"
               : `/decks/${lessonId}/${subDeckId}`
           }
-          className="rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
+          className="btn-primary-gradient rounded-lg px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
         >
           {isReview ? "Review again" : "Restart deck"}
         </Link>

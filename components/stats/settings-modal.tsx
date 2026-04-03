@@ -74,28 +74,28 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
-      <div className="fixed inset-0 bg-black/20" />
+      <div className="fixed inset-0 bg-black/30" />
       <div
-        className="relative z-10 w-full max-w-md rounded-2xl border border-rose-900/15 bg-white p-6 shadow-lg"
+        className="glass relative z-10 w-full max-w-md rounded-lg p-6 shadow-[0_12px_32px_rgba(0,36,70,0.06)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+        <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Settings & Data
         </p>
 
         {/* Daily goal */}
         <div className="mt-4">
-          <p className="text-sm font-medium text-slate-900">Daily goal</p>
+          <p className="text-sm font-medium text-foreground">Daily goal</p>
           <div className="mt-2 flex gap-2">
             {goalOptions.map((goal) => (
               <button
                 key={goal}
                 type="button"
                 onClick={() => handleGoalChange(goal)}
-                className={`rounded-full px-3 py-1.5 text-sm transition ${
+                className={`rounded-lg px-3 py-1.5 text-sm transition ${
                   settings.dailyGoal === goal
-                    ? "bg-rose-100 font-semibold text-rose-900"
-                    : "border border-slate-200 text-slate-700 hover:border-slate-400"
+                    ? "bg-surface-low font-semibold text-primary"
+                    : "bg-surface-lowest text-on-surface-variant hover:bg-surface-low"
                 }`}
               >
                 {goal}
@@ -106,19 +106,19 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
 
         {/* Export / Import */}
         <div className="mt-6 space-y-3">
-          <p className="text-sm font-medium text-slate-900">Data</p>
+          <p className="text-sm font-medium text-foreground">Data</p>
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
               onClick={handleExport}
-              className="rounded-full border border-rose-900/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:bg-rose-50"
+              className="rounded-lg bg-surface-low px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-secondary-container"
             >
               Export progress
             </button>
             <button
               type="button"
               onClick={handleImport}
-              className="rounded-full border border-rose-900/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:bg-rose-50"
+              className="rounded-lg bg-surface-low px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-secondary-container"
             >
               Import progress
             </button>
@@ -131,7 +131,7 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
             />
           </div>
           {importStatus && (
-            <p className="text-xs text-slate-600">{importStatus}</p>
+            <p className="text-xs text-on-surface-variant">{importStatus}</p>
           )}
         </div>
 
@@ -140,7 +140,7 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
           <button
             type="button"
             onClick={handleReset}
-            className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] transition ${
+            className={`rounded-lg px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] transition ${
               confirmReset
                 ? "bg-red-600 text-white hover:bg-red-500"
                 : "border border-red-300 text-red-700 hover:bg-red-50"
@@ -155,7 +155,7 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
+            className="btn-primary-gradient rounded-lg px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
           >
             Close
           </button>

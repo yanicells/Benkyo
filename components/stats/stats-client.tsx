@@ -46,8 +46,8 @@ export function StatsClient({ lessons }: StatsClientProps) {
 
   if (!data) {
     return (
-      <div className="rounded-2xl border border-rose-900/10 bg-white p-6 text-center">
-        <p className="text-sm text-slate-700">Loading stats...</p>
+      <div className="rounded-lg bg-surface-lowest p-6 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <p className="text-sm text-on-surface-variant">Loading stats...</p>
       </div>
     );
   }
@@ -60,37 +60,37 @@ export function StatsClient({ lessons }: StatsClientProps) {
     <div className="space-y-6">
       {/* Overview cards */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border border-rose-900/10 bg-white p-4 text-center">
-          <p className="text-3xl font-bold text-slate-900">
+        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="text-3xl font-bold text-foreground">
             {lifetime.totalReviews}
           </p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-slate-600">
+          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
             Total reviews
           </p>
         </div>
-        <div className="rounded-2xl border border-rose-900/10 bg-white p-4 text-center">
-          <p className="text-3xl font-bold text-slate-900">{streak.current}</p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-slate-600">
+        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="text-3xl font-bold text-foreground">{streak.current}</p>
+          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
             Day streak
           </p>
         </div>
-        <div className="rounded-2xl border border-rose-900/10 bg-white p-4 text-center">
-          <p className="text-3xl font-bold text-slate-900">
+        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="text-3xl font-bold text-foreground">
             {lifetime.mastered}
           </p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-slate-600">
+          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
             Cards mastered
           </p>
         </div>
-        <div className="rounded-2xl border border-rose-900/10 bg-white p-4 text-center">
-          <p className="text-3xl font-bold text-slate-900">{todayAccuracy}%</p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-slate-600">
+        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="text-3xl font-bold text-foreground">{todayAccuracy}%</p>
+          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
             Today&apos;s accuracy
           </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 text-sm text-slate-700">
+      <div className="flex items-center gap-3 text-sm text-on-surface-variant">
         <span>{dueCount} cards due today</span>
         <span>&middot;</span>
         <span>{today.reviewed} reviewed today</span>
@@ -98,8 +98,8 @@ export function StatsClient({ lessons }: StatsClientProps) {
 
       {/* Accuracy chart */}
       {chartData.length > 0 && (
-        <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-          <p className="mb-4 text-xs uppercase tracking-[0.22em] text-rose-700">
+        <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="mb-4 text-xs uppercase tracking-[0.22em] text-primary">
             Accuracy — last 30 days
           </p>
           <AccuracyChart data={chartData} />
@@ -108,7 +108,7 @@ export function StatsClient({ lessons }: StatsClientProps) {
 
       {/* Per-lesson breakdown */}
       <section className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+        <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Per-lesson breakdown
         </p>
         {lessons.map((lesson) => (
@@ -118,27 +118,27 @@ export function StatsClient({ lessons }: StatsClientProps) {
 
       {/* Weak cards */}
       {weak.length > 0 && (
-        <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-          <p className="mb-3 text-xs uppercase tracking-[0.22em] text-rose-700">
+        <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="mb-3 text-xs uppercase tracking-[0.22em] text-primary">
             Weakest cards
           </p>
           <div className="space-y-2">
             {weak.map((w) => (
               <div
                 key={w.cardId}
-                className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 px-3 py-2"
+                className="flex items-center justify-between gap-2 rounded-lg bg-surface-low px-3 py-2"
               >
                 <div className="min-w-0">
-                  <p className="truncate font-display text-lg text-slate-900">
+                  <p className="truncate font-display text-lg text-foreground">
                     {w.card.front}
                   </p>
-                  <p className="text-xs text-slate-500">{w.subDeckTitle}</p>
+                  <p className="text-xs text-on-surface-variant">{w.subDeckTitle}</p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <p className="text-sm font-semibold text-rose-700">
+                  <p className="text-sm font-semibold text-primary">
                     {w.accuracy}%
                   </p>
-                  <p className="text-[10px] text-slate-500">
+                  <p className="text-[10px] text-on-surface-variant">
                     last: {w.lastReview}
                   </p>
                 </div>
@@ -153,7 +153,7 @@ export function StatsClient({ lessons }: StatsClientProps) {
         <button
           type="button"
           onClick={() => setShowSettings(true)}
-          className="rounded-full border border-rose-900/20 px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
+          className="rounded-lg bg-surface-low px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-secondary-container"
         >
           Settings & Data
         </button>
@@ -170,23 +170,23 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-rose-900/10 bg-white">
+    <div className="rounded-lg bg-surface-lowest shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
       <button
         type="button"
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between p-4 text-left"
       >
         <div>
-          <h3 className="font-display text-xl text-slate-900">
+          <h3 className="font-display text-xl text-foreground">
             {lesson.title}
           </h3>
-          <p className="text-xs text-slate-600">
+          <p className="text-xs text-on-surface-variant">
             {lesson.subDecks.length} sub-decks &middot;{" "}
             {lesson.subDecks.reduce((s, sd) => s + sd.cards.length, 0)} cards
           </p>
         </div>
         <svg
-          className={`h-5 w-5 text-slate-500 transition ${open ? "rotate-180" : ""}`}
+          className={`h-5 w-5 text-on-surface-variant transition ${open ? "rotate-180" : ""}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -201,7 +201,7 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
       </button>
 
       {open && (
-        <div className="border-t border-rose-900/10 p-4">
+        <div className="bg-surface-low p-4">
           <div className="space-y-2">
             {lesson.subDecks.map((sd) => {
               const mastery = getMasteryPercent(sd.id, sd.cards.length);
@@ -210,17 +210,17 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
               return (
                 <div
                   key={sd.id}
-                  className="flex items-center justify-between gap-2 rounded-xl border border-slate-100 px-3 py-2"
+                  className="flex items-center justify-between gap-2 rounded-lg bg-surface-lowest px-3 py-2"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-slate-900">
+                    <p className="truncate text-sm font-medium text-foreground">
                       {sd.title}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-on-surface-variant">
                       {sd.cards.length} cards
                     </p>
                   </div>
-                  <div className="flex gap-3 text-xs text-slate-600">
+                  <div className="flex gap-3 text-xs text-on-surface-variant">
                     <span>{mastery}% mastered</span>
                     {accuracy > 0 && <span>{accuracy}% acc</span>}
                   </div>

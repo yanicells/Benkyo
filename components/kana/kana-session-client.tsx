@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 import {
   answerCorrect,
@@ -16,7 +16,6 @@ import type {
   KanaScript,
   SessionCard,
 } from "@/lib/types";
-import { TypingPracticeInput } from "@/components/session/typing-practice-input";
 
 type KanaSessionClientProps = {
   script: KanaScript;
@@ -25,192 +24,202 @@ type KanaSessionClientProps = {
   batchSize: KanaBatchSize;
 };
 
-function processBatch(
-  queue: SessionCard[],
-  count: number,
-  handler: (items: SessionCard[]) => SessionCard[],
-): SessionCard[] {
-  let next = queue;
-
-  for (let index = 0; index < count; index += 1) {
-    if (next.length === 0) {
-      break;
-    }
-    next = handler(next);
+// Simple array shuffle
+function shuffle<T>(items: T[]): T[] {
+  const copy = [...items];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
   }
-
-  return next;
+  return copy;
 }
 
 export function KanaSessionClient({
   script,
   groups,
   cards,
-  batchSize,
+  batchSize, // Note: For MC, we might deal with 1 at a time, but to respect batch, let's just do 1 at a time no matter what since MC with batch is confusing, or we ignore batchSize visually for MC mode and just do normal queue.
 }: KanaSessionClientProps) {
   const [queue, setQueue] = useState<SessionCard[]>(() => buildQueue(cards));
-  const [showAnswerKey, setShowAnswerKey] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [choiceLocked, setChoiceLocked] = useState(false);
 
-  const activeCards = useMemo(
-    () => queue.slice(0, batchSize),
-    [queue, batchSize],
-  );
-  const current = activeCards[0];
+  const current = queue[0];
   const complete = isSessionComplete(queue);
 
-  const groupLabel = useMemo(() => {
-    if (groups.length <= 2) {
-      return groups.join(" / ");
+  // Generate MC options
+  const multipleChoice = useMemo(() => {
+    if (!current) return null;
+
+    const correct = current.card.romaji ?? current.card.back;
+    const distractorPool = Array.from(new Set(cards.map(c => c.romaji ?? c.back))).filter(v => v !== correct);
+    const distractors = shuffle(distractorPool).slice(0, 3);
+    const options = shuffle([correct, ...distractors]);
+
+    return { options, correct };
+  }, [current, cards]);
+
+  const submitChoice = useCallback(() => {
+    if (!multipleChoice || !choiceLocked) return;
+
+    const wasCorrect = selectedOption === multipleChoice.correct;
+    if (wasCorrect) {
+      setQueue(prev => answerCorrect(prev));
+    } else {
+      setQueue(prev => answerWrong(prev));
     }
-    return `${groups.length} row selections`;
-  }, [groups]);
+
+    setSelectedOption(null);
+    setChoiceLocked(false);
+  }, [multipleChoice, choiceLocked, selectedOption]);
+
+  // Optionally auto-advance on Correct, but wait on wrong
+  useEffect(() => {
+    if (choiceLocked && selectedOption === multipleChoice?.correct) {
+      const timer = setTimeout(() => {
+        submitChoice();
+      }, 500); // short delay to show green
+      return () => clearTimeout(timer);
+    }
+  }, [choiceLocked, selectedOption, multipleChoice, submitChoice]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") {
+      if (complete || !multipleChoice) return;
+
+      if (event.key === "Enter" && choiceLocked) {
+        event.preventDefault();
+        submitChoice();
         return;
       }
 
-      event.preventDefault();
-      setShowAnswerKey((previous) => !previous);
+      const optionIndex = Number.parseInt(event.key, 10) - 1;
+      if (!Number.isNaN(optionIndex) && optionIndex >= 0 && optionIndex <= 3 && !choiceLocked) {
+        const option = multipleChoice.options[optionIndex];
+        if (option) {
+          event.preventDefault();
+          setSelectedOption(option);
+          setChoiceLocked(true);
+        }
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [complete, multipleChoice, choiceLocked, submitChoice]);
 
   if (complete || !current) {
     return (
-      <section className="space-y-4 rounded-3xl border border-rose-900/10 bg-rose-50/60 p-6 text-center sm:p-8">
-        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
+      <section className="space-y-4 rounded-xl bg-surface-lowest p-6 text-center shadow-sm sm:p-8">
+        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
           Complete
         </p>
-        <h2 className="font-display text-4xl text-slate-900">Great work</h2>
-        <p className="text-slate-700">You cleared every kana in this set.</p>
+        <h2 className="font-display text-4xl font-bold text-foreground">Great work</h2>
+        <p className="text-sm text-on-surface-variant">You cleared every kana in this set.</p>
         <Link
           href="/kana"
-          className="mx-auto inline-flex rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700 sm:text-sm"
+          className="btn-primary-gradient mt-4 mx-auto inline-flex rounded-lg px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
         >
-          Back to kana config
+          Back to setup
         </Link>
       </section>
     );
   }
 
-  const expected = activeCards
-    .map((card) => card.card.romaji ?? card.card.back)
-    .join("");
-
   return (
-    <section className="space-y-4 sm:space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-rose-900/10 bg-white px-3 py-2 text-sm text-slate-700 sm:px-4 sm:py-3">
-        <p>
-          Script: <span className="font-semibold text-slate-900">{script}</span>
-        </p>
-        <p>
-          Scope:{" "}
-          <span className="font-semibold text-slate-900">{groupLabel}</span>
-        </p>
-        <p>
-          Batch:{" "}
-          <span className="font-semibold text-slate-900">{batchSize}</span>
-        </p>
-        <p>{queue.length} kana left</p>
+    <div className="flex flex-col min-h-[calc(100vh-140px)]">
+      <div className="text-center mb-8">
+        <h1 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-2">Kana Drill</h1>
+        <p className="font-display text-2xl font-bold text-foreground">Identify this character</p>
       </div>
 
-      <article className="relative rounded-3xl border border-rose-900/10 bg-white p-5 text-center shadow-sm sm:p-8">
-        <button
-          type="button"
-          onClick={() => setShowAnswerKey(true)}
-          className="absolute right-3 top-3 inline-flex items-center rounded-full border border-rose-900/20 px-3 py-2 text-xs font-semibold uppercase leading-none tracking-[0.14em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-50"
-        >
-          Answer key
-        </button>
+      <div className="relative mx-auto w-full max-w-sm rounded-[2rem] bg-surface-lowest p-8 shadow-sm flex flex-col items-center justify-center min-h-[280px]">
+         <div className="absolute top-6">
+           <span className="px-3 py-1 bg-surface-low rounded-lg text-xs font-bold text-on-surface-variant uppercase tracking-widest">
+             {script}
+           </span>
+         </div>
+         
+         <div className="font-display text-[120px] leading-none text-foreground mt-8">
+           {current.card.front}
+         </div>
+      </div>
 
-        <p className="text-xs uppercase tracking-[0.2em] text-rose-700">Kana</p>
+      {multipleChoice && (
+        <div className="mt-12 flex flex-col gap-3 max-w-sm mx-auto w-full">
+          {multipleChoice.options.map((option, i) => {
+            const isSelected = selectedOption === option;
+            const isCorrect = multipleChoice.correct === option;
 
-        <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-          {activeCards.map((item, index) => (
-            <p
-              key={`${item.card.front}-${item.card.back}-${index}`}
-              className="font-display text-7xl text-slate-900 sm:text-8xl"
-            >
-              {item.card.front}
-            </p>
-          ))}
-        </div>
+            let stateClass = "bg-surface-lowest text-foreground hover:bg-surface-low border-2 border-transparent";
+            let indicator = null;
 
-        <div className="mx-auto mt-8 max-w-2xl text-left">
-          <TypingPracticeInput
-            key={activeCards
-              .map(
-                (card, index) =>
-                  `${card.card.front}-${card.card.back}-${index}`,
-              )
-              .join("|")}
-            expected={expected}
-            label={`Type romaji (${activeCards.length} at once)`}
-            placeholder="romaji"
-            showExpected={false}
-            manualAdvance
-            controlsAlign="right"
-            onComplete={() => {
-              setShowAnswerKey(false);
-              setQueue((previous) =>
-                processBatch(previous, activeCards.length, answerCorrect),
-              );
-            }}
-            onGiveUp={() => {
-              setShowAnswerKey(false);
-              setQueue((previous) =>
-                processBatch(previous, activeCards.length, answerWrong),
-              );
-            }}
-            giveUpLabel="Skip"
-            nextLabel="Next"
-          />
-        </div>
-      </article>
+            if (choiceLocked) {
+              if (isCorrect) {
+                stateClass = "bg-success border-success text-white shadow-lg";
+                indicator = (
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                );
+              } else if (isSelected) {
+                stateClass = "bg-error border-error text-white shadow-lg";
+                indicator = (
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                );
+              }
+            }
 
-      {showAnswerKey ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
-          onClick={() => setShowAnswerKey(false)}
-        >
-          <div
-            className="w-full max-w-2xl rounded-2xl border border-rose-900/15 bg-white p-5 shadow-lg"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-rose-700">
-              Answer key
-            </p>
-            <div className="mt-4 flex flex-wrap justify-center gap-2 sm:gap-3">
-              {activeCards.map((item, index) => (
-                <div
-                  key={`${item.card.front}-${item.card.back}-${index}`}
-                  className="min-w-20 rounded-xl border border-slate-200 p-3 text-center"
-                >
-                  <p className="font-display text-5xl text-slate-900">
-                    {item.card.front}
-                  </p>
-                  <p className="mt-2 text-base text-slate-700">
-                    {item.card.romaji ?? item.card.back}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 flex justify-end">
+            return (
               <button
+                key={`${option}-${i}`}
                 type="button"
-                onClick={() => setShowAnswerKey(false)}
-                className="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-slate-700"
+                disabled={choiceLocked}
+                onClick={() => {
+                  if (choiceLocked) return;
+                  setSelectedOption(option);
+                  setChoiceLocked(true);
+                }}
+                className={`group relative flex items-center justify-center w-full min-h-[64px] rounded-2xl text-lg font-bold transition-all duration-200 ${stateClass}`}
               >
-                Close
+                {!choiceLocked && (
+                  <span className="absolute left-6 text-sm text-on-surface-variant opacity-50 font-display">
+                    {i + 1}
+                  </span>
+                )}
+                {option}
+                {indicator && (
+                   <span className="absolute right-6">
+                     {indicator}
+                   </span>
+                )}
               </button>
-            </div>
-          </div>
+            );
+          })}
         </div>
-      ) : null}
-    </section>
+      )}
+
+      {choiceLocked && selectedOption !== multipleChoice?.correct && (
+        <div className="mt-6 flex justify-center max-w-sm mx-auto w-full">
+           <button
+             onClick={submitChoice}
+             className="w-full btn-primary-gradient py-4 rounded-xl text-white font-bold text-sm shadow-md transition hover:opacity-90"
+           >
+             Continue
+           </button>
+        </div>
+      )}
+
+      <div className="mt-auto pt-10 pb-6 text-center">
+        <Link href="/kana" className="inline-flex items-center gap-2 text-xs font-bold text-error hover:text-error/80 uppercase tracking-widest transition-colors">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Quit Drill
+        </Link>
+      </div>
+    </div>
   );
 }

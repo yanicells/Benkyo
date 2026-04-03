@@ -21,7 +21,7 @@ export function TopNav({ backHref = "/" }: TopNavProps) {
   const showBack = pathname !== "/";
 
   return (
-    <div className="mb-7 flex flex-wrap items-center justify-between gap-3 border-b border-rose-900/10 pb-4">
+    <div className="mb-7 flex flex-wrap items-center justify-between gap-3 pb-4">
       {showBack ? (
         <a
           href={backHref}
@@ -33,7 +33,7 @@ export function TopNav({ backHref = "/" }: TopNavProps) {
             }
             router.push(backHref);
           }}
-          className="inline-flex items-center gap-1 rounded-full border border-rose-900/15 px-3 py-2.5 text-sm font-semibold text-rose-800 transition hover:border-rose-900/35 hover:bg-rose-50 sm:py-1.5"
+          className="inline-flex items-center gap-1 rounded-lg bg-surface-low px-3 py-2.5 text-sm font-semibold text-primary transition hover:bg-secondary-container sm:py-1.5"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ export function TopNav({ backHref = "/" }: TopNavProps) {
         <span />
       )}
 
-      <nav className="hide-scrollbar max-w-full overflow-x-auto rounded-full border border-rose-900/10 bg-white/80 p-1 shadow-[0_2px_8px_rgba(74,24,32,0.08)]">
+      <nav className="hide-scrollbar glass max-w-full overflow-x-auto rounded-lg p-1 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
         <div className="flex flex-nowrap items-center gap-1">
           {links.map((link) => {
             const active =
@@ -64,10 +64,10 @@ export function TopNav({ backHref = "/" }: TopNavProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-full px-3 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] transition sm:py-1.5 ${
+                className={`rounded-lg px-3 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] transition sm:py-1.5 ${
                   active
-                    ? "bg-rose-100 text-rose-900"
-                    : "text-slate-700 hover:bg-rose-50 hover:text-rose-800"
+                    ? "bg-white text-primary"
+                    : "text-on-surface-variant hover:bg-surface-low hover:text-primary"
                 }`}
               >
                 {link.label}

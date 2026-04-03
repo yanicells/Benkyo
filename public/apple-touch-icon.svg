@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Benkyo icon">
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#9f1239" />
-      <stop offset="100%" stop-color="#f59e0b" />
+      <stop offset="0%" stop-color="#002446" />
+      <stop offset="100%" stop-color="#1a3a5f" />
     </linearGradient>
   </defs>
   <rect width="180" height="180" rx="40" fill="url(#bg)" />
-  <circle cx="90" cy="90" r="56" fill="#fff7f5" opacity="0.95" />
+  <circle cx="90" cy="90" r="56" fill="#f8f9fb" opacity="0.95" />
   <text
     x="90"
     y="106"
     text-anchor="middle"
     font-size="68"
     font-family="Noto Serif JP, Georgia, serif"
-    fill="#9f1239"
+    fill="#002446"
   >
     B
   </text>

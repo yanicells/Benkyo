@@ -8,10 +8,9 @@ export default function DecksPage() {
 
   return (
     <PageShell
-      eyebrow="Vocabulary"
-      title="Lesson decks"
-      subtitle="Choose any lesson and tune your session before starting."
-      backHref="/"
+      eyebrow="PATH TO FLUENCY"
+      title="Choose Your Lesson"
+      subtitle="Curated modules designed for precision learning. Select a deck to begin your daily mastery session."
     >
       <LessonDeckGrid lessons={lessons} />
     </PageShell>

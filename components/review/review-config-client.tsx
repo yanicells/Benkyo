@@ -22,30 +22,30 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-rose-900/10 bg-white p-5 text-center">
-        <p className="text-4xl font-bold text-rose-800">{dueCount}</p>
-        <p className="mt-1 text-sm text-slate-700">
+      <div className="rounded-lg bg-surface-lowest p-5 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <p className="text-4xl font-bold text-primary">{dueCount}</p>
+        <p className="mt-1 text-sm text-on-surface-variant">
           {dueCount === 1 ? "card" : "cards"} due for review
         </p>
       </div>
 
       {dueCount === 0 ? (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-center">
-          <p className="text-sm text-emerald-800">
+        <div className="rounded-lg bg-[rgba(0,65,58,0.06)] p-5 text-center">
+          <p className="text-sm text-[var(--success)]">
             No cards are due right now. Study some decks first, then come back
             when cards are due for review.
           </p>
           <Link
             href="/decks"
-            className="mt-4 inline-block rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
+            className="btn-primary-gradient mt-4 inline-block rounded-lg px-5 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90"
           >
             Go to decks
           </Link>
         </div>
       ) : (
         <>
-          <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-            <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+          <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+            <p className="text-xs uppercase tracking-[0.22em] text-primary">
               Study mode
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -65,10 +65,10 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
               ).map((opt) => (
                 <label
                   key={opt.value}
-                  className={`flex cursor-pointer flex-col gap-1 rounded-2xl border p-4 transition ${
+                  className={`flex cursor-pointer flex-col gap-1 rounded-lg border p-4 transition ${
                     mode === opt.value
-                      ? "border-rose-600 bg-rose-50"
-                      : "border-rose-900/15 bg-white hover:border-rose-700/40"
+                      ? "border-primary/20 bg-surface-low"
+                      : "border-outline-variant/20 bg-white hover:border-primary/30"
                   }`}
                 >
                   <span className="flex items-center gap-2">
@@ -77,20 +77,20 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
                       name="mode"
                       checked={mode === opt.value}
                       onChange={() => setMode(opt.value)}
-                      className="accent-rose-700"
+                      className="accent-primary"
                     />
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-foreground">
                       {opt.label}
                     </span>
                   </span>
-                  <span className="text-sm text-slate-700">{opt.desc}</span>
+                  <span className="text-sm text-on-surface-variant">{opt.desc}</span>
                 </label>
               ))}
             </div>
           </section>
 
-          <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-            <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+          <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+            <p className="text-xs uppercase tracking-[0.22em] text-primary">
               Direction
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -108,10 +108,10 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
               ).map((opt) => (
                 <label
                   key={opt.value}
-                  className={`flex cursor-pointer items-center gap-2 rounded-2xl border p-4 transition ${
+                  className={`flex cursor-pointer items-center gap-2 rounded-lg border p-4 transition ${
                     flip === opt.value
-                      ? "border-rose-600 bg-rose-50"
-                      : "border-rose-900/15 bg-white hover:border-rose-700/40"
+                      ? "border-primary/20 bg-surface-low"
+                      : "border-outline-variant/20 bg-white hover:border-primary/30"
                   }`}
                 >
                   <input
@@ -119,9 +119,9 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
                     name="flip"
                     checked={flip === opt.value}
                     onChange={() => setFlip(opt.value)}
-                    className="accent-rose-700"
+                    className="accent-primary"
                   />
-                  <span className="font-semibold text-slate-900">
+                  <span className="font-semibold text-foreground">
                     {opt.label}
                   </span>
                 </label>
@@ -132,7 +132,7 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
           <div className="flex justify-end">
             <Link
               href={`/review/session?${searchParams.toString()}`}
-              className="rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
+              className="btn-primary-gradient rounded-lg px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90"
             >
               Start review
             </Link>

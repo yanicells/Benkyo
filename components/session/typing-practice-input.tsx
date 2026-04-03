@@ -75,10 +75,10 @@ export function TypingPracticeInput({
 
   return (
     <div className="space-y-4">
-      {label ? <p className="text-sm text-slate-700">{label}</p> : null}
+      {label ? <p className="text-sm text-on-surface-variant">{label}</p> : null}
 
       {showExpected ? (
-        <div className="rounded-2xl border border-rose-950/10 bg-white/70 p-4">
+        <div className="rounded-lg bg-surface-low p-4">
           <div className="flex flex-wrap gap-1 text-xl sm:text-2xl">
             {normalizedExpected.split("").map((character, index) => {
               const typedCharacter = typed[index];
@@ -93,7 +93,7 @@ export function TypingPracticeInput({
                       ? "bg-emerald-100 text-emerald-700"
                       : isCurrent
                         ? "bg-amber-100 text-amber-800"
-                        : "bg-slate-100 text-slate-400"
+                        : "bg-surface-low text-on-surface-variant/40"
                   }`}
                 >
                   {character}
@@ -121,10 +121,10 @@ export function TypingPracticeInput({
             setErrorState(false);
             inputRef.current?.focus();
           }}
-          className={`w-full rounded-xl border bg-white px-4 py-3 text-lg lowercase outline-none transition ${
+          className={`w-full rounded-lg border bg-white px-4 py-3 text-lg lowercase outline-none transition ${
             errorState
-              ? "border-red-500 ring-2 ring-red-200"
-              : "border-rose-900/20 focus:border-rose-600 focus:ring-2 focus:ring-rose-200"
+              ? "border-error ring-2 ring-error/20"
+              : "border-outline-variant/20 focus:border-primary focus:ring-2 focus:ring-primary/20"
           }`}
           placeholder={placeholder}
           autoComplete="off"
@@ -154,7 +154,7 @@ export function TypingPracticeInput({
                 setErrorState(false);
                 inputRef.current?.focus();
               }}
-              className="min-h-11 rounded-full border border-rose-900/20 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100"
+              className="min-h-11 rounded-lg bg-surface-low px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-primary transition hover:bg-secondary-container"
             >
               {giveUpLabel}
             </button>
@@ -174,7 +174,7 @@ export function TypingPracticeInput({
                 setErrorState(false);
                 inputRef.current?.focus();
               }}
-              className="min-h-11 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="btn-primary-gradient min-h-11 rounded-lg px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {nextLabel}
             </button>

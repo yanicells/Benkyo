@@ -5,20 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { answerCorrect, answerWrong, buildQueue } from "@/lib/session";
-import {
-  reviewCard,
-  makeCardId,
-  recordDailyReview,
-  updateStreak,
-} from "@/lib/srs";
-import type {
-  Card,
-  CardType,
-  FlipSetting,
-  SRSRating,
-  SessionCard,
-  StudyMode,
-} from "@/lib/types";
+import { reviewCard, makeCardId, recordDailyReview, updateStreak } from "@/lib/srs";
+import type { Card, CardType, FlipSetting, SRSRating, SessionCard, StudyMode } from "@/lib/types";
 
 type DeckSessionClientProps = {
   lessonId: string;
@@ -57,10 +45,10 @@ function shuffle<T>(items: T[]): T[] {
 }
 
 const ratingButtons: { rating: SRSRating; label: string; key: string; color: string }[] = [
-  { rating: 0, label: "Again", key: "1", color: "bg-red-600 hover:bg-red-500" },
-  { rating: 1, label: "Hard", key: "2", color: "bg-amber-600 hover:bg-amber-500" },
-  { rating: 2, label: "Good", key: "3", color: "bg-emerald-600 hover:bg-emerald-500" },
-  { rating: 3, label: "Easy", key: "4", color: "bg-sky-600 hover:bg-sky-500" },
+  { rating: 0, label: "Again", key: "1", color: "bg-error text-white hover:opacity-90" },
+  { rating: 1, label: "Hard", key: "2", color: "bg-[#e27d60] text-white hover:opacity-90" },
+  { rating: 2, label: "Good", key: "3", color: "bg-[#49b3a4] text-white hover:opacity-90" },
+  { rating: 3, label: "Easy", key: "4", color: "btn-primary-gradient text-white hover:opacity-90" },
 ];
 
 export function DeckSessionClient({
@@ -100,15 +88,9 @@ export function DeckSessionClient({
     return cards.indexOf(current.card);
   }, [current, cards]);
 
-  const promptSide = useMemo(() => {
-    return flip === "jp-to-en" ? "front" : "back";
-  }, [flip]);
+  const promptSide = useMemo(() => (flip === "jp-to-en" ? "front" : "back"), [flip]);
+  const answerSide = useMemo(() => (flip === "jp-to-en" ? "back" : "front"), [flip]);
 
-  const answerSide = useMemo(() => {
-    return flip === "jp-to-en" ? "back" : "front";
-  }, [flip]);
-
-  // Navigate to results when session is complete
   useEffect(() => {
     if (queue.length !== 0) return;
 
@@ -122,10 +104,7 @@ export function DeckSessionClient({
       timeSeconds: elapsed,
     };
 
-    window.sessionStorage.setItem(
-      `deck-results:${lessonId}:${subDeckId}`,
-      JSON.stringify(resultsData),
-    );
+    window.sessionStorage.setItem(`deck-results:${lessonId}:${subDeckId}`, JSON.stringify(resultsData));
 
     if (isReview) {
       router.replace("/review/session/results");
@@ -134,7 +113,6 @@ export function DeckSessionClient({
     }
   }, [queue, cards, wrongKeys, lessonId, subDeckId, router, isReview]);
 
-  // Generate MC options
   const multipleChoice = useMemo(() => {
     if (!current || mode !== "multiple-choice") return null;
 
@@ -144,13 +122,9 @@ export function DeckSessionClient({
     let distractorPool: string[];
 
     if (isFillIn) {
-      // For fill-in: pull from other fill-in cards' back values
       distractorPool = allLessonCards
-        .filter(
-          (c) =>
-            c.type === "fill-in" && cardKey(c) !== cardKey(current.card),
-        )
-        .map((c) => c.back)
+        .filter((c) => c.type === "fill-in" && cardKey(c) !== cardKey(current.card))
+        .map((c) => c[answerSide])
         .filter((v) => v !== correct);
     } else {
       distractorPool = allLessonCards
@@ -184,7 +158,6 @@ export function DeckSessionClient({
       totalReviewed.current += 1;
       if (isCorrect) totalCorrectRef.current += 1;
 
-      // Update queue
       if (isCorrect) {
         setQueue((prev) => answerCorrect(prev));
       } else {
@@ -198,35 +171,28 @@ export function DeckSessionClient({
         setQueue((prev) => answerWrong(prev));
       }
 
-      // Reset state
       setRevealed(false);
       setSelectedOption(null);
       setChoiceLocked(false);
       setShowSRSRating(false);
-
       cardStart.current = Date.now();
     },
     [current, currentOriginalIndex, cardSubDeckIds, cardIndexes],
   );
 
-  // MC submit: lock + show rating
   const submitMultipleChoice = useCallback(() => {
     if (!multipleChoice || !choiceLocked) return;
 
     const wasCorrect = selectedOption === multipleChoice.correct;
     if (wasCorrect) {
-      // Correct answer = show Good/Easy choice
       setShowSRSRating(true);
     } else {
-      // Wrong answer = auto-rate Again
       doSRSReview(0);
     }
   }, [multipleChoice, choiceLocked, selectedOption, doSRSReview]);
 
-  // Keyboard handler
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      // SRS rating mode
       if (showSRSRating) {
         const num = Number.parseInt(event.key, 10);
         if (num >= 1 && num <= 4) {
@@ -239,9 +205,7 @@ export function DeckSessionClient({
       if (mode === "flashcard") {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          if (!revealed) {
-            setRevealed(true);
-          }
+          if (!revealed) setRevealed(true);
           return;
         }
 
@@ -265,12 +229,7 @@ export function DeckSessionClient({
         }
 
         const optionIndex = Number.parseInt(event.key, 10) - 1;
-        if (
-          !Number.isNaN(optionIndex) &&
-          optionIndex >= 0 &&
-          optionIndex <= 3 &&
-          !choiceLocked
-        ) {
+        if (!Number.isNaN(optionIndex) && optionIndex >= 0 && optionIndex <= 3 && !choiceLocked) {
           const option = multipleChoice.options[optionIndex];
           if (option) {
             event.preventDefault();
@@ -283,20 +242,12 @@ export function DeckSessionClient({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [
-    mode,
-    revealed,
-    multipleChoice,
-    choiceLocked,
-    showSRSRating,
-    doSRSReview,
-    submitMultipleChoice,
-  ]);
+  }, [mode, revealed, multipleChoice, choiceLocked, showSRSRating, doSRSReview, submitMultipleChoice]);
 
   if (!current) {
     return (
-      <div className="rounded-2xl border border-rose-900/10 bg-white p-6 text-center">
-        <p className="text-base text-slate-700">Preparing session...</p>
+      <div className="rounded-xl bg-surface-lowest p-6 text-center shadow-sm">
+        <p className="text-sm font-bold uppercase tracking-widest text-primary">Preparing session...</p>
       </div>
     );
   }
@@ -305,172 +256,172 @@ export function DeckSessionClient({
   const reviewLabel = reviewLabels?.[currentOriginalIndex];
 
   return (
-    <section className="space-y-4 sm:space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-rose-900/10 bg-white px-3 py-2 sm:px-4 sm:py-3">
-        <div className="min-w-0">
-          <p className="text-xs uppercase tracking-[0.18em] text-rose-700">
-            Now studying
-          </p>
-          <h2 className="font-display text-xl text-slate-900 sm:text-2xl">
-            {lessonTitle}
-          </h2>
+    <div className="flex flex-col min-h-[calc(100vh-140px)]">
+      <div className="text-center mb-8">
+        <div className="flex items-center justify-center gap-2 mb-2">
+           <h1 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">{lessonTitle}</h1>
+           {reviewLabel && (
+              <span className="px-2 py-0.5 rounded text-[8px] uppercase tracking-wider bg-secondary-container text-foreground font-bold">
+                {reviewLabel}
+              </span>
+           )}
         </div>
-        <p className="text-sm text-slate-700">{queue.length} cards left</p>
+        <p className="font-display text-2xl font-bold text-foreground">
+          {mode === 'flashcard' ? 'Recall the meaning' : 'Select the translation'}
+        </p>
       </div>
 
-      <article className="rounded-3xl border border-rose-900/10 bg-white p-4 shadow-sm sm:p-8">
-        <div className="mb-2 flex items-center justify-between">
-          <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-800">
-            <span>{typeIcons[current.card.type]}</span>
-            <span className="uppercase tracking-wider">{current.card.type}</span>
-          </span>
-          {reviewLabel && (
-            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
-              {reviewLabel}
-            </span>
-          )}
-        </div>
+      <div className="relative mx-auto w-full max-w-sm flex-1 flex flex-col justify-center">
+        {/* Main Card */}
+        <div 
+          className={`relative rounded-[2rem] bg-surface-lowest p-8 shadow-sm flex flex-col items-center justify-center transition-all duration-300 ${revealed ? 'min-h-[380px]' : 'min-h-[280px]'}`}
+          onClick={() => {
+             if (mode === "flashcard" && !revealed) setRevealed(true);
+          }}
+        >
+           <div className="absolute top-6 flex items-center justify-between w-full px-8">
+             <span className="px-3 py-1 bg-surface-low rounded-lg text-xs font-bold text-on-surface-variant uppercase tracking-widest flex gap-2">
+               <span>{typeIcons[current.card.type]}</span>
+               {current.card.type}
+             </span>
+             <span className="text-xs font-bold text-on-surface-variant/50">
+               {queue.length} left
+             </span>
+           </div>
+           
+           <div className={`font-display text-center leading-tight text-foreground mt-8 transition-all ${prompt.length > 8 ? 'text-5xl' : 'text-7xl'}`}>
+             {prompt}
+           </div>
+           
+           {current.card.hint && (
+             <p className="mt-4 text-xs italic text-on-surface-variant opacity-70">
+               ({current.card.hint})
+             </p>
+           )}
 
-        <p className="mt-2 text-center text-xs uppercase tracking-[0.2em] text-rose-700">
-          Prompt
-        </p>
-        <p className="mt-4 text-center font-display text-4xl leading-tight text-slate-900 sm:text-7xl">
-          {prompt}
-        </p>
-
-        {current.card.hint && (
-          <p className="mt-3 text-center text-sm text-slate-500 italic">
-            Hint: {current.card.hint}
-          </p>
-        )}
-
-        {/* Flashcard mode */}
-        {mode === "flashcard" && (
-          <div className="mt-8 space-y-4">
-            {!revealed ? (
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={() => setRevealed(true)}
-                  className="min-h-11 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
-                >
-                  Reveal answer
-                </button>
-              </div>
-            ) : (
-              <>
-                <div className="rounded-2xl border border-amber-500/20 bg-amber-50 p-4 text-center">
-                  <p className="text-xs uppercase tracking-[0.18em] text-amber-700">
-                    Answer
-                  </p>
-                  <p className="mt-2 font-display text-2xl text-slate-900 sm:text-3xl">
+           {mode === "flashcard" && revealed && (
+             <>
+                <div className="w-12 h-[2px] bg-outline-variant/30 my-8"></div>
+                <div className="text-center">
+                  <p className="font-display text-3xl font-bold text-foreground">
                     {current.card[answerSide]}
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center gap-3">
+             </>
+           )}
+        </div>
+
+        {/* User Controls Area */}
+        <div className="mt-8 min-h-[140px] flex flex-col justify-end">
+          {mode === "flashcard" && (
+            <div className="w-full">
+              {!revealed ? (
+                <button
+                  type="button"
+                  onClick={() => setRevealed(true)}
+                  className="w-full btn-primary-gradient py-4 rounded-2xl text-white font-bold shadow-md transition hover:opacity-90"
+                >
+                  Reveal Answer
+                </button>
+              ) : (
+                <div className="flex justify-between gap-3 max-w-sm mx-auto w-full">
                   {ratingButtons.map((btn) => (
                     <button
                       key={btn.rating}
                       type="button"
                       onClick={() => doSRSReview(btn.rating)}
-                      className={`min-h-11 rounded-full px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition ${btn.color}`}
+                      className={`flex-1 flex flex-col items-center py-3 rounded-2xl transition shadow-sm ${btn.color}`}
                     >
-                      <span className="mr-1 opacity-60">{btn.key}</span>
-                      {btn.label}
+                      <span className="text-[10px] font-bold opacity-70 mb-1">{btn.key}</span>
+                      <span className="text-sm font-bold">{btn.label}</span>
                     </button>
                   ))}
                 </div>
-              </>
-            )}
-          </div>
-        )}
-
-        {/* Multiple choice mode */}
-        {mode === "multiple-choice" && multipleChoice && (
-          <div className="mt-8 space-y-4">
-            <div className="grid grid-cols-1 gap-3">
-              {multipleChoice.options.map((option, i) => {
-                const isSelected = selectedOption === option;
-                const isCorrect = multipleChoice.correct === option;
-
-                let stateClass =
-                  "border-slate-300 bg-white hover:border-slate-500";
-                if (choiceLocked) {
-                  if (isCorrect) {
-                    stateClass =
-                      "border-emerald-600 bg-emerald-100 text-emerald-900";
-                  } else if (isSelected) {
-                    stateClass = "border-rose-600 bg-rose-100 text-rose-900";
-                  }
-                }
-
-                return (
-                  <button
-                    key={`${option}-${i}`}
-                    type="button"
-                    disabled={choiceLocked}
-                    onClick={() => {
-                      if (choiceLocked) return;
-                      setSelectedOption(option);
-                      setChoiceLocked(true);
-                    }}
-                    className={`font-display min-h-20 rounded-2xl border px-3 py-3 text-center text-lg transition sm:min-h-24 sm:text-xl ${stateClass}`}
-                  >
-                    {option}
-                  </button>
-                );
-              })}
+              )}
             </div>
+          )}
 
-            {choiceLocked && !showSRSRating && (
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={submitMultipleChoice}
-                  className="min-h-11 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
-                >
-                  Next
-                </button>
-              </div>
-            )}
+          {mode === "multiple-choice" && multipleChoice && (
+            <div className="w-full">
+               {!showSRSRating ? (
+                  <div className="grid grid-cols-1 gap-3 max-w-sm mx-auto">
+                    {multipleChoice.options.map((option, i) => {
+                      const isSelected = selectedOption === option;
+                      const isCorrect = multipleChoice.correct === option;
 
-            {showSRSRating && (
-              <div className="space-y-2">
-                <p className="text-center text-xs uppercase tracking-wider text-slate-600">
-                  How well did you know this?
-                </p>
-                <div className="flex flex-wrap justify-center gap-3">
-                  {ratingButtons
-                    .filter((b) => b.rating >= 2)
-                    .map((btn) => (
+                      let stateClass = "bg-surface-lowest text-foreground hover:bg-surface-low border-2 border-transparent";
+                      if (choiceLocked) {
+                        if (isCorrect) stateClass = "bg-success border-success text-white shadow-lg";
+                        else if (isSelected) stateClass = "bg-error border-error text-white shadow-lg";
+                      }
+
+                      return (
+                        <button
+                          key={`${option}-${i}`}
+                          type="button"
+                          disabled={choiceLocked}
+                          onClick={() => {
+                            if (choiceLocked) return;
+                            setSelectedOption(option);
+                            setChoiceLocked(true);
+                          }}
+                          className={`group relative flex items-center justify-center w-full min-h-[64px] rounded-2xl text-lg font-bold transition-all duration-200 ${stateClass}`}
+                        >
+                          {!choiceLocked && (
+                            <span className="absolute left-6 text-sm text-on-surface-variant opacity-50 font-display">{i + 1}</span>
+                          )}
+                          {option}
+                        </button>
+                      );
+                    })}
+                    
+                    {choiceLocked && (
                       <button
-                        key={btn.rating}
                         type="button"
-                        onClick={() => doSRSReview(btn.rating)}
-                        className={`min-h-11 rounded-full px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition ${btn.color}`}
+                        onClick={submitMultipleChoice}
+                        className="mt-2 w-full btn-primary-gradient py-4 rounded-xl text-white font-bold text-sm shadow-md transition hover:opacity-90"
                       >
-                        <span className="mr-1 opacity-60">{btn.key}</span>
-                        {btn.label}
+                        Continue
                       </button>
-                    ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </article>
+                    )}
+                  </div>
+               ) : (
+                 // After correct MC answer, show SRS Ratings
+                 <div className="w-full max-w-sm mx-auto animate-in fade-in slide-in-from-bottom-4">
+                    <p className="text-center text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-4">
+                      How difficult was this?
+                    </p>
+                    <div className="flex justify-center gap-3">
+                      {ratingButtons.filter(b => b.rating >= 2).map((btn) => (
+                        <button
+                          key={btn.rating}
+                          type="button"
+                          onClick={() => doSRSReview(btn.rating)}
+                          className={`flex-1 flex flex-col items-center py-3 rounded-2xl transition shadow-sm ${btn.color}`}
+                        >
+                          <span className="text-[10px] font-bold opacity-70 mb-1">{btn.key}</span>
+                          <span className="text-sm font-bold">{btn.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                 </div>
+               )}
+            </div>
+          )}
+        </div>
+      </div>
 
-      <div className="flex items-center justify-between text-sm text-slate-700">
-        <p>Wrong cards: {wrongKeys.size}</p>
-        <Link
-          href={
-            isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`
-          }
-          className="underline decoration-rose-400 underline-offset-4"
+      <div className="mt-8 pt-4 pb-6 text-center flex justify-center">
+        <Link 
+          href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`} 
+          className="inline-flex items-center gap-2 text-xs font-bold text-error hover:text-error/80 uppercase tracking-widest transition-colors"
         >
-          Back to settings
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Quit Session
         </Link>
       </div>
-    </section>
+    </div>
   );
 }

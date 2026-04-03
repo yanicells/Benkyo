@@ -49,16 +49,16 @@ export function ReviewSessionRenderer({
 
   if (!data) {
     return (
-      <div className="rounded-2xl border border-rose-900/10 bg-white p-6 text-center">
-        <p className="text-base text-slate-700">Loading due cards...</p>
+      <div className="rounded-lg bg-surface-lowest p-6 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <p className="text-base text-on-surface-variant">Loading due cards...</p>
       </div>
     );
   }
 
   if (data.cards.length === 0) {
     return (
-      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-        <p className="text-base text-emerald-800">
+      <div className="rounded-lg bg-[rgba(0,65,58,0.06)] p-6 text-center">
+        <p className="text-base text-success">
           No cards are due for review right now.
         </p>
       </div>

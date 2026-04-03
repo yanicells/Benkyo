@@ -45,14 +45,14 @@ export function AccuracyChart({ data }: AccuracyChartProps) {
                 y1={y}
                 x2={width - padding.right}
                 y2={y}
-                stroke="#f1e4e8"
+                stroke="#e2e5e9"
                 strokeWidth={1}
               />
               <text
                 x={padding.left - 8}
                 y={y + 4}
                 textAnchor="end"
-                className="fill-slate-400 text-[10px]"
+                className="fill-on-surface-variant text-[10px]"
               >
                 {pct}%
               </text>
@@ -67,7 +67,7 @@ export function AccuracyChart({ data }: AccuracyChartProps) {
         <path
           d={linePath}
           fill="none"
-          stroke="#9f1239"
+          stroke="#002446"
           strokeWidth={2}
           strokeLinejoin="round"
           strokeLinecap="round"
@@ -80,7 +80,7 @@ export function AccuracyChart({ data }: AccuracyChartProps) {
             cx={p.x}
             cy={p.y}
             r={3}
-            fill="#9f1239"
+            fill="#002446"
             stroke="white"
             strokeWidth={1.5}
           />
@@ -100,7 +100,7 @@ export function AccuracyChart({ data }: AccuracyChartProps) {
               x={p.x}
               y={height - 5}
               textAnchor="middle"
-              className="fill-slate-400 text-[9px]"
+              className="fill-on-surface-variant text-[9px]"
             >
               {p.date.slice(5)}
             </text>
@@ -108,8 +108,8 @@ export function AccuracyChart({ data }: AccuracyChartProps) {
 
         <defs>
           <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#9f1239" stopOpacity={0.15} />
-            <stop offset="100%" stopColor="#9f1239" stopOpacity={0.02} />
+            <stop offset="0%" stopColor="#002446" stopOpacity={0.15} />
+            <stop offset="100%" stopColor="#002446" stopOpacity={0.02} />
           </linearGradient>
         </defs>
       </svg>

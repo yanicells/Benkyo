@@ -70,18 +70,18 @@ export function SubDeckConfigClient({
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-        <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+      <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Study mode
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {modeOptions.map((opt) => (
             <label
               key={opt.value}
-              className={`flex cursor-pointer flex-col gap-2 rounded-2xl border p-4 transition ${
+              className={`flex cursor-pointer flex-col gap-2 rounded-lg border p-4 transition ${
                 mode === opt.value
-                  ? "border-rose-600 bg-rose-50"
-                  : "border-rose-900/15 bg-white hover:border-rose-700/40"
+                  ? "border-primary/20 bg-surface-low"
+                  : "border-outline-variant/20 bg-white hover:border-primary/30"
               }`}
             >
               <span className="flex items-center gap-2">
@@ -91,30 +91,30 @@ export function SubDeckConfigClient({
                   value={opt.value}
                   checked={mode === opt.value}
                   onChange={() => setMode(opt.value)}
-                  className="accent-rose-700"
+                  className="accent-primary"
                 />
-                <span className="font-semibold text-slate-900">
+                <span className="font-semibold text-foreground">
                   {opt.label}
                 </span>
               </span>
-              <span className="text-sm text-slate-700">{opt.description}</span>
+              <span className="text-sm text-on-surface-variant">{opt.description}</span>
             </label>
           ))}
         </div>
       </section>
 
-      <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-        <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+      <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Direction
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {flipOptions.map((opt) => (
             <label
               key={opt.value}
-              className={`flex cursor-pointer items-center gap-2 rounded-2xl border p-4 transition ${
+              className={`flex cursor-pointer items-center gap-2 rounded-lg border p-4 transition ${
                 flip === opt.value
-                  ? "border-rose-600 bg-rose-50"
-                  : "border-rose-900/15 bg-white hover:border-rose-700/40"
+                  ? "border-primary/20 bg-surface-low"
+                  : "border-outline-variant/20 bg-white hover:border-primary/30"
               }`}
             >
               <input
@@ -123,27 +123,27 @@ export function SubDeckConfigClient({
                 value={opt.value}
                 checked={flip === opt.value}
                 onChange={() => setFlip(opt.value)}
-                className="accent-rose-700"
+                className="accent-primary"
               />
-              <span className="font-semibold text-slate-900">{opt.label}</span>
+              <span className="font-semibold text-foreground">{opt.label}</span>
             </label>
           ))}
         </div>
       </section>
 
       {cardTypes.length > 1 && (
-        <section className="rounded-2xl border border-rose-900/10 bg-white p-5">
-          <p className="text-xs uppercase tracking-[0.22em] text-rose-700">
+        <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="text-xs uppercase tracking-[0.22em] text-primary">
             Card types
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {cardTypes.map((type) => (
               <label
                 key={type}
-                className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition ${
+                className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition ${
                   selectedTypes.has(type)
-                    ? "border-rose-600 bg-rose-50 text-rose-900"
-                    : "border-slate-200 bg-white text-slate-500 hover:border-slate-400"
+                    ? "border-primary/20 bg-surface-low text-primary"
+                    : "border-outline-variant/20 bg-white text-on-surface-variant hover:border-primary/30"
                 }`}
               >
                 <input
@@ -162,13 +162,13 @@ export function SubDeckConfigClient({
       <div className="flex items-center justify-between gap-3">
         <Link
           href={`/decks/${lessonId}`}
-          className="rounded-full border border-rose-900/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-rose-800 transition hover:border-rose-900/40 hover:bg-rose-100"
+          className="rounded-lg bg-surface-low px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-primary transition hover:bg-secondary-container"
         >
           Back
         </Link>
         <Link
           href={`/decks/${lessonId}/${subDeckId}/session?${searchParams.toString()}`}
-          className="rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-slate-700"
+          className="btn-primary-gradient rounded-lg px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90"
         >
           Start session
         </Link>

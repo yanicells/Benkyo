@@ -1,16 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Cormorant_Garamond,
-  Noto_Sans_JP,
-  Noto_Serif_JP,
-} from "next/font/google";
+import { Inter, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { PwaInit } from "../components/shared/pwa-init";
+import { TopAppBar } from "../components/shared/top-app-bar";
+import { BottomNav } from "../components/shared/bottom-nav";
 import "./globals.css";
 
-const serifDisplay = Cormorant_Garamond({
+const displayFont = Inter({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const bodySans = Noto_Sans_JP({
@@ -67,7 +65,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7efe4",
+  themeColor: "#f8f9fb",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -81,10 +79,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${serifDisplay.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased`}
+        className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-[100dvh] flex flex-col bg-surface`}
       >
         <PwaInit />
-        {children}
+        <TopAppBar />
+        <div className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-[64px] sm:mb-0">
+          {children}
+        </div>
+        <BottomNav />
       </body>
     </html>
   );
