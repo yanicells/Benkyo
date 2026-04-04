@@ -94,7 +94,7 @@ export function DesktopHeader() {
   }, [dropdownOpen]);
 
   return (
-    <header className="w-full h-16 px-8 flex items-center justify-between sticky top-0 z-30 bg-surface/90 backdrop-blur-md border-b border-outline-variant/10">
+    <header className="w-full h-16 px-8 flex items-center justify-between bg-surface/90 backdrop-blur-md border-b border-outline-variant/10">
 
       {/* Search */}
       <div className="flex-1 max-w-md relative">
