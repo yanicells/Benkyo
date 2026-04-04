@@ -131,13 +131,13 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
              </p>
              <button className="flex items-center gap-2 px-4 py-2 bg-[#8ef4e4] rounded-lg text-[#2a9a8c] text-xs font-bold uppercase tracking-wider transition hover:opacity-80">
                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-               RECOMMENDED FOR YOU
+               KANJI ROADMAP
              </button>
            </div>
            
            <div className="lg:w-[60%] w-full flex flex-col justify-center">
-              <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-8">
-                <span>Global Progress (2,136 Kanji)</span>
+               <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-8">
+                 <span>Global Progress</span>
                 <span className="text-2xl text-foreground font-display font-extrabold tracking-normal">—</span>
              </div>
              
@@ -155,17 +155,17 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
                 {/* N3 */}
                 <div className="flex-1 bg-surface rounded-xl p-4 flex flex-col items-center justify-center opacity-50">
                    <span className="text-[10px] font-bold text-secondary uppercase mb-1 tracking-wider">N3</span>
-                   <span className="font-display text-lg font-bold text-on-surface-variant">0%</span>
+                   <span className="font-display text-lg font-bold text-on-surface-variant">—</span>
                 </div>
                 {/* N2 */}
                 <div className="flex-1 bg-surface rounded-xl p-4 flex flex-col items-center justify-center opacity-50">
                    <span className="text-[10px] font-bold text-secondary uppercase mb-1 tracking-wider">N2</span>
-                   <span className="font-display text-lg font-bold text-on-surface-variant">0%</span>
+                   <span className="font-display text-lg font-bold text-on-surface-variant">—</span>
                 </div>
                 {/* N1 */}
                 <div className="flex-1 bg-surface rounded-xl p-4 flex flex-col items-center justify-center opacity-50">
                    <span className="text-[10px] font-bold text-secondary uppercase mb-1 tracking-wider">N1</span>
-                   <span className="font-display text-lg font-bold text-on-surface-variant">0%</span>
+                   <span className="font-display text-lg font-bold text-on-surface-variant">—</span>
                 </div>
              </div>
            </div>

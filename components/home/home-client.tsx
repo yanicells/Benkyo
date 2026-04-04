@@ -16,6 +16,7 @@ type ClientData = {
   cardsMastered: number;
   totalCards: number;
   weeklyMinutes: number;
+  weeklyReviewed: number;
 };
 
 // Choose the first lesson that has mastery < 100%, or the first lesson if all 100%
@@ -32,11 +33,13 @@ function readClientData(lessons: Lesson[]): ClientData {
   const allDaily = getAllDailyStats();
   const today = new Date();
   let weeklySeconds = 0;
+  let weeklyReviewed = 0;
   for (let i = 0; i < 7; i++) {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
     const key = d.toISOString().slice(0, 10);
     weeklySeconds += allDaily[key]?.timeSpentSeconds ?? 0;
+    weeklyReviewed += allDaily[key]?.reviewed ?? 0;
   }
 
   return {
@@ -45,6 +48,7 @@ function readClientData(lessons: Lesson[]): ClientData {
     cardsMastered: lifetime.mastered,
     totalCards: lifetime.totalCards,
     weeklyMinutes: Math.round(weeklySeconds / 60),
+    weeklyReviewed,
   };
 }
 
@@ -56,6 +60,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
     cardsMastered: 0,
     totalCards: 0,
     weeklyMinutes: 0,
+    weeklyReviewed: 0,
   });
 
   useEffect(() => {
@@ -67,6 +72,8 @@ export function HomeClient({ lessons }: HomeClientProps) {
   const cardsMastered = data?.cardsMastered ?? 0;
   const totalCards = data?.totalCards ?? 0;
   const weeklyMinutes = data?.weeklyMinutes ?? 0;
+  const weeklyReviewed = data?.weeklyReviewed ?? 0;
+  const masteryRate = totalCards > 0 ? Math.round((cardsMastered / totalCards) * 100) : 0;
   const quickStartHref = quickStartId ? `/decks/${quickStartId}` : "/decks";
 
   return (
@@ -165,46 +172,19 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </div>
           </div>
 
-          {/* Faux Bar Chart (Stubs) */}
-          <div className="flex-1 min-h-[140px] flex items-end justify-between gap-2 mt-8 mb-8 border-b border-surface-low relative">
-            <div className="absolute inset-0 top-10 border-b border-dashed border-surface-low/50"></div>
-            {[
-              { day: "Mon", h: "40%", active: true },
-              { day: "Tue", h: "60%", active: true },
-              { day: "Wed", h: "30%", active: true },
-              { day: "Thu", h: "80%", active: true },
-              { day: "Fri", h: "70%", active: true },
-              { day: "Sat", h: "40%", active: false },
-              { day: "Sun", h: "50%", active: false },
-            ].map((d, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center gap-3 relative z-10 w-full group"
-              >
-                {d.day === "Thu" && (
-                  <span className="text-[9px] font-bold text-on-surface-variant absolute -top-5">
-                    THU
-                  </span>
-                )}
-                <div
-                  className={`w-3 rounded-full transition-all ${d.active ? "bg-foreground" : "bg-surface-low"}`}
-                  style={{ height: d.h }}
-                ></div>
-                {(d.day === "Mon" ||
-                  d.day === "Wed" ||
-                  d.day === "Fri" ||
-                  d.day === "Sun") && (
-                  <span className="text-[9px] font-bold text-on-surface-variant/50">
-                    {d.day.toUpperCase()}
-                  </span>
-                )}
-              </div>
-            ))}
+          <div className="mt-8 mb-8 space-y-3 rounded-xl bg-surface-low p-4 border border-outline-variant/20">
+            <div className="flex items-center justify-between text-xs font-semibold text-on-surface-variant uppercase tracking-[0.12em]">
+              <span>This Week</span>
+              <span>{weeklyMinutes} min focused</span>
+            </div>
+            <div className="flex items-center justify-between text-sm text-secondary">
+              <span>Cards reviewed</span>
+              <span className="font-bold text-foreground">{weeklyReviewed}</span>
+            </div>
           </div>
 
           <p className="text-sm text-secondary font-medium leading-relaxed">
-            You are {5 - (streakDays % 5)} days away from a New Personal Best.
-            Keep the flow.
+            Consistency compounds. Keep your streak alive with one focused session today.
           </p>
         </div>
       </div>
@@ -246,7 +226,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
                 pressure.
               </p>
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground">
-                15 MIN SESSION
+                Start Session
                 <svg
                   className="w-4 h-4 text-primary"
                   fill="none"
@@ -293,7 +273,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
                 Understanding directional intent and static location markers.
               </p>
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground">
-                20 MIN SESSION
+                Start Session
                 <svg
                   className="w-4 h-4 text-primary"
                   fill="none"
@@ -374,10 +354,10 @@ export function HomeClient({ lessons }: HomeClientProps) {
           </div>
           <div>
             <p className="text-[9px] uppercase font-bold tracking-[0.15em] text-secondary mb-1">
-              Zen Level
+              Mastery Rate
             </p>
             <p className="font-display text-2xl font-bold text-foreground">
-              Mastery II
+              {masteryRate}%
             </p>
           </div>
         </div>
