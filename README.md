@@ -110,6 +110,14 @@ lib/
 pnpm install
 ```
 
+2. Set up environment variables:
+
+```bash
+pnpm db:generate 
+pnpm db:push 
+pnpm db:studio
+```
+
 2. Start dev server:
 
 ```bash
