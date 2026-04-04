@@ -15,8 +15,10 @@ export function InstallBanner() {
     const onInstallable = () => setVisible(true);
     window.addEventListener("pwa-installable", onInstallable);
 
-    // If already captured before mount
-    if (getDeferredInstallPrompt()) setVisible(true);
+    // If already captured before mount, show on next tick
+    if (getDeferredInstallPrompt()) {
+      requestAnimationFrame(() => setVisible(true));
+    }
 
     return () => window.removeEventListener("pwa-installable", onInstallable);
   }, []);

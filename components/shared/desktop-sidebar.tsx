@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/shared/auth-provider";
-import { signIn, signOut } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth-client";
 
 const navItems = [
   {

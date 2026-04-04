@@ -17,11 +17,6 @@ const APP_SHELL_URLS = [
   "/_next/static/chunks/framework.js",
 ];
 
-// Data files that should be cached for offline use
-const DATA_URLS = [
-  "/_next/static/chunks/app/page.js",
-];
-
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
