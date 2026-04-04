@@ -3,6 +3,8 @@ import { Inter, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { PwaInit } from "../components/shared/pwa-init";
 import { InstallBanner } from "../components/shared/install-banner";
 import { UpdateToast } from "../components/shared/update-toast";
+import { AuthProvider } from "../components/shared/auth-provider";
+import { MigrationPrompt } from "../components/shared/migration-prompt";
 import { TopAppBar } from "../components/shared/top-app-bar";
 import { BottomNav } from "../components/shared/bottom-nav";
 import { DesktopSidebar } from "../components/shared/desktop-sidebar";
@@ -83,11 +85,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-[100dvh] bg-surface flex`}
+        className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-dvh bg-surface flex`}
       >
+        <AuthProvider>
         <PwaInit />
         <InstallBanner />
         <UpdateToast />
+        <MigrationPrompt />
 
         {/* Global Desktop Sidebar */}
         <div className="hidden lg:block shrink-0">
@@ -106,7 +110,7 @@ export default function RootLayout({
           </div>
 
           {/* Main Content */}
-          <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-[64px] lg:mb-0 relative z-0">
+          <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-16 lg:mb-0 relative z-0">
             {children}
           </main>
 
@@ -115,6 +119,7 @@ export default function RootLayout({
             <BottomNav />
           </div>
         </div>
+        </AuthProvider>
       </body>
     </html>
   );
