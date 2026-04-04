@@ -303,91 +303,238 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </h1>
       </header>
 
-      {/* Twin Hero Cards: Streak + Due */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-        {/* Streak Card */}
-        <div className="bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col items-center gap-6">
-          <p className="text-secondary text-[10px] uppercase font-bold tracking-[0.2em]">
-            Current Streak
-          </p>
-          {loaded ? (
-            <div className="flex items-center gap-4">
-              <h2 className="font-display text-7xl lg:text-8xl font-extrabold text-foreground leading-none">
-                {streakDays}
-                <span className="text-3xl font-semibold text-secondary ml-1">
-                  d
+      {/* Compact Status Strip */}
+      <div className="bg-surface-lowest rounded-[2rem] p-5 lg:p-6 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
+          {/* Streak */}
+          <div className="flex items-center gap-3 md:flex-1 md:justify-center">
+            <div
+              className="w-8 h-8 rounded-lg btn-primary-gradient flex items-center justify-center text-white shrink-0"
+              aria-hidden
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
+              </svg>
+            </div>
+            {loaded ? (
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-display text-2xl font-extrabold text-foreground leading-none">
+                  {streakDays}
                 </span>
-              </h2>
-              <div
-                className="w-12 h-12 rounded-xl btn-primary-gradient flex items-center justify-center text-white shadow-lg"
+                <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary">
+                  day streak
+                </span>
+              </div>
+            ) : (
+              <div className="h-6 w-24 rounded bg-outline-variant/20 animate-pulse" />
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="border-t md:border-t-0 md:border-l border-outline-variant/20 md:h-10 md:mx-0" />
+
+          {/* Daily Goal */}
+          <div className="flex items-center gap-3 md:flex-1 md:justify-center">
+            <div className="scale-[0.65] origin-center -m-2">
+              <DailyGoalRing
+                reviewed={todayReviewed}
+                goal={dailyGoal}
+                loaded={loaded}
+              />
+            </div>
+            {loaded ? (
+              <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary">
+                {todayReviewed}/{dailyGoal} today
+              </span>
+            ) : (
+              <div className="h-4 w-16 rounded bg-outline-variant/20 animate-pulse" />
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="border-t md:border-t-0 md:border-l border-outline-variant/20 md:h-10 md:mx-0" />
+
+          {/* Due Cards */}
+          {dueCount > 0 ? (
+            <Link
+              href="/review"
+              className="flex items-center gap-3 md:flex-1 md:justify-center rounded-xl hover:bg-primary/5 transition-colors px-3 py-1.5 -mx-3 md:-my-1.5 group"
+              aria-label={`Review ${dueCount} due cards`}
+            >
+              <span className="font-display text-2xl font-extrabold text-primary leading-none">
+                {dueCount}
+              </span>
+              <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary group-hover:text-primary transition-colors">
+                cards due
+              </span>
+            </Link>
+          ) : (
+            <div className="flex items-center gap-3 md:flex-1 md:justify-center px-3 py-1.5 -mx-3">
+              {loaded ? (
+                <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary">
+                  All caught up!
+                </span>
+              ) : (
+                <div className="h-4 w-20 rounded bg-outline-variant/20 animate-pulse" />
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Core Learning Modes */}
+      <section aria-label="Start learning">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {/* Kana Practice */}
+          <Link
+            href="/kana"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label="Start kana practice session"
+          >
+            <div className="h-[45%] bg-[#0a0a0c] flex items-center justify-center relative overflow-hidden">
+              <span
+                className="font-japanese-display text-8xl text-surface-low/30 italic group-hover:scale-110 transition-transform duration-500"
                 aria-hidden
               >
+                ひ
+              </span>
+            </div>
+            <div className="flex-1 p-6 lg:p-8 flex flex-col">
+              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
+                FOUNDATION
+              </span>
+              <h3 className="font-display font-bold text-xl text-foreground mb-2">
+                Kana Practice
+              </h3>
+              <p className="text-xs text-secondary leading-relaxed mb-4">
+                Drill hiragana &amp; katakana with instant feedback.
+              </p>
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground mt-auto">
+                Start Session
                 <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
+                  className="w-4 h-4 text-primary"
+                  fill="none"
                   viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden
                 >
-                  <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
                 </svg>
               </div>
             </div>
-          ) : (
-            <div className="h-20 w-32 rounded-lg bg-outline-variant/20 animate-pulse" />
-          )}
-          <div className="flex flex-col items-center gap-1.5">
-            <DailyGoalRing
-              reviewed={todayReviewed}
-              goal={dailyGoal}
-              loaded={loaded}
-            />
-            <p className="text-[10px] text-secondary h-4">
-              {loaded
-                ? todayReviewed >= dailyGoal
-                  ? "Goal reached!"
-                  : "cards today"
-                : ""}
-            </p>
-          </div>
-        </div>
+          </Link>
 
-        {/* Due Cards Card */}
+          {/* Lesson Decks */}
+          <Link
+            href="/decks"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label="Browse lesson decks"
+          >
+            <div className="h-[45%] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative overflow-hidden">
+              <span
+                className="font-japanese-display text-8xl text-primary/20 group-hover:scale-110 transition-transform duration-500"
+                aria-hidden
+              >
+                学
+              </span>
+            </div>
+            <div className="flex-1 p-6 lg:p-8 flex flex-col">
+              <span className="inline-block px-2 py-1 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
+                STUDY
+              </span>
+              <h3 className="font-display font-bold text-xl text-foreground mb-2">
+                Lesson Decks
+              </h3>
+              <p className="text-xs text-secondary leading-relaxed mb-4">
+                Genki vocab &amp; grammar with spaced repetition.
+              </p>
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground mt-auto">
+                Browse Lessons
+                <svg
+                  className="w-4 h-4 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
+
+          {/* Learning Path */}
+          <Link
+            href="/path"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label="View learning path"
+          >
+            <div className="h-[45%] bg-gradient-to-br from-[#8ef4e4]/20 to-[#2a9a8c]/10 flex items-center justify-center relative overflow-hidden">
+              <span
+                className="font-japanese-display text-8xl text-[#2a9a8c]/20 group-hover:scale-110 transition-transform duration-500"
+                aria-hidden
+              >
+                道
+              </span>
+            </div>
+            <div className="flex-1 p-6 lg:p-8 flex flex-col">
+              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
+                GUIDED
+              </span>
+              <h3 className="font-display font-bold text-xl text-foreground mb-2">
+                Learning Path
+              </h3>
+              <p className="text-xs text-secondary leading-relaxed mb-4">
+                Follow a structured path from beginner to fluent.
+              </p>
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground mt-auto">
+                View Path
+                <svg
+                  className="w-4 h-4 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* Review Banner — only shown when cards are due */}
+      {loaded && dueCount > 0 && (
         <Link
-          href={
-            dueCount > 0
-              ? "/review"
-              : quickStartId
-              ? `/decks/${quickStartId}`
-              : "/decks"
-          }
-          className="group bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:shadow-[0_16px_48px_rgba(0,14,33,0.08)] transition-all duration-300 flex flex-col items-center gap-6 relative overflow-hidden focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-          aria-label={
-            loaded
-              ? dueCount > 0
-                ? `Review ${dueCount} due cards`
-                : "Browse decks"
-              : "Loading due cards"
-          }
+          href="/review"
+          className="group flex items-center justify-between rounded-[2rem] btn-primary-gradient px-8 py-5 text-white shadow-[0_12px_40px_rgba(0,14,33,0.12)] hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          aria-label={`Review ${dueCount} due cards`}
         >
-          <p className="text-secondary text-[10px] uppercase font-bold tracking-[0.2em] z-10">
-            Due for Review
-          </p>
-          {loaded ? (
-            <h2 className="font-display text-7xl lg:text-8xl font-extrabold text-primary leading-none z-10">
-              {dueCount}
-            </h2>
-          ) : (
-            <div className="h-20 w-32 rounded-lg bg-outline-variant/20 animate-pulse z-10" />
-          )}
-          <p className="text-sm text-secondary z-10">
-            {loaded
-              ? dueCount > 0
-                ? `${dueCount} card${dueCount !== 1 ? "s" : ""} ready for review`
-                : "All caught up!"
-              : ""}
-          </p>
-          <div className="flex items-center gap-2 font-bold text-sm text-primary group-hover:text-primary/80 transition-colors z-10">
+          <span className="font-display font-bold text-base lg:text-lg">
+            You have{" "}
+            <span className="font-extrabold">{dueCount}</span>{" "}
+            card{dueCount !== 1 ? "s" : ""} due for review
+          </span>
+          <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider shrink-0">
+            Start Review
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 group-hover:translate-x-1 transition-transform"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -400,19 +547,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
                 d="M14 5l7 7m0 0l-7 7m7-7H3"
               />
             </svg>
-            {dueCount > 0 ? "Start Review" : "Browse Decks"}
-          </div>
-          {/* Decorative background character */}
-          {hero?.displayChar && (
-            <div
-              className="absolute right-4 bottom-0 font-japanese-display text-[180px] leading-none text-surface-low font-bold pointer-events-none select-none z-0 group-hover:scale-105 transition-transform duration-700 ease-out"
-              aria-hidden
-            >
-              {hero.displayChar}
-            </div>
-          )}
+          </span>
         </Link>
-      </div>
+      )}
 
       {/* 7-Day Activity */}
       <div className="bg-surface-lowest rounded-[2rem] p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
@@ -501,127 +638,6 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </p>
       </div>
 
-      {/* Quick Start section */}
-      <section aria-label="Quick start">
-        <div className="flex justify-between items-end mb-6">
-          <h2 className="font-display text-2xl font-bold text-foreground">
-            Quick Start
-          </h2>
-          <Link
-            href="/decks"
-            className="text-[10px] uppercase font-bold tracking-[0.2em] text-secondary hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
-          >
-            VIEW ALL
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-          {/* Kana Practice Card */}
-          <Link
-            href="/kana"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex min-h-[160px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="Start kana practice session"
-          >
-            <div className="w-[40%] bg-[#0a0a0c] flex items-center justify-center p-8 relative overflow-hidden">
-              <span
-                className="font-japanese-display text-8xl text-surface-low/30 italic group-hover:scale-110 transition-transform duration-500"
-                aria-hidden
-              >
-                ひ
-              </span>
-            </div>
-            <div className="w-[60%] p-8 flex flex-col justify-center">
-              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
-                FOUNDATION
-              </span>
-              <h3 className="font-display font-bold text-xl text-foreground mb-2">
-                Kana Practice
-              </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-6">
-                Drill hiragana and katakana groups with immediate character
-                feedback.
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground">
-                Start Session
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </div>
-            </div>
-          </Link>
-
-          {/* Review / Deck card — routes to /review if cards due, otherwise quick-start lesson */}
-          <Link
-            href={
-              dueCount > 0
-                ? "/review"
-                : quickStartId
-                ? `/decks/${quickStartId}`
-                : "/decks"
-            }
-            className="group relative rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex min-h-[160px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label={
-              dueCount > 0
-                ? `Review ${dueCount} due card${dueCount !== 1 ? "s" : ""}`
-                : "Open lesson deck"
-            }
-          >
-            <div className="w-[40%] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center p-8 relative overflow-hidden">
-              <span
-                className="font-japanese-display text-8xl text-primary/20 group-hover:scale-110 transition-transform duration-500"
-                aria-hidden
-              >
-                {dueCount > 0 ? "復" : "学"}
-              </span>
-            </div>
-            <div className="w-[60%] p-8 flex flex-col justify-center">
-              <span className="inline-block px-2 py-1 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
-                {dueCount > 0 ? "DUE" : "STUDY"}
-              </span>
-              <h3 className="font-display font-bold text-xl text-foreground mb-2">
-                {dueCount > 0 ? "Review Cards" : "Lesson Decks"}
-              </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-6">
-                {!loaded ? (
-                  <span className="inline-block h-3 w-full rounded bg-outline-variant/20 animate-pulse" />
-                ) : dueCount > 0 ? (
-                  `${dueCount} card${dueCount !== 1 ? "s" : ""} ready for spaced repetition review.`
-                ) : (
-                  "Practice Genki vocab and grammar with flashcards."
-                )}
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground">
-                {dueCount > 0 ? "Start Review" : "Open Decks"}
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </div>
-            </div>
-          </Link>
-        </div>
-      </section>
 
     </div>
   );
