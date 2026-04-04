@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useSyncExternalStore } from "react";
 
 import type { Lesson, Card } from "@/lib/types";
 import {
@@ -254,11 +254,23 @@ function DailyGoalRing({
   );
 }
 
+// Noop subscribe — localStorage doesn't push reactive updates
+const subscribeNoop = () => () => {};
+
 export function HomeClient({ lessons }: HomeClientProps) {
-  const [data] = useState<ClientData | null>(() => {
-    if (typeof window === "undefined") return null;
-    return readClientData(lessons);
-  });
+  const cacheRef = useRef<ClientData | null>(null);
+
+  const data = useSyncExternalStore(
+    subscribeNoop,
+    () => {
+      if (cacheRef.current === null) {
+        cacheRef.current = readClientData(lessons);
+      }
+      return cacheRef.current;
+    },
+    () => null, // server snapshot — null = SSR/hydration pass
+  );
+
   const loaded = data !== null;
 
   const streakDays = data?.streakDays ?? 0;
