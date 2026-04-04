@@ -29,6 +29,8 @@ export default async function KanaSessionPage({
   const script = firstParam(query.script);
   const groupParam = firstParam(query.groups);
   const batchParam = firstParam(query.batch);
+  const shuffleParam = firstParam(query.shuffle);
+  const modeParam = firstParam(query.mode);
 
   if (!script || !validScripts.has(script as KanaScript) || !groupParam) {
     redirect("/kana");
@@ -62,22 +64,24 @@ export default async function KanaSessionPage({
     ? (parsedBatch as KanaBatchSize)
     : 1;
 
-  const scaledCards: Card[] = Array.from({ length: batchSize }).flatMap(
-    () => cards,
-  );
+  const shouldShuffle = shuffleParam !== "false";
+  const mode: "mc" | "typing" = modeParam === "typing" ? "typing" : "mc";
+
+  const title = mode === "typing" ? "Type what you read" : "Interactive Learning";
+  const subtitle =
+    mode === "typing"
+      ? "Wrong answers gain +2 required corrects and get shuffled back in."
+      : "Select the correct romaji reading for each character.";
 
   return (
-    <PageShell
-      eyebrow="Kana session"
-      title="Type what you read"
-      subtitle="Wrong answers gain +2 required corrects and get shuffled back in."
-
-    >
+    <PageShell eyebrow="Kana session" title={title} subtitle={subtitle}>
       <KanaSessionRenderer
         script={script as KanaScript}
         groups={groups}
-        cards={scaledCards}
+        cards={cards}
         batchSize={batchSize}
+        shuffle={shouldShuffle}
+        mode={mode}
       />
     </PageShell>
   );

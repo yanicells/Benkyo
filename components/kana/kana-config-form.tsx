@@ -11,10 +11,11 @@ import type {
   KanaScript,
 } from "@/lib/types";
 
+type KanaConfigFormProps = {
+  initialScript?: KanaScript;
+};
+
 const groupOrder: KanaGroup[] = ["basic", "dakuten", "combo"];
-const defaultBasicRows = getKanaRows("hiragana")
-  .filter((row) => row.group === "basic")
-  .map((row) => row.key);
 
 const groupInfo: Record<
   KanaGroup,
@@ -37,13 +38,17 @@ const groupInfo: Record<
   },
 };
 
-export function KanaConfigForm() {
+export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormProps) {
   const router = useRouter();
-  const [script, setScript] = useState<KanaScript>("hiragana");
-  const [selectedRows, setSelectedRows] =
-    useState<KanaRowKey[]>(defaultBasicRows);
+  const [script, setScript] = useState<KanaScript>(initialScript);
+  const [selectedRows, setSelectedRows] = useState<KanaRowKey[]>(() =>
+    getKanaRows(initialScript)
+      .filter((row) => row.group === "basic")
+      .map((row) => row.key),
+  );
   const [batchSize, setBatchSize] = useState<KanaBatchSize>(3);
   const [shuffleOrder, setShuffleOrder] = useState(true);
+  const [mode, setMode] = useState<"mc" | "typing">("mc");
 
   const groupedRows = useMemo(() => {
     const rows = getKanaRows(script);
@@ -81,7 +86,6 @@ export function KanaConfigForm() {
         groupedRows.find((item) => item.group === group)?.rows ?? [];
       return groupRows.some((r) => selectedRows.includes(r.key));
     });
-    // If we only have basic shown, just select all basic. But the UI in screenshot shows all rows for selected groups.
     const rowsToSelect = groupedRows
       .filter((g) =>
         activeGroups.length === 0
@@ -96,7 +100,7 @@ export function KanaConfigForm() {
     if (selectedRows.length === 0) return;
     const serializedGroups = selectedRows.join(",");
     router.push(
-      `/kana/session?script=${script}&groups=${serializedGroups}&batch=${batchSize}&shuffle=${shuffleOrder}`,
+      `/kana/session?script=${script}&groups=${serializedGroups}&batch=${batchSize}&shuffle=${shuffleOrder}&mode=${mode}`,
     );
   };
 
@@ -184,12 +188,10 @@ export function KanaConfigForm() {
             const hasAnySelectedInGroup = g.rows.some((r) =>
               selectedRows.includes(r.key),
             );
-            if (!hasAnySelectedInGroup && g.group !== "basic") return null; // Only show active groups rows, default basic
+            if (!hasAnySelectedInGroup && g.group !== "basic") return null;
 
             return g.rows.map((row) => {
               const checked = selectedRows.includes(row.key);
-
-              // Find the first kana to display prominently
               const firstKana = row.entries[0]?.kana || "";
 
               return (
@@ -229,38 +231,63 @@ export function KanaConfigForm() {
           Session Options
         </h3>
         <div className="rounded-xl bg-surface-lowest p-5 shadow-sm space-y-6">
+          {/* Study Mode */}
           <div>
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-sm font-semibold text-foreground">
-                Batch Size
-              </span>
-              <span className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs font-bold">
-                {batchSize} Kana
-              </span>
-            </div>
-            <div className="relative pt-2 pb-6">
-              <input
-                type="range"
-                min="1"
-                max="4"
-                value={batchSize}
-                onChange={(e) =>
-                  setBatchSize(Number(e.target.value) as KanaBatchSize)
-                }
-                className="w-full h-1.5 bg-secondary-container rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-0 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-primary"
-                style={{
-                  background: `linear-gradient(to right, var(--primary) ${((batchSize - 1) / 3) * 100}%, var(--secondary-container) ${((batchSize - 1) / 3) * 100}%)`,
-                }}
-              />
-              <div className="absolute w-full flex justify-between px-1 text-[10px] font-semibold text-on-surface-variant top-8">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-              </div>
+            <p className="text-sm font-semibold text-foreground mb-3">
+              Study Mode
+            </p>
+            <div className="flex rounded-xl bg-surface p-1">
+              <button
+                onClick={() => setMode("mc")}
+                className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-colors ${mode === "mc" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
+              >
+                Multiple Choice
+              </button>
+              <button
+                onClick={() => setMode("typing")}
+                className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-colors ${mode === "typing" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
+              >
+                Typing
+              </button>
             </div>
           </div>
 
+          {/* Batch Size — typing mode only */}
+          {mode === "typing" && (
+            <div className="border-t border-outline-variant/10 pt-6">
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-sm font-semibold text-foreground">
+                  Batch Size
+                </span>
+                <span className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs font-bold">
+                  {batchSize} Kana
+                </span>
+              </div>
+              <div className="relative pt-2 pb-6">
+                <input
+                  type="range"
+                  min="1"
+                  max="4"
+                  value={batchSize}
+                  onChange={(e) =>
+                    setBatchSize(Number(e.target.value) as KanaBatchSize)
+                  }
+                  className="w-full h-1.5 bg-secondary-container rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-0 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-primary"
+                  style={{
+                    background: `linear-gradient(to right, var(--primary) ${((batchSize - 1) / 3) * 100}%, var(--secondary-container) ${((batchSize - 1) / 3) * 100}%)`,
+                  }}
+                />
+                <div className="absolute w-full flex justify-between px-1 text-[10px] font-semibold text-on-surface-variant top-8">
+                  <span>1</span>
+                  <span>2</span>
+                  <span>3</span>
+                  <span>4</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Shuffle Order */}
           <div className="pt-2 border-t border-outline-variant/10 flex justify-between items-center">
             <div>
               <p className="text-sm font-semibold text-foreground">

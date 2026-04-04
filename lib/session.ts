@@ -35,6 +35,10 @@ export function buildQueue(cards: Card[]): SessionCard[] {
   return shuffle(cards).map((card) => ({ card, correctsNeeded: 1 }));
 }
 
+export function buildQueueOrdered(cards: Card[]): SessionCard[] {
+  return cards.map((card) => ({ card, correctsNeeded: 1 }));
+}
+
 export function answerCorrect(queue: SessionCard[]): SessionCard[] {
   if (queue.length === 0) {
     return queue;

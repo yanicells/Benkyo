@@ -14,6 +14,8 @@ type KanaSessionRendererProps = {
   groups: KanaSelectionKey[];
   cards: Card[];
   batchSize: KanaBatchSize;
+  shuffle: boolean;
+  mode: "mc" | "typing";
 };
 
 const KanaSessionClient = dynamic(

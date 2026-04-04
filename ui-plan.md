@@ -14,7 +14,7 @@ Old implementations (pre-overhaul) are available via `git show main:<path>` and 
 
 ---
 
-## Execution Status (Updated 2026-04-03)
+## Execution Status (Updated 2026-04-04)
 
 ### Completed: Batch 1
 
@@ -30,13 +30,19 @@ Old implementations (pre-overhaul) are available via `git show main:<path>` and 
 - Task 13: Desktop sidebar is now viewport-bound with persistent bottom CTA region
 - Hydration hotfix: Home page client state initialization now SSR-safe to prevent recurring hydration mismatch on first load
 
+### Completed: Batch 2
+
+- Task 2: Shuffle wired end-to-end — `buildQueueOrdered` added to `lib/session.ts`; `shuffle` param extracted in session page and threaded through renderer to client; queue init is now conditional on `shuffle` prop
+- Task 8: Kana tab deep links — `app/kana/page.tsx` is now an async server component that reads `searchParams.tab` and passes `initialScript` to `KanaConfigForm`; form initializes both `script` state and `selectedRows` from `initialScript`
+
+### Completed: Batch 3
+
+- Task 1: Kana dual mode (Typing + MC) — `KanaConfigForm` now has a Study Mode segmented toggle (Multiple Choice / Typing); Batch Size slider only shown in Typing mode; `mode` param passed through session URL → page → renderer → client; `KanaSessionClient` conditionally renders full typing flow (batch cards side-by-side, `TypingPracticeInput`, Tab-toggle answer key panel) or original MC flow; `scaledCards` duplication removed from session page — base cards passed for both modes; `processBatch` restored for typing mode
+
 ### Remaining (Next Batches)
 
-- Task 1: Restore Kana typing workflow (dual mode)
-- Task 2: Wire shuffle end-to-end
 - Task 6: Placeholder shell action labeling
 - Task 7: Session sidebar real-data + collapsible
-- Task 8: Kana tab deep links
 - Task 11: Static metric integrity pass
 
 ---
