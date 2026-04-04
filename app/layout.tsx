@@ -105,7 +105,7 @@ export default function RootLayout({
           </div>
 
           {/* Mobile Top App Bar */}
-          <div className="lg:hidden relative z-30">
+          <div className="lg:hidden sticky top-0 z-30">
             <TopAppBar />
           </div>
 

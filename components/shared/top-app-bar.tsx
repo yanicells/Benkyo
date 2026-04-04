@@ -25,7 +25,7 @@ export function TopAppBar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-surface/90 backdrop-blur-md border-b border-outline-variant/10">
+      <header className="w-full bg-surface/90 backdrop-blur-md border-b border-outline-variant/10">
         <div className="flex h-14 items-center justify-between px-4">
           {/* Left: back/close in session, menu otherwise */}
           {isSession ? (

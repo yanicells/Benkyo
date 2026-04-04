@@ -280,10 +280,6 @@ export function HomeClient({ lessons }: HomeClientProps) {
   const weeklyMinutes = data?.weeklyMinutes ?? 0;
   const weeklyReviewed = data?.weeklyReviewed ?? 0;
   const sevenDayActivity = data?.sevenDayActivity ?? [];
-  const cardsMastered = data?.cardsMastered ?? 0;
-  const totalCards = data?.totalCards ?? 0;
-  const masteryRate =
-    totalCards > 0 ? Math.round((cardsMastered / totalCards) * 100) : 0;
   const quickStartId = data?.quickStartId ?? lessons[0]?.id ?? "";
   const hero = data?.hero;
 
@@ -307,91 +303,89 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </h1>
       </header>
 
-      {/* Top Grid: Hero Card + Daily Goal / Streak */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-        {/* Left: Hero Study Card */}
+      {/* Twin Hero Cards: Streak + Due */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+        {/* Streak Card */}
+        <div className="bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col items-center gap-6">
+          <p className="text-secondary text-[10px] uppercase font-bold tracking-[0.2em]">
+            Current Streak
+          </p>
+          {loaded ? (
+            <div className="flex items-center gap-4">
+              <h2 className="font-display text-7xl lg:text-8xl font-extrabold text-foreground leading-none">
+                {streakDays}
+                <span className="text-3xl font-semibold text-secondary ml-1">
+                  d
+                </span>
+              </h2>
+              <div
+                className="w-12 h-12 rounded-xl btn-primary-gradient flex items-center justify-center text-white shadow-lg"
+                aria-hidden
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
+                </svg>
+              </div>
+            </div>
+          ) : (
+            <div className="h-20 w-32 rounded-lg bg-outline-variant/20 animate-pulse" />
+          )}
+          <div className="flex flex-col items-center gap-1.5">
+            <DailyGoalRing
+              reviewed={todayReviewed}
+              goal={dailyGoal}
+              loaded={loaded}
+            />
+            <p className="text-[10px] text-secondary h-4">
+              {loaded
+                ? todayReviewed >= dailyGoal
+                  ? "Goal reached!"
+                  : "cards today"
+                : ""}
+            </p>
+          </div>
+        </div>
+
+        {/* Due Cards Card */}
         <Link
-          href={hero?.href ?? "/decks"}
-          className="lg:col-span-8 group relative bg-surface-lowest overflow-hidden rounded-[2rem] p-8 lg:p-12 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:shadow-[0_16px_48px_rgba(0,14,33,0.08)] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+          href={
+            dueCount > 0
+              ? "/review"
+              : quickStartId
+              ? `/decks/${quickStartId}`
+              : "/decks"
+          }
+          className="group bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:shadow-[0_16px_48px_rgba(0,14,33,0.08)] transition-all duration-300 flex flex-col items-center gap-6 relative overflow-hidden focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           aria-label={
             loaded
-              ? `${hero?.ctaLabel ?? "Study"}: ${hero?.title ?? ""}`
-              : "Loading study card"
+              ? dueCount > 0
+                ? `Review ${dueCount} due cards`
+                : "Browse decks"
+              : "Loading due cards"
           }
         >
-          {/* Eyebrow label */}
-          <p className="text-primary text-[10px] uppercase font-bold tracking-[0.2em] mb-4 min-h-[1rem]">
-            {loaded ? (
-              hero?.labelTop ?? "Study"
-            ) : (
-              <span className="inline-block h-3 w-24 rounded bg-primary/20 animate-pulse" />
-            )}
+          <p className="text-secondary text-[10px] uppercase font-bold tracking-[0.2em] z-10">
+            Due for Review
           </p>
-
-          {/* Card title — use Japanese display font only when the text is Japanese */}
           {loaded ? (
-            <h2
-              className={`text-3xl font-bold text-foreground mb-4 ${
-                hero?.titleIsJapanese
-                  ? "font-japanese-display"
-                  : "font-display"
-              }`}
-            >
-              {hero?.title ?? "Start Learning"}
+            <h2 className="font-display text-7xl lg:text-8xl font-extrabold text-primary leading-none z-10">
+              {dueCount}
             </h2>
           ) : (
-            <div className="h-8 w-56 rounded-lg bg-outline-variant/20 animate-pulse mb-4" />
+            <div className="h-20 w-32 rounded-lg bg-outline-variant/20 animate-pulse z-10" />
           )}
-
-          {/* Description */}
-          {loaded ? (
-            <p className="max-w-sm text-base text-on-surface-variant leading-relaxed mb-10 mr-4 md:mr-0 z-10 relative line-clamp-3">
-              {hero?.description ??
-                "Browse lessons and start building your vocabulary."}
-            </p>
-          ) : (
-            <div className="space-y-2 mb-10 max-w-sm z-10 relative">
-              <div className="h-4 w-full rounded bg-outline-variant/20 animate-pulse" />
-              <div className="h-4 w-4/5 rounded bg-outline-variant/20 animate-pulse" />
-              <div className="h-4 w-3/5 rounded bg-outline-variant/20 animate-pulse" />
-            </div>
-          )}
-
-          {/* Reading / Meaning chips */}
-          {loaded ? (
-            (hero?.reading || hero?.meaning) && (
-              <div className="flex flex-wrap gap-3 mb-10 z-10 relative">
-                {hero.reading && (
-                  <div className="bg-surface-low rounded-xl p-3 flex flex-col min-w-[120px]">
-                    <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider mb-1">
-                      Reading
-                    </span>
-                    <span className="font-bold text-foreground">
-                      {hero.reading}
-                    </span>
-                  </div>
-                )}
-                {hero.meaning && (
-                  <div className="bg-surface-low rounded-xl p-3 flex flex-col min-w-[120px] max-w-[240px]">
-                    <span className="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider mb-1">
-                      Meaning
-                    </span>
-                    <span className="font-bold text-foreground text-sm leading-snug">
-                      {hero.meaning}
-                    </span>
-                  </div>
-                )}
-              </div>
-            )
-          ) : (
-            <div className="flex gap-3 mb-10 z-10 relative">
-              <div className="h-16 w-28 rounded-xl bg-outline-variant/15 animate-pulse" />
-              <div className="h-16 w-32 rounded-xl bg-outline-variant/15 animate-pulse" />
-            </div>
-          )}
-
-          {/* CTA — label matches actual behavior */}
-          <div className="flex items-center gap-2 font-bold text-sm text-primary group-hover:text-primary/80 transition-colors z-10 relative">
+          <p className="text-sm text-secondary z-10">
+            {loaded
+              ? dueCount > 0
+                ? `${dueCount} card${dueCount !== 1 ? "s" : ""} ready for review`
+                : "All caught up!"
+              : ""}
+          </p>
+          <div className="flex items-center gap-2 font-bold text-sm text-primary group-hover:text-primary/80 transition-colors z-10">
             <svg
               className="w-5 h-5"
               fill="none"
@@ -406,161 +400,105 @@ export function HomeClient({ lessons }: HomeClientProps) {
                 d="M14 5l7 7m0 0l-7 7m7-7H3"
               />
             </svg>
-            {hero?.ctaLabel ?? "Study Now"}
+            {dueCount > 0 ? "Start Review" : "Browse Decks"}
           </div>
-
-          {/* Big background character — only for Japanese text, aria-hidden */}
+          {/* Decorative background character */}
           {hero?.displayChar && (
-            <>
-              <div
-                className="absolute right-0 top-1/2 -translate-y-1/2 font-japanese-display text-[220px] md:text-[340px] leading-none text-surface-low font-bold pointer-events-none select-none z-0 transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                aria-hidden
-              >
-                {hero.displayChar}
-              </div>
-              <div
-                className="hidden lg:block absolute right-[10%] top-1/2 -translate-y-[45%] font-japanese-display text-[180px] leading-none text-primary font-bold pointer-events-none select-none z-10"
-                aria-hidden
-              >
-                {hero.displayChar}
-              </div>
-            </>
+            <div
+              className="absolute right-4 bottom-0 font-japanese-display text-[180px] leading-none text-surface-low font-bold pointer-events-none select-none z-0 group-hover:scale-105 transition-transform duration-700 ease-out"
+              aria-hidden
+            >
+              {hero.displayChar}
+            </div>
           )}
         </Link>
+      </div>
 
-        {/* Right: Daily Goal + Streak + 7-day activity */}
-        <div className="lg:col-span-4 bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col gap-6 relative overflow-hidden">
-          {/* Goal ring + streak count */}
-          <div className="flex items-start justify-between">
-            <div className="flex flex-col items-center gap-1.5">
-              <p className="text-secondary text-[10px] uppercase font-bold tracking-[0.2em]">
-                Daily Goal
-              </p>
-              <DailyGoalRing
-                reviewed={todayReviewed}
-                goal={dailyGoal}
-                loaded={loaded}
-              />
-              <p className="text-[10px] text-secondary h-4">
-                {loaded
-                  ? todayReviewed >= dailyGoal
-                    ? "Goal reached!"
-                    : "cards today"
-                  : ""}
-              </p>
-            </div>
-
-            <div className="text-right">
-              <p className="text-secondary text-[10px] uppercase font-bold tracking-[0.2em] mb-2">
-                Streak
-              </p>
-              {loaded ? (
-                <h3 className="font-display text-4xl font-extrabold text-foreground">
-                  {streakDays}
-                  <span className="text-xl font-semibold text-secondary ml-1">
-                    d
-                  </span>
-                </h3>
-              ) : (
-                <div className="h-10 w-20 rounded-lg bg-outline-variant/20 animate-pulse" />
-              )}
-              <div
-                className="w-10 h-10 mt-3 rounded-xl btn-primary-gradient flex items-center justify-center text-white shadow-lg ml-auto"
-                aria-hidden
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          {/* 7-day activity bars — real data, no hardcoded values */}
-          <div className="rounded-xl bg-surface-low p-4 border border-outline-variant/20">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-on-surface-variant">
-                7-Day Activity
+      {/* 7-Day Activity */}
+      <div className="bg-surface-lowest rounded-[2rem] p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+        <div className="rounded-xl bg-surface-low p-4 border border-outline-variant/20">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-on-surface-variant">
+              7-Day Activity
+            </span>
+            {loaded && (
+              <span className="text-[10px] text-secondary">
+                {weeklyReviewed} cards this week
               </span>
-              {loaded && (
-                <span className="text-[10px] text-secondary">
-                  {weeklyReviewed} cards this week
-                </span>
-              )}
-            </div>
-            {loaded && sevenDayActivity.length > 0 ? (
-              <div className="flex items-end gap-1" style={{ height: "44px" }}>
-                {sevenDayActivity.map((day, i) => {
-                  const barPct =
-                    day.reviewed > 0
-                      ? Math.max((day.reviewed / maxActivity) * 100, 18)
-                      : 0;
-                  return (
-                    <div
-                      key={i}
-                      className="flex-1 flex flex-col items-center gap-1"
-                    >
-                      <div
-                        className="w-full flex items-end justify-center"
-                        style={{ height: "32px" }}
-                      >
-                        <div
-                          className={`w-full rounded-sm transition-all duration-500 ${
-                            day.isToday
-                              ? "bg-primary"
-                              : day.reviewed > 0
-                              ? "bg-primary/40"
-                              : "bg-outline-variant/30"
-                          }`}
-                          style={{
-                            height:
-                              day.reviewed > 0 ? `${barPct}%` : "3px",
-                          }}
-                          title={`${day.label}: ${day.reviewed} card${day.reviewed !== 1 ? "s" : ""}`}
-                        />
-                      </div>
-                      <span
-                        className={`text-[8px] font-bold leading-none ${
-                          day.isToday ? "text-primary" : "text-secondary/50"
-                        }`}
-                      >
-                        {day.label}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : loaded ? (
-              <p className="text-xs text-secondary py-2 text-center">
-                No activity yet this week.
-              </p>
-            ) : (
-              <div
-                className="flex items-end gap-1"
-                style={{ height: "44px" }}
-                aria-hidden
-              >
-                {Array.from({ length: 7 }).map((_, i) => (
+            )}
+          </div>
+          {loaded && sevenDayActivity.length > 0 ? (
+            <div className="flex items-end gap-1" style={{ height: "44px" }}>
+              {sevenDayActivity.map((day, i) => {
+                const barPct =
+                  day.reviewed > 0
+                    ? Math.max((day.reviewed / maxActivity) * 100, 18)
+                    : 0;
+                return (
                   <div
                     key={i}
-                    className="flex-1 h-5 rounded-sm bg-outline-variant/20 animate-pulse"
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-
-          <p className="text-sm text-secondary font-medium leading-relaxed">
-            {loaded ? (
-              weeklyMinutes > 0 ? (
-                `${weeklyMinutes} min focused this week. Keep it up.`
-              ) : (
-                "No sessions recorded this week yet."
-              )
-            ) : (
-              <span className="inline-block h-3 w-44 rounded bg-outline-variant/20 animate-pulse" />
-            )}
-          </p>
+                    className="flex-1 flex flex-col items-center gap-1"
+                  >
+                    <div
+                      className="w-full flex items-end justify-center"
+                      style={{ height: "32px" }}
+                    >
+                      <div
+                        className={`w-full rounded-sm transition-all duration-500 ${
+                          day.isToday
+                            ? "bg-primary"
+                            : day.reviewed > 0
+                            ? "bg-primary/40"
+                            : "bg-outline-variant/30"
+                        }`}
+                        style={{
+                          height:
+                            day.reviewed > 0 ? `${barPct}%` : "3px",
+                        }}
+                        title={`${day.label}: ${day.reviewed} card${day.reviewed !== 1 ? "s" : ""}`}
+                      />
+                    </div>
+                    <span
+                      className={`text-[8px] font-bold leading-none ${
+                        day.isToday ? "text-primary" : "text-secondary/50"
+                      }`}
+                    >
+                      {day.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ) : loaded ? (
+            <p className="text-xs text-secondary py-2 text-center">
+              No activity yet this week.
+            </p>
+          ) : (
+            <div
+              className="flex items-end gap-1"
+              style={{ height: "44px" }}
+              aria-hidden
+            >
+              {Array.from({ length: 7 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex-1 h-5 rounded-sm bg-outline-variant/20 animate-pulse"
+                />
+              ))}
+            </div>
+          )}
         </div>
+        <p className="text-sm text-secondary font-medium leading-relaxed mt-4">
+          {loaded ? (
+            weeklyMinutes > 0 ? (
+              `${weeklyMinutes} min focused this week. Keep it up.`
+            ) : (
+              "No sessions recorded this week yet."
+            )
+          ) : (
+            <span className="inline-block h-3 w-44 rounded bg-outline-variant/20 animate-pulse" />
+          )}
+        </p>
       </div>
 
       {/* Quick Start section */}
@@ -639,15 +577,6 @@ export function HomeClient({ lessons }: HomeClientProps) {
                 : "Open lesson deck"
             }
           >
-            {/* Due count badge — only when there are due cards */}
-            {loaded && dueCount > 0 && (
-              <span
-                className="absolute right-4 top-4 flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-primary px-1.5 text-xs font-bold text-white shadow-sm z-10"
-                aria-label={`${dueCount} cards due`}
-              >
-                {dueCount}
-              </span>
-            )}
             <div className="w-[40%] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center p-8 relative overflow-hidden">
               <span
                 className="font-japanese-display text-8xl text-primary/20 group-hover:scale-110 transition-transform duration-500"
@@ -694,87 +623,6 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </div>
       </section>
 
-      {/* Stats Row */}
-      <section
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 pt-4"
-        aria-label="Study statistics"
-      >
-        <div className="bg-surface-lowest rounded-[1.5rem] p-6 shadow-sm flex items-center justify-center gap-6">
-          <div
-            className="w-12 h-12 rounded-full bg-surface-low border border-outline-variant/30 flex items-center justify-center text-secondary shrink-0"
-            aria-hidden
-          >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z" />
-              <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-[9px] uppercase font-bold tracking-[0.15em] text-secondary mb-1">
-              Focus Time
-            </p>
-            {loaded ? (
-              <p className="font-display text-2xl font-bold text-foreground">
-                {weeklyMinutes}{" "}
-                <span className="text-secondary text-sm font-normal">
-                  min / wk
-                </span>
-              </p>
-            ) : (
-              <div className="h-7 w-20 rounded bg-outline-variant/20 animate-pulse" />
-            )}
-          </div>
-        </div>
-
-        <div className="bg-surface-lowest rounded-[1.5rem] p-6 shadow-sm flex items-center justify-center gap-6">
-          <div
-            className="w-12 h-12 rounded-full bg-surface-low border border-outline-variant/30 flex items-center justify-center text-secondary shrink-0"
-            aria-hidden
-          >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-.95zM21 19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05v11.45z" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-[9px] uppercase font-bold tracking-[0.15em] text-secondary mb-1">
-              Cards Mastered
-            </p>
-            {loaded ? (
-              <p className="font-display text-2xl font-bold text-foreground">
-                {cardsMastered}{" "}
-                <span className="text-secondary text-sm font-normal">
-                  / {totalCards}
-                </span>
-              </p>
-            ) : (
-              <div className="h-7 w-24 rounded bg-outline-variant/20 animate-pulse" />
-            )}
-          </div>
-        </div>
-
-        <div className="bg-surface-lowest rounded-[1.5rem] p-6 shadow-sm flex items-center justify-center gap-6">
-          <div
-            className="w-12 h-12 rounded-full bg-surface-low border border-outline-variant/30 flex items-center justify-center text-secondary shrink-0"
-            aria-hidden
-          >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-[9px] uppercase font-bold tracking-[0.15em] text-secondary mb-1">
-              Mastery Rate
-            </p>
-            {loaded ? (
-              <p className="font-display text-2xl font-bold text-foreground">
-                {masteryRate}%
-              </p>
-            ) : (
-              <div className="h-7 w-16 rounded bg-outline-variant/20 animate-pulse" />
-            )}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

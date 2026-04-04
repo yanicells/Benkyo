@@ -166,7 +166,7 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
     : `${global.percent}%`;
 
   return (
-    <div className="flex flex-col gap-8 lg:gap-10 max-w-7xl mx-auto w-full pb-16">
+    <div className="flex flex-col gap-8 lg:gap-10 w-full pb-16">
       {/* Editorial Dashboard Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
 
@@ -258,7 +258,7 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
             <p className="text-sm text-secondary leading-relaxed max-w-sm mb-6">
               Across all lessons and card types. A card is mastered when its review interval reaches 21+ days.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <div className="flex items-baseline gap-1.5">
                 <span className="font-display text-3xl font-extrabold text-foreground">
                   {globalLabel}
@@ -310,7 +310,7 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
                 return (
                   <div
                     key={lesson.id}
-                    className={`flex-1 bg-surface-low rounded-xl p-3 flex flex-col items-center justify-center border-b-2 ${colors[i]} ${opacities[i]}`}
+                    className={`flex-1 min-w-0 bg-surface-low rounded-xl p-2 sm:p-3 flex flex-col items-center justify-center border-b-2 ${colors[i]} ${opacities[i]}`}
                   >
                     <span className="text-[9px] font-bold text-foreground uppercase mb-1 tracking-wider truncate w-full text-center">
                       {lesson.title.replace("Lesson ", "L").replace(":.*", "").split(":")[0]}

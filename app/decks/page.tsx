@@ -11,6 +11,7 @@ export default function DecksPage() {
       eyebrow="CURRICULUM OVERVIEW"
       title="Mastery Journey"
       subtitle="Your path to Japanese fluency, structured through editorial precision and meditative focus. Progress through the foundations to reach N1 mastery."
+      stickyHeader
     >
       <LessonDeckGrid lessons={lessons} />
     </PageShell>
