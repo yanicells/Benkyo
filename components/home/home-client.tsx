@@ -280,8 +280,6 @@ export function HomeClient({ lessons }: HomeClientProps) {
   const weeklyMinutes = data?.weeklyMinutes ?? 0;
   const weeklyReviewed = data?.weeklyReviewed ?? 0;
   const sevenDayActivity = data?.sevenDayActivity ?? [];
-  const quickStartId = data?.quickStartId ?? lessons[0]?.id ?? "";
-  const hero = data?.hero;
 
   const maxActivity = Math.max(
     ...sevenDayActivity.map((d) => d.reviewed),
@@ -289,13 +287,13 @@ export function HomeClient({ lessons }: HomeClientProps) {
   );
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-8 lg:py-12 w-full flex flex-col gap-10 lg:gap-14">
+    <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-8 lg:py-12 w-full flex flex-col gap-6 md:gap-10 lg:gap-14">
       {/* Page Header — English text uses display font; Japanese word uses Japanese display font */}
       <header>
         <p className="text-secondary text-xs uppercase tracking-[0.2em] font-bold mb-3">
           Okaeri, Scholar
         </p>
-        <h1 className="font-display font-extrabold text-5xl lg:text-[4rem] text-foreground leading-none tracking-tight">
+        <h1 className="font-display font-extrabold text-4xl md:text-5xl lg:text-[4rem] text-foreground leading-none tracking-tight">
           Let&apos;s Study{" "}
           <span className="font-japanese-display italic font-light text-primary">
             日本語
@@ -304,38 +302,38 @@ export function HomeClient({ lessons }: HomeClientProps) {
       </header>
 
       {/* Compact Status Strip */}
-      <div className="bg-surface-lowest rounded-[2rem] p-5 lg:p-6 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
+      <div className="bg-surface-lowest rounded-[2rem] px-4 py-3 md:p-5 lg:p-6 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+        <div className="flex items-center justify-between">
           {/* Streak */}
-          <div className="flex items-center gap-3 md:flex-1 md:justify-center">
+          <div className="flex items-center gap-2 md:gap-3 flex-1 justify-center">
             <div
-              className="w-8 h-8 rounded-lg btn-primary-gradient flex items-center justify-center text-white shrink-0"
+              className="w-7 h-7 md:w-8 md:h-8 rounded-lg btn-primary-gradient flex items-center justify-center text-white shrink-0"
               aria-hidden
             >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
               </svg>
             </div>
             {loaded ? (
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-display text-2xl font-extrabold text-foreground leading-none">
+              <div className="flex items-baseline gap-1">
+                <span className="font-display text-lg md:text-2xl font-extrabold text-foreground leading-none">
                   {streakDays}
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary">
+                <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary hidden xs:inline">
                   day streak
                 </span>
               </div>
             ) : (
-              <div className="h-6 w-24 rounded bg-outline-variant/20 animate-pulse" />
+              <div className="h-5 w-10 rounded bg-outline-variant/20 animate-pulse" />
             )}
           </div>
 
           {/* Divider */}
-          <div className="border-t md:border-t-0 md:border-l border-outline-variant/20 md:h-10 md:mx-0" />
+          <div className="border-l border-outline-variant/20 h-8 md:h-10" />
 
           {/* Daily Goal */}
-          <div className="flex items-center gap-3 md:flex-1 md:justify-center">
-            <div className="scale-[0.65] origin-center -m-2">
+          <div className="flex items-center gap-2 md:gap-3 flex-1 justify-center">
+            <div className="scale-[0.55] md:scale-[0.65] origin-center -m-3 md:-m-2">
               <DailyGoalRing
                 reviewed={todayReviewed}
                 goal={dailyGoal}
@@ -343,39 +341,39 @@ export function HomeClient({ lessons }: HomeClientProps) {
               />
             </div>
             {loaded ? (
-              <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary">
-                {todayReviewed}/{dailyGoal} today
+              <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary">
+                {todayReviewed}/{dailyGoal}
               </span>
             ) : (
-              <div className="h-4 w-16 rounded bg-outline-variant/20 animate-pulse" />
+              <div className="h-4 w-10 rounded bg-outline-variant/20 animate-pulse" />
             )}
           </div>
 
           {/* Divider */}
-          <div className="border-t md:border-t-0 md:border-l border-outline-variant/20 md:h-10 md:mx-0" />
+          <div className="border-l border-outline-variant/20 h-8 md:h-10" />
 
           {/* Due Cards */}
           {dueCount > 0 ? (
             <Link
               href="/review"
-              className="flex items-center gap-3 md:flex-1 md:justify-center rounded-xl hover:bg-primary/5 transition-colors px-3 py-1.5 -mx-3 md:-my-1.5 group"
+              className="flex items-center gap-2 md:gap-3 flex-1 justify-center rounded-xl hover:bg-primary/5 transition-colors px-2 py-1.5 group"
               aria-label={`Review ${dueCount} due cards`}
             >
-              <span className="font-display text-2xl font-extrabold text-primary leading-none">
+              <span className="font-display text-lg md:text-2xl font-extrabold text-primary leading-none">
                 {dueCount}
               </span>
-              <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary group-hover:text-primary transition-colors">
-                cards due
+              <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary group-hover:text-primary transition-colors">
+                due
               </span>
             </Link>
           ) : (
-            <div className="flex items-center gap-3 md:flex-1 md:justify-center px-3 py-1.5 -mx-3">
+            <div className="flex items-center gap-2 flex-1 justify-center px-2 py-1.5">
               {loaded ? (
-                <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-secondary">
-                  All caught up!
+                <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary">
+                  Caught up!
                 </span>
               ) : (
-                <div className="h-4 w-20 rounded bg-outline-variant/20 animate-pulse" />
+                <div className="h-4 w-14 rounded bg-outline-variant/20 animate-pulse" />
               )}
             </div>
           )}
@@ -384,32 +382,32 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
       {/* Core Learning Modes */}
       <section aria-label="Start learning">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {/* Kana Practice */}
           <Link
             href="/kana"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Start kana practice session"
           >
-            <div className="h-[45%] bg-[#0a0a0c] flex items-center justify-center relative overflow-hidden">
+            <div className="w-[30%] md:w-auto md:h-[45%] bg-[#0a0a0c] flex items-center justify-center relative overflow-hidden shrink-0">
               <span
-                className="font-japanese-display text-8xl text-surface-low/30 italic group-hover:scale-110 transition-transform duration-500"
+                className="font-japanese-display text-6xl md:text-8xl text-surface-low/30 italic group-hover:scale-110 transition-transform duration-500"
                 aria-hidden
               >
                 ひ
               </span>
             </div>
-            <div className="flex-1 p-6 lg:p-8 flex flex-col">
-              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
+            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
+              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
                 FOUNDATION
               </span>
-              <h3 className="font-display font-bold text-xl text-foreground mb-2">
+              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
                 Kana Practice
               </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-4">
+              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
                 Drill hiragana &amp; katakana with instant feedback.
               </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground mt-auto">
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
                 Start Session
                 <svg
                   className="w-4 h-4 text-primary"
@@ -432,28 +430,28 @@ export function HomeClient({ lessons }: HomeClientProps) {
           {/* Lesson Decks */}
           <Link
             href="/decks"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Browse lesson decks"
           >
-            <div className="h-[45%] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative overflow-hidden">
+            <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative overflow-hidden shrink-0">
               <span
-                className="font-japanese-display text-8xl text-primary/20 group-hover:scale-110 transition-transform duration-500"
+                className="font-japanese-display text-6xl md:text-8xl text-primary/20 group-hover:scale-110 transition-transform duration-500"
                 aria-hidden
               >
                 学
               </span>
             </div>
-            <div className="flex-1 p-6 lg:p-8 flex flex-col">
-              <span className="inline-block px-2 py-1 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
+            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
+              <span className="inline-block px-2 py-1 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
                 STUDY
               </span>
-              <h3 className="font-display font-bold text-xl text-foreground mb-2">
+              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
                 Lesson Decks
               </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-4">
+              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
                 Genki vocab &amp; grammar with spaced repetition.
               </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground mt-auto">
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
                 Browse Lessons
                 <svg
                   className="w-4 h-4 text-primary"
@@ -476,28 +474,28 @@ export function HomeClient({ lessons }: HomeClientProps) {
           {/* Learning Path */}
           <Link
             href="/path"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="View learning path"
           >
-            <div className="h-[45%] bg-gradient-to-br from-[#8ef4e4]/20 to-[#2a9a8c]/10 flex items-center justify-center relative overflow-hidden">
+            <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-[#8ef4e4]/20 to-[#2a9a8c]/10 flex items-center justify-center relative overflow-hidden shrink-0">
               <span
-                className="font-japanese-display text-8xl text-[#2a9a8c]/20 group-hover:scale-110 transition-transform duration-500"
+                className="font-japanese-display text-6xl md:text-8xl text-[#2a9a8c]/20 group-hover:scale-110 transition-transform duration-500"
                 aria-hidden
               >
                 道
               </span>
             </div>
-            <div className="flex-1 p-6 lg:p-8 flex flex-col">
-              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-3">
+            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
+              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
                 GUIDED
               </span>
-              <h3 className="font-display font-bold text-xl text-foreground mb-2">
+              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
                 Learning Path
               </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-4">
+              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
                 Follow a structured path from beginner to fluent.
               </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground mt-auto">
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
                 View Path
                 <svg
                   className="w-4 h-4 text-primary"
@@ -523,7 +521,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
       {loaded && dueCount > 0 && (
         <Link
           href="/review"
-          className="group flex items-center justify-between rounded-[2rem] btn-primary-gradient px-8 py-5 text-white shadow-[0_12px_40px_rgba(0,14,33,0.12)] hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="group flex items-center justify-between rounded-[2rem] btn-primary-gradient px-5 py-4 md:px-8 md:py-5 text-white shadow-[0_12px_40px_rgba(0,14,33,0.12)] hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           aria-label={`Review ${dueCount} due cards`}
         >
           <span className="font-display font-bold text-base lg:text-lg">
