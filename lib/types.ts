@@ -21,9 +21,16 @@ export type SubDeck = {
   cards: Card[];
 };
 
+export type LessonMeta = {
+  notes: string;
+  cheatSheet: string[];
+  youtubeUrl?: string;
+};
+
 export type Lesson = {
   id: string;
   title: string;
+  meta?: LessonMeta;
   subDecks: SubDeck[];
 };
 

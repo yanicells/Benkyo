@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import type { Lesson } from "@/lib/types";
-import { getLessonMastery } from "@/lib/srs";
+import { getLessonMastery, getAllSRS, makeCardId } from "@/lib/srs";
 
 type LessonDeckGridProps = {
   lessons: Lesson[];
@@ -105,15 +105,75 @@ function LessonCard({ lesson, index }: { lesson: Lesson; index: number }) {
   );
 }
 
+function useGlobalMastery(lessons: Lesson[]) {
+  return useState(() => {
+    if (typeof window === "undefined") return { percent: 0, reviewed: 0, total: 0 };
+    const all = getAllSRS();
+    let total = 0;
+    let mastered = 0;
+    let reviewed = 0;
+    for (const lesson of lessons) {
+      for (const sd of lesson.subDecks) {
+        for (let i = 0; i < sd.cards.length; i++) {
+          total++;
+          const srs = all[makeCardId(sd.id, i)];
+          if (srs) {
+            if (srs.totalReviews > 0) reviewed++;
+            if (srs.interval >= 21) mastered++;
+          }
+        }
+      }
+    }
+    return {
+      percent: total === 0 ? 0 : Math.round((mastered / total) * 100),
+      reviewed,
+      total,
+    };
+  })[0];
+}
+
+function useGrammarMastery(lessons: Lesson[]) {
+  return useState(() => {
+    if (typeof window === "undefined") return { percent: 0, total: 0 };
+    const all = getAllSRS();
+    let total = 0;
+    let mastered = 0;
+    for (const lesson of lessons) {
+      for (const sd of lesson.subDecks) {
+        for (let i = 0; i < sd.cards.length; i++) {
+          const card = sd.cards[i];
+          if (card.type === "grammar" || card.type === "conjugation" || card.type === "fill-in") {
+            total++;
+            const srs = all[makeCardId(sd.id, i)];
+            if (srs && srs.interval >= 21) mastered++;
+          }
+        }
+      }
+    }
+    return {
+      percent: total === 0 ? 0 : Math.round((mastered / total) * 100),
+      total,
+    };
+  })[0];
+}
+
 export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
+  const global = useGlobalMastery(lessons);
+  const grammar = useGrammarMastery(lessons);
+
+  const globalLabel = global.reviewed === 0
+    ? "Not started"
+    : `${global.percent}%`;
+
   return (
-    <div className="flex flex-col gap-8 lg:gap-10 max-w-screen-xl mx-auto w-full pb-16">
-      {/* Editorial Dashboard Section - Desktop Target */}
+    <div className="flex flex-col gap-8 lg:gap-10 max-w-7xl mx-auto w-full pb-16">
+      {/* Editorial Dashboard Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+
         {/* Hiragana */}
         <Link
           href="/kana?tab=hiragana"
-          className="lg:col-span-6 bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden group flex flex-col justify-between min-h-[260px]"
+          className="lg:col-span-6 bg-surface-lowest rounded-4xl p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden group flex flex-col justify-between min-h-65"
         >
           <div className="flex justify-between items-start mb-6">
             <span className="font-japanese-display text-5xl text-surface-low opacity-60">
@@ -126,15 +186,18 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
             </div>
           </div>
           <div>
-            <h3 className="font-display text-3xl font-bold text-foreground mb-6">
+            <h3 className="font-display text-3xl font-bold text-foreground mb-4">
               Hiragana
             </h3>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">
                 46 Characters
               </span>
               <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">
                 Introductory
+              </span>
+              <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-on-surface-variant">
+                Practice →
               </span>
             </div>
           </div>
@@ -143,7 +206,7 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
         {/* Katakana */}
         <Link
           href="/kana?tab=katakana"
-          className="lg:col-span-6 bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden group flex flex-col justify-between min-h-[260px]"
+          className="lg:col-span-6 bg-surface-lowest rounded-4xl p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden group flex flex-col justify-between min-h-65"
         >
           <div className="flex justify-between items-start mb-6">
             <span className="font-japanese-display text-5xl text-surface-low opacity-60">
@@ -166,95 +229,95 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
             </div>
           </div>
           <div>
-            <h3 className="font-display text-3xl font-bold text-foreground mb-6">
+            <h3 className="font-display text-3xl font-bold text-foreground mb-4">
               Katakana
             </h3>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">
                 46 Characters
               </span>
               <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">
                 Loanwords
               </span>
+              <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-on-surface-variant">
+                Practice →
+              </span>
             </div>
           </div>
         </Link>
 
-        {/* Kanji Mastery (Full width) */}
-        <div className="lg:col-span-12 bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col lg:flex-row gap-10 items-center">
+        {/* Kanji / Vocabulary Mastery (Full width) */}
+        <div className="lg:col-span-12 bg-surface-lowest rounded-4xl p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col lg:flex-row gap-10 items-center">
           <div className="lg:w-[40%] text-left w-full">
             <span className="font-japanese-display text-6xl text-surface-low opacity-60 mb-2 inline-block">
               語
             </span>
             <h3 className="font-display text-3xl font-bold text-foreground mb-4">
-              Kanji Mastery
+              Vocabulary Mastery
             </h3>
             <p className="text-sm text-secondary leading-relaxed max-w-sm mb-6">
-              Levels N5 through N1. From basic pictograms to complex academic
-              discourse.
+              Across all lessons and card types. A card is mastered when its review interval reaches 21+ days.
             </p>
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#8ef4e4] rounded-lg text-[#2a9a8c] text-xs font-bold uppercase tracking-wider transition hover:opacity-80">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
-              KANJI ROADMAP
-            </button>
+            <div className="flex items-center gap-3">
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-display text-3xl font-extrabold text-foreground">
+                  {globalLabel}
+                </span>
+                {global.reviewed > 0 && (
+                  <span className="text-xs text-secondary">mastered</span>
+                )}
+              </div>
+              {global.reviewed > 0 && (
+                <span className="text-xs text-on-surface-variant">
+                  {global.reviewed} of {global.total} cards studied
+                </span>
+              )}
+            </div>
+            {global.reviewed === 0 && (
+              <p className="mt-2 text-xs text-on-surface-variant">
+                Start any lesson below to begin tracking progress.
+              </p>
+            )}
           </div>
 
           <div className="lg:w-[60%] w-full flex flex-col justify-center">
-            <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-8">
-              <span>Global Progress</span>
-              <span className="text-2xl text-foreground font-display font-extrabold tracking-normal">
-                —
+            <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-4">
+              <span>Overall Progress</span>
+              <span className="text-xl text-foreground font-display font-extrabold tracking-normal">
+                {global.reviewed === 0 ? "—" : `${global.percent}%`}
               </span>
             </div>
 
+            {/* Global mastery bar */}
+            <div className="h-2 rounded-full bg-secondary-container mb-8">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-700"
+                style={{ width: `${global.percent}%` }}
+              />
+            </div>
+
+            {/* Per-lesson mastery mini bars */}
             <div className="flex gap-2 w-full">
-              {/* N5 */}
-              <div className="flex-1 bg-surface-low rounded-xl p-4 flex flex-col items-center justify-center border-b-2 border-primary/40">
-                <span className="text-[10px] font-bold text-foreground uppercase mb-1 tracking-wider">
-                  N5
-                </span>
-                <span className="font-display text-lg font-bold text-on-surface-variant">
-                  —
-                </span>
-              </div>
-              {/* N4 */}
-              <div className="flex-1 bg-surface-low rounded-xl p-4 flex flex-col items-center justify-center border-b-2 border-primary/40">
-                <span className="text-[10px] font-bold text-foreground uppercase mb-1 tracking-wider">
-                  N4
-                </span>
-                <span className="font-display text-lg font-bold text-on-surface-variant">
-                  —
-                </span>
-              </div>
-              {/* N3 */}
-              <div className="flex-1 bg-surface rounded-xl p-4 flex flex-col items-center justify-center opacity-50">
-                <span className="text-[10px] font-bold text-secondary uppercase mb-1 tracking-wider">
-                  N3
-                </span>
-                <span className="font-display text-lg font-bold text-on-surface-variant">
-                  —
-                </span>
-              </div>
-              {/* N2 */}
-              <div className="flex-1 bg-surface rounded-xl p-4 flex flex-col items-center justify-center opacity-50">
-                <span className="text-[10px] font-bold text-secondary uppercase mb-1 tracking-wider">
-                  N2
-                </span>
-                <span className="font-display text-lg font-bold text-on-surface-variant">
-                  —
-                </span>
-              </div>
-              {/* N1 */}
-              <div className="flex-1 bg-surface rounded-xl p-4 flex flex-col items-center justify-center opacity-50">
-                <span className="text-[10px] font-bold text-secondary uppercase mb-1 tracking-wider">
-                  N1
-                </span>
-                <span className="font-display text-lg font-bold text-on-surface-variant">
-                  —
-                </span>
-              </div>
+              {lessons.slice(0, 5).map((lesson, i) => {
+                const colors = [
+                  "border-primary/60",
+                  "border-primary/50",
+                  "border-secondary/40",
+                  "border-secondary/30",
+                  "border-outline-variant/30",
+                ];
+                const opacities = ["", "", "opacity-70", "opacity-50", "opacity-40"];
+                return (
+                  <div
+                    key={lesson.id}
+                    className={`flex-1 bg-surface-low rounded-xl p-3 flex flex-col items-center justify-center border-b-2 ${colors[i]} ${opacities[i]}`}
+                  >
+                    <span className="text-[9px] font-bold text-foreground uppercase mb-1 tracking-wider truncate w-full text-center">
+                      {lesson.title.replace("Lesson ", "L").replace(":.*", "").split(":")[0]}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -262,9 +325,9 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
         {/* Grammar Block */}
         <Link
           href="/decks"
-          className="lg:col-span-4 bg-surface-lowest rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden group flex flex-col justify-between"
+          className="lg:col-span-4 bg-surface-lowest rounded-4xl p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden group flex flex-col justify-between"
         >
-          <div className="flex justify-between items-start mb-12">
+          <div className="flex justify-between items-start mb-8">
             <span className="font-japanese-display text-5xl text-surface-low opacity-60">
               文
             </span>
@@ -275,10 +338,31 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
             </div>
           </div>
           <div>
-            <h3 className="font-display text-3xl font-bold text-foreground mb-8">
+            <h3 className="font-display text-3xl font-bold text-foreground mb-3">
               Grammar
             </h3>
-            <div className="flex gap-2">
+            {grammar.total > 0 ? (
+              <div className="mb-4">
+                <div className="flex items-center justify-between text-[9px] uppercase tracking-wider font-bold text-secondary mb-1.5">
+                  <span>Mastery</span>
+                  <span className="text-foreground">{grammar.percent}%</span>
+                </div>
+                <div className="h-1 rounded-sm bg-secondary-container">
+                  <div
+                    className="h-full rounded-sm bg-primary transition-all duration-500"
+                    style={{ width: `${grammar.percent}%` }}
+                  />
+                </div>
+                <p className="mt-2 text-[10px] text-on-surface-variant">
+                  {grammar.total} grammar, conjugation & fill-in cards
+                </p>
+              </div>
+            ) : (
+              <p className="text-xs text-on-surface-variant mb-4">
+                No grammar cards studied yet.
+              </p>
+            )}
+            <div className="flex gap-2 flex-wrap">
               <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[9px] font-semibold text-secondary uppercase tracking-wider">
                 Particles
               </span>
@@ -289,16 +373,39 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
           </div>
         </Link>
 
-        {/* Aesthetic Block */}
-        <div className="lg:col-span-8 bg-[#0a0a0c] rounded-[2rem] p-8 lg:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)] relative overflow-hidden group flex flex-col justify-end min-h-[300px]">
+        {/* Decorative Quote Block — CSS-only, no external image */}
+        <div className="lg:col-span-8 rounded-4xl p-8 lg:p-10 relative overflow-hidden group flex flex-col justify-end min-h-75"
+          style={{
+            background: "linear-gradient(135deg, #0a0a0c 0%, #0f1923 40%, #0d1f2d 70%, #0a0a0c 100%)",
+          }}
+        >
+          {/* Geometric texture overlay */}
           <div
-            className="absolute inset-0 bg-cover bg-center mix-blend-lighten opacity-40 group-hover:scale-105 transition-transform duration-1000"
+            className="absolute inset-0 opacity-[0.04]"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1542051812871-757511640185?q=80&w=1200&auto=format&fit=crop')",
+              backgroundImage: `repeating-linear-gradient(
+                45deg,
+                #fff 0px,
+                #fff 1px,
+                transparent 1px,
+                transparent 40px
+              ), repeating-linear-gradient(
+                -45deg,
+                #fff 0px,
+                #fff 1px,
+                transparent 1px,
+                transparent 40px
+              )`,
             }}
-          ></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          />
+          {/* Radial glow */}
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              background: "radial-gradient(ellipse at 30% 60%, rgba(142,244,228,0.3) 0%, transparent 60%)",
+            }}
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
 
           <div className="relative z-10">
             <h4 className="font-japanese-display text-3xl md:text-5xl text-white/90 mb-3 drop-shadow-lg italic font-light">
@@ -311,7 +418,7 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
         </div>
       </section>
 
-      {/* Structured Modules (Original Loop mapped cleanly) */}
+      {/* Structured Modules */}
       <section className="mt-10">
         <h3 className="font-display text-xl font-bold text-foreground mb-6 flex items-center gap-2">
           Available Modules

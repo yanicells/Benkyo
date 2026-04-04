@@ -15,6 +15,18 @@
     {
       "id": "writing-system",
       "title": "Japanese Writing System",
+      "meta": {
+        "notes": "Japanese uses three scripts: Hiragana (native words), Katakana (foreign words), and Kanji (Chinese-origin characters). Hiragana and Katakana each have 46 base characters. Master pronunciation rules before moving on — long vowels, double consonants, and pitch accent are commonly overlooked early.",
+        "cheatSheet": [
+          "Hiragana: native Japanese words and grammar particles",
+          "Katakana: foreign loanwords, emphasis, onomatopoeia",
+          "Kanji: Chinese-origin characters with multiple readings (on-yomi & kun-yomi)",
+          "っ (small tsu) = double the next consonant (e.g. きって = kit-te)",
+          "Long vowels: aa, ii, uu, ei, ou — hold twice as long",
+          "ん (n) sounds like 'm' before b/m/p, 'ng' before k/g"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/6p9Il_j0zjc"
+      },
       "subDecks": [
         {
           "id": "pronunciation-rules",
@@ -180,6 +192,18 @@
     {
       "id": "greetings",
       "title": "Greetings & Expressions",
+      "meta": {
+        "notes": "Japanese greetings are highly context-dependent — time of day, social setting, and your relationship with the person all shape which form to use. Formal and informal registers differ significantly. Learn the situations first, then the words.",
+        "cheatSheet": [
+          "おはようございます (ohayou gozaimasu) = Good morning (formal)",
+          "こんにちは (konnichiwa) = Hello / Good afternoon",
+          "こんばんは (konbanwa) = Good evening",
+          "ありがとうございます (arigatou gozaimasu) = Thank you (formal)",
+          "すみません (sumimasen) = Excuse me / I'm sorry",
+          "よろしくおねがいします = Nice to meet you / Please treat me well"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/MoFrhiMHpM4"
+      },
       "subDecks": [
         {
           "id": "greetings-basic",
@@ -370,6 +394,18 @@
     {
       "id": "numbers",
       "title": "Numbers",
+      "meta": {
+        "notes": "Japanese counting uses native Japanese numbers (ひとつ、ふたつ…) for objects 1–10 and Sino-Japanese numbers (いち、に、さん…) for most other contexts. Large numbers group by 万 (10,000) rather than 1,000 — this trips up most beginners.",
+        "cheatSheet": [
+          "0–10: ぜろ、いち、に、さん、し/よん、ご、ろく、なな/しち、はち、く/きゅう、じゅう",
+          "100 = ひゃく, 1,000 = せん, 10,000 = いちまん",
+          "Japanese groups large numbers by 万 (10,000), not 1,000",
+          "Counter suffixes: ~枚 (flat things), ~本 (long thin things), ~冊 (books)",
+          "Age uses ~歳 (さい): にじゅっさい = 20 years old",
+          "Price: えん (円) — 300円 = さんびゃくえん"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/VUAmrmSMPAA"
+      },
       "subDecks": [
         {
           "id": "numbers-basic",
@@ -594,6 +630,18 @@
     {
       "id": "lesson-1",
       "title": "Lesson 1: New Friends",
+      "meta": {
+        "notes": "This lesson introduces self-introduction vocabulary and the basic sentence structure of Japanese. Key pattern: [Noun] は [Noun] です (X is Y). Japanese does not conjugate verbs for person — です works for all subjects.",
+        "cheatSheet": [
+          "は (wa) = topic marker — marks what you're talking about",
+          "です (desu) = is/am/are — polite sentence ender",
+          "わたし (watashi) = I, ぼく (boku) = I (male, casual)",
+          "〜じん (jin) = nationality: アメリカじん = American",
+          "〜ご (go) = language: にほんご = Japanese language",
+          "せんこう (senko) = major/field of study"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/y00DJEYOeQ8"
+      },
       "subDecks": [
         {
           "id": "lesson-1-vocab",
@@ -995,6 +1043,18 @@
     {
       "id": "lesson-2",
       "title": "Lesson 2: Shopping",
+      "meta": {
+        "notes": "Shopping vocabulary and the これ/それ/あれ system for pointing at things. Also covers asking for prices and using the question particle か. Japanese questions use the same word order as statements — just add か at the end.",
+        "cheatSheet": [
+          "これ = this (near me), それ = that (near you), あれ = that over there",
+          "〜をください = Please give me ~ / I'll take ~",
+          "いくらですか = How much is it?",
+          "か (ka) = question particle — attach to end of any statement",
+          "〜円 (en) = yen — always attach to the number",
+          "どれ = which one? どこ = where?"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/2fKV-l1l7B4"
+      },
       "subDecks": [
         {
           "id": "lesson-2-vocab",
@@ -1432,6 +1492,18 @@
     {
       "id": "lesson-3",
       "title": "Lesson 3: Making a Date",
+      "meta": {
+        "notes": "Covers verb conjugation into て-form, making invitations, and telling time. て-form is one of the most versatile verb forms in Japanese — it connects actions, makes requests (〜てください), and forms the progressive (〜ています). Learn the て-form rules early.",
+        "cheatSheet": [
+          "て-form: Group 1 verbs follow consonant rules (く→いて, ぐ→いで, す→して...)",
+          "〜ませんか = Won't you ~? / Would you like to ~? (invitation)",
+          "〜ましょう = Let's ~ (suggestion)",
+          "時 (ji) = o'clock, 分 (fun/pun) = minute",
+          "前 (mae) = before/ago, 後 (go) = after/later",
+          "いつ = when? 何時 (nanji) = what time?"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/Fg-YOJgMbsI"
+      },
       "subDecks": [
         {
           "id": "lesson-3-vocab",
@@ -2133,6 +2205,18 @@
     {
       "id": "lesson-4",
       "title": "Lesson 4: The First Date",
+      "meta": {
+        "notes": "Focuses on describing locations, giving directions, and using the particle に for destination. Also introduces adjective conjugation (い-adj vs な-adj). These two adjective types behave very differently — especially in past tense and negative forms.",
+        "cheatSheet": [
+          "に (ni) = direction/destination marker: がっこうに行く = go to school",
+          "で (de) = location of action: としょかんで読む = read at the library",
+          "い-adj negative: たかい → たかくない (not expensive)",
+          "な-adj negative: しずかな → しずかじゃない (not quiet)",
+          "い-adj past: たかい → たかかった (was expensive)",
+          "Location words: 上 (ue), 下 (shita), 右 (migi), 左 (hidari), 中 (naka)"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/F27okQQZ6J0"
+      },
       "subDecks": [
         {
           "id": "lesson-4-vocab",
@@ -2770,6 +2854,18 @@
     {
       "id": "lesson-5",
       "title": "Lesson 5: A Trip to Okinawa",
+      "meta": {
+        "notes": "Covers past-tense verbs, adjective conjugation in past tense, and travel vocabulary. This lesson also introduces the て-form for connecting sequential actions (verb て verb). Focus on how plain past forms differ between verb groups.",
+        "cheatSheet": [
+          "Past tense (polite): 〜ました (affirmative), 〜ませんでした (negative)",
+          "い-adj past: おもしろい → おもしろかった (was interesting)",
+          "な-adj past: きれいな → きれいだった (was pretty)",
+          "〜てから = after doing ~: 食べてから行く = go after eating",
+          "〜たい = want to ~: 行きたい = want to go",
+          "もう = already, まだ = not yet, また = again"
+        ],
+        "youtubeUrl": "https://www.youtube.com/embed/AzAdOqnJ4nk"
+      },
       "subDecks": [
         {
           "id": "lesson-5-vocab",

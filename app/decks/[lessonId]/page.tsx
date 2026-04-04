@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import lessonsData from "@/data/lessons.json";
 import { PageShell } from "@/components/shared/page-shell";
 import { SubDeckGrid } from "@/components/decks/sub-deck-grid";
+import { LessonPreStudy } from "@/components/decks/lesson-pre-study";
 import type { LessonsData } from "@/lib/types";
 
 type SubDeckListPageProps = {
@@ -29,9 +30,11 @@ export default async function SubDeckListPage({
     <PageShell
       eyebrow="Lesson"
       title={lesson.title}
-      subtitle={`${lesson.subDecks.length} sub-decks with ${totalCards} cards total. Choose a sub-deck or study all.`}
-
+      subtitle={`${lesson.subDecks.length} sub-decks · ${totalCards} cards total`}
     >
+      {lesson.meta && (
+        <LessonPreStudy meta={lesson.meta} />
+      )}
       <SubDeckGrid lesson={lesson} />
     </PageShell>
   );

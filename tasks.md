@@ -20,11 +20,11 @@ Use it as source material for future planning.
 
 ### Decks page
 
-- [ ] Replace static Hiragana and Katakana progress values (percentages and bars) with real progress data.
-- [ ] Replace static Kanji mastery values (global percent and N-level bars) with real progression data or an explicit preview state.
-- [ ] Replace static Grammar progress values with real lesson-based progress.
-- [ ] Remove or replace decorative recommendation badges that imply ranking logic (example: "RECOMMENDED FOR YOU") unless recommendation logic exists.
-- [ ] Replace externally hosted decorative images with local assets or data-driven visuals to avoid third-party dependency and style drift.
+- [x] Replace static Hiragana and Katakana progress values (percentages and bars) with real progress data.
+- [x] Replace static Kanji mastery values (global percent and N-level bars) with real progression data or an explicit preview state.
+- [x] Replace static Grammar progress values with real lesson-based progress.
+- [x] Remove or replace decorative recommendation badges that imply ranking logic (example: "RECOMMENDED FOR YOU") unless recommendation logic exists.
+- [x] Replace externally hosted decorative images with local assets or data-driven visuals to avoid third-party dependency and style drift.
 
 ### Kana page
 
@@ -48,15 +48,15 @@ Use it as source material for future planning.
 - [x] Remove fake interactivity: icon buttons or action affordances that do not do anything should be disabled, hidden, or labeled as "coming soon".
 - [x] Reduce first-load visual jumps on landing pages (show skeleton/loading state instead of showing temporary default numbers and then swapping).
 - [x] Improve information hierarchy on Home and Decks so the primary action is obvious within 3 seconds.
-- [ ] Add a lesson pre-study landing step ("Read this first") before session start, with main notes and a concise cheat sheet so learners know what to focus on.
-- [ ] Include an optional embedded YouTube lesson guide on the lesson landing page for learners who want a quick walkthrough before drills.
+- [x] Add a lesson pre-study landing step ("Read this first") before session start, with main notes and a concise cheat sheet so learners know what to focus on.
+- [x] Include an optional embedded YouTube lesson guide on the lesson landing page for learners who want a quick walkthrough before drills.
 - [x] Ensure all major cards have clear primary actions and consistent click behavior (whole-card click vs button click should not conflict).
 - [x] Review mobile spacing and tap targets to keep controls comfortable on small screens.
 - [x] Add/verify accessible labels for icon-only controls and maintain visible keyboard focus styles.
 
 ## D) Functionality Improvements / Features
 
-- [ ] Add a progress graph powered by Mayumi cards data (daily activity, accuracy trend, and mastery trend).
+- [ ] Add a progress graph powered (daily activity, accuracy trend, and mastery trend).
 - [ ] Improve the study algorithm (Anki SM-2, better scheduling, lapse handling, and difficulty progression).
 - [ ] Add accounts + database so progress syncs across devices and sessions.
 - [ ] Improve learning flow with a guided path (Duolingo-style ladder: start here, then next lesson, then next milestone).
