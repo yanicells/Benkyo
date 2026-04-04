@@ -7,10 +7,7 @@ export default function Home() {
   const lessons = (lessonsData as unknown as LessonsData).lessons;
 
   return (
-    <PageShell
-      eyebrow="Okaeri, Scholar"
-      title="Your Path Today"
-    >
+    <PageShell>
       <HomeClient lessons={lessons} />
     </PageShell>
   );
