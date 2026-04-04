@@ -29,6 +29,10 @@ type StatsData = {
   weak: ReturnType<typeof getWeakCards>;
 };
 
+function hasJapaneseGlyphs(value: string) {
+  return /[\u3040-\u30ff\u3400-\u9fff]/.test(value);
+}
+
 export function StatsClient({ lessons }: StatsClientProps) {
   const [showSettings, setShowSettings] = useState(false);
 
@@ -108,7 +112,7 @@ export function StatsClient({ lessons }: StatsClientProps) {
 
       {/* Per-lesson breakdown */}
       <section className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.22em] text-primary">
+        <p className="font-display text-xs uppercase tracking-[0.22em] text-primary">
           Per-lesson breakdown
         </p>
         {lessons.map((lesson) => (
@@ -129,13 +133,13 @@ export function StatsClient({ lessons }: StatsClientProps) {
                 className="flex items-center justify-between gap-2 rounded-lg bg-surface-low px-3 py-2"
               >
                 <div className="min-w-0">
-                  <p className="truncate font-display text-lg text-foreground">
+                  <p className="truncate font-japanese-display text-lg text-foreground">
                     {w.card.front}
                   </p>
                   <p className="text-xs text-on-surface-variant">{w.subDeckTitle}</p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <p className="text-sm font-semibold text-primary">
+                  <p className="font-display text-sm font-semibold text-primary">
                     {w.accuracy}%
                   </p>
                   <p className="text-[10px] text-on-surface-variant">
@@ -168,6 +172,9 @@ export function StatsClient({ lessons }: StatsClientProps) {
 
 function LessonAccordion({ lesson }: { lesson: Lesson }) {
   const [open, setOpen] = useState(false);
+  const lessonTitleFont = hasJapaneseGlyphs(lesson.title)
+    ? "font-japanese-display"
+    : "font-display";
 
   return (
     <div className="rounded-lg bg-surface-lowest shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
@@ -177,12 +184,18 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
         className="flex w-full items-center justify-between p-4 text-left"
       >
         <div>
-          <h3 className="font-display text-xl text-foreground">
+          <h3 className={`${lessonTitleFont} text-xl font-semibold text-foreground`}>
             {lesson.title}
           </h3>
           <p className="text-xs text-on-surface-variant">
-            {lesson.subDecks.length} sub-decks &middot;{" "}
-            {lesson.subDecks.reduce((s, sd) => s + sd.cards.length, 0)} cards
+            <span className="font-display text-foreground">
+              {lesson.subDecks.length}
+            </span>{" "}
+            sub-decks &middot;{" "}
+            <span className="font-display text-foreground">
+              {lesson.subDecks.reduce((s, sd) => s + sd.cards.length, 0)}
+            </span>{" "}
+            cards
           </p>
         </div>
         <svg
@@ -206,6 +219,9 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
             {lesson.subDecks.map((sd) => {
               const mastery = getMasteryPercent(sd.id, sd.cards.length);
               const accuracy = getSubDeckAccuracy(sd.id, sd.cards.length);
+              const subDeckTitleFont = hasJapaneseGlyphs(sd.title)
+                ? "font-japanese-display"
+                : "font-display";
 
               return (
                 <div
@@ -213,16 +229,33 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
                   className="flex items-center justify-between gap-2 rounded-lg bg-surface-lowest px-3 py-2"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-foreground">
+                    <p
+                      className={`truncate text-sm font-medium text-foreground ${subDeckTitleFont}`}
+                    >
                       {sd.title}
                     </p>
                     <p className="text-xs text-on-surface-variant">
-                      {sd.cards.length} cards
+                      <span className="font-display text-foreground">
+                        {sd.cards.length}
+                      </span>{" "}
+                      cards
                     </p>
                   </div>
                   <div className="flex gap-3 text-xs text-on-surface-variant">
-                    <span>{mastery}% mastered</span>
-                    {accuracy > 0 && <span>{accuracy}% acc</span>}
+                    <span>
+                      <span className="font-display text-foreground">
+                        {mastery}%
+                      </span>{" "}
+                      mastered
+                    </span>
+                    {accuracy > 0 && (
+                      <span>
+                        <span className="font-display text-foreground">
+                          {accuracy}%
+                        </span>{" "}
+                        acc
+                      </span>
+                    )}
                   </div>
                 </div>
               );

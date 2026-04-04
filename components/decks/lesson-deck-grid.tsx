@@ -39,7 +39,7 @@ function LessonCard({ lesson, index }: { lesson: Lesson, index: number }) {
              {lesson.title}
            </h2>
            <p className="mt-1 text-sm text-on-surface-variant flex items-baseline gap-1">
-             <span className="font-display">{deco.kanji}</span> <span>{deco.romaji}</span>
+            <span className="font-japanese-display">{deco.kanji}</span> <span>{deco.romaji}</span>
            </p>
          </div>
 

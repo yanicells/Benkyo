@@ -85,7 +85,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </p>
         <h1 className="font-display font-extrabold text-5xl lg:text-[4rem] text-foreground leading-none tracking-tight">
           Today&apos;s{" "}
-          <span className="font-japanese-display font-normal italic font-light text-primary">
+            <span className="font-japanese-display italic font-light text-primary">
             Mindfulness.
           </span>
         </h1>

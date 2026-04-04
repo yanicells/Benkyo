@@ -112,13 +112,13 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
           className={`flex-1 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors ${script === "hiragana" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
           onClick={() => setScript("hiragana")}
         >
-          <span className="font-display text-lg">あ</span> Hiragana
+          <span className="font-japanese-display text-lg">あ</span> Hiragana
         </button>
         <button
           className={`flex-1 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors ${script === "katakana" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
           onClick={() => setScript("katakana")}
         >
-          <span className="font-display text-lg">ア</span> Katakana
+          <span className="font-japanese-display text-lg">ア</span> Katakana
         </button>
       </div>
 
@@ -199,7 +199,7 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
                   key={row.key}
                   className={`flex items-center gap-4 p-3 rounded-xl transition-colors ${checked ? "bg-surface-lowest shadow-sm" : "bg-surface-lowest/50 opacity-60"}`}
                 >
-                  <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center font-display text-lg font-bold text-primary">
+                  <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center font-japanese-display text-lg font-bold text-primary">
                     {firstKana}
                   </div>
                   <div className="flex-1">

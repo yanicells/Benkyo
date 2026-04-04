@@ -17,9 +17,6 @@ Use it as source material for future planning.
 - [ ] Replace the "Daily Kanji" hero content with real data (current due card, next review card, or a selected study focus), not fixed copy.
 - [ ] Replace static On-Yomi and Kun-Yomi values with values from the selected card.
 - [ ] Replace the hardcoded weekly streak bars with real 7-day review activity.
-- [ ] Replace static "15 MIN SESSION" and "20 MIN SESSION" labels with computed estimates or remove duration labels until real data is available.
-- [ ] Replace the static bottom stats row values (focus time, mastered count, level text) with real values or hide cards with a "not enough data yet" state.
-- [ ] Remove or relabel purely decorative labels that imply real personalization (example: "FOUNDATION", "GRAMMAR") if they are not data-driven.
 
 ### Decks page
 
@@ -41,19 +38,9 @@ Use it as source material for future planning.
 
 ## B) Font Consistency And Typography Rules
 
-### Baseline font rules
-
-- [ ] Document and enforce one typography rule set across landing pages.
-- [ ] Body copy uses body font.
-- [ ] Latin headings and numeric emphasis use display font.
-- [ ] Japanese glyph-focused text uses japanese display font.
-
 ### Current cleanup targets
 
 - [ ] Home header currently styles an English word with japanese display styling; align this with the typography system.
-- [ ] Kana setup page uses display font for kana glyph samples; switch kana glyph UI to japanese display for consistency.
-- [ ] Deck cards that show Japanese decorative strings should use japanese display where appropriate.
-- [ ] Remove conflicting font utility combinations (example: simultaneous font-light and font-normal on same element).
 
 ## C) General UX Improvements
 
