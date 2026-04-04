@@ -39,11 +39,14 @@ Old implementations (pre-overhaul) are available via `git show main:<path>` and 
 
 - Task 1: Kana dual mode (Typing + MC) — `KanaConfigForm` now has a Study Mode segmented toggle (Multiple Choice / Typing); Batch Size slider only shown in Typing mode; `mode` param passed through session URL → page → renderer → client; `KanaSessionClient` conditionally renders full typing flow (batch cards side-by-side, `TypingPracticeInput`, Tab-toggle answer key panel) or original MC flow; `scaledCards` duplication removed from session page — base cards passed for both modes; `processBatch` restored for typing mode
 
-### Remaining (Next Batches)
+### Completed: Batch 4
 
-- Task 6: Placeholder shell action labeling
-- Task 7: Session sidebar real-data + collapsible
-- Task 11: Static metric integrity pass
+- Task 7: Session sidebar real-data + collapsible — `relatedCards` useMemo filters sibling cards from same subdeck; sidebar hidden by default (`sidebarOpen` state, default `false`); "Show Context" toggle button; real `current.card.hint` used for mnemonic panel; desktop-only via `hidden lg:block`
+
+### Completed: Batch 5
+
+- Task 11: Static metric integrity — removed fake 85%/42% mastery bars from Hiragana/Katakana blocks; Kanji global bar removed, N5/N4 percentages replaced with "—"; Grammar 28% bar removed; home-client.tsx stats row wired to real SRS data (`weeklyMinutes` from `getAllDailyStats`, `cardsMastered`/`totalCards` from `getLifetimeStats`)
+- Task 6: Placeholder shell action labeling — desktop search input is `readOnly` with `cursor-not-allowed` and `title="Search coming soon"`; notification and settings buttons in desktop header marked `aria-disabled` with `opacity-50 cursor-not-allowed`; mobile settings button in `top-app-bar.tsx` similarly disabled with tooltip
 
 ---
 

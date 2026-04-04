@@ -97,13 +97,6 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
            </div>
            <div>
              <h3 className="font-display text-3xl font-bold text-foreground mb-6">Hiragana</h3>
-             <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-2">
-                <span>Mastery Progress</span>
-                <span className="text-xl text-foreground font-display font-extrabold tracking-normal">85%</span>
-             </div>
-             <div className="h-1.5 rounded-full bg-secondary-container w-full overflow-hidden mb-6">
-               <div className="h-full bg-primary" style={{width: '85%'}}></div>
-             </div>
              <div className="flex gap-2">
                 <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">46 Characters</span>
                 <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">Introductory</span>
@@ -121,13 +114,6 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
            </div>
            <div>
              <h3 className="font-display text-3xl font-bold text-foreground mb-6">Katakana</h3>
-             <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-2">
-                <span>Mastery Progress</span>
-                <span className="text-xl text-foreground font-display font-extrabold tracking-normal">42%</span>
-             </div>
-             <div className="h-1.5 rounded-full bg-secondary-container w-full overflow-hidden mb-6">
-               <div className="h-full bg-primary" style={{width: '42%'}}></div>
-             </div>
              <div className="flex gap-2">
                 <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">46 Characters</span>
                 <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[10px] font-semibold text-secondary">Loanwords</span>
@@ -150,25 +136,21 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
            </div>
            
            <div className="lg:w-[60%] w-full flex flex-col justify-center">
-              <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-2">
+              <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-8">
                 <span>Global Progress (2,136 Kanji)</span>
-                <span className="text-2xl text-foreground font-display font-extrabold tracking-normal">12%</span>
-             </div>
-             <div className="h-1.5 rounded-full bg-secondary-container w-full overflow-hidden mb-8">
-               <div className="h-full bg-primary" style={{width: '12%'}}></div>
+                <span className="text-2xl text-foreground font-display font-extrabold tracking-normal">—</span>
              </div>
              
              <div className="flex gap-2 w-full">
                 {/* N5 */}
-                <div className="flex-1 bg-surface-low rounded-xl p-4 flex flex-col items-center justify-center border-b-2 border-primary">
-                   <span className="text-[10px] font-bold text-primary uppercase mb-1 tracking-wider">N5</span>
-                   <span className="font-display text-lg font-bold text-foreground">100%</span>
+                <div className="flex-1 bg-surface-low rounded-xl p-4 flex flex-col items-center justify-center border-b-2 border-primary/40">
+                   <span className="text-[10px] font-bold text-foreground uppercase mb-1 tracking-wider">N5</span>
+                   <span className="font-display text-lg font-bold text-on-surface-variant">—</span>
                 </div>
                 {/* N4 */}
-                <div className="flex-1 bg-surface-low rounded-xl p-4 flex flex-col items-center justify-center border-b-2 border-primary/40 relative overflow-hidden">
-                   <div className="absolute left-0 bottom-0 top-0 bg-primary/5 w-1/4"></div>
-                   <span className="text-[10px] font-bold text-foreground uppercase mb-1 tracking-wider relative z-10">N4</span>
-                   <span className="font-display text-lg font-bold text-foreground relative z-10">24%</span>
+                <div className="flex-1 bg-surface-low rounded-xl p-4 flex flex-col items-center justify-center border-b-2 border-primary/40">
+                   <span className="text-[10px] font-bold text-foreground uppercase mb-1 tracking-wider">N4</span>
+                   <span className="font-display text-lg font-bold text-on-surface-variant">—</span>
                 </div>
                 {/* N3 */}
                 <div className="flex-1 bg-surface rounded-xl p-4 flex flex-col items-center justify-center opacity-50">
@@ -199,13 +181,6 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
            </div>
            <div>
              <h3 className="font-display text-3xl font-bold text-foreground mb-8">Grammar</h3>
-             <div className="flex items-end justify-between text-[10px] uppercase font-bold tracking-wider text-secondary mb-2">
-                <span>Sentence Patterns</span>
-                <span className="text-xl text-foreground font-display font-extrabold tracking-normal">28%</span>
-             </div>
-             <div className="h-1.5 rounded-full bg-secondary-container w-full overflow-hidden mb-6">
-               <div className="h-full bg-primary w-[28%]"></div>
-             </div>
              <div className="flex gap-2">
                 <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[9px] font-semibold text-secondary uppercase tracking-wider">Particles</span>
                 <span className="px-3 py-1.5 bg-surface-low rounded-lg text-[9px] font-semibold text-secondary uppercase tracking-wider">Verb Conjugation</span>

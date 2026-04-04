@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import type { Lesson } from "@/lib/types";
-import { getStreak, getLessonMastery } from "@/lib/srs";
+import { getStreak, getLessonMastery, getAllDailyStats, getLifetimeStats } from "@/lib/srs";
 
 type HomeClientProps = {
   lessons: Lesson[];
@@ -13,6 +13,9 @@ type HomeClientProps = {
 type ClientData = {
   streakDays: number;
   quickStartId: string;
+  cardsMastered: number;
+  totalCards: number;
+  weeklyMinutes: number;
 };
 
 // Choose the first lesson that has mastery < 100%, or the first lesson if all 100%
@@ -24,10 +27,24 @@ function getQuickStartLesson(lessons: Lesson[]) {
 
 function readClientData(lessons: Lesson[]): ClientData {
   const qsl = getQuickStartLesson(lessons);
+  const lifetime = getLifetimeStats(lessons);
+
+  const allDaily = getAllDailyStats();
+  const today = new Date();
+  let weeklySeconds = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    weeklySeconds += allDaily[key]?.timeSpentSeconds ?? 0;
+  }
 
   return {
     streakDays: getStreak().current,
     quickStartId: qsl?.id ?? lessons[0]?.id ?? "",
+    cardsMastered: lifetime.mastered,
+    totalCards: lifetime.totalCards,
+    weeklyMinutes: Math.round(weeklySeconds / 60),
   };
 }
 
@@ -36,6 +53,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
   const [data, setData] = useState<ClientData>({
     streakDays: 0,
     quickStartId: fallbackQuickStartId,
+    cardsMastered: 0,
+    totalCards: 0,
+    weeklyMinutes: 0,
   });
 
   useEffect(() => {
@@ -44,6 +64,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
   const streakDays = data?.streakDays ?? 0;
   const quickStartId = data?.quickStartId ?? fallbackQuickStartId;
+  const cardsMastered = data?.cardsMastered ?? 0;
+  const totalCards = data?.totalCards ?? 0;
+  const weeklyMinutes = data?.weeklyMinutes ?? 0;
   const quickStartHref = quickStartId ? `/decks/${quickStartId}` : "/decks";
 
   return (
@@ -320,8 +343,8 @@ export function HomeClient({ lessons }: HomeClientProps) {
               Focus Time
             </p>
             <p className="font-display text-2xl font-bold text-foreground">
-              12.4 Hours{" "}
-              <span className="text-secondary text-sm font-normal">/ wk</span>
+              {weeklyMinutes}{" "}
+              <span className="text-secondary text-sm font-normal">min / wk</span>
             </p>
           </div>
         </div>
@@ -334,11 +357,11 @@ export function HomeClient({ lessons }: HomeClientProps) {
           </div>
           <div>
             <p className="text-[9px] uppercase font-bold tracking-[0.15em] text-secondary mb-1">
-              Kanji Mastered
+              Cards Mastered
             </p>
             <p className="font-display text-2xl font-bold text-foreground">
-              482{" "}
-              <span className="text-secondary text-sm font-normal">/ 2000</span>
+              {cardsMastered}{" "}
+              <span className="text-secondary text-sm font-normal">/ {totalCards}</span>
             </p>
           </div>
         </div>

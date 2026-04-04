@@ -108,6 +108,7 @@ export function DeckSessionClient({
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [choiceLocked, setChoiceLocked] = useState(false);
   const [showSRSRating, setShowSRSRating] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const sessionStart = useRef(0);
   const cardStart = useRef(0);
   const totalReviewed = useRef(0);
@@ -124,6 +125,11 @@ export function DeckSessionClient({
     if (!current) return -1;
     return cards.indexOf(current.card);
   }, [current, cards]);
+
+  const relatedCards = useMemo(() => {
+    if (currentOriginalIndex < 0) return [];
+    return cards.filter((_, i) => i !== currentOriginalIndex).slice(0, 3);
+  }, [currentOriginalIndex, cards]);
 
   const promptSide = useMemo(
     () => (flip === "jp-to-en" ? "front" : "back"),
@@ -517,123 +523,101 @@ export function DeckSessionClient({
           )}
         </div>
 
-        {/* Right Column (Linked Vocab & Context) */}
-        <div className="lg:col-span-4 flex flex-col gap-4">
-          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-2">
-            Linked Vocabulary
-          </h3>
-
-          {/* Stubs derived from the mockup context */}
-          <div className="bg-[#e4f3ed] rounded-2xl p-5 flex items-center justify-between shadow-sm relative overflow-hidden group border border-[#2a9a8c]/10">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-success shadow-sm">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+        {/* Right Column — desktop only, collapsible */}
+        <div className="hidden lg:block lg:col-span-4">
+          {sidebarOpen ? (
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                  Related Cards
+                </h3>
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={3}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+                  Hide
+                </button>
               </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg group-hover:text-success transition-colors">
-                  {prompt}曜日
-                </h4>
-                <p className="text-[10px] text-on-surface-variant font-bold opacity-70">
-                  Mokuyōbi • Thursday
+
+              {relatedCards.length > 0 ? (
+                relatedCards.map((card, i) => (
+                  <div
+                    key={i}
+                    className="bg-surface-lowest rounded-2xl p-5 flex items-center gap-4 shadow-sm border border-outline-variant/5"
+                  >
+                    <span className="text-secondary text-xs font-bold w-6 shrink-0 opacity-60">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-bold text-foreground text-base truncate">
+                        {card.front}
+                      </h4>
+                      <p className="text-[10px] text-on-surface-variant truncate">
+                        {card.back}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-on-surface-variant/60 text-center py-4">
+                  No other cards in this sub-deck.
                 </p>
+              )}
+
+              <div className="bg-[#001736] rounded-2xl p-6 shadow-lg text-white mt-2 relative overflow-hidden">
+                <div className="absolute -right-4 -bottom-10 font-display text-[180px] font-bold text-white/5 pointer-events-none select-none leading-none z-0">
+                  {prompt}
+                </div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <svg
+                      className="w-4 h-4 text-[#8ef4e4]"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" />
+                    </svg>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">
+                      {current.card.hint ? "Card Hint" : "Study Tip"}
+                    </span>
+                  </div>
+                  <p className="text-sm text-white/80 leading-relaxed font-light">
+                    {current.card.hint ??
+                      "Review this card carefully. Notice patterns and connections to what you already know."}
+                  </p>
+                </div>
               </div>
-            </div>
-            <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-secondary hover:text-primary transition-colors focus:outline-none">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
-              </svg>
-            </button>
-          </div>
 
-          <div className="bg-surface-lowest rounded-2xl p-5 flex items-center justify-between shadow-sm border border-outline-variant/5">
-            <div className="flex items-center gap-4">
-              <span className="text-secondary text-xs font-bold w-6 opacity-60">
-                02
-              </span>
-              <div>
-                <h4 className="font-bold text-foreground text-lg">
-                  大{prompt}
-                </h4>
-                <p className="text-[10px] text-on-surface-variant font-bold opacity-70">
-                  Taiki • Large tree
-                </p>
-              </div>
-            </div>
-            <button className="w-8 h-8 rounded-full bg-surface-low flex items-center justify-center text-secondary hover:text-primary transition-colors focus:outline-none">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="bg-surface-lowest rounded-2xl p-5 flex items-center justify-between shadow-sm border border-outline-variant/5">
-            <div className="flex items-center gap-4">
-              <span className="text-secondary text-xs font-bold w-6 opacity-60">
-                03
-              </span>
-              <div>
-                <h4 className="font-bold text-foreground text-lg">
-                  {prompt}材
-                </h4>
-                <p className="text-[10px] text-on-surface-variant font-bold opacity-70">
-                  Mokuzai • Lumber
-                </p>
-              </div>
-            </div>
-            <button className="w-8 h-8 rounded-full bg-surface-low flex items-center justify-center text-secondary hover:text-primary transition-colors focus:outline-none">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="bg-[#001736] rounded-2xl p-6 shadow-lg text-white mt-4 relative overflow-hidden">
-            {/* Huge background kanji */}
-            <div className="absolute -right-4 -bottom-10 text-[180px] font-display font-bold text-white/5 pointer-events-none select-none leading-none z-0">
-              {prompt}
-            </div>
-
-            <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-4">
-                <svg
-                  className="w-4 h-4 text-[#8ef4e4]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
+              <div className="mt-4">
+                <Link
+                  href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
+                  className="w-full inline-flex items-center justify-center font-bold text-xs uppercase tracking-widest text-[#2a9a8c] hover:text-[#2a9a8c]/80 transition-colors py-4"
                 >
-                  <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" />
-                </svg>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">
-                  Mnemonics Tip
-                </span>
+                  Skip for now
+                </Link>
               </div>
-              <p className="text-sm text-white/80 leading-relaxed font-light mb-6">
-                Imagine the horizontal stroke as the ground and the vertical
-                stroke with its branches as a growing tree. Simple and rooted.
-              </p>
             </div>
-          </div>
-
-          {/* Action Row */}
-          <div className="mt-8">
-            <Link
-              href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
-              className="w-full inline-flex items-center justify-center font-bold text-xs uppercase tracking-widest text-[#2a9a8c] hover:text-[#2a9a8c]/80 transition-colors py-4"
+          ) : (
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-surface-lowest px-4 py-5 shadow-sm text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary hover:bg-surface transition-colors"
             >
-              Skip for now
-            </Link>
-          </div>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
+              </svg>
+              Show Context
+            </button>
+          )}
         </div>
       </div>
     </div>
