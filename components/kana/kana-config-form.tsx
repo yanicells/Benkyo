@@ -17,27 +17,6 @@ type KanaConfigFormProps = {
 
 const groupOrder: KanaGroup[] = ["basic", "dakuten", "combo"];
 
-const groupInfo: Record<
-  KanaGroup,
-  { title: string; eyebrow: string; desc: string }
-> = {
-  basic: {
-    eyebrow: "FOUNDATION",
-    title: "Basic",
-    desc: "The 46 essential characters from A to N.",
-  },
-  dakuten: {
-    eyebrow: "MODIFIED",
-    title: "Dakuten",
-    desc: "Voiced characters (Ga, Za, Da, Ba, Pa).",
-  },
-  combo: {
-    eyebrow: "COMPLEX",
-    title: "Combo",
-    desc: "Contracted sounds like Kya, Sho, Ryu.",
-  },
-};
-
 export function KanaConfigForm({
   initialScript = "hiragana",
 }: KanaConfigFormProps) {
@@ -59,6 +38,42 @@ export function KanaConfigForm({
       rows: rows.filter((row) => row.group === group),
     }));
   }, [script]);
+
+  // Script-aware group descriptions — derived from selection, not editorial copy
+  const scriptLabel = script === "hiragana" ? "Hiragana" : "Katakana";
+  const groupInfo: Record<KanaGroup, { eyebrow: string; title: string; desc: string }> = {
+    basic: {
+      eyebrow: "FOUNDATION",
+      title: "Basic",
+      desc: `Core ${scriptLabel} characters — vowels, K, S, T, N, H, M, Y, R, W rows.`,
+    },
+    dakuten: {
+      eyebrow: "MODIFIED",
+      title: "Dakuten",
+      desc: `Voiced ${scriptLabel} variants — G, Z, D, B, and P rows.`,
+    },
+    combo: {
+      eyebrow: "COMPLEX",
+      title: "Combo",
+      desc: `Contracted ${scriptLabel} sounds — Kya, Sha, Cha, Ryu, etc.`,
+    },
+  };
+
+  // Real card count from selected rows' entries
+  const { cardCount, rowCount } = useMemo(() => {
+    const allRows = getKanaRows(script);
+    const active = allRows.filter((row) => selectedRows.includes(row.key));
+    return {
+      cardCount: active.reduce((sum, row) => sum + row.entries.length, 0),
+      rowCount: active.length,
+    };
+  }, [script, selectedRows]);
+
+  // Duration estimate: MC ~5s/card, typing ~8s/card
+  const estimatedMinutes = Math.max(
+    1,
+    Math.round((cardCount * (mode === "typing" ? 8 : 5)) / 60),
+  );
 
   const toggleGroup = (group: KanaGroup) => {
     const groupRows =
@@ -311,23 +326,66 @@ export function KanaConfigForm({
         </div>
       </div>
 
-      <div className="pt-4 pb-8 text-center">
+      {/* Session preview — real card count and estimated duration from selection */}
+      {selectedRows.length > 0 ? (
+        <div className="rounded-xl bg-surface-lowest p-5 shadow-sm border border-outline-variant/20">
+          <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-on-surface-variant mb-4">
+            Session Preview
+          </p>
+          <div className="flex items-center gap-5">
+            <div className="text-center min-w-12">
+              <p className="font-display text-3xl font-bold text-foreground leading-none">
+                {cardCount}
+              </p>
+              <p className="text-[10px] uppercase text-on-surface-variant mt-1">
+                kana
+              </p>
+            </div>
+            <div className="h-10 w-px bg-outline-variant/30 shrink-0" />
+            <div className="text-center min-w-12">
+              <p className="font-display text-3xl font-bold text-foreground leading-none">
+                ~{estimatedMinutes}
+              </p>
+              <p className="text-[10px] uppercase text-on-surface-variant mt-1">
+                min
+              </p>
+            </div>
+            <div className="h-10 w-px bg-outline-variant/30 shrink-0" />
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-foreground leading-snug">
+                {rowCount} row{rowCount !== 1 ? "s" : ""} selected
+              </p>
+              <p className="text-[10px] text-on-surface-variant mt-0.5">
+                {scriptLabel} · {mode === "typing" ? "Typing" : "Multiple Choice"}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-xl bg-surface-lowest/60 p-5 text-center border border-outline-variant/20">
+          <p className="text-sm text-on-surface-variant">
+            Select at least one row to begin.
+          </p>
+        </div>
+      )}
+
+      <div className="pb-8">
         <button
           type="button"
           disabled={selectedRows.length === 0}
           onClick={startSession}
-          className="w-full btn-primary-gradient flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full btn-primary-gradient flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          aria-label={
+            selectedRows.length === 0
+              ? "Select rows to enable session start"
+              : `Start ${scriptLabel} session — ${cardCount} cards, ~${estimatedMinutes} min`
+          }
         >
-          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden>
             <path d="M8 5v14l11-7z" />
           </svg>
           Start Kana Session
         </button>
-        <p className="text-[10px] italic text-on-surface-variant mt-3 opacity-80">
-          Approx. duration:{" "}
-          {Math.max(1, Math.round((selectedRows.length * 5) / 60))} minutes
-          based on your selection
-        </p>
       </div>
     </div>
   );

@@ -28,13 +28,13 @@ Use it as source material for future planning.
 
 ### Kana page
 
-- [ ] Add a data preview before session start (estimated card count and expected duration from selected rows) so users understand what will be studied.
-- [ ] Ensure labels and descriptions are factual and tied to the selected script/groups, not fixed editorial wording.
+- [x] Add a data preview before session start (estimated card count and expected duration from selected rows) so users understand what will be studied.
+- [x] Ensure labels and descriptions are factual and tied to the selected script/groups, not fixed editorial wording.
 
 ### Review and Stats pages
 
-- [ ] Keep using real SRS data, but add stronger "no data yet" states so empty/new users do not see confusing blanks.
-- [ ] Audit all summary labels to ensure every number shown has a clear source and update path.
+- [x] Keep using real SRS data, but add stronger "no data yet" states so empty/new users do not see confusing blanks.
+- [x] Audit all summary labels to ensure every number shown has a clear source and update path.
 
 ## B) Font Consistency And Typography Rules
 
