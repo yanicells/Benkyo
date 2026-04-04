@@ -136,7 +136,9 @@ export function StatsClient({ lessons }: StatsClientProps) {
                   <p className="truncate font-japanese-display text-lg text-foreground">
                     {w.card.front}
                   </p>
-                  <p className="text-xs text-on-surface-variant">{w.subDeckTitle}</p>
+                  <p className="text-xs text-on-surface-variant">
+                    {w.subDeckTitle}
+                  </p>
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="font-display text-sm font-semibold text-primary">
@@ -163,9 +165,7 @@ export function StatsClient({ lessons }: StatsClientProps) {
         </button>
       </div>
 
-      {showSettings && (
-        <SettingsModal onClose={() => setShowSettings(false)} />
-      )}
+      {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
     </div>
   );
 }
@@ -184,7 +184,9 @@ function LessonAccordion({ lesson }: { lesson: Lesson }) {
         className="flex w-full items-center justify-between p-4 text-left"
       >
         <div>
-          <h3 className={`${lessonTitleFont} text-xl font-semibold text-foreground`}>
+          <h3
+            className={`${lessonTitleFont} text-xl font-semibold text-foreground`}
+          >
             {lesson.title}
           </h3>
           <p className="text-xs text-on-surface-variant">

@@ -38,7 +38,9 @@ const groupInfo: Record<
   },
 };
 
-export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormProps) {
+export function KanaConfigForm({
+  initialScript = "hiragana",
+}: KanaConfigFormProps) {
   const router = useRouter();
   const [script, setScript] = useState<KanaScript>(initialScript);
   const [selectedRows, setSelectedRows] = useState<KanaRowKey[]>(() =>

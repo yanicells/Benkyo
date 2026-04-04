@@ -4,7 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import type { Lesson } from "@/lib/types";
-import { getStreak, getLessonMastery, getAllDailyStats, getLifetimeStats } from "@/lib/srs";
+import {
+  getStreak,
+  getLessonMastery,
+  getAllDailyStats,
+  getLifetimeStats,
+} from "@/lib/srs";
 
 type HomeClientProps = {
   lessons: Lesson[];
@@ -73,7 +78,8 @@ export function HomeClient({ lessons }: HomeClientProps) {
   const totalCards = data?.totalCards ?? 0;
   const weeklyMinutes = data?.weeklyMinutes ?? 0;
   const weeklyReviewed = data?.weeklyReviewed ?? 0;
-  const masteryRate = totalCards > 0 ? Math.round((cardsMastered / totalCards) * 100) : 0;
+  const masteryRate =
+    totalCards > 0 ? Math.round((cardsMastered / totalCards) * 100) : 0;
   const quickStartHref = quickStartId ? `/decks/${quickStartId}` : "/decks";
 
   return (
@@ -85,7 +91,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </p>
         <h1 className="font-display font-extrabold text-5xl lg:text-[4rem] text-foreground leading-none tracking-tight">
           Today&apos;s{" "}
-            <span className="font-japanese-display italic font-light text-primary">
+          <span className="font-japanese-display italic font-light text-primary">
             Mindfulness.
           </span>
         </h1>
@@ -179,12 +185,15 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </div>
             <div className="flex items-center justify-between text-sm text-secondary">
               <span>Cards reviewed</span>
-              <span className="font-bold text-foreground">{weeklyReviewed}</span>
+              <span className="font-bold text-foreground">
+                {weeklyReviewed}
+              </span>
             </div>
           </div>
 
           <p className="text-sm text-secondary font-medium leading-relaxed">
-            Consistency compounds. Keep your streak alive with one focused session today.
+            Consistency compounds. Keep your streak alive with one focused
+            session today.
           </p>
         </div>
       </div>
@@ -324,7 +333,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </p>
             <p className="font-display text-2xl font-bold text-foreground">
               {weeklyMinutes}{" "}
-              <span className="text-secondary text-sm font-normal">min / wk</span>
+              <span className="text-secondary text-sm font-normal">
+                min / wk
+              </span>
             </p>
           </div>
         </div>
@@ -341,7 +352,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </p>
             <p className="font-display text-2xl font-bold text-foreground">
               {cardsMastered}{" "}
-              <span className="text-secondary text-sm font-normal">/ {totalCards}</span>
+              <span className="text-secondary text-sm font-normal">
+                / {totalCards}
+              </span>
             </p>
           </div>
         </div>
