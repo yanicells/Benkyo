@@ -25,6 +25,10 @@ export type LessonMeta = {
   notes: string;
   cheatSheet: string[];
   youtubeUrl?: string;
+  difficulty?: "beginner" | "intermediate" | "advanced";
+  estimatedMinutes?: number;
+  tags?: string[];
+  tips?: string[];
 };
 
 export type Lesson = {
@@ -32,6 +36,8 @@ export type Lesson = {
   title: string;
   meta?: LessonMeta;
   subDecks: SubDeck[];
+  order?: number;
+  prerequisiteIds?: string[];
 };
 
 export type LessonsData = {

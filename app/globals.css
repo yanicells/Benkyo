@@ -47,6 +47,13 @@ body {
   padding: 0;
 }
 
+/* Eliminate 300ms tap delay on mobile */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 .font-display {
   font-family: var(--font-display), var(--font-japanese-display), serif;
 }

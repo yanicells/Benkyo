@@ -65,20 +65,34 @@ export function makeCardId(subDeckId: string, cardIndex: number): string {
   return `${subDeckId}:${cardIndex}`;
 }
 
+const MAX_INTERVAL = 365;
+
+function applyFuzz(interval: number): number {
+  if (interval <= 2) return interval;
+  const fuzz = Math.max(1, Math.round(interval * 0.05));
+  return interval + Math.floor(Math.random() * (fuzz * 2 + 1)) - fuzz;
+}
+
 // --- SM-2 Algorithm ---
 export function reviewCard(cardId: string, rating: SRSRating): void {
   const all = getAllSRS();
   const card = all[cardId] ?? defaultCardSRS();
+  const prevInterval = card.interval;
 
   card.totalReviews += 1;
   if (rating >= 2) card.totalCorrect += 1;
   card.lastReview = todayISO();
 
-  if (rating < 2) {
-    // Again (0) or Hard (1)
+  if (rating === 0) {
+    // Again: full lapse — reset reps, interval is 50% of previous (min 1)
     card.repetitions = 0;
-    card.interval = 1;
+    card.interval = Math.max(1, Math.floor(prevInterval * 0.5));
     card.ease = Math.max(1.3, card.ease - 0.2);
+  } else if (rating === 1) {
+    // Hard: keep reps, slow interval growth, reduce ease
+    card.interval = Math.max(1, Math.floor(prevInterval * 1.2));
+    card.ease = Math.max(1.3, card.ease - 0.15);
+    // repetitions unchanged
   } else {
     // Good (2) or Easy (3)
     if (card.repetitions === 0) {
@@ -86,16 +100,19 @@ export function reviewCard(cardId: string, rating: SRSRating): void {
     } else if (card.repetitions === 1) {
       card.interval = 3;
     } else {
-      card.interval = Math.round(card.interval * card.ease);
+      card.interval = Math.round(prevInterval * card.ease);
     }
 
     if (rating === 3) {
-      card.ease += 0.15;
+      card.ease = Math.min(3.0, card.ease + 0.15);
       card.interval = Math.round(card.interval * 1.3);
     }
 
     card.repetitions += 1;
   }
+
+  // Apply fuzz to prevent cards bunching on the same day
+  card.interval = applyFuzz(Math.min(card.interval, MAX_INTERVAL));
 
   const due = new Date();
   due.setDate(due.getDate() + card.interval);
@@ -316,6 +333,25 @@ export function getLifetimeStats(lessons: Lesson[]) {
   return { totalReviews, totalCorrect, mastered, totalCards };
 }
 
+export function getLessonCompletionPercent(lessonId: string, lessons: Lesson[]): number {
+  const lesson = lessons.find((l) => l.id === lessonId);
+  if (!lesson) return 0;
+
+  const all = getAllSRS();
+  let total = 0;
+  let reviewed = 0;
+
+  for (const subDeck of lesson.subDecks) {
+    for (let i = 0; i < subDeck.cards.length; i++) {
+      total++;
+      const srs = all[makeCardId(subDeck.id, i)];
+      if (srs && srs.totalReviews > 0) reviewed++;
+    }
+  }
+
+  return total === 0 ? 0 : Math.round((reviewed / total) * 100);
+}
+
 export function getWeakCards(lessons: Lesson[], limit = 10) {
   const all = getAllSRS();
   const weak: {
@@ -346,6 +382,66 @@ export function getWeakCards(lessons: Lesson[], limit = 10) {
 
   weak.sort((a, b) => a.accuracy - b.accuracy);
   return weak.slice(0, limit);
+}
+
+export function getMasteryTimeline(lessons: Lesson[]): { date: string; mastered: number }[] {
+  const all = getAllSRS();
+  // Build a map of cardId -> date when it first reached mastery (interval >= 21)
+  // We approximate this from lastReview and current interval: if interval >= 21, the card
+  // likely reached mastery around lastReview. Group by date and accumulate.
+  const masteryByDate: Record<string, number> = {};
+
+  for (const lesson of lessons) {
+    for (const subDeck of lesson.subDecks) {
+      for (let i = 0; i < subDeck.cards.length; i++) {
+        const srs = all[makeCardId(subDeck.id, i)];
+        if (srs && srs.interval >= 21 && srs.lastReview) {
+          masteryByDate[srs.lastReview] = (masteryByDate[srs.lastReview] ?? 0) + 1;
+        }
+      }
+    }
+  }
+
+  // Build 30-day cumulative series
+  const result: { date: string; mastered: number }[] = [];
+  let cumulative = 0;
+
+  // Count mastered cards from before our window
+  const windowStart = new Date();
+  windowStart.setDate(windowStart.getDate() - 29);
+  const windowStartISO = windowStart.toISOString().slice(0, 10);
+  for (const [date, count] of Object.entries(masteryByDate)) {
+    if (date < windowStartISO) cumulative += count;
+  }
+
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().slice(0, 10);
+    cumulative += masteryByDate[dateStr] ?? 0;
+    result.push({ date: dateStr, mastered: cumulative });
+  }
+
+  return result;
+}
+
+export function getLast30DaysActivity(): { date: string; reviewed: number; correct: number }[] {
+  const all = getAllDailyStats();
+  const result: { date: string; reviewed: number; correct: number }[] = [];
+
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().slice(0, 10);
+    const stats = all[dateStr];
+    result.push({
+      date: dateStr,
+      reviewed: stats?.reviewed ?? 0,
+      correct: stats?.correct ?? 0,
+    });
+  }
+
+  return result;
 }
 
 export function getLast30DaysAccuracy(): { date: string; accuracy: number }[] {

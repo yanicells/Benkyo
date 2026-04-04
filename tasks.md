@@ -56,17 +56,11 @@ Use it as source material for future planning.
 
 ## D) Functionality Improvements / Features
 
-- [ ] Add a progress graph powered (daily activity, accuracy trend, and mastery trend).
-- [ ] Improve the study algorithm (Anki SM-2, better scheduling, lapse handling, and difficulty progression).
-- [ ] Add accounts + database so progress syncs across devices and sessions.
+IMPORTANT: Please refer to the latest commit on the main brach since most of these things have already been somewhat implemented in the main branch, main issue is that when we migrated to a new design, there are features not properly implemented.
+
+- [ ] Add a progress graph (daily activity, accuracy trend, and mastery trend).
+- [ ] Improve the study algorithm (Anki SM-2, better scheduling, lapse handling, and difficulty progression). Essentially just double check and ensure proper implementation.
+- [ ] Add accounts + database so progress syncs across devices and sessions. Use Turso with SQLite, make own implementation of Auth, Google Auth is for future implementation. Main thing to store is just the Auth data, and the data for their profile, and what we are currently storing in local storage. Use drizzle.
 - [ ] Improve learning flow with a guided path (Duolingo-style ladder: start here, then next lesson, then next milestone).
-- [ ] Add lesson content metadata in data source (summary notes, cheat-sheet bullets, recommended YouTube URL, and guidance order) so the pre-study page is data-driven instead of hardcoded.
+- [ ] Add lesson content metadata in data source (summary notes, cheat-sheet bullets, recommended YouTube URL, and guidance order) so the pre-study page is data-driven instead of hardcoded. Currently somewhat implemented, just need more improvements for both UI and content.
 - [ ] Ensure strong mobile responsiveness and complete PWA behavior (installability, offline handling, and stable mobile navigation).
-
-## Suggested Order (for future planning)
-
-- [ ] Pass 1: Remove misleading mock numbers and fake recommendation signals.
-- [ ] Pass 2: Typography cleanup and consistency pass.
-- [ ] Pass 3: CTA clarity, loading states, and interaction polish.
-- [ ] Pass 4: Landing-page visual refinement after data is fully real.
-- [ ] Pass 5: Functionality upgrades (graph, algorithm, accounts/db, guided ladder, PWA hardening).

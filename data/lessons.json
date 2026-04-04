@@ -25,7 +25,20 @@
           "Long vowels: aa, ii, uu, ei, ou — hold twice as long",
           "ん (n) sounds like 'm' before b/m/p, 'ng' before k/g"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/6p9Il_j0zjc"
+        "youtubeUrl": "https://www.youtube.com/embed/6p9Il_j0zjc",
+        "difficulty": "beginner",
+        "estimatedMinutes": 30,
+        "tags": [
+          "writing",
+          "pronunciation",
+          "fundamentals"
+        ],
+        "tips": [
+          "Do not try to memorize all kana at once — learn one row at a time",
+          "Practice writing each character by hand to build muscle memory",
+          "Use the Kana practice section for dedicated hiragana/katakana drilling",
+          "Focus on pronunciation rules before moving to vocabulary"
+        ]
       },
       "subDecks": [
         {
@@ -187,7 +200,9 @@
             }
           ]
         }
-      ]
+      ],
+      "order": 1,
+      "prerequisiteIds": []
     },
     {
       "id": "greetings",
@@ -202,7 +217,20 @@
           "すみません (sumimasen) = Excuse me / I'm sorry",
           "よろしくおねがいします = Nice to meet you / Please treat me well"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/MoFrhiMHpM4"
+        "youtubeUrl": "https://www.youtube.com/embed/MoFrhiMHpM4",
+        "difficulty": "beginner",
+        "estimatedMinutes": 20,
+        "tags": [
+          "speaking",
+          "social",
+          "daily-life"
+        ],
+        "tips": [
+          "Japanese greetings change based on the time of day and formality level",
+          "おはよう (ohayou) is casual; おはようございます is polite — know your audience",
+          "Bowing is often paired with greetings — depth of bow indicates respect level",
+          "Practice saying these aloud, not just reading them"
+        ]
       },
       "subDecks": [
         {
@@ -389,6 +417,10 @@
             }
           ]
         }
+      ],
+      "order": 2,
+      "prerequisiteIds": [
+        "writing-system"
       ]
     },
     {
@@ -404,7 +436,20 @@
           "Age uses ~歳 (さい): にじゅっさい = 20 years old",
           "Price: えん (円) — 300円 = さんびゃくえん"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/VUAmrmSMPAA"
+        "youtubeUrl": "https://www.youtube.com/embed/VUAmrmSMPAA",
+        "difficulty": "beginner",
+        "estimatedMinutes": 25,
+        "tags": [
+          "numbers",
+          "counters",
+          "daily-life"
+        ],
+        "tips": [
+          "Japanese numbers are logical — master 1-10 and the rest follows a pattern",
+          "Counters (e.g. 枚 for flat things, 本 for long things) are essential — learn them with nouns",
+          "Native Japanese numbers (ひとつ, ふたつ...) are used for counting up to 10 in everyday speech",
+          "Numbers in time and money use Chinese-derived readings (いち, に, さん...)"
+        ]
       },
       "subDecks": [
         {
@@ -625,6 +670,10 @@
             }
           ]
         }
+      ],
+      "order": 3,
+      "prerequisiteIds": [
+        "writing-system"
       ]
     },
     {
@@ -640,7 +689,20 @@
           "〜ご (go) = language: にほんご = Japanese language",
           "せんこう (senko) = major/field of study"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/y00DJEYOeQ8"
+        "youtubeUrl": "https://www.youtube.com/embed/y00DJEYOeQ8",
+        "difficulty": "beginner",
+        "estimatedMinutes": 35,
+        "tags": [
+          "conversation",
+          "introductions",
+          "particles"
+        ],
+        "tips": [
+          "は (wa) marks the topic; が (ga) marks the subject — they overlap but differ in nuance",
+          "です (desu) is the polite copula — the u is often silent in natural speech",
+          "じゃないです is more casual than ではありません for negation",
+          "Sentence order in Japanese is Subject → Object → Verb (SOV)"
+        ]
       },
       "subDecks": [
         {
@@ -1038,6 +1100,11 @@
             }
           ]
         }
+      ],
+      "order": 4,
+      "prerequisiteIds": [
+        "greetings",
+        "numbers"
       ]
     },
     {
@@ -1053,7 +1120,20 @@
           "〜円 (en) = yen — always attach to the number",
           "どれ = which one? どこ = where?"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/2fKV-l1l7B4"
+        "youtubeUrl": "https://www.youtube.com/embed/2fKV-l1l7B4",
+        "difficulty": "beginner",
+        "estimatedMinutes": 35,
+        "tags": [
+          "shopping",
+          "money",
+          "questions"
+        ],
+        "tips": [
+          "これ/それ/あれ (this/that/that over there) depend on speaker and listener position",
+          "いくら (ikura) means \"how much\" — essential for shopping",
+          "Prices use the counter 円 (en/yen) — numbers stay the same, just add 円",
+          "ください (kudasai) = please give me — polite way to request something"
+        ]
       },
       "subDecks": [
         {
@@ -1487,6 +1567,10 @@
             }
           ]
         }
+      ],
+      "order": 5,
+      "prerequisiteIds": [
+        "lesson-1"
       ]
     },
     {
@@ -1502,7 +1586,20 @@
           "前 (mae) = before/ago, 後 (go) = after/later",
           "いつ = when? 何時 (nanji) = what time?"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/Fg-YOJgMbsI"
+        "youtubeUrl": "https://www.youtube.com/embed/Fg-YOJgMbsI",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 40,
+        "tags": [
+          "time",
+          "scheduling",
+          "invitations"
+        ],
+        "tips": [
+          "Time expressions come before the verb in Japanese",
+          "に (ni) marks specific time points (3時に); で (de) marks duration context",
+          "ませんか is a polite invitation form — softer than a direct imperative",
+          "Days of the week follow a pattern: 月火水木金土日 (moon, fire, water, wood, gold, earth, sun)"
+        ]
       },
       "subDecks": [
         {
@@ -2200,6 +2297,10 @@
             }
           ]
         }
+      ],
+      "order": 6,
+      "prerequisiteIds": [
+        "lesson-2"
       ]
     },
     {
@@ -2215,7 +2316,20 @@
           "い-adj past: たかい → たかかった (was expensive)",
           "Location words: 上 (ue), 下 (shita), 右 (migi), 左 (hidari), 中 (naka)"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/F27okQQZ6J0"
+        "youtubeUrl": "https://www.youtube.com/embed/F27okQQZ6J0",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 40,
+        "tags": [
+          "activities",
+          "adjectives",
+          "past-tense"
+        ],
+        "tips": [
+          "い-adjectives conjugate directly; な-adjectives need な before nouns",
+          "Past tense of い-adj: drop い, add かった (e.g. たのしい→たのしかった)",
+          "Past tense of な-adj/nouns: でした instead of です",
+          "が here often expresses \"but\" as a soft connector between clauses"
+        ]
       },
       "subDecks": [
         {
@@ -2849,6 +2963,10 @@
             }
           ]
         }
+      ],
+      "order": 7,
+      "prerequisiteIds": [
+        "lesson-3"
       ]
     },
     {
@@ -2864,7 +2982,20 @@
           "〜たい = want to ~: 行きたい = want to go",
           "もう = already, まだ = not yet, また = again"
         ],
-        "youtubeUrl": "https://www.youtube.com/embed/AzAdOqnJ4nk"
+        "youtubeUrl": "https://www.youtube.com/embed/AzAdOqnJ4nk",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 45,
+        "tags": [
+          "travel",
+          "transport",
+          "te-form"
+        ],
+        "tips": [
+          "て-form is the Swiss Army knife of Japanese — it connects actions and forms many patterns",
+          "て+います can mean an ongoing action OR a state resulting from an action",
+          "Transport: で marks the means (バスで = by bus); に marks the destination",
+          "Okinawa dialect (うちなーぐち) differs significantly from standard Japanese"
+        ]
       },
       "subDecks": [
         {
@@ -3596,6 +3727,10 @@
             }
           ]
         }
+      ],
+      "order": 8,
+      "prerequisiteIds": [
+        "lesson-4"
       ]
     }
   ]

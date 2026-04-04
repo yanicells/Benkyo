@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { PwaInit } from "../components/shared/pwa-init";
+import { InstallBanner } from "../components/shared/install-banner";
+import { UpdateToast } from "../components/shared/update-toast";
 import { TopAppBar } from "../components/shared/top-app-bar";
 import { BottomNav } from "../components/shared/bottom-nav";
 import { DesktopSidebar } from "../components/shared/desktop-sidebar";
@@ -67,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8f9fb",
+  themeColor: "#002446",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -84,6 +86,8 @@ export default function RootLayout({
         className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-[100dvh] bg-surface flex`}
       >
         <PwaInit />
+        <InstallBanner />
+        <UpdateToast />
 
         {/* Global Desktop Sidebar */}
         <div className="hidden lg:block shrink-0">

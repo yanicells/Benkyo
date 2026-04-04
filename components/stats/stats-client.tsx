@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useSyncExternalStore } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
 import type { Lesson } from "@/lib/types";
@@ -10,12 +11,29 @@ import {
   getStreak,
   getTodayStats,
   getLast30DaysAccuracy,
+  getLast30DaysActivity,
+  getMasteryTimeline,
   getWeakCards,
   getMasteryPercent,
   getSubDeckAccuracy,
 } from "@/lib/srs";
-import { AccuracyChart } from "@/components/stats/accuracy-chart";
 import { SettingsModal } from "@/components/stats/settings-modal";
+
+// Lazy-load chart components to avoid Recharts SSR issues
+const DailyActivityChart = dynamic(
+  () => import("@/components/stats/daily-activity-chart").then((m) => ({ default: m.DailyActivityChart })),
+  { ssr: false }
+);
+const AccuracyTrendChart = dynamic(
+  () => import("@/components/stats/accuracy-trend-chart").then((m) => ({ default: m.AccuracyTrendChart })),
+  { ssr: false }
+);
+const MasteryTrendChart = dynamic(
+  () => import("@/components/stats/mastery-trend-chart").then((m) => ({ default: m.MasteryTrendChart })),
+  { ssr: false }
+);
+
+type ChartTab = "activity" | "accuracy" | "mastery";
 
 type StatsClientProps = {
   lessons: Lesson[];
@@ -26,7 +44,9 @@ type StatsData = {
   streak: ReturnType<typeof getStreak>;
   today: ReturnType<typeof getTodayStats>;
   dueCount: number;
-  chartData: ReturnType<typeof getLast30DaysAccuracy>;
+  activityData: ReturnType<typeof getLast30DaysActivity>;
+  accuracyData: ReturnType<typeof getLast30DaysAccuracy>;
+  masteryData: ReturnType<typeof getMasteryTimeline>;
   weak: ReturnType<typeof getWeakCards>;
 };
 
@@ -39,6 +59,7 @@ const subscribeNoop = () => () => {};
 
 export function StatsClient({ lessons }: StatsClientProps) {
   const [showSettings, setShowSettings] = useState(false);
+  const [chartTab, setChartTab] = useState<ChartTab>("activity");
 
   // Cache so getSnapshot returns a stable reference (useSyncExternalStore requires it)
   const cacheRef = useRef<StatsData | null>(null);
@@ -54,7 +75,9 @@ export function StatsClient({ lessons }: StatsClientProps) {
           streak: getStreak(),
           today: getTodayStats(),
           dueCount: getDueCards(lessons).length,
-          chartData: getLast30DaysAccuracy(),
+          activityData: getLast30DaysActivity(),
+          accuracyData: getLast30DaysAccuracy(),
+          masteryData: getMasteryTimeline(lessons),
           weak: getWeakCards(lessons),
         };
       }
@@ -73,7 +96,9 @@ export function StatsClient({ lessons }: StatsClientProps) {
   const streak = data?.streak ?? { current: 0, lastDate: "" };
   const today = data?.today ?? { reviewed: 0, correct: 0, timeSpentSeconds: 0 };
   const dueCount = data?.dueCount ?? 0;
-  const chartData = data?.chartData ?? [];
+  const activityData = data?.activityData ?? [];
+  const accuracyData = data?.accuracyData ?? [];
+  const masteryData = data?.masteryData ?? [];
   const weak = data?.weak ?? [];
 
   // Show "—" when there are no reviews today — 0% would be misleading
@@ -176,17 +201,51 @@ export function StatsClient({ lessons }: StatsClientProps) {
         </span>
       </div>
 
-      {/* Accuracy chart — always render the section; show empty state when no data */}
+      {/* Progress charts with tab selector */}
       <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-        <p className="mb-4 text-xs uppercase tracking-[0.22em] text-primary">
-          Accuracy — last 30 days
+        {/* Tab bar */}
+        <div className="flex gap-1 mb-5 rounded-lg bg-surface-low p-1">
+          {(
+            [
+              { key: "activity", label: "Daily Activity" },
+              { key: "accuracy", label: "Accuracy" },
+              { key: "mastery", label: "Mastery" },
+            ] as { key: ChartTab; label: string }[]
+          ).map(({ key, label }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setChartTab(key)}
+              className={`flex-1 rounded-md py-1.5 text-xs font-semibold transition ${
+                chartTab === key
+                  ? "bg-surface-lowest text-primary shadow-sm"
+                  : "text-on-surface-variant hover:text-foreground"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <p className="mb-3 text-[10px] uppercase tracking-[0.22em] text-on-surface-variant/60">
+          Last 30 days
         </p>
-        {chartData.length > 0 ? (
-          <AccuracyChart data={chartData} />
-        ) : (
-          <p className="py-6 text-center text-sm text-on-surface-variant">
-            No accuracy data yet. Data appears after your first review session.
-          </p>
+
+        {chartTab === "activity" && <DailyActivityChart data={activityData} />}
+        {chartTab === "accuracy" && <AccuracyTrendChart data={accuracyData} />}
+        {chartTab === "mastery" && <MasteryTrendChart data={masteryData} />}
+
+        {chartTab === "activity" && (
+          <div className="mt-3 flex items-center gap-4 text-[10px] text-on-surface-variant">
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-sm bg-primary" />
+              Correct
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-sm bg-secondary-container" />
+              Total
+            </span>
+          </div>
         )}
       </section>
 

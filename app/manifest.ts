@@ -11,8 +11,15 @@ export default function manifest(): MetadataRoute.Manifest {
     display: "standalone",
     orientation: "portrait",
     background_color: "#f8f9fb",
-    theme_color: "#f8f9fb",
+    theme_color: "#002446",
+    categories: ["education", "productivity"],
     icons: [
+      {
+        src: "/icon-192.svg",
+        sizes: "192x192",
+        type: "image/svg+xml",
+        purpose: "any",
+      },
       {
         src: "/icon-192.svg",
         sizes: "192x192",
@@ -23,8 +30,15 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/icon-512.svg",
         sizes: "512x512",
         type: "image/svg+xml",
+        purpose: "any",
+      },
+      {
+        src: "/icon-512.svg",
+        sizes: "512x512",
+        type: "image/svg+xml",
         purpose: "maskable",
       },
     ],
+    screenshots: [],
   };
 }
