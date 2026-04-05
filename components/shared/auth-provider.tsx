@@ -46,10 +46,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data: session, isPending } = useSession();
   const [syncState, setSyncState] = useState<SyncState>("idle");
   const [hasMigratable, setHasMigratable] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const didAutoSync = useRef(false);
 
-  const isSignedIn = !!session?.user;
-  const user = session?.user
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  const isSignedIn = hydrated && !!session?.user;
+  const user = hydrated && session?.user
     ? {
         name: session.user.name,
         email: session.user.email,
@@ -59,18 +64,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // On sign-in, check if there's local data that hasn't been migrated yet
   useEffect(() => {
-    if (!isSignedIn || isPending) return;
+    if (!hydrated || !isSignedIn || isPending) return;
     const alreadyMigrated = localStorage.getItem(MIGRATED_KEY);
     if (alreadyMigrated) return;
 
     const srs = getAllSRS();
     const hasData = Object.keys(srs).length > 0;
     setHasMigratable(hasData);
-  }, [isSignedIn, isPending]);
+  }, [hydrated, isSignedIn, isPending]);
 
   // After sign-in, do a download sync to pull latest server data into localStorage
   useEffect(() => {
-    if (!isSignedIn || isPending || didAutoSync.current) return;
+    if (!hydrated || !isSignedIn || isPending || didAutoSync.current) return;
     didAutoSync.current = true;
 
     const pullFromServer = async () => {
@@ -88,7 +93,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     void pullFromServer();
-  }, [isSignedIn, isPending]);
+  }, [hydrated, isSignedIn, isPending]);
 
   const uploadLocalData = useCallback(async () => {
     setSyncState("syncing");
