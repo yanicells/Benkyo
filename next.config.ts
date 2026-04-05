@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["recharts"],
   },
+  outputFileTracingIncludes: {
+    "/*": [
+      "./node_modules/.pnpm/@libsql+client@*/node_modules/@libsql/client/lib-esm/web.js",
+      "./node_modules/.pnpm/@libsql+client@*/node_modules/@libsql/client/lib-cjs/web.js",
+      "./node_modules/.pnpm/@libsql+isomorphic-ws@*/node_modules/@libsql/isomorphic-ws/web.mjs",
+      "./node_modules/.pnpm/@libsql+isomorphic-ws@*/node_modules/@libsql/isomorphic-ws/web.cjs",
+    ],
+  },
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.optimization.minimize = true;
