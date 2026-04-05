@@ -47,6 +47,11 @@ body {
   padding: 0;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 /* Eliminate 300ms tap delay on mobile */
 button,
 a,

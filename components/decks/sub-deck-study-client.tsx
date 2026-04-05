@@ -383,7 +383,7 @@ export function SubDeckStudyClient({
 
       {/* Sticky bottom bar — Start Session CTA */}
       <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
-        <div className="mx-auto w-full max-w-4xl px-4 py-3 sm:px-8">
+        <div className="mx-auto w-full max-w-4xl px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
           <button
             type="button"
             onClick={() => setDialogOpen(true)}

@@ -56,7 +56,7 @@ const STATE_CONFIG = {
     ring: "border-primary",
     bg: "btn-primary-gradient",
     text: "text-white",
-    shadow: "shadow-[0_0_0_4px_rgba(0,36,70,0.15)]",
+    shadow: "shadow-[0_6px_18px_rgba(0,36,70,0.08)]",
     label: "In Progress",
     labelColor: "text-primary",
     badgeBg: "bg-primary/10",

@@ -74,7 +74,7 @@ export function SubDeckConfigClient({
         <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Study mode
         </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div className="mt-4 grid gap-3 [@media(min-width:520px)]:grid-cols-2">
           {modeOptions.map((opt) => (
             <label
               key={opt.value}
@@ -107,7 +107,7 @@ export function SubDeckConfigClient({
         <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Direction
         </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div className="mt-4 grid gap-3 [@media(min-width:520px)]:grid-cols-2">
           {flipOptions.map((opt) => (
             <label
               key={opt.value}

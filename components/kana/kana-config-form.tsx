@@ -382,7 +382,7 @@ export function KanaConfigForm({
         </div>
 
         {/* Group quick-select */}
-        <div className="space-y-2">
+        <div className="grid gap-2 [@media(min-width:560px)]:grid-cols-2">
           {groupOrder.map((group) => {
             const rows = groupedRows.find((g) => g.group === group)?.rows ?? [];
             const allSelected = rows.every((r) => selectedRows.includes(r.key));
@@ -516,7 +516,7 @@ export function KanaConfigForm({
 
       {/* Sticky bottom bar — Start Session CTA */}
       <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
-        <div className="mx-auto w-full max-w-4xl px-4 py-3 sm:px-8">
+        <div className="mx-auto w-full max-w-4xl px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
           <button
             type="button"
             disabled={selectedRows.length === 0}

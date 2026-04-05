@@ -23,7 +23,7 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
   return (
     <div className="space-y-6">
       <div className="rounded-lg bg-surface-lowest p-5 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-        <p className="text-4xl font-bold text-primary">{dueCount}</p>
+        <p className="text-3xl font-bold text-primary sm:text-4xl">{dueCount}</p>
         <p className="mt-1 text-sm text-on-surface-variant">
           {dueCount === 1 ? "card" : "cards"} due for review
         </p>
@@ -48,7 +48,7 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
             <p className="text-xs uppercase tracking-[0.22em] text-primary">
               Study mode
             </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 [@media(min-width:520px)]:grid-cols-2">
               {(
                 [
                   {
@@ -93,7 +93,7 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
             <p className="text-xs uppercase tracking-[0.22em] text-primary">
               Direction
             </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 [@media(min-width:520px)]:grid-cols-2">
               {(
                 [
                   {

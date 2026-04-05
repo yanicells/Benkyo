@@ -161,9 +161,9 @@ export function StatsClient({
       {!hideOverview && (
         <>
           {/* Overview cards — always shown; source noted in sublabel */}
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-              <p className="text-3xl font-bold text-foreground">
+              <p className="text-2xl font-bold text-foreground sm:text-3xl">
                 {lifetime.totalReviews}
               </p>
               <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
@@ -171,7 +171,7 @@ export function StatsClient({
               </p>
             </div>
             <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-              <p className="text-3xl font-bold text-foreground">
+              <p className="text-2xl font-bold text-foreground sm:text-3xl">
                 {streak.current}
               </p>
               <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
@@ -179,7 +179,7 @@ export function StatsClient({
               </p>
             </div>
             <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-              <p className="text-3xl font-bold text-foreground">
+              <p className="text-2xl font-bold text-foreground sm:text-3xl">
                 {lifetime.mastered}
               </p>
               <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
@@ -191,7 +191,7 @@ export function StatsClient({
               </p>
             </div>
             <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-              <p className="text-3xl font-bold text-foreground">
+              <p className="text-2xl font-bold text-foreground sm:text-3xl">
                 {todayAccuracyDisplay}
               </p>
               <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">

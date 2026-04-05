@@ -50,15 +50,15 @@ export function PageShell({
           className={`mb-6 space-y-1.5 sm:mb-10 sm:space-y-3 ${stickyHeader ? "sticky top-14 lg:top-16 z-20 bg-surface/95 backdrop-blur-md -mx-4 px-4 sm:-mx-8 sm:px-8 py-4" : ""}`}
         >
           {eyebrow && (
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-on-surface-variant">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-on-surface-variant sm:text-sm">
               {eyebrow}
             </p>
           )}
-          <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-primary sm:text-5xl">
+          <h1 className="font-display text-[clamp(1.9rem,7vw,3rem)] font-bold leading-tight tracking-tight text-primary">
             {title}
           </h1>
           {subtitle && (
-            <p className="max-w-2xl text-base leading-relaxed text-on-surface-variant sm:text-lg">
+            <p className="max-w-2xl text-[clamp(0.95rem,2.9vw,1.125rem)] leading-relaxed text-on-surface-variant">
               {subtitle}
             </p>
           )}

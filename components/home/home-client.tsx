@@ -209,7 +209,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
   return (
     <div className="w-full flex flex-col gap-8 md:gap-10 lg:gap-12">
       {/* Stats Cards - 3 columns */}
-      <div className="grid grid-cols-3 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
         {/* Streak Card */}
         <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
           <div className="flex items-center gap-3 md:gap-4">
@@ -227,7 +227,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </div>
             {loaded ? (
               <div className="min-w-0">
-                <p className="font-display text-3xl md:text-4xl font-extrabold text-foreground leading-none">
+                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground leading-none">
                   {streakDays}
                 </p>
                 <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
@@ -255,7 +255,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
             />
             {loaded ? (
               <div className="min-w-0">
-                <p className="font-display text-2xl md:text-3xl font-extrabold text-foreground leading-none">
+                <p className="font-display text-xl sm:text-2xl md:text-3xl font-extrabold text-foreground leading-none">
                   {todayReviewed}
                   <span className="ml-1 text-sm md:text-base font-bold text-secondary">
                     / {dailyGoal}
@@ -278,7 +278,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
         {dueCount > 0 ? (
           <Link
             href="/review"
-            className="group bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+            className="group col-span-2 bg-surface-lowest rounded-[1.5rem] md:col-span-1 md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
             aria-label={`Review ${dueCount} due cards`}
           >
             <div className="flex items-center gap-3 md:gap-4">
@@ -301,7 +301,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
                 </svg>
               </div>
               <div className="min-w-0">
-                <p className="font-display text-3xl md:text-4xl font-extrabold text-primary leading-none">
+                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary leading-none">
                   {dueCount}
                 </p>
                 <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary group-hover:text-primary transition-colors mt-1">
@@ -311,7 +311,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </div>
           </Link>
         ) : (
-          <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+          <div className="col-span-2 bg-surface-lowest rounded-[1.5rem] md:col-span-1 md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
             <div className="flex items-center gap-3 md:gap-4">
               <div
                 className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-success/10 flex items-center justify-center text-success shrink-0"
@@ -419,7 +419,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
       {/* Core Learning Modes (CTAs) */}
       <section aria-label="Start learning">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 gap-4 [@media(min-width:560px)]:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8">
           {/* Kana Practice */}
           <Link
             href="/kana"

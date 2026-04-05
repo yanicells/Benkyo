@@ -45,10 +45,10 @@ function LessonCard({
   return (
     <Link
       href={`/decks/${lesson.id}`}
-      className="group relative flex flex-col rounded-2xl bg-surface-lowest p-5 shadow-[0_4px_20px_rgba(0,14,33,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,14,33,0.1)] cursor-pointer"
+      className="group relative flex flex-col rounded-2xl bg-surface-lowest p-4 shadow-[0_4px_20px_rgba(0,14,33,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,14,33,0.1)] cursor-pointer sm:p-5"
     >
       {/* Top row: level badge + difficulty */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-3 flex items-center justify-between sm:mb-4">
         <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant">
         Parts {index + 1}
         </span>
@@ -62,12 +62,12 @@ function LessonCard({
       </div>
 
       {/* Title */}
-      <h2 className="font-display text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors mb-1">
+      <h2 className="mb-1 font-display text-lg font-bold leading-tight text-foreground transition-colors group-hover:text-primary sm:text-xl">
         {lesson.title}
       </h2>
 
       {/* Meta */}
-      <p className="text-xs text-on-surface-variant mb-4">
+      <p className="mb-4 text-[11px] text-on-surface-variant sm:text-xs">
         {lesson.subDecks.length} sub-deck
         {lesson.subDecks.length !== 1 ? "s" : ""} · {totalCards} cards
         {lesson.meta?.estimatedMinutes
@@ -157,7 +157,7 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
       </div>
 
       {/* Lesson grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 [@media(min-width:520px)]:grid-cols-2 sm:gap-4 lg:grid-cols-3">
         {lessons.map((lesson, index) => (
           <LessonCard
             key={lesson.id}

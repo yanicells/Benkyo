@@ -52,7 +52,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
 
   return (
     <section className="space-y-4 pb-32 sm:pb-36">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 [@media(min-width:520px)]:grid-cols-2 lg:grid-cols-3">
         {lesson.subDecks.map((subDeck) => {
           const primaryType = getDeckPrimaryType(subDeck.cards);
           const mastery = stats[subDeck.id]?.mastery ?? 0;
@@ -62,14 +62,14 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
             <Link
               key={subDeck.id}
               href={`/decks/${lesson.id}/${subDeck.id}`}
-              className="group rounded-lg bg-surface-lowest p-4 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)]"
+              className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
                   <p className="text-xs uppercase tracking-[0.2em] text-primary">
                     {subDeck.cards.length} cards
                   </p>
-                  <h3 className="mt-1 truncate font-display text-xl text-foreground">
+                  <h3 className="mt-1 truncate font-display text-lg text-foreground sm:text-xl">
                     {subDeck.title}
                   </h3>
                 </div>
@@ -78,7 +78,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
                 </span>
               </div>
 
-              <div className="mt-3 flex items-center gap-3 text-xs text-on-surface-variant">
+              <div className="mt-3 flex items-center gap-3 text-[11px] text-on-surface-variant sm:text-xs">
                 <span>{mastery}% mastered</span>
                 {accuracy > 0 && <span>&middot; {accuracy}% accuracy</span>}
               </div>
@@ -96,7 +96,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
 
       {/* Sticky bottom bar — Study all CTA */}
       <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
-        <div className="mx-auto w-full max-w-4xl px-4 py-3 sm:px-8">
+        <div className="mx-auto w-full max-w-4xl px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
           <Link
             href={`/decks/${lesson.id}/all`}
             className="group flex w-full items-center justify-center gap-3 rounded-xl btn-primary-gradient py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90"
