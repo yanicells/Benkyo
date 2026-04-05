@@ -88,6 +88,95 @@ const ratingButtons: {
   },
 ];
 
+/* ── Context Modal ── */
+function ContextModal({
+  open,
+  onClose,
+  card,
+  relatedCards,
+  prompt,
+}: {
+  open: boolean;
+  onClose: () => void;
+  card: Card;
+  relatedCards: Card[];
+  prompt: string;
+}) {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+      <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden max-h-[80vh] flex flex-col">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
+          <h3 className="font-display text-lg font-bold text-foreground">Card Context</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="p-6 overflow-y-auto space-y-4">
+          {/* Hint / Study tip */}
+          <div className="bg-[#001736] rounded-2xl p-5 text-white relative overflow-hidden">
+            <div className="absolute -right-4 -bottom-8 font-display text-[120px] font-bold text-white/5 pointer-events-none select-none leading-none">
+              {prompt}
+            </div>
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-3">
+                <svg className="w-4 h-4 text-[#8ef4e4]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" />
+                </svg>
+                <span className="text-xs font-bold uppercase tracking-widest text-white/90">
+                  {card.hint ? "Card Hint" : "Study Tip"}
+                </span>
+              </div>
+              <p className="text-sm text-white/80 leading-relaxed">
+                {card.hint ??
+                  "Review this card carefully. Notice patterns and connections to what you already know."}
+              </p>
+            </div>
+          </div>
+
+          {/* Related cards */}
+          {relatedCards.length > 0 && (
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">
+                Related Cards
+              </p>
+              <div className="space-y-2">
+                {relatedCards.map((rc, i) => (
+                  <div
+                    key={i}
+                    className="bg-surface-low rounded-xl p-4 flex items-center gap-3"
+                  >
+                    <span className="text-secondary text-xs font-bold w-5 shrink-0 opacity-60">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-japanese font-bold text-foreground text-base truncate">
+                        {rc.front}
+                      </p>
+                      <p className="text-xs text-on-surface-variant truncate mt-0.5">
+                        {rc.back}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function DeckSessionClient({
   lessonId,
   subDeckId,
@@ -108,7 +197,7 @@ export function DeckSessionClient({
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [choiceLocked, setChoiceLocked] = useState(false);
   const [showSRSRating, setShowSRSRating] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [contextOpen, setContextOpen] = useState(false);
   const sessionStart = useRef(0);
   const cardStart = useRef(0);
   const totalReviewed = useRef(0);
@@ -313,7 +402,7 @@ export function DeckSessionClient({
 
   if (!current) {
     return (
-      <div className="rounded-xl bg-surface-lowest p-6 text-center shadow-sm">
+      <div className="max-w-screen-md mx-auto px-4 py-20 text-center">
         <p className="text-sm font-bold uppercase tracking-widest text-primary">
           Preparing session...
         </p>
@@ -323,7 +412,6 @@ export function DeckSessionClient({
 
   const prompt = current.card[promptSide];
   const total = cards.length;
-  // Use queue.length and total to show progress
   const answered = total - (queue.length > total ? total : queue.length);
   const progressPercent = Math.max(
     0,
@@ -336,290 +424,203 @@ export function DeckSessionClient({
       : undefined;
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-8 w-full flex flex-col min-h-screen relative">
-      {/* Session Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-outline-variant/30 gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-low text-sm text-primary">
+    <div className="max-w-screen-md mx-auto px-4 md:px-8 py-6 md:py-8 w-full flex flex-col min-h-[calc(100vh-4rem)]">
+      {/* Session Header — title + progress bar */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-surface-low text-xs text-primary">
               {currentTypeIcon}
             </span>
-            <h1 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+            <h1 className="text-xs font-bold uppercase tracking-[0.15em] text-primary truncate">
               {lessonTitle}
             </h1>
+            {reviewLabel && (
+              <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-on-surface-variant">
+                &middot; {reviewLabel}
+              </span>
+            )}
           </div>
-          {reviewLabel && (
-            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-on-surface-variant mb-2">
-              {reviewLabel}
-            </p>
-          )}
-          <p className="font-display text-4xl lg:text-5xl font-bold text-foreground">
-            Interactive Learning
-          </p>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="flex gap-1 h-1.5 w-32 rounded-full overflow-hidden bg-secondary-container">
-            <div
-              className="h-full bg-success transition-all duration-300"
-              style={{ width: `${progressPercent}%` }}
-            ></div>
-          </div>
-          <span className="text-[10px] uppercase font-bold text-success tracking-widest whitespace-nowrap">
-            {answered}/{total} Done
+          <span className="text-xs font-bold text-success tracking-wider whitespace-nowrap ml-3">
+            {answered}/{total}
           </span>
         </div>
+        {/* Full-width progress bar */}
+        <div className="h-2 w-full rounded-full overflow-hidden bg-secondary-container">
+          <div
+            className="h-full bg-success transition-all duration-300 rounded-full"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 flex-1">
-        {/* Left Column (Main Card Display) */}
-        <div className="lg:col-span-8 flex flex-col gap-6">
-          <div
-            className={`relative rounded-[2rem] bg-surface-lowest p-10 lg:p-16 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center transition-all duration-300 ${revealed ? "min-h-[440px]" : "min-h-[380px]"}`}
-            onClick={() => {
-              if (mode === "flashcard" && !revealed) setRevealed(true);
-            }}
-          >
-            <div className="absolute top-6 left-6">
-              <div className="w-10 h-10 rounded-xl bg-surface-low flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                </svg>
-              </div>
-            </div>
+      {/* Main Question Card — full width */}
+      <div
+        className={`relative rounded-[2rem] bg-surface-lowest p-8 md:p-12 lg:p-16 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center transition-all duration-300 ${revealed ? "min-h-[360px]" : "min-h-[300px]"}`}
+        onClick={() => {
+          if (mode === "flashcard" && !revealed) setRevealed(true);
+        }}
+      >
+        {/* Context button — top right */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setContextOpen(true);
+          }}
+          className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-surface-low text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors"
+          title="View context & hints"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </button>
 
-            <div
-              className={`font-display text-center leading-tight text-foreground transition-all ${prompt.length > 6 ? "text-6xl md:text-8xl" : "text-8xl md:text-[160px]"}`}
+        <div
+          className="font-japanese text-center leading-tight text-foreground transition-all"
+        >
+          <span className={prompt.length > 6 ? "text-4xl md:text-6xl lg:text-7xl" : "text-6xl md:text-8xl lg:text-[120px]"}>
+            {prompt}
+          </span>
+        </div>
+
+        {current.card.hint && (
+          <p className="mt-6 text-sm italic text-on-surface-variant font-medium">
+            {current.card.hint}
+          </p>
+        )}
+
+        {mode === "flashcard" && revealed && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 mt-6 w-full flex flex-col items-center">
+            <div className="w-20 h-[2px] bg-outline-variant/30 my-5" />
+            <p
+              className="font-japanese text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-center"
             >
-              {prompt}
-            </div>
+              {current.card[answerSide]}
+            </p>
+          </div>
+        )}
+      </div>
 
-            {current.card.hint && (
-              <p className="mt-8 text-sm italic text-on-surface-variant font-bold uppercase tracking-widest">
-                {current.card.hint}
-              </p>
-            )}
-
-            {mode === "flashcard" && revealed && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 mt-8 w-full flex flex-col items-center">
-                <div className="w-24 h-[2px] bg-outline-variant/30 my-6"></div>
-                <h3 className="font-display text-4xl lg:text-5xl font-bold text-foreground">
-                  {current.card[answerSide]}
-                </h3>
+      {/* Controls below the card */}
+      <div className="mt-6 flex-1 flex flex-col">
+        {mode === "flashcard" && (
+          <div className="w-full">
+            {!revealed ? (
+              <button
+                type="button"
+                onClick={() => setRevealed(true)}
+                className="w-full btn-primary-gradient py-5 rounded-2xl text-white font-bold text-lg shadow-[0_8px_20px_rgba(0,36,70,0.12)] transition hover:opacity-90 hover:shadow-lg"
+              >
+                Reveal Answer
+              </button>
+            ) : (
+              <div className="flex justify-between gap-3 w-full">
+                {ratingButtons.map((btn) => (
+                  <button
+                    key={btn.rating}
+                    type="button"
+                    onClick={() => doSRSReview(btn.rating)}
+                    className={`flex-1 flex flex-col items-center py-4 rounded-2xl transition shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:-translate-y-1 ${btn.color}`}
+                  >
+                    <span className="text-[10px] font-bold opacity-70 mb-1">
+                      {btn.key}
+                    </span>
+                    <span className="text-base font-bold">{btn.label}</span>
+                  </button>
+                ))}
               </div>
             )}
           </div>
+        )}
 
-          {/* Controls mapped below the card for flashcard mode */}
-          {mode === "flashcard" && (
-            <div className="w-full">
-              {!revealed ? (
-                <button
-                  type="button"
-                  onClick={() => setRevealed(true)}
-                  className="w-full btn-primary-gradient py-5 rounded-[1.5rem] text-white font-bold text-lg shadow-[0_8px_20px_rgba(0,36,70,0.12)] transition hover:opacity-90 hover:shadow-lg"
-                >
-                  Reveal Answer
-                </button>
-              ) : (
-                <div className="flex justify-between gap-4 w-full">
-                  {ratingButtons.map((btn) => (
+        {mode === "multiple-choice" && multipleChoice && (
+          <div className="w-full">
+            {!showSRSRating ? (
+              <div className="flex flex-col gap-3 w-full">
+                {multipleChoice.options.map((option, i) => {
+                  const isSelected = selectedOption === option;
+                  const isCorrect = multipleChoice.correct === option;
+
+                  let stateClass =
+                    "bg-surface-lowest text-foreground hover:bg-surface-low border-2 border-transparent";
+                  if (choiceLocked) {
+                    if (isCorrect)
+                      stateClass =
+                        "bg-success border-success text-white shadow-lg";
+                    else if (isSelected)
+                      stateClass =
+                        "bg-error border-error text-white shadow-lg";
+                  }
+
+                  return (
                     <button
-                      key={btn.rating}
+                      key={`${option}-${i}`}
                       type="button"
-                      onClick={() => doSRSReview(btn.rating)}
-                      className={`flex-1 flex flex-col items-center py-4 rounded-[1.5rem] transition shadow-[0_4px_16px_rgba(0,0,0,0.06)] hover:-translate-y-1 ${btn.color}`}
+                      disabled={choiceLocked}
+                      onClick={() => {
+                        if (choiceLocked) return;
+                        setSelectedOption(option);
+                        setChoiceLocked(true);
+                      }}
+                      className={`font-japanese group relative flex items-center w-full min-h-[60px] rounded-2xl px-5 text-lg font-semibold transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
                     >
-                      <span className="text-xs font-bold opacity-70 mb-1">
-                        {btn.key}
-                      </span>
-                      <span className="text-base font-bold">{btn.label}</span>
+                      {!choiceLocked && (
+                        <span className="text-sm text-on-surface-variant opacity-40 font-display mr-4 w-5 shrink-0">
+                          {i + 1}
+                        </span>
+                      )}
+                      <span className="flex-1 text-left">{option}</span>
                     </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+                  );
+                })}
 
-          {mode === "multiple-choice" && multipleChoice && (
-            <div className="w-full">
-              {!showSRSRating ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                  {multipleChoice.options.map((option, i) => {
-                    const isSelected = selectedOption === option;
-                    const isCorrect = multipleChoice.correct === option;
-
-                    let stateClass =
-                      "bg-surface-lowest text-foreground hover:bg-surface-low border-2 border-transparent";
-                    if (choiceLocked) {
-                      if (isCorrect)
-                        stateClass =
-                          "bg-success border-success text-white shadow-lg";
-                      else if (isSelected)
-                        stateClass =
-                          "bg-error border-error text-white shadow-lg";
-                    }
-
-                    return (
-                      <button
-                        key={`${option}-${i}`}
-                        type="button"
-                        disabled={choiceLocked}
-                        onClick={() => {
-                          if (choiceLocked) return;
-                          setSelectedOption(option);
-                          setChoiceLocked(true);
-                        }}
-                        className={`group relative flex items-center justify-center w-full min-h-[80px] rounded-[1.5rem] text-xl font-bold transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
-                      >
-                        {!choiceLocked && (
-                          <span className="absolute left-6 text-sm text-on-surface-variant opacity-50 font-display">
-                            {i + 1}
-                          </span>
-                        )}
-                        {option}
-                      </button>
-                    );
-                  })}
-
-                  {choiceLocked && (
-                    <button
-                      type="button"
-                      onClick={submitMultipleChoice}
-                      className="md:col-span-2 mt-4 w-full btn-primary-gradient py-5 rounded-[1.5rem] text-white font-bold text-lg shadow-[0_8px_20px_rgba(0,36,70,0.12)] transition hover:opacity-90 hover:shadow-lg animate-in slide-in-from-bottom-2"
-                    >
-                      Continue
-                    </button>
-                  )}
-                </div>
-              ) : (
-                <div className="w-full animate-in fade-in slide-in-from-bottom-4 bg-surface-lowest p-6 rounded-[2rem] shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
-                  <p className="text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-6">
-                    How difficult was this?
-                  </p>
-                  <div className="flex justify-center gap-4">
-                    {ratingButtons
-                      .filter((b) => b.rating >= 2)
-                      .map((btn) => (
-                        <button
-                          key={btn.rating}
-                          type="button"
-                          onClick={() => doSRSReview(btn.rating)}
-                          className={`flex-1 flex flex-col items-center py-4 rounded-xl transition shadow-sm hover:-translate-y-1 ${btn.color}`}
-                        >
-                          <span className="text-xs font-bold opacity-70 mb-1">
-                            {btn.key}
-                          </span>
-                          <span className="text-sm font-bold">{btn.label}</span>
-                        </button>
-                      ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Right Column — desktop only, collapsible */}
-        <div className="hidden lg:block lg:col-span-4">
-          {sidebarOpen ? (
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                  Related Cards
-                </h3>
-                <button
-                  onClick={() => setSidebarOpen(false)}
-                  className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors"
-                >
-                  Hide
-                </button>
-              </div>
-
-              {relatedCards.length > 0 ? (
-                relatedCards.map((card, i) => (
-                  <div
-                    key={i}
-                    className="bg-surface-lowest rounded-2xl p-5 flex items-center gap-4 shadow-sm border border-outline-variant/5"
+                {choiceLocked && (
+                  <button
+                    type="button"
+                    onClick={submitMultipleChoice}
+                    className="mt-2 w-full btn-primary-gradient py-5 rounded-2xl text-white font-bold text-lg shadow-[0_8px_20px_rgba(0,36,70,0.12)] transition hover:opacity-90 hover:shadow-lg animate-in slide-in-from-bottom-2"
                   >
-                    <span className="text-secondary text-xs font-bold w-6 shrink-0 opacity-60">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-foreground text-base truncate">
-                        {card.front}
-                      </h4>
-                      <p className="text-[10px] text-on-surface-variant truncate">
-                        {card.back}
-                      </p>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-xs text-on-surface-variant/60 text-center py-4">
-                  No other cards in this sub-deck.
+                    Continue
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="w-full animate-in fade-in slide-in-from-bottom-4 bg-surface-lowest p-6 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+                <p className="text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-5">
+                  How difficult was this?
                 </p>
-              )}
-
-              <div className="bg-[#001736] rounded-2xl p-6 shadow-lg text-white mt-2 relative overflow-hidden">
-                <div className="absolute -right-4 -bottom-10 font-display text-[180px] font-bold text-white/5 pointer-events-none select-none leading-none z-0">
-                  {prompt}
-                </div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-4">
-                    <svg
-                      className="w-4 h-4 text-[#8ef4e4]"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" />
-                    </svg>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">
-                      {current.card.hint ? "Card Hint" : "Study Tip"}
-                    </span>
-                  </div>
-                  <p className="text-sm text-white/80 leading-relaxed font-light">
-                    {current.card.hint ??
-                      "Review this card carefully. Notice patterns and connections to what you already know."}
-                  </p>
+                <div className="flex justify-center gap-3">
+                  {ratingButtons
+                    .filter((b) => b.rating >= 2)
+                    .map((btn) => (
+                      <button
+                        key={btn.rating}
+                        type="button"
+                        onClick={() => doSRSReview(btn.rating)}
+                        className={`flex-1 flex flex-col items-center py-4 rounded-xl transition shadow-sm hover:-translate-y-1 ${btn.color}`}
+                      >
+                        <span className="text-[10px] font-bold opacity-70 mb-1">
+                          {btn.key}
+                        </span>
+                        <span className="text-sm font-bold">{btn.label}</span>
+                      </button>
+                    ))}
                 </div>
               </div>
-
-              <div className="mt-4">
-                <Link
-                  href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
-                  className="w-full inline-flex items-center justify-center font-bold text-xs uppercase tracking-widest text-[#2a9a8c] hover:text-[#2a9a8c]/80 transition-colors py-4"
-                >
-                  Skip for now
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-surface-lowest px-4 py-5 shadow-sm text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant hover:text-primary hover:bg-surface transition-colors"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                />
-              </svg>
-              Show Context
-            </button>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
+
+      {/* Context Modal */}
+      <ContextModal
+        open={contextOpen}
+        onClose={() => setContextOpen(false)}
+        card={current.card}
+        relatedCards={relatedCards}
+        prompt={prompt}
+      />
     </div>
   );
 }

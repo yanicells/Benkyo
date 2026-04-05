@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 
 import lessonsData from "@/data/lessons.json";
-import { PageShell } from "@/components/shared/page-shell";
 import { DeckSessionRenderer } from "@/components/session/deck-session-renderer";
 import type { CardType, FlipSetting, LessonsData, StudyMode } from "@/lib/types";
 
@@ -96,23 +95,16 @@ export default async function DeckSessionPage({
     : subDeck!.title;
 
   return (
-    <PageShell
-      eyebrow="Active session"
-      title={sessionTitle}
-      subtitle="Focus on one card at a time. Rate your confidence after each answer."
-
-    >
-      <DeckSessionRenderer
-        lessonId={lessonId}
-        subDeckId={subDeckId}
-        lessonTitle={sessionTitle}
-        cards={cards}
-        mode={rawMode as StudyMode}
-        flip={rawFlip as FlipSetting}
-        cardSubDeckIds={cardSubDeckIds}
-        cardIndexes={cardIndexes}
-        allLessonCards={allSubDeckCards}
-      />
-    </PageShell>
+    <DeckSessionRenderer
+      lessonId={lessonId}
+      subDeckId={subDeckId}
+      lessonTitle={sessionTitle}
+      cards={cards}
+      mode={rawMode as StudyMode}
+      flip={rawFlip as FlipSetting}
+      cardSubDeckIds={cardSubDeckIds}
+      cardIndexes={cardIndexes}
+      allLessonCards={allSubDeckCards}
+    />
   );
 }

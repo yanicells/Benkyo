@@ -21,6 +21,7 @@ export function TopAppBar() {
     { href: "/kana", label: "Kana Practice" },
     { href: "/review", label: "Review" },
     { href: "/stats", label: "Stats" },
+    { href: "/settings", label: "Settings" },
   ];
 
   return (

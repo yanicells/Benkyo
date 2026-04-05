@@ -31,6 +31,8 @@ export default async function SubDeckListPage({
       eyebrow="Lesson"
       title={lesson.title}
       subtitle={`${lesson.subDecks.length} sub-decks · ${totalCards} cards total`}
+      backHref="/decks"
+      backLabel="All Lessons"
     >
       {lesson.meta && (
         <LessonPreStudy meta={lesson.meta} />

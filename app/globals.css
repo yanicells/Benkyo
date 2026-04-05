@@ -58,6 +58,10 @@ a,
   font-family: var(--font-display), var(--font-japanese-display), serif;
 }
 
+.font-japanese {
+  font-family: var(--font-body), var(--font-japanese-display), sans-serif;
+}
+
 .btn-primary-gradient {
   background: linear-gradient(135deg, var(--primary), var(--primary-container));
 }

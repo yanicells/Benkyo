@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 
 import lessonsData from "@/data/lessons.json";
-import { PageShell } from "@/components/shared/page-shell";
-import { SubDeckConfigClient } from "@/components/decks/sub-deck-config-client";
+import { SubDeckStudyClient } from "@/components/decks/sub-deck-study-client";
 import type { LessonsData } from "@/lib/types";
 
 type SubDeckConfigPageProps = {
@@ -20,7 +19,6 @@ export default async function SubDeckConfigPage({
     redirect("/decks");
   }
 
-  // "all" is a special sub-deck ID that combines all cards
   const isStudyAll = subDeckId === "all";
   const subDeck = isStudyAll
     ? null
@@ -38,44 +36,15 @@ export default async function SubDeckConfigPage({
   const cardTypes = [...new Set(cards.map((c) => c.type))];
 
   return (
-    <PageShell
-      eyebrow="Session setup"
+    <SubDeckStudyClient
+      lessonId={lessonId}
+      subDeckId={subDeckId}
       title={title}
-      subtitle={`${cards.length} cards available. Pick study mode, direction, and card type filters.`}
-
-    >
-      <SubDeckConfigClient
-        lessonId={lessonId}
-        subDeckId={subDeckId}
-        cardTypes={cardTypes}
-      />
-
-      <section className="mt-6 rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-        <div className="mb-3 flex items-center justify-between gap-2">
-          <p className="text-xs uppercase tracking-[0.22em] text-primary">
-            Card preview
-          </p>
-          <p className="text-xs text-on-surface-variant">{cards.length} entries</p>
-        </div>
-        <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
-          {cards.map((card, i) => (
-            <div
-              key={`${card.front}-${card.back}-${i}`}
-              className="flex items-start gap-2 rounded-lg bg-surface-low px-3 py-2"
-            >
-              <span className="mt-0.5 shrink-0 rounded-lg bg-surface-lowest px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                {card.type}
-              </span>
-              <div className="min-w-0">
-                <p className="font-display text-xl text-foreground">
-                  {card.front}
-                </p>
-                <p className="mt-1 text-sm text-on-surface-variant">{card.back}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    </PageShell>
+      lessonTitle={lesson.title}
+      cardCount={cards.length}
+      cardTypes={cardTypes}
+      meta={lesson.meta ?? null}
+      cards={cards}
+    />
   );
 }

@@ -54,11 +54,17 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
     <section className="space-y-4">
       <Link
         href={`/decks/${lesson.id}/all`}
-        className="block rounded-lg bg-surface-low p-4 text-center transition hover:-translate-y-0.5 hover:bg-secondary-container"
+        className="group flex items-center justify-center gap-3 rounded-2xl btn-primary-gradient px-6 py-4 text-white shadow-[0_8px_24px_rgba(0,36,70,0.12)] transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg"
       >
-        <span className="text-sm font-semibold uppercase tracking-[0.15em] text-primary">
+        <svg className="w-5 h-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        <span className="text-sm font-bold uppercase tracking-[0.15em]">
           Study all sub-decks
         </span>
+        <svg className="w-4 h-4 text-white/60 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
       </Link>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

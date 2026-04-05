@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import type { Lesson, Card } from "@/lib/types";
+import type { Lesson } from "@/lib/types";
 import {
   getStreak,
   getDueCards,
@@ -24,18 +24,6 @@ type DayActivity = {
   isToday: boolean;
 };
 
-type HeroCard = {
-  displayChar: string;
-  labelTop: string;
-  title: string;
-  description: string;
-  reading: string | null;
-  meaning: string;
-  href: string;
-  ctaLabel: string;
-  titleIsJapanese: boolean;
-};
-
 type ClientData = {
   streakDays: number;
   dueCount: number;
@@ -46,83 +34,8 @@ type ClientData = {
   sevenDayActivity: DayActivity[];
   cardsMastered: number;
   totalCards: number;
-  hero: HeroCard;
   quickStartId: string;
 };
-
-function hasJapanese(text: string): boolean {
-  return /[\u3040-\u9FFF]/.test(text);
-}
-
-function getHeroCard(
-  lessons: Lesson[],
-  dueCards: ReturnType<typeof getDueCards>
-): HeroCard {
-  let card: Card | null = null;
-  let href = "/review";
-  let labelTop = "Due for Review";
-  let ctaLabel = "Start Review";
-
-  // Prefer a due card with Japanese in the front
-  for (const dueCard of dueCards) {
-    if (hasJapanese(dueCard.card.front)) {
-      card = dueCard.card;
-      href = "/review";
-      labelTop = dueCard.lessonTitle;
-      ctaLabel = "Start Review";
-      break;
-    }
-  }
-
-  // Fall back to first Japanese card in any lesson
-  if (!card) {
-    outer: for (const lesson of lessons) {
-      for (const subDeck of lesson.subDecks) {
-        for (const c of subDeck.cards) {
-          if (hasJapanese(c.front)) {
-            card = c;
-            href = `/decks/${lesson.id}`;
-            labelTop = lesson.title;
-            ctaLabel = "Study Now";
-            break outer;
-          }
-        }
-      }
-    }
-  }
-
-  if (!card) {
-    return {
-      displayChar: "文",
-      labelTop: "Study",
-      title: "Start Learning",
-      description: "Build your Japanese vocabulary with spaced repetition.",
-      reading: null,
-      meaning: "Begin your Japanese study journey.",
-      href: "/decks",
-      ctaLabel: "Browse Lessons",
-      titleIsJapanese: false,
-    };
-  }
-
-  const displayChar = [...card.front][0] ?? "文";
-  const shortDesc =
-    card.back.length > 120 ? card.back.slice(0, 120) + "…" : card.back;
-  const shortMeaning =
-    card.back.length > 60 ? card.back.slice(0, 60) + "…" : card.back;
-
-  return {
-    displayChar,
-    labelTop,
-    title: card.front,
-    description: shortDesc,
-    reading: card.romaji || null,
-    meaning: shortMeaning,
-    href,
-    ctaLabel,
-    titleIsJapanese: hasJapanese(card.front),
-  };
-}
 
 function getQuickStartLesson(lessons: Lesson[]) {
   if (lessons.length === 0) return null;
@@ -173,7 +86,6 @@ function readClientData(lessons: Lesson[]): ClientData {
     sevenDayActivity,
     cardsMastered: lifetime.mastered,
     totalCards: lifetime.totalCards,
-    hero: getHeroCard(lessons, dueCards),
     quickStartId: qsl?.id ?? lessons[0]?.id ?? "",
   };
 }
@@ -188,14 +100,14 @@ function DailyGoalRing({
   loaded: boolean;
 }) {
   const pct = loaded ? Math.min(reviewed / goal, 1) : 0;
-  const radius = 34;
+  const radius = 38;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - pct);
   const done = loaded && reviewed >= goal;
 
   return (
     <div
-      className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center"
+      className="relative flex h-24 w-24 items-center justify-center"
       role="img"
       aria-label={
         loaded
@@ -203,22 +115,23 @@ function DailyGoalRing({
           : "Daily goal loading"
       }
     >
-      <svg className="h-[4.5rem] w-[4.5rem] -rotate-90" viewBox="0 0 80 80">
+      <svg className="h-24 w-24 -rotate-90" viewBox="0 0 96 96">
         <circle
-          cx={40}
-          cy={40}
+          cx={48}
+          cy={48}
           r={radius}
           fill="none"
           stroke="var(--outline-variant)"
-          strokeWidth={6}
+          strokeWidth={5}
+          opacity={0.3}
         />
         <circle
-          cx={40}
-          cy={40}
+          cx={48}
+          cy={48}
           r={radius}
           fill="none"
           stroke={done ? "var(--success)" : "var(--primary)"}
-          strokeWidth={6}
+          strokeWidth={5}
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
@@ -227,10 +140,10 @@ function DailyGoalRing({
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         {!loaded ? (
-          <span className="h-3 w-8 rounded bg-outline-variant/30 animate-pulse block" />
+          <span className="h-4 w-10 rounded bg-outline-variant/30 animate-pulse block" />
         ) : done ? (
           <svg
-            className="h-5 w-5 text-success"
+            className="h-7 w-7 text-success"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -244,10 +157,12 @@ function DailyGoalRing({
             />
           </svg>
         ) : (
-          <span className="text-sm font-bold text-foreground leading-none">
-            {reviewed}
-            <span className="text-[9px] text-secondary">/{goal}</span>
-          </span>
+          <>
+            <span className="font-display text-2xl font-extrabold text-foreground leading-none">
+              {reviewed}
+            </span>
+            <span className="text-[10px] text-secondary mt-0.5">of {goal}</span>
+          </>
         )}
       </div>
     </div>
@@ -277,8 +192,8 @@ export function HomeClient({ lessons }: HomeClientProps) {
   );
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-8 lg:py-12 w-full flex flex-col gap-6 md:gap-10 lg:gap-14">
-      {/* Page Header — English text uses display font; Japanese word uses Japanese display font */}
+    <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-8 lg:py-12 w-full flex flex-col gap-8 md:gap-12 lg:gap-14">
+      {/* Page Header */}
       <header>
         <p className="text-secondary text-xs uppercase tracking-[0.2em] font-bold mb-3">
           Okaeri, Scholar
@@ -291,86 +206,205 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </h1>
       </header>
 
-      {/* Compact Status Strip */}
-      <div className="bg-surface-lowest rounded-[2rem] px-4 py-3 md:p-5 lg:p-6 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-        <div className="flex items-center justify-between">
-          {/* Streak */}
-          <div className="flex items-center gap-2 md:gap-3 flex-1 justify-center">
+      {/* Stats Cards - 3 columns */}
+      <div className="grid grid-cols-3 gap-3 md:gap-5 lg:gap-6">
+        {/* Streak Card */}
+        <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col items-center justify-center text-center gap-2 md:gap-3">
+          <div
+            className="w-12 h-12 md:w-14 md:h-14 rounded-2xl btn-primary-gradient flex items-center justify-center text-white shrink-0"
+            aria-hidden
+          >
+            <svg className="w-6 h-6 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
+            </svg>
+          </div>
+          {loaded ? (
+            <>
+              <span className="font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground leading-none">
+                {streakDays}
+              </span>
+              <span className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary">
+                Day Streak
+              </span>
+            </>
+          ) : (
+            <>
+              <div className="h-8 w-12 rounded bg-outline-variant/20 animate-pulse" />
+              <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse" />
+            </>
+          )}
+        </div>
+
+        {/* Daily Goal Card */}
+        <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col items-center justify-center text-center gap-1">
+          <DailyGoalRing
+            reviewed={todayReviewed}
+            goal={dailyGoal}
+            loaded={loaded}
+          />
+          <span className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
+            Daily Goal
+          </span>
+        </div>
+
+        {/* Due Cards */}
+        {dueCount > 0 ? (
+          <Link
+            href="/review"
+            className="group bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col items-center justify-center text-center gap-2 md:gap-3 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+            aria-label={`Review ${dueCount} due cards`}
+          >
             <div
-              className="w-7 h-7 md:w-8 md:h-8 rounded-lg btn-primary-gradient flex items-center justify-center text-white shrink-0"
+              className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0"
               aria-hidden
             >
-              <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
+              <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </div>
+            <span className="font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-primary leading-none">
+              {dueCount}
+            </span>
+            <span className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary group-hover:text-primary transition-colors">
+              Cards Due
+            </span>
+          </Link>
+        ) : (
+          <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)] flex flex-col items-center justify-center text-center gap-2 md:gap-3">
+            <div
+              className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-success/10 flex items-center justify-center text-success shrink-0"
+              aria-hidden
+            >
+              <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
             </div>
             {loaded ? (
-              <div className="flex items-baseline gap-1">
-                <span className="font-display text-lg md:text-2xl font-extrabold text-foreground leading-none">
-                  {streakDays}
+              <>
+                <span className="font-display text-xl md:text-2xl font-bold text-success leading-none">
+                  All clear
                 </span>
-                <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary hidden xs:inline">
-                  day streak
+                <span className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary">
+                  Caught Up
                 </span>
-              </div>
+              </>
             ) : (
-              <div className="h-5 w-10 rounded bg-outline-variant/20 animate-pulse" />
+              <>
+                <div className="h-6 w-14 rounded bg-outline-variant/20 animate-pulse" />
+                <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse" />
+              </>
             )}
           </div>
-
-          {/* Divider */}
-          <div className="border-l border-outline-variant/20 h-8 md:h-10" />
-
-          {/* Daily Goal */}
-          <div className="flex items-center gap-2 md:gap-3 flex-1 justify-center">
-            <div className="scale-[0.55] md:scale-[0.65] origin-center -m-3 md:-m-2">
-              <DailyGoalRing
-                reviewed={todayReviewed}
-                goal={dailyGoal}
-                loaded={loaded}
-              />
-            </div>
-            {loaded ? (
-              <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary">
-                {todayReviewed}/{dailyGoal}
-              </span>
-            ) : (
-              <div className="h-4 w-10 rounded bg-outline-variant/20 animate-pulse" />
-            )}
-          </div>
-
-          {/* Divider */}
-          <div className="border-l border-outline-variant/20 h-8 md:h-10" />
-
-          {/* Due Cards */}
-          {dueCount > 0 ? (
-            <Link
-              href="/review"
-              className="flex items-center gap-2 md:gap-3 flex-1 justify-center rounded-xl hover:bg-primary/5 transition-colors px-2 py-1.5 group"
-              aria-label={`Review ${dueCount} due cards`}
-            >
-              <span className="font-display text-lg md:text-2xl font-extrabold text-primary leading-none">
-                {dueCount}
-              </span>
-              <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary group-hover:text-primary transition-colors">
-                due
-              </span>
-            </Link>
-          ) : (
-            <div className="flex items-center gap-2 flex-1 justify-center px-2 py-1.5">
-              {loaded ? (
-                <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.1em] text-secondary">
-                  Caught up!
-                </span>
-              ) : (
-                <div className="h-4 w-14 rounded bg-outline-variant/20 animate-pulse" />
-              )}
-            </div>
-          )}
-        </div>
+        )}
       </div>
 
-      {/* Core Learning Modes */}
+      {/* 7-Day Activity — full width */}
+      <div className="bg-surface-lowest rounded-[2rem] p-5 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+        <div className="flex items-center justify-between mb-5">
+          <span className="text-xs font-bold uppercase tracking-[0.12em] text-on-surface-variant">
+            7-Day Activity
+          </span>
+          {loaded && (
+            <span className="text-xs text-secondary">
+              {weeklyReviewed} cards &middot; {weeklyMinutes} min
+            </span>
+          )}
+        </div>
+        {loaded && sevenDayActivity.length > 0 ? (
+          <div className="flex items-end gap-2 md:gap-3" style={{ height: "80px" }}>
+            {sevenDayActivity.map((day, i) => {
+              const barPct =
+                day.reviewed > 0
+                  ? Math.max((day.reviewed / maxActivity) * 100, 15)
+                  : 0;
+              return (
+                <div
+                  key={i}
+                  className="flex-1 flex flex-col items-center gap-2"
+                >
+                  <div
+                    className="w-full flex items-end justify-center"
+                    style={{ height: "60px" }}
+                  >
+                    <div
+                      className={`w-full max-w-[48px] rounded-md transition-all duration-500 ${
+                        day.isToday
+                          ? "bg-primary"
+                          : day.reviewed > 0
+                          ? "bg-primary/30"
+                          : "bg-outline-variant/20"
+                      }`}
+                      style={{
+                        height:
+                          day.reviewed > 0 ? `${barPct}%` : "4px",
+                      }}
+                      title={`${day.label}: ${day.reviewed} card${day.reviewed !== 1 ? "s" : ""}`}
+                    />
+                  </div>
+                  <span
+                    className={`text-[10px] font-bold leading-none ${
+                      day.isToday ? "text-primary" : "text-secondary/50"
+                    }`}
+                  >
+                    {day.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        ) : loaded ? (
+          <p className="text-sm text-secondary py-6 text-center">
+            No activity yet this week. Start a session to build your streak.
+          </p>
+        ) : (
+          <div
+            className="flex items-end gap-2 md:gap-3"
+            style={{ height: "80px" }}
+            aria-hidden
+          >
+            {Array.from({ length: 7 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex-1 h-8 rounded-md bg-outline-variant/20 animate-pulse"
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Review Banner — only shown when cards are due */}
+      {loaded && dueCount > 0 && (
+        <Link
+          href="/review"
+          className="group flex items-center justify-between rounded-[2rem] btn-primary-gradient px-6 py-5 md:px-8 md:py-6 text-white shadow-[0_12px_40px_rgba(0,14,33,0.12)] hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          aria-label={`Review ${dueCount} due cards`}
+        >
+          <span className="font-display font-bold text-lg lg:text-xl">
+            You have{" "}
+            <span className="font-extrabold">{dueCount}</span>{" "}
+            card{dueCount !== 1 ? "s" : ""} due for review
+          </span>
+          <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider shrink-0">
+            Start Review
+            <svg
+              className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </span>
+        </Link>
+      )}
+
+      {/* Core Learning Modes (CTAs) */}
       <section aria-label="Start learning">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {/* Kana Practice */}
@@ -506,127 +540,6 @@ export function HomeClient({ lessons }: HomeClientProps) {
           </Link>
         </div>
       </section>
-
-      {/* Review Banner — only shown when cards are due */}
-      {loaded && dueCount > 0 && (
-        <Link
-          href="/review"
-          className="group flex items-center justify-between rounded-[2rem] btn-primary-gradient px-5 py-4 md:px-8 md:py-5 text-white shadow-[0_12px_40px_rgba(0,14,33,0.12)] hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          aria-label={`Review ${dueCount} due cards`}
-        >
-          <span className="font-display font-bold text-base lg:text-lg">
-            You have{" "}
-            <span className="font-extrabold">{dueCount}</span>{" "}
-            card{dueCount !== 1 ? "s" : ""} due for review
-          </span>
-          <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider shrink-0">
-            Start Review
-            <svg
-              className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </span>
-        </Link>
-      )}
-
-      {/* 7-Day Activity */}
-      <div className="bg-surface-lowest rounded-[2rem] p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-        <div className="rounded-xl bg-surface-low p-4 border border-outline-variant/20">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-on-surface-variant">
-              7-Day Activity
-            </span>
-            {loaded && (
-              <span className="text-[10px] text-secondary">
-                {weeklyReviewed} cards this week
-              </span>
-            )}
-          </div>
-          {loaded && sevenDayActivity.length > 0 ? (
-            <div className="flex items-end gap-1" style={{ height: "44px" }}>
-              {sevenDayActivity.map((day, i) => {
-                const barPct =
-                  day.reviewed > 0
-                    ? Math.max((day.reviewed / maxActivity) * 100, 18)
-                    : 0;
-                return (
-                  <div
-                    key={i}
-                    className="flex-1 flex flex-col items-center gap-1"
-                  >
-                    <div
-                      className="w-full flex items-end justify-center"
-                      style={{ height: "32px" }}
-                    >
-                      <div
-                        className={`w-full rounded-sm transition-all duration-500 ${
-                          day.isToday
-                            ? "bg-primary"
-                            : day.reviewed > 0
-                            ? "bg-primary/40"
-                            : "bg-outline-variant/30"
-                        }`}
-                        style={{
-                          height:
-                            day.reviewed > 0 ? `${barPct}%` : "3px",
-                        }}
-                        title={`${day.label}: ${day.reviewed} card${day.reviewed !== 1 ? "s" : ""}`}
-                      />
-                    </div>
-                    <span
-                      className={`text-[8px] font-bold leading-none ${
-                        day.isToday ? "text-primary" : "text-secondary/50"
-                      }`}
-                    >
-                      {day.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          ) : loaded ? (
-            <p className="text-xs text-secondary py-2 text-center">
-              No activity yet this week.
-            </p>
-          ) : (
-            <div
-              className="flex items-end gap-1"
-              style={{ height: "44px" }}
-              aria-hidden
-            >
-              {Array.from({ length: 7 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="flex-1 h-5 rounded-sm bg-outline-variant/20 animate-pulse"
-                />
-              ))}
-            </div>
-          )}
-        </div>
-        <p className="text-sm text-secondary font-medium leading-relaxed mt-4">
-          {loaded ? (
-            weeklyMinutes > 0 ? (
-              `${weeklyMinutes} min focused this week. Keep it up.`
-            ) : (
-              "No sessions recorded this week yet."
-            )
-          ) : (
-            <span className="inline-block h-3 w-44 rounded bg-outline-variant/20 animate-pulse" />
-          )}
-        </p>
-      </div>
-
-
     </div>
   );
 }
