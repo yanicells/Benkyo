@@ -83,3 +83,19 @@ pnpm cf-typegen
 - `wrangler.jsonc` currently uses worker name `benkyo`. If you rename it, update both:
   - `name`
   - `services[0].service`
+
+## Troubleshooting: TURSO_DATABASE_URL is not set (during build)
+
+If Cloudflare build fails at `Collecting page data` with:
+
+`Error: TURSO_DATABASE_URL is not set`
+
+the likely cause is module-level auth/db initialization.
+
+Use lazy auth initialization so DB config is only created at request time:
+
+- In `lib/auth.ts`, export `getAuth()` that memoizes `betterAuth(...)` instead of exporting a module-level `auth` instance.
+- In `app/api/auth/[...all]/route.ts`, call `toNextJsHandler(getAuth())` inside `GET`/`POST` handlers.
+- In other API routes (such as `app/api/sync/route.ts`), call `const auth = getAuth()` inside each handler.
+
+This keeps build-time evaluation independent from runtime-only secrets.

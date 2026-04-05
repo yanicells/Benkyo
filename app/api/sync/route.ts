@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAuth } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { cardSrs, dailyStats, userSettings, streakData } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
@@ -19,7 +19,6 @@ type SyncPayload = {
 
 // GET /api/sync — download all user data to merge into localStorage
 export async function GET(req: NextRequest) {
-  const auth = getAuth();
   const session = await auth.api.getSession({ headers: req.headers });
   if (!session)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -76,7 +75,6 @@ export async function GET(req: NextRequest) {
 
 // POST /api/sync — upload localStorage data to the database (merge, last-write wins per card)
 export async function POST(req: NextRequest) {
-  const auth = getAuth();
   const session = await auth.api.getSession({ headers: req.headers });
   if (!session)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
