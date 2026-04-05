@@ -50,7 +50,7 @@ function LessonCard({
       {/* Top row: level badge + difficulty */}
       <div className="flex items-center justify-between mb-4">
         <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant">
-          Lesson {index + 1}
+        Parts {index + 1}
         </span>
         {diffStyle && diff && (
           <span

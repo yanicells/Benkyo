@@ -230,15 +230,17 @@ export function SubDeckStudyClient({
   return (
     <section className="relative mx-auto w-full max-w-4xl px-4 py-6 pb-32 sm:px-8 sm:py-10 sm:pb-36">
       {/* Back button */}
-      <Link
-        href={`/decks/${lessonId}`}
-        className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors mb-6"
-      >
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        {lessonTitle}
-      </Link>
+      <div className="sticky top-14 lg:top-16 z-20 -mx-4 sm:-mx-8 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md sm:px-8">
+        <Link
+          href={`/decks/${lessonId}`}
+          className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          {lessonTitle}
+        </Link>
+      </div>
 
       {/* Header */}
       <header className="mb-8">
