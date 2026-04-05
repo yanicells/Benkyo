@@ -87,6 +87,27 @@ export function TopAppBar() {
           {/* Right: settings gear + avatar/sign-in */}
           <div className="flex items-center gap-1">
             {!isSession && (
+              <Link
+                href="/install"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-low"
+                aria-label="Install app"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 3v10m0 0l-4-4m4 4l4-4M5 15v2a2 2 0 002 2h10a2 2 0 002-2v-2"
+                  />
+                </svg>
+              </Link>
+            )}
+            {!isSession && (
               <button
                 type="button"
                 onClick={() => setSettingsOpen(true)}

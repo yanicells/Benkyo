@@ -114,6 +114,26 @@ export function DesktopHeader() {
 
         {/* Right: settings gear + auth */}
         <div className="flex items-center gap-2 ml-8">
+          <Link
+            href="/install"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-on-surface-variant transition-colors hover:bg-surface-low hover:text-primary"
+            aria-label="Install app"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 3v10m0 0l-4-4m4 4l4-4M5 15v2a2 2 0 002 2h10a2 2 0 002-2v-2"
+              />
+            </svg>
+          </Link>
+
           {/* Settings icon */}
           <button
             type="button"
