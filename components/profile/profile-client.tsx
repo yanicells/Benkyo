@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { Lesson } from "@/lib/types";
 import { useAuth } from "@/components/shared/auth-provider";
@@ -80,9 +80,48 @@ function LessonRow({ lesson }: { lesson: Lesson }) {
   );
 }
 
+function InstallCard() {
+  return (
+    <Link
+      href="/install"
+      className="group rounded-[1.5rem] bg-surface-lowest p-6 border border-outline-variant/20 hover:bg-surface-low hover:-translate-y-0.5 transition-all duration-200 shadow-[0_12px_40px_rgba(0,14,33,0.06)] relative overflow-hidden block"
+    >
+      <span
+        className="absolute right-3 top-1/2 -translate-y-1/2 font-japanese-display text-[80px] leading-none text-surface-low font-bold pointer-events-none select-none"
+        aria-hidden
+      >
+        得
+      </span>
+      <div className="relative flex items-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/8 shrink-0">
+          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+          </svg>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-foreground">Install Benkyo</p>
+          <p className="text-[11px] text-on-surface-variant mt-0.5">
+            Add to home screen for offline access
+          </p>
+        </div>
+        <svg className="w-4 h-4 text-on-surface-variant/40 ml-auto shrink-0 group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </Link>
+  );
+}
+
 export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
   const { isSignedIn, user, syncState, triggerSync } = useAuth();
   const cacheRef = useRef<LocalStats | null>(null);
+  const [isStandalone] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return (
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (navigator as unknown as { standalone?: boolean }).standalone === true
+    );
+  });
 
   const stats = useSyncExternalStore(
     subscribeNoop,
@@ -174,6 +213,9 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
               </div>
             </div>
           )}
+
+          {/* Install app */}
+          {!isStandalone && <InstallCard />}
         </div>
       </PageShell>
     );
@@ -294,6 +336,9 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
             </div>
           </Link>
         </div>
+
+        {/* ── Install app ── */}
+        {!isStandalone && <InstallCard />}
 
         {/* ── Sync card ── */}
         <div className="rounded-[1.5rem] bg-surface-lowest shadow-[0_12px_40px_rgba(0,14,13,0.06)] p-6">
