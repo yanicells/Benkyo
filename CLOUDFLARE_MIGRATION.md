@@ -29,12 +29,12 @@ No DB client migration is needed. Current Drizzle + Turso setup in `lib/db/index
 Set secrets with Wrangler (recommended):
 
 ```bash
-npx wrangler secret put TURSO_DATABASE_URL
-npx wrangler secret put TURSO_AUTH_TOKEN
-npx wrangler secret put BETTER_AUTH_SECRET
-npx wrangler secret put BETTER_AUTH_URL
-npx wrangler secret put GOOGLE_CLIENT_ID
-npx wrangler secret put GOOGLE_CLIENT_SECRET
+pnpm exec wrangler secret put TURSO_DATABASE_URL
+pnpm exec wrangler secret put TURSO_AUTH_TOKEN
+pnpm exec wrangler secret put BETTER_AUTH_SECRET
+pnpm exec wrangler secret put BETTER_AUTH_URL
+pnpm exec wrangler secret put GOOGLE_CLIENT_ID
+pnpm exec wrangler secret put GOOGLE_CLIENT_SECRET
 ```
 
 Use your production URL for `BETTER_AUTH_URL` (for example `https://<your-worker-domain>`).
