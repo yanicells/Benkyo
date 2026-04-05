@@ -123,7 +123,11 @@ function DailyGoalRing({
           : "Daily goal loading"
       }
     >
-      <svg className="-rotate-90" viewBox={`0 0 ${size} ${size}`} style={{ width: size, height: size }}>
+      <svg
+        className="-rotate-90"
+        viewBox={`0 0 ${size} ${size}`}
+        style={{ width: size, height: size }}
+      >
         <circle
           cx={center}
           cy={center}
@@ -148,7 +152,9 @@ function DailyGoalRing({
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         {!loaded ? (
-          <span className={`${compact ? "h-3 w-8" : "h-4 w-10"} rounded bg-outline-variant/30 animate-pulse block`} />
+          <span
+            className={`${compact ? "h-3 w-8" : "h-4 w-10"} rounded bg-outline-variant/30 animate-pulse block`}
+          />
         ) : done ? (
           <svg
             className={`${compact ? "h-5 w-5" : "h-7 w-7"} text-success`}
@@ -166,7 +172,9 @@ function DailyGoalRing({
           </svg>
         ) : showValue ? (
           <>
-            <span className={`font-display ${compact ? "text-lg" : "text-2xl"} font-extrabold text-foreground leading-none`}>
+            <span
+              className={`font-display ${compact ? "text-lg" : "text-2xl"} font-extrabold text-foreground leading-none`}
+            >
               {reviewed}
             </span>
             <span className="text-[10px] text-secondary mt-0.5">of {goal}</span>
@@ -200,68 +208,69 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
   return (
     <div className="w-full flex flex-col gap-8 md:gap-10 lg:gap-12">
-
       {/* Stats Cards - 3 columns */}
       <div className="grid grid-cols-3 gap-3 md:gap-4">
         {/* Streak Card */}
         <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
           <div className="flex items-center gap-3 md:gap-4">
-          <div
-            className="h-10 w-10 md:h-12 md:w-12 rounded-xl btn-primary-gradient flex items-center justify-center text-white shrink-0"
-            aria-hidden
-          >
-            <svg
-              className="w-5 h-5 md:w-6 md:h-6"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              className="h-10 w-10 md:h-12 md:w-12 rounded-xl btn-primary-gradient flex items-center justify-center text-white shrink-0"
+              aria-hidden
             >
-              <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
-            </svg>
-          </div>
-          {loaded ? (
-            <div className="min-w-0">
-              <p className="font-display text-3xl md:text-4xl font-extrabold text-foreground leading-none">
-                {streakDays}
-              </p>
-              <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
-                Day Streak
-              </p>
+              <svg
+                className="w-5 h-5 md:w-6 md:h-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
+              </svg>
             </div>
-          ) : (
-            <div>
-              <div className="h-8 w-12 rounded bg-outline-variant/20 animate-pulse" />
-              <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse mt-2" />
-            </div>
-          )}
+            {loaded ? (
+              <div className="min-w-0">
+                <p className="font-display text-3xl md:text-4xl font-extrabold text-foreground leading-none">
+                  {streakDays}
+                </p>
+                <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
+                  Day Streak
+                </p>
+              </div>
+            ) : (
+              <div>
+                <div className="h-8 w-12 rounded bg-outline-variant/20 animate-pulse" />
+                <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse mt-2" />
+              </div>
+            )}
           </div>
         </div>
 
         {/* Daily Goal Card */}
         <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
           <div className="flex items-center gap-3 md:gap-4">
-          <DailyGoalRing
-            reviewed={todayReviewed}
-            goal={dailyGoal}
-            loaded={loaded}
-            compact
-            showValue={false}
-          />
-          {loaded ? (
-            <div className="min-w-0">
-              <p className="font-display text-2xl md:text-3xl font-extrabold text-foreground leading-none">
-                {todayReviewed}
-                <span className="ml-1 text-sm md:text-base font-bold text-secondary">/ {dailyGoal}</span>
-              </p>
-              <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
-                Daily Goal
-              </p>
-            </div>
-          ) : (
-            <div>
-              <div className="h-8 w-14 rounded bg-outline-variant/20 animate-pulse" />
-              <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse mt-2" />
-            </div>
-          )}
+            <DailyGoalRing
+              reviewed={todayReviewed}
+              goal={dailyGoal}
+              loaded={loaded}
+              compact
+              showValue={false}
+            />
+            {loaded ? (
+              <div className="min-w-0">
+                <p className="font-display text-2xl md:text-3xl font-extrabold text-foreground leading-none">
+                  {todayReviewed}
+                  <span className="ml-1 text-sm md:text-base font-bold text-secondary">
+                    / {dailyGoal}
+                  </span>
+                </p>
+                <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
+                  Daily Goal
+                </p>
+              </div>
+            ) : (
+              <div>
+                <div className="h-8 w-14 rounded bg-outline-variant/20 animate-pulse" />
+                <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse mt-2" />
+              </div>
+            )}
           </div>
         </div>
 
@@ -304,39 +313,39 @@ export function HomeClient({ lessons }: HomeClientProps) {
         ) : (
           <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
             <div className="flex items-center gap-3 md:gap-4">
-            <div
-              className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-success/10 flex items-center justify-center text-success shrink-0"
-              aria-hidden
-            >
-              <svg
-                className="w-5 h-5 md:w-6 md:h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
+              <div
+                className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-success/10 flex items-center justify-center text-success shrink-0"
+                aria-hidden
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-            {loaded ? (
-              <div className="min-w-0">
-                <p className="font-display text-xl md:text-2xl font-bold text-success leading-none">
-                  All clear
-                </p>
-                <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
-                  Caught Up
-                </p>
+                <svg
+                  className="w-5 h-5 md:w-6 md:h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
               </div>
-            ) : (
-              <div>
-                <div className="h-6 w-14 rounded bg-outline-variant/20 animate-pulse" />
-                <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse mt-2" />
-              </div>
-            )}
+              {loaded ? (
+                <div className="min-w-0">
+                  <p className="font-display text-xl md:text-2xl font-bold text-success leading-none">
+                    All clear
+                  </p>
+                  <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
+                    Caught Up
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <div className="h-6 w-14 rounded bg-outline-variant/20 animate-pulse" />
+                  <div className="h-3 w-16 rounded bg-outline-variant/20 animate-pulse mt-2" />
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -399,7 +408,10 @@ export function HomeClient({ lessons }: HomeClientProps) {
         ) : (
           <div className="flex items-end gap-2 md:gap-2.5 h-24" aria-hidden>
             {Array.from({ length: 7 }).map((_, i) => (
-              <div key={i} className="flex-1 h-16 rounded-md bg-outline-variant/20 animate-pulse" />
+              <div
+                key={i}
+                className="flex-1 h-16 rounded-md bg-outline-variant/20 animate-pulse"
+              />
             ))}
           </div>
         )}

@@ -446,8 +446,18 @@ export function DeckSessionClient({
           href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           {isReview ? "Back to Review" : "Back to Deck"}
         </Link>
@@ -583,7 +593,7 @@ export function DeckSessionClient({
                   const isCorrect = multipleChoice.correct === option;
 
                   let stateClass =
-                    "bg-surface-lowest text-foreground hover:bg-surface-low border-2 border-transparent";
+                    "bg-surface-lowest text-foreground border-2 border-outline-variant/25 hover:border-primary/55";
                   if (choiceLocked) {
                     if (isCorrect)
                       stateClass =

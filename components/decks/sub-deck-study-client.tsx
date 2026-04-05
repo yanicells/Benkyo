@@ -4,7 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import type { Card, CardType, FlipSetting, LessonMeta, StudyMode } from "@/lib/types";
+import type {
+  Card,
+  CardType,
+  FlipSetting,
+  LessonMeta,
+  StudyMode,
+} from "@/lib/types";
 
 type SubDeckStudyClientProps = {
   lessonId: string;
@@ -17,7 +23,12 @@ type SubDeckStudyClientProps = {
   cards: Card[];
 };
 
-const modeOptions: { value: StudyMode; label: string; icon: string; description: string }[] = [
+const modeOptions: {
+  value: StudyMode;
+  label: string;
+  icon: string;
+  description: string;
+}[] = [
   {
     value: "flashcard",
     label: "Flashcard",
@@ -77,14 +88,26 @@ function SettingsDialog({
       <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden">
         {/* Dialog header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10">
-          <h3 className="font-display text-lg font-bold text-foreground">Session Settings</h3>
+          <h3 className="font-display text-lg font-bold text-foreground">
+            Session Settings
+          </h3>
           <button
             type="button"
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -108,8 +131,12 @@ function SettingsDialog({
                   }`}
                 >
                   <span className="text-lg">{opt.icon}</span>
-                  <span className="text-sm font-semibold text-foreground">{opt.label}</span>
-                  <span className="text-[10px] text-on-surface-variant leading-tight">{opt.description}</span>
+                  <span className="text-sm font-semibold text-foreground">
+                    {opt.label}
+                  </span>
+                  <span className="text-[10px] text-on-surface-variant leading-tight">
+                    {opt.description}
+                  </span>
                 </button>
               ))}
             </div>
@@ -215,7 +242,9 @@ export function SubDeckStudyClient({
       flip,
       types: [...selectedTypes].join(","),
     });
-    router.push(`/decks/${lessonId}/${subDeckId}/session?${searchParams.toString()}`);
+    router.push(
+      `/decks/${lessonId}/${subDeckId}/session?${searchParams.toString()}`,
+    );
   };
 
   // Get a short summary from meta
@@ -235,8 +264,18 @@ export function SubDeckStudyClient({
           href={`/decks/${lessonId}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
           {lessonTitle}
         </Link>
@@ -260,8 +299,18 @@ export function SubDeckStudyClient({
         <div className="mb-8 rounded-2xl bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden">
           <div className="flex items-center gap-3 px-6 py-4 border-b border-outline-variant/10 bg-primary/3">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-              <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              <svg
+                className="w-4 h-4 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
               </svg>
             </div>
             <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary">
@@ -277,7 +326,10 @@ export function SubDeckStudyClient({
             {keyPoints.length > 0 && (
               <ul className="space-y-2">
                 {keyPoints.map((point, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-foreground leading-relaxed">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2.5 text-sm text-foreground leading-relaxed"
+                  >
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-[10px] font-bold text-primary">
                       {i + 1}
                     </span>
@@ -311,7 +363,9 @@ export function SubDeckStudyClient({
                 <p className="font-japanese text-xl text-foreground">
                   {card.front}
                 </p>
-                <p className="mt-1 text-sm text-on-surface-variant">{card.back}</p>
+                <p className="mt-1 text-sm text-on-surface-variant">
+                  {card.back}
+                </p>
               </div>
             </div>
           ))}

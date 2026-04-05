@@ -5,8 +5,8 @@ import Link from "next/link";
 import type { Lesson } from "@/lib/types";
 import { getLessonMastery, getLessonCompletionPercent } from "@/lib/srs";
 
-type LessonState = "locked" | "available" | "in-progress" | "completed";
-const UNLOCK_THRESHOLD = 70; // % mastery required to unlock next lesson
+type LessonState = "not-started" | "in-progress" | "completed";
+const COMPLETED_MASTERY_THRESHOLD = 70;
 const subscribeNoop = () => () => {};
 const EMPTY_PROGRESS_SNAPSHOT: Record<
   string,
@@ -23,28 +23,19 @@ function computeStates(
   lessons: Lesson[],
   data: Record<string, { mastery: number; completion: number }>,
 ): LessonWithState[] {
-  return lessons.map((lesson, i) => {
+  return lessons.map((lesson) => {
     const { mastery, completion } = data[lesson.id] ?? {
       mastery: 0,
       completion: 0,
     };
     let state: LessonState;
 
-    if (mastery >= UNLOCK_THRESHOLD && completion === 100) {
+    if (mastery >= COMPLETED_MASTERY_THRESHOLD && completion === 100) {
       state = "completed";
     } else if (completion > 0) {
       state = "in-progress";
     } else {
-      // Check prerequisites
-      const prereqs = lesson.prerequisiteIds ?? [];
-      const prereqsMet =
-        prereqs.length === 0 ||
-        prereqs.every((pid) => {
-          const pd = data[pid];
-          return pd && pd.mastery >= UNLOCK_THRESHOLD;
-        });
-      // First lesson is always available; others need prereqs
-      state = i === 0 || prereqsMet ? "available" : "locked";
+      state = "not-started";
     }
 
     return { ...lesson, state, mastery, completion };
@@ -70,22 +61,13 @@ const STATE_CONFIG = {
     labelColor: "text-primary",
     badgeBg: "bg-primary/10",
   },
-  available: {
-    ring: "border-primary/40",
-    bg: "bg-surface-lowest",
-    text: "text-primary",
-    shadow: "shadow-[0_4px_16px_rgba(0,36,70,0.1)]",
-    label: "Start",
-    labelColor: "text-primary",
-    badgeBg: "bg-primary/5",
-  },
-  locked: {
-    ring: "border-outline-variant/40",
+  "not-started": {
+    ring: "border-outline-variant/50",
     bg: "bg-surface-low",
-    text: "text-on-surface-variant/40",
-    shadow: "",
-    label: "Locked",
-    labelColor: "text-on-surface-variant/50",
+    text: "text-on-surface-variant",
+    shadow: "shadow-[0_4px_16px_rgba(0,36,70,0.1)]",
+    label: "Not Started",
+    labelColor: "text-on-surface-variant",
     badgeBg: "bg-surface-low",
   },
 } as const;
@@ -122,23 +104,6 @@ function NodeIcon({ state }: { state: LessonState }) {
       </svg>
     );
   }
-  if (state === "locked") {
-    return (
-      <svg
-        className="w-6 h-6 opacity-30"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-        />
-      </svg>
-    );
-  }
   return (
     <svg
       className="w-6 h-6"
@@ -164,7 +129,6 @@ function PathNode({
   index: number;
 }) {
   const cfg = STATE_CONFIG[lesson.state];
-  const isLocked = lesson.state === "locked";
   const totalCards = lesson.subDecks.reduce((s, sd) => s + sd.cards.length, 0);
 
   // Zig-zag: even = left-skewed, odd = right-skewed (on mobile, it centers everything)
@@ -173,11 +137,11 @@ function PathNode({
 
   const inner = (
     <div
-      className={`group relative flex items-center gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ${cfg.ring} ${isLocked ? "bg-surface-low" : "bg-surface-lowest"} ${cfg.shadow} ${!isLocked ? "hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(0,36,70,0.12)]" : "cursor-default"}`}
+      className={`group relative flex items-center gap-4 rounded-2xl border-2 bg-surface-lowest p-4 transition-all duration-200 ${cfg.ring} ${cfg.shadow} hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(0,36,70,0.12)]`}
     >
       {/* Node circle */}
       <div
-        className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 ${cfg.ring} ${isLocked ? "bg-surface-low" : cfg.bg} ${cfg.text} transition-transform ${!isLocked ? "group-hover:scale-105" : ""}`}
+        className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 ${cfg.ring} ${cfg.bg} ${cfg.text} transition-transform group-hover:scale-105`}
       >
         <NodeIcon state={lesson.state} />
       </div>
@@ -186,19 +150,19 @@ function PathNode({
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
           <DifficultyPip difficulty={lesson.meta?.difficulty} />
-          {lesson.meta?.estimatedMinutes && !isLocked && (
+          {lesson.meta?.estimatedMinutes && (
             <span className="text-[10px] text-on-surface-variant">
               ~{lesson.meta.estimatedMinutes}m
             </span>
           )}
         </div>
         <h3
-          className={`font-display text-sm font-bold leading-tight ${isLocked ? "text-on-surface-variant/40" : "text-foreground"}`}
+          className="font-display text-sm font-bold leading-tight text-foreground"
         >
           {lesson.title}
         </h3>
         <p
-          className={`text-[11px] mt-0.5 ${isLocked ? "text-on-surface-variant/30" : "text-on-surface-variant"}`}
+          className="mt-0.5 text-[11px] text-on-surface-variant"
         >
           {totalCards} cards · {lesson.subDecks.length} decks
         </p>
@@ -226,17 +190,14 @@ function PathNode({
         )}
       </div>
 
-      {/* State badge */}
-      <div
-        className={`shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${cfg.badgeBg} ${cfg.labelColor}`}
-      >
-        {cfg.label}
-      </div>
-
-      {/* Arrow for non-locked */}
-      {!isLocked && (
+      <div className="shrink-0 flex items-center gap-2 pl-1">
+        <div
+          className={`rounded-lg px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${cfg.badgeBg} ${cfg.labelColor}`}
+        >
+          {cfg.label}
+        </div>
         <svg
-          className="absolute right-4 w-4 h-4 text-on-surface-variant/30 group-hover:text-primary/50 transition-colors"
+          className="h-4 w-4 text-on-surface-variant/35 transition-colors group-hover:text-primary/60"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -248,19 +209,15 @@ function PathNode({
             d="M9 5l7 7-7 7"
           />
         </svg>
-      )}
+      </div>
     </div>
   );
 
   return (
     <div className={`w-full max-w-md mx-auto ${zigzag}`}>
-      {isLocked ? (
-        inner
-      ) : (
-        <Link href={`/decks/${lesson.id}`} className="block">
-          {inner}
-        </Link>
-      )}
+      <Link href={`/decks/${lesson.id}`} className="block">
+        {inner}
+      </Link>
     </div>
   );
 }
@@ -370,12 +327,8 @@ export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
           In Progress
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full border-2 border-primary/40 inline-block" />
-          Available
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-outline-variant/40 inline-block" />
-          Locked
+          <span className="h-2.5 w-2.5 rounded-full bg-outline-variant/50 inline-block" />
+          Not Started
         </span>
         <span className="ml-auto flex items-center gap-2">
           <DifficultyPip difficulty="beginner" />
@@ -399,9 +352,9 @@ export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
         ))}
       </div>
 
-      {/* Unlock info */}
+      {/* Path info */}
       <p className="text-center text-[11px] text-on-surface-variant pb-4">
-        Lessons unlock when prerequisites reach {UNLOCK_THRESHOLD}% mastery
+        All lessons are open. Follow the order for the smoothest progression.
       </p>
     </div>
   );

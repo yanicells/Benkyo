@@ -33,14 +33,26 @@ function RowPreviewModal({
       <div className="absolute inset-0" onClick={onClose} />
       <div className="relative w-full max-w-sm bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-outline-variant/10">
-          <h3 className="font-display text-base font-bold text-foreground">{label}</h3>
+          <h3 className="font-display text-base font-bold text-foreground">
+            {label}
+          </h3>
           <button
             type="button"
             onClick={onClose}
             className="flex h-7 w-7 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -98,14 +110,26 @@ function SessionOptionsModal({
       <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
-          <h3 className="font-display text-lg font-bold text-foreground">Session Options</h3>
+          <h3 className="font-display text-lg font-bold text-foreground">
+            Session Options
+          </h3>
           <button
             type="button"
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -114,24 +138,38 @@ function SessionOptionsModal({
           {/* Session summary */}
           <div className="flex items-center gap-5 rounded-xl bg-surface-low px-5 py-4">
             <div className="text-center">
-              <p className="font-display text-2xl font-bold text-foreground">{cardCount}</p>
-              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">kana</p>
+              <p className="font-display text-2xl font-bold text-foreground">
+                {cardCount}
+              </p>
+              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">
+                kana
+              </p>
             </div>
             <div className="h-8 w-px bg-outline-variant/30" />
             <div className="text-center">
-              <p className="font-display text-2xl font-bold text-foreground">~{estimatedMinutes}</p>
-              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">min</p>
+              <p className="font-display text-2xl font-bold text-foreground">
+                ~{estimatedMinutes}
+              </p>
+              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">
+                min
+              </p>
             </div>
             <div className="h-8 w-px bg-outline-variant/30" />
             <div>
-              <p className="text-sm font-semibold text-foreground">{rowCount} row{rowCount !== 1 ? "s" : ""}</p>
-              <p className="text-[10px] text-on-surface-variant">{scriptLabel}</p>
+              <p className="text-sm font-semibold text-foreground">
+                {rowCount} row{rowCount !== 1 ? "s" : ""}
+              </p>
+              <p className="text-[10px] text-on-surface-variant">
+                {scriptLabel}
+              </p>
             </div>
           </div>
 
           {/* Study mode */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">Study Mode</p>
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
+              Study Mode
+            </p>
             <div className="grid grid-cols-2 gap-2">
               {(["mc", "typing"] as const).map((m) => (
                 <button
@@ -154,7 +192,9 @@ function SessionOptionsModal({
           {mode === "typing" && (
             <div>
               <div className="flex justify-between items-center mb-2">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">Batch Size</p>
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">
+                  Batch Size
+                </p>
                 <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-md text-xs font-bold">
                   {batchSize} Kana
                 </span>
@@ -165,14 +205,19 @@ function SessionOptionsModal({
                   min="1"
                   max="4"
                   value={batchSize}
-                  onChange={(e) => setBatchSize(Number(e.target.value) as KanaBatchSize)}
+                  onChange={(e) =>
+                    setBatchSize(Number(e.target.value) as KanaBatchSize)
+                  }
                   className="w-full h-1.5 bg-secondary-container rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-primary"
                   style={{
                     background: `linear-gradient(to right, var(--primary) ${((batchSize - 1) / 3) * 100}%, var(--secondary-container) ${((batchSize - 1) / 3) * 100}%)`,
                   }}
                 />
                 <div className="absolute w-full flex justify-between px-1 text-[10px] font-semibold text-on-surface-variant top-7">
-                  <span>1</span><span>2</span><span>3</span><span>4</span>
+                  <span>1</span>
+                  <span>2</span>
+                  <span>3</span>
+                  <span>4</span>
                 </div>
               </div>
             </div>
@@ -181,15 +226,21 @@ function SessionOptionsModal({
           {/* Shuffle */}
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm font-semibold text-foreground">Shuffle Order</p>
-              <p className="text-[10px] text-on-surface-variant mt-0.5">Randomize kana sequence</p>
+              <p className="text-sm font-semibold text-foreground">
+                Shuffle Order
+              </p>
+              <p className="text-[10px] text-on-surface-variant mt-0.5">
+                Randomize kana sequence
+              </p>
             </div>
             <button
               type="button"
               onClick={() => setShuffleOrder(!shuffleOrder)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${shuffleOrder ? "bg-primary" : "bg-outline-variant/30"}`}
             >
-              <span className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${shuffleOrder ? "translate-x-6" : "translate-x-1"}`} />
+              <span
+                className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${shuffleOrder ? "translate-x-6" : "translate-x-1"}`}
+              />
             </button>
           </div>
         </div>
@@ -209,7 +260,9 @@ function SessionOptionsModal({
   );
 }
 
-export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormProps) {
+export function KanaConfigForm({
+  initialScript = "hiragana",
+}: KanaConfigFormProps) {
   const router = useRouter();
   const [script, setScript] = useState<KanaScript>(initialScript);
   const [selectedRows, setSelectedRows] = useState<KanaRowKey[]>(() =>
@@ -221,7 +274,10 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
   const [shuffleOrder, setShuffleOrder] = useState(true);
   const [mode, setMode] = useState<"mc" | "typing">("mc");
   const [optionsOpen, setOptionsOpen] = useState(false);
-  const [previewRow, setPreviewRow] = useState<{ label: string; entries: KanaEntry[] } | null>(null);
+  const [previewRow, setPreviewRow] = useState<{
+    label: string;
+    entries: KanaEntry[];
+  } | null>(null);
 
   const groupedRows = useMemo(() => {
     const rows = getKanaRows(script);
@@ -233,7 +289,10 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
 
   const scriptLabel = script === "hiragana" ? "Hiragana" : "Katakana";
 
-  const groupInfo: Record<KanaGroup, { eyebrow: string; title: string; desc: string }> = {
+  const groupInfo: Record<
+    KanaGroup,
+    { eyebrow: string; title: string; desc: string }
+  > = {
     basic: {
       eyebrow: "FOUNDATION",
       title: "Basic",
@@ -266,7 +325,8 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
   );
 
   const toggleGroup = (group: KanaGroup) => {
-    const groupRows = groupedRows.find((item) => item.group === group)?.rows ?? [];
+    const groupRows =
+      groupedRows.find((item) => item.group === group)?.rows ?? [];
     const groupKeys = groupRows.map((row) => row.key);
     setSelectedRows((prev) => {
       const allSelected = groupKeys.every((key) => prev.includes(key));
@@ -307,10 +367,14 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
                 );
               }}
               className={`flex-1 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors ${
-                script === s ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"
+                script === s
+                  ? "bg-white shadow-sm text-primary"
+                  : "text-on-surface-variant hover:bg-surface-low"
               }`}
             >
-              <span className="font-japanese-display text-lg">{s === "hiragana" ? "あ" : "ア"}</span>
+              <span className="font-japanese-display text-lg">
+                {s === "hiragana" ? "あ" : "ア"}
+              </span>
               {s.charAt(0).toUpperCase() + s.slice(1)}
             </button>
           ))}
@@ -337,9 +401,16 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
               >
                 {isActive && (
                   <div className="absolute top-4 right-4 text-primary">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-4 h-4"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <circle cx="12" cy="12" r="10" />
-                      <path fill="white" d="M10 15.5l-3.5-3.5 1.4-1.4 2.1 2.1 5.6-5.6 1.4 1.4L10 15.5z" />
+                      <path
+                        fill="white"
+                        d="M10 15.5l-3.5-3.5 1.4-1.4 2.1 2.1 5.6-5.6 1.4 1.4L10 15.5z"
+                      />
                     </svg>
                   </div>
                 )}
@@ -365,7 +436,9 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
             </h3>
             <button
               type="button"
-              onClick={() => setSelectedRows(getKanaRows(script).map((r) => r.key))}
+              onClick={() =>
+                setSelectedRows(getKanaRows(script).map((r) => r.key))
+              }
               className="text-xs font-bold text-primary hover:underline"
             >
               Select All
@@ -374,7 +447,9 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
 
           <div className="space-y-1.5">
             {groupedRows.map((g) => {
-              const hasAnySelectedInGroup = g.rows.some((r) => selectedRows.includes(r.key));
+              const hasAnySelectedInGroup = g.rows.some((r) =>
+                selectedRows.includes(r.key),
+              );
               if (!hasAnySelectedInGroup && g.group !== "basic") return null;
 
               return g.rows.map((row) => {
@@ -385,13 +460,20 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
                   <div
                     key={row.key}
                     className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${
-                      checked ? "bg-surface-lowest shadow-sm" : "bg-surface-lowest/50 opacity-60"
+                      checked
+                        ? "bg-surface-lowest shadow-sm"
+                        : "bg-surface-lowest/50 opacity-60"
                     }`}
                   >
                     {/* Kana preview — clickable */}
                     <button
                       type="button"
-                      onClick={() => setPreviewRow({ label: row.label, entries: row.entries })}
+                      onClick={() =>
+                        setPreviewRow({
+                          label: row.label,
+                          entries: row.entries,
+                        })
+                      }
                       className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center font-japanese-display text-lg font-bold text-primary hover:bg-primary/10 transition-colors shrink-0"
                       title={`Preview ${row.label}`}
                     >
@@ -399,7 +481,9 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
                     </button>
 
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-sm text-foreground">{row.label}</p>
+                      <p className="font-bold text-sm text-foreground">
+                        {row.label}
+                      </p>
                       <p className="text-[10px] text-on-surface-variant truncate">
                         {row.entries.map((e) => e.romaji).join(", ")}
                       </p>
@@ -436,7 +520,9 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
             onClick={() => setOptionsOpen(true)}
             className="w-full btn-primary-gradient rounded-xl py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {selectedRows.length === 0 ? "Select rows to start" : "Start Session"}
+            {selectedRows.length === 0
+              ? "Select rows to start"
+              : "Start Session"}
           </button>
         </div>
       </div>

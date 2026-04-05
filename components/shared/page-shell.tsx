@@ -28,15 +28,27 @@ export function PageShell({
             href={backHref}
             className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
             {backLabel ?? "Back"}
           </Link>
         </div>
       )}
       {title && (
-        <header className={`mb-6 space-y-1.5 sm:mb-10 sm:space-y-3 ${stickyHeader ? "sticky top-14 lg:top-16 z-20 bg-surface/95 backdrop-blur-md -mx-4 px-4 sm:-mx-8 sm:px-8 py-4" : ""}`}>
+        <header
+          className={`mb-6 space-y-1.5 sm:mb-10 sm:space-y-3 ${stickyHeader ? "sticky top-14 lg:top-16 z-20 bg-surface/95 backdrop-blur-md -mx-4 px-4 sm:-mx-8 sm:px-8 py-4" : ""}`}
+        >
           {eyebrow && (
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-on-surface-variant">
               {eyebrow}
