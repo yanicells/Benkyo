@@ -30,7 +30,7 @@ function RowPreviewModal({
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-foreground/20" onClick={onClose} />
+      <div className="absolute inset-0" onClick={onClose} />
       <div className="relative w-full max-w-sm bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-outline-variant/10">
           <h3 className="font-display text-base font-bold text-foreground">{label}</h3>
@@ -94,7 +94,7 @@ function SessionOptionsModal({
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-foreground/20" onClick={onClose} />
+      <div className="absolute inset-0" onClick={onClose} />
       <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
@@ -291,7 +291,7 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
 
   return (
     <>
-      <div className="space-y-6 pb-28">
+      <div className="space-y-6 pb-32">
         {/* Script toggle */}
         <div className="flex rounded-xl bg-surface-lowest p-1 shadow-sm">
           {(["hiragana", "katakana"] as const).map((s) => (
@@ -428,18 +428,13 @@ export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormPro
       </div>
 
       {/* Sticky bottom bar — Start Session CTA */}
-      <div className="fixed bottom-0 left-0 right-0 lg:left-72 z-30 bg-surface/95 border-t border-outline-variant/10 px-4 py-3 sm:px-8">
-        <div className="mx-auto max-w-4xl flex items-center gap-4">
-          {selectedRows.length > 0 && (
-            <p className="text-xs text-on-surface-variant shrink-0">
-              <span className="font-bold text-foreground">{cardCount}</span> kana · <span className="font-bold text-foreground">~{estimatedMinutes}m</span>
-            </p>
-          )}
+      <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
+        <div className="mx-auto w-full max-w-4xl px-4 py-3 sm:px-8">
           <button
             type="button"
             disabled={selectedRows.length === 0}
             onClick={() => setOptionsOpen(true)}
-            className="flex-1 btn-primary-gradient rounded-xl py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full btn-primary-gradient rounded-xl py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {selectedRows.length === 0 ? "Select rows to start" : "Start Session"}
           </button>

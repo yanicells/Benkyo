@@ -189,19 +189,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
   const maxActivity = Math.max(...sevenDayActivity.map((d) => d.reviewed), 1);
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-8 lg:py-12 w-full flex flex-col gap-8 md:gap-12 lg:gap-14">
-      {/* Page Header */}
-      <header>
-        <p className="text-secondary text-xs uppercase tracking-[0.2em] font-bold mb-3">
-          Okaeri, Scholar
-        </p>
-        <h1 className="font-display font-extrabold text-4xl md:text-5xl lg:text-[4rem] text-foreground leading-none tracking-tight">
-          Let&apos;s Study{" "}
-          <span className="font-japanese-display italic font-light text-primary">
-            日本語
-          </span>
-        </h1>
-      </header>
+    <div className="w-full flex flex-col gap-8 md:gap-10 lg:gap-12">
 
       {/* Stats Cards - 3 columns */}
       <div className="grid grid-cols-3 gap-3 md:gap-5 lg:gap-6">

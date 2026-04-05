@@ -73,7 +73,7 @@ function SettingsDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-foreground/20" onClick={onClose} />
+      <div className="absolute inset-0" onClick={onClose} />
       <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden">
         {/* Dialog header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10">
@@ -228,7 +228,7 @@ export function SubDeckStudyClient({
   const keyPoints = meta?.cheatSheet?.slice(0, 3) ?? [];
 
   return (
-    <section className="relative mx-auto w-full max-w-4xl px-4 py-6 sm:px-8 sm:py-10">
+    <section className="relative mx-auto w-full max-w-4xl px-4 py-6 pb-32 sm:px-8 sm:py-10 sm:pb-36">
       {/* Back button */}
       <Link
         href={`/decks/${lessonId}`}
@@ -288,15 +288,6 @@ export function SubDeckStudyClient({
         </div>
       )}
 
-      {/* Start Session CTA */}
-      <button
-        type="button"
-        onClick={() => setDialogOpen(true)}
-        className="w-full btn-primary-gradient rounded-2xl py-5 text-white font-bold text-lg shadow-[0_12px_40px_rgba(0,36,70,0.15)] transition-all hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 mb-6"
-      >
-        Start Session
-      </button>
-
       {/* Card preview */}
       <div className="rounded-2xl bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
         <div className="mb-3 flex items-center justify-between gap-2">
@@ -305,7 +296,7 @@ export function SubDeckStudyClient({
           </p>
           <p className="text-xs text-on-surface-variant">{cardCount} entries</p>
         </div>
-        <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
+        <div className="space-y-2">
           {cards.map((card, i) => (
             <div
               key={`${card.front}-${card.back}-${i}`}
@@ -322,6 +313,19 @@ export function SubDeckStudyClient({
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Sticky bottom bar — Start Session CTA */}
+      <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
+        <div className="mx-auto w-full max-w-4xl px-4 py-3 sm:px-8">
+          <button
+            type="button"
+            onClick={() => setDialogOpen(true)}
+            className="w-full btn-primary-gradient rounded-xl py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90"
+          >
+            Start Session
+          </button>
         </div>
       </div>
 

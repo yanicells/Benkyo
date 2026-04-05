@@ -7,7 +7,11 @@ export default function Home() {
   const lessons = (lessonsData as unknown as LessonsData).lessons;
 
   return (
-    <PageShell>
+    <PageShell
+      eyebrow="Okaeri"
+      title="Benkyo shimasu 勉強します"
+      subtitle="Genki-inspired learning through structured decks, kana drills, and steady review."
+    >
       <HomeClient lessons={lessons} />
     </PageShell>
   );
