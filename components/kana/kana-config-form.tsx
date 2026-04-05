@@ -353,11 +353,12 @@ export function KanaConfigForm({
     <>
       <div className="space-y-6 pb-32">
         {/* Script toggle */}
-        <div className="flex rounded-xl bg-surface-lowest p-1 shadow-sm">
+        <div className="flex rounded-xl border border-outline-variant/20 bg-surface-lowest p-1 shadow-sm">
           {(["hiragana", "katakana"] as const).map((s) => (
             <button
               key={s}
               type="button"
+              aria-pressed={script === s}
               onClick={() => {
                 setScript(s);
                 setSelectedRows(
@@ -366,10 +367,10 @@ export function KanaConfigForm({
                     .map((row) => row.key),
                 );
               }}
-              className={`flex-1 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors ${
+              className={`flex flex-1 items-center justify-center gap-2 rounded-lg border py-3 text-sm font-bold transition-all ${
                 script === s
-                  ? "bg-white shadow-sm text-primary"
-                  : "text-on-surface-variant hover:bg-surface-low"
+                  ? "border-primary/35 bg-primary/[0.07] text-primary shadow-[0_6px_16px_rgba(0,36,70,0.08)]"
+                  : "border-transparent text-on-surface-variant hover:border-primary/20 hover:bg-primary/[0.02]"
               }`}
             >
               <span className="font-japanese-display text-lg">
@@ -387,33 +388,35 @@ export function KanaConfigForm({
             const allSelected = rows.every((r) => selectedRows.includes(r.key));
             const someSelected = rows.some((r) => selectedRows.includes(r.key));
             const isActive = allSelected || someSelected;
+            const statusLabel = allSelected
+              ? "Selected"
+              : someSelected
+                ? "Partial"
+                : "Tap to select";
 
             return (
               <button
                 key={group}
                 type="button"
                 onClick={() => toggleGroup(group)}
-                className={`w-full text-left rounded-xl p-4 transition-all relative ${
+                aria-pressed={isActive}
+                className={`relative w-full rounded-xl border-2 p-4 text-left transition-all ${
                   isActive
-                    ? "bg-surface-lowest border-2 border-primary/30 shadow-sm"
-                    : "bg-surface-lowest/60 border-2 border-transparent hover:bg-surface-lowest"
+                    ? "border-primary/35 bg-primary/[0.04] shadow-[0_6px_18px_rgba(0,36,70,0.08)]"
+                    : "border-outline-variant/20 bg-surface-lowest/70 hover:border-primary/25 hover:bg-primary/[0.02]"
                 }`}
               >
-                {isActive && (
-                  <div className="absolute top-4 right-4 text-primary">
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <path
-                        fill="white"
-                        d="M10 15.5l-3.5-3.5 1.4-1.4 2.1 2.1 5.6-5.6 1.4 1.4L10 15.5z"
-                      />
-                    </svg>
-                  </div>
-                )}
+                <div
+                  className={`absolute right-3 top-3 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] ${
+                    allSelected
+                      ? "bg-primary/15 text-primary"
+                      : someSelected
+                        ? "bg-secondary-container text-on-surface-variant"
+                        : "bg-surface-low text-on-surface-variant/80"
+                  }`}
+                >
+                  {statusLabel}
+                </div>
                 <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant mb-0.5">
                   {groupInfo[group].eyebrow}
                 </p>

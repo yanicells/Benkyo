@@ -57,6 +57,15 @@ const typeLabels: Record<CardType, string> = {
   culture: "Culture",
 };
 
+const previewTypeLabels: Record<CardType, string> = {
+  vocab: "Vocab",
+  grammar: "Grammar",
+  "fill-in": "Fill In",
+  conjugation: "Conjug.",
+  translate: "Translate",
+  culture: "Culture",
+};
+
 function SettingsDialog({
   open,
   onClose,
@@ -354,10 +363,10 @@ export function SubDeckStudyClient({
           {cards.map((card, i) => (
             <div
               key={`${card.front}-${card.back}-${i}`}
-              className="flex items-start gap-2 rounded-lg bg-surface-low px-3 py-2"
+              className="flex items-center gap-2 rounded-lg bg-surface-low px-3 py-2"
             >
-              <span className="mt-0.5 shrink-0 rounded-lg bg-surface-lowest px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                {card.type}
+              <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+                {previewTypeLabels[card.type]}
               </span>
               <div className="min-w-0">
                 <p className="font-japanese text-xl text-foreground">
