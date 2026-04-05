@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { getAuth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import {
-  cardSrs,
-  dailyStats,
-  userSettings,
-  streakData,
-} from "@/lib/db/schema";
+import { cardSrs, dailyStats, userSettings, streakData } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
-import type { CardSRS, DailyStats, BenkyoSettings, StreakData } from "@/lib/types";
+import type {
+  CardSRS,
+  DailyStats,
+  BenkyoSettings,
+  StreakData,
+} from "@/lib/types";
 
 type SyncPayload = {
   srs?: Record<string, CardSRS>;
@@ -19,8 +19,10 @@ type SyncPayload = {
 
 // GET /api/sync — download all user data to merge into localStorage
 export async function GET(req: NextRequest) {
+  const auth = getAuth();
   const session = await auth.api.getSession({ headers: req.headers });
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const userId = session.user.id;
   const database = db();
@@ -28,8 +30,16 @@ export async function GET(req: NextRequest) {
   const [srsRows, statsRows, settingsRow, streakRow] = await Promise.all([
     database.select().from(cardSrs).where(eq(cardSrs.userId, userId)),
     database.select().from(dailyStats).where(eq(dailyStats.userId, userId)),
-    database.select().from(userSettings).where(eq(userSettings.userId, userId)).get(),
-    database.select().from(streakData).where(eq(streakData.userId, userId)).get(),
+    database
+      .select()
+      .from(userSettings)
+      .where(eq(userSettings.userId, userId))
+      .get(),
+    database
+      .select()
+      .from(streakData)
+      .where(eq(streakData.userId, userId))
+      .get(),
   ]);
 
   const srs: Record<string, CardSRS> = {};
@@ -66,8 +76,10 @@ export async function GET(req: NextRequest) {
 
 // POST /api/sync — upload localStorage data to the database (merge, last-write wins per card)
 export async function POST(req: NextRequest) {
+  const auth = getAuth();
   const session = await auth.api.getSession({ headers: req.headers });
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const userId = session.user.id;
   const body: SyncPayload = await req.json();
