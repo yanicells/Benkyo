@@ -382,7 +382,7 @@ export function KanaConfigForm({
         </div>
 
         {/* Group quick-select */}
-        <div className="grid gap-2 [@media(min-width:560px)]:grid-cols-2">
+        <div className="grid gap-2 [@media(min-width:560px)]:grid-cols-2 [@media(min-width:900px)]:grid-cols-3">
           {groupOrder.map((group) => {
             const rows = groupedRows.find((g) => g.group === group)?.rows ?? [];
             const allSelected = rows.every((r) => selectedRows.includes(r.key));

@@ -419,7 +419,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
       {/* Core Learning Modes (CTAs) */}
       <section aria-label="Start learning">
-        <div className="grid grid-cols-1 gap-4 [@media(min-width:560px)]:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-1 gap-4 [@media(min-width:560px)]:grid-cols-2 [@media(min-width:900px)]:grid-cols-3 md:gap-6 lg:gap-8">
           {/* Kana Practice */}
           <Link
             href="/kana"
