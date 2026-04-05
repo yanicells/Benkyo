@@ -8,6 +8,10 @@ import { getLessonMastery, getLessonCompletionPercent } from "@/lib/srs";
 type LessonState = "locked" | "available" | "in-progress" | "completed";
 const UNLOCK_THRESHOLD = 70; // % mastery required to unlock next lesson
 const subscribeNoop = () => () => {};
+const EMPTY_PROGRESS_SNAPSHOT: Record<
+  string,
+  { mastery: number; completion: number }
+> = {};
 
 type LessonWithState = Lesson & {
   state: LessonState;
@@ -15,9 +19,15 @@ type LessonWithState = Lesson & {
   completion: number;
 };
 
-function computeStates(lessons: Lesson[], data: Record<string, { mastery: number; completion: number }>): LessonWithState[] {
+function computeStates(
+  lessons: Lesson[],
+  data: Record<string, { mastery: number; completion: number }>,
+): LessonWithState[] {
   return lessons.map((lesson, i) => {
-    const { mastery, completion } = data[lesson.id] ?? { mastery: 0, completion: 0 };
+    const { mastery, completion } = data[lesson.id] ?? {
+      mastery: 0,
+      completion: 0,
+    };
     let state: LessonState;
 
     if (mastery >= UNLOCK_THRESHOLD && completion === 100) {
@@ -88,39 +98,78 @@ function DifficultyPip({ difficulty }: { difficulty?: string }) {
   };
   if (!difficulty) return null;
   return (
-    <span className={`inline-block h-1.5 w-1.5 rounded-full ${colors[difficulty] ?? "bg-secondary"}`} />
+    <span
+      className={`inline-block h-1.5 w-1.5 rounded-full ${colors[difficulty] ?? "bg-secondary"}`}
+    />
   );
 }
 
 function NodeIcon({ state }: { state: LessonState }) {
   if (state === "completed") {
     return (
-      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+      <svg
+        className="w-7 h-7"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2.5}
+          d="M5 13l4 4L19 7"
+        />
       </svg>
     );
   }
   if (state === "locked") {
     return (
-      <svg className="w-6 h-6 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      <svg
+        className="w-6 h-6 opacity-30"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+        />
       </svg>
     );
   }
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+      />
     </svg>
   );
 }
 
-function PathNode({ lesson, index }: { lesson: LessonWithState; index: number }) {
+function PathNode({
+  lesson,
+  index,
+}: {
+  lesson: LessonWithState;
+  index: number;
+}) {
   const cfg = STATE_CONFIG[lesson.state];
   const isLocked = lesson.state === "locked";
   const totalCards = lesson.subDecks.reduce((s, sd) => s + sd.cards.length, 0);
 
   // Zig-zag: even = left-skewed, odd = right-skewed (on mobile, it centers everything)
-  const zigzag = index % 2 === 0 ? "lg:mr-auto lg:ml-16" : "lg:ml-auto lg:mr-16";
+  const zigzag =
+    index % 2 === 0 ? "lg:mr-auto lg:ml-16" : "lg:ml-auto lg:mr-16";
 
   const inner = (
     <div
@@ -138,13 +187,19 @@ function PathNode({ lesson, index }: { lesson: LessonWithState; index: number })
         <div className="flex items-center gap-2 mb-0.5">
           <DifficultyPip difficulty={lesson.meta?.difficulty} />
           {lesson.meta?.estimatedMinutes && !isLocked && (
-            <span className="text-[10px] text-on-surface-variant">~{lesson.meta.estimatedMinutes}m</span>
+            <span className="text-[10px] text-on-surface-variant">
+              ~{lesson.meta.estimatedMinutes}m
+            </span>
           )}
         </div>
-        <h3 className={`font-display text-sm font-bold leading-tight ${isLocked ? "text-on-surface-variant/40" : "text-foreground"}`}>
+        <h3
+          className={`font-display text-sm font-bold leading-tight ${isLocked ? "text-on-surface-variant/40" : "text-foreground"}`}
+        >
           {lesson.title}
         </h3>
-        <p className={`text-[11px] mt-0.5 ${isLocked ? "text-on-surface-variant/30" : "text-on-surface-variant"}`}>
+        <p
+          className={`text-[11px] mt-0.5 ${isLocked ? "text-on-surface-variant/30" : "text-on-surface-variant"}`}
+        >
           {totalCards} cards · {lesson.subDecks.length} decks
         </p>
 
@@ -157,25 +212,41 @@ function PathNode({ lesson, index }: { lesson: LessonWithState; index: number })
                 style={{ width: `${lesson.completion}%` }}
               />
             </div>
-            <p className="text-[10px] text-on-surface-variant mt-0.5">{lesson.completion}% reviewed</p>
+            <p className="text-[10px] text-on-surface-variant mt-0.5">
+              {lesson.completion}% reviewed
+            </p>
           </div>
         )}
 
         {/* Mastery for completed */}
         {lesson.state === "completed" && (
-          <p className="text-[10px] text-success mt-0.5 font-medium">{lesson.mastery}% mastered</p>
+          <p className="text-[10px] text-success mt-0.5 font-medium">
+            {lesson.mastery}% mastered
+          </p>
         )}
       </div>
 
       {/* State badge */}
-      <div className={`shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${cfg.badgeBg} ${cfg.labelColor}`}>
+      <div
+        className={`shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${cfg.badgeBg} ${cfg.labelColor}`}
+      >
         {cfg.label}
       </div>
 
       {/* Arrow for non-locked */}
       {!isLocked && (
-        <svg className="absolute right-4 w-4 h-4 text-on-surface-variant/30 group-hover:text-primary/50 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        <svg
+          className="absolute right-4 w-4 h-4 text-on-surface-variant/30 group-hover:text-primary/50 transition-colors"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
         </svg>
       )}
     </div>
@@ -198,19 +269,25 @@ function ConnectorLine({ fromState }: { fromState: LessonState }) {
   const active = fromState === "completed" || fromState === "in-progress";
   return (
     <div className="flex justify-center py-1">
-      <div className={`w-0.5 h-8 rounded-full ${active ? "bg-primary/20" : "bg-outline-variant/30"}`} />
+      <div
+        className={`w-0.5 h-8 rounded-full ${active ? "bg-primary/20" : "bg-outline-variant/30"}`}
+      />
     </div>
   );
 }
 
 export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
-  const cacheRef = useRef<Record<string, { mastery: number; completion: number }> | null>(null);
+  const cacheRef = useRef<Record<
+    string,
+    { mastery: number; completion: number }
+  > | null>(null);
 
   const data = useSyncExternalStore(
     subscribeNoop,
     () => {
       if (cacheRef.current === null) {
-        const result: Record<string, { mastery: number; completion: number }> = {};
+        const result: Record<string, { mastery: number; completion: number }> =
+          {};
         for (const lesson of lessons) {
           result[lesson.id] = {
             mastery: getLessonMastery(lesson),
@@ -221,24 +298,40 @@ export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
       }
       return cacheRef.current;
     },
-    () => ({}),
+    () => EMPTY_PROGRESS_SNAPSHOT,
   );
 
   const withStates = computeStates(lessons, data ?? {});
-  const completedCount = withStates.filter((l) => l.state === "completed").length;
-  const inProgressCount = withStates.filter((l) => l.state === "in-progress").length;
+  const completedCount = withStates.filter(
+    (l) => l.state === "completed",
+  ).length;
+  const inProgressCount = withStates.filter(
+    (l) => l.state === "in-progress",
+  ).length;
 
   return (
     <div className="space-y-6">
       {/* Header summary */}
       <div className="rounded-xl bg-surface-lowest p-4 shadow-[0_12px_32px_rgba(0,36,70,0.06)] flex items-center gap-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl btn-primary-gradient">
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          <svg
+            className="w-6 h-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+            />
           </svg>
         </div>
         <div className="flex-1">
-          <h2 className="font-display font-bold text-foreground text-sm">Your Journey</h2>
+          <h2 className="font-display font-bold text-foreground text-sm">
+            Your Journey
+          </h2>
           <p className="text-[11px] text-on-surface-variant mt-0.5">
             {completedCount}/{lessons.length} completed
             {inProgressCount > 0 && ` · ${inProgressCount} in progress`}
@@ -247,16 +340,22 @@ export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
           <div className="mt-2 h-1.5 w-full rounded-full bg-secondary-container overflow-hidden">
             <div
               className="h-full rounded-full bg-success transition-all duration-500"
-              style={{ width: `${Math.round((completedCount / lessons.length) * 100)}%` }}
+              style={{
+                width: `${Math.round((completedCount / lessons.length) * 100)}%`,
+              }}
             />
           </div>
         </div>
         <div className="shrink-0 text-right">
           <p className="font-display text-2xl font-bold text-foreground">
             {Math.round((completedCount / lessons.length) * 100)}
-            <span className="text-sm font-normal text-on-surface-variant">%</span>
+            <span className="text-sm font-normal text-on-surface-variant">
+              %
+            </span>
           </p>
-          <p className="text-[10px] text-on-surface-variant uppercase tracking-wide">done</p>
+          <p className="text-[10px] text-on-surface-variant uppercase tracking-wide">
+            done
+          </p>
         </div>
       </div>
 
@@ -293,7 +392,9 @@ export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
         {withStates.map((lesson, i) => (
           <div key={lesson.id}>
             <PathNode lesson={lesson} index={i} />
-            {i < withStates.length - 1 && <ConnectorLine fromState={lesson.state} />}
+            {i < withStates.length - 1 && (
+              <ConnectorLine fromState={lesson.state} />
+            )}
           </div>
         ))}
       </div>

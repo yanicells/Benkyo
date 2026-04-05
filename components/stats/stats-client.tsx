@@ -21,22 +21,32 @@ import { SettingsModal } from "@/components/stats/settings-modal";
 
 // Lazy-load chart components to avoid Recharts SSR issues
 const DailyActivityChart = dynamic(
-  () => import("@/components/stats/daily-activity-chart").then((m) => ({ default: m.DailyActivityChart })),
-  { ssr: false }
+  () =>
+    import("@/components/stats/daily-activity-chart").then((m) => ({
+      default: m.DailyActivityChart,
+    })),
+  { ssr: false },
 );
 const AccuracyTrendChart = dynamic(
-  () => import("@/components/stats/accuracy-trend-chart").then((m) => ({ default: m.AccuracyTrendChart })),
-  { ssr: false }
+  () =>
+    import("@/components/stats/accuracy-trend-chart").then((m) => ({
+      default: m.AccuracyTrendChart,
+    })),
+  { ssr: false },
 );
 const MasteryTrendChart = dynamic(
-  () => import("@/components/stats/mastery-trend-chart").then((m) => ({ default: m.MasteryTrendChart })),
-  { ssr: false }
+  () =>
+    import("@/components/stats/mastery-trend-chart").then((m) => ({
+      default: m.MasteryTrendChart,
+    })),
+  { ssr: false },
 );
 
 type ChartTab = "activity" | "accuracy" | "mastery";
 
 type StatsClientProps = {
   lessons: Lesson[];
+  hideOverview?: boolean;
 };
 
 type StatsData = {
@@ -57,7 +67,10 @@ function hasJapaneseGlyphs(value: string) {
 // Noop subscribe — localStorage doesn't push reactive updates
 const subscribeNoop = () => () => {};
 
-export function StatsClient({ lessons }: StatsClientProps) {
+export function StatsClient({
+  lessons,
+  hideOverview = false,
+}: StatsClientProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [chartTab, setChartTab] = useState<ChartTab>("activity");
 
@@ -106,8 +119,8 @@ export function StatsClient({ lessons }: StatsClientProps) {
     isLoaded && today.reviewed > 0
       ? `${Math.round((today.correct / today.reviewed) * 100)}%`
       : isLoaded
-      ? "—"
-      : "…";
+        ? "—"
+        : "…";
 
   const isNewUser = isLoaded && lifetime.totalReviews === 0;
 
@@ -145,61 +158,69 @@ export function StatsClient({ lessons }: StatsClientProps) {
         </div>
       )}
 
-      {/* Overview cards — always shown; source noted in sublabel */}
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-          <p className="text-3xl font-bold text-foreground">
-            {lifetime.totalReviews}
-          </p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
-            Total reviews
-          </p>
-        </div>
-        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-          <p className="text-3xl font-bold text-foreground">{streak.current}</p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
-            Day streak
-          </p>
-        </div>
-        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-          <p className="text-3xl font-bold text-foreground">
-            {lifetime.mastered}
-          </p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
-            Cards mastered
-          </p>
-          {/* Clarify the mastery criterion so the number has a clear meaning */}
-          <p className="mt-0.5 text-[10px] text-on-surface-variant/60">
-            interval ≥ 21 days
-          </p>
-        </div>
-        <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-          <p className="text-3xl font-bold text-foreground">
-            {todayAccuracyDisplay}
-          </p>
-          <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
-            Today&apos;s accuracy
-          </p>
-          {/* Show the denominator so the percentage has context */}
-          {today.reviewed > 0 && (
-            <p className="mt-0.5 text-[10px] text-on-surface-variant/60">
-              {today.correct}/{today.reviewed} correct
-            </p>
-          )}
-        </div>
-      </div>
+      {!hideOverview && (
+        <>
+          {/* Overview cards — always shown; source noted in sublabel */}
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+              <p className="text-3xl font-bold text-foreground">
+                {lifetime.totalReviews}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
+                Total reviews
+              </p>
+            </div>
+            <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+              <p className="text-3xl font-bold text-foreground">
+                {streak.current}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
+                Day streak
+              </p>
+            </div>
+            <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+              <p className="text-3xl font-bold text-foreground">
+                {lifetime.mastered}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
+                Cards mastered
+              </p>
+              {/* Clarify the mastery criterion so the number has a clear meaning */}
+              <p className="mt-0.5 text-[10px] text-on-surface-variant/60">
+                interval ≥ 21 days
+              </p>
+            </div>
+            <div className="rounded-lg bg-surface-lowest p-4 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+              <p className="text-3xl font-bold text-foreground">
+                {todayAccuracyDisplay}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-on-surface-variant">
+                Today&apos;s accuracy
+              </p>
+              {/* Show the denominator so the percentage has context */}
+              {today.reviewed > 0 && (
+                <p className="mt-0.5 text-[10px] text-on-surface-variant/60">
+                  {today.correct}/{today.reviewed} correct
+                </p>
+              )}
+            </div>
+          </div>
 
-      <div className="flex items-center gap-3 text-sm text-on-surface-variant">
-        <span>
-          <span className="font-semibold text-foreground">{dueCount}</span>{" "}
-          {dueCount === 1 ? "card" : "cards"} due today
-        </span>
-        <span>&middot;</span>
-        <span>
-          <span className="font-semibold text-foreground">{today.reviewed}</span>{" "}
-          reviewed today
-        </span>
-      </div>
+          <div className="flex items-center gap-3 text-sm text-on-surface-variant">
+            <span>
+              <span className="font-semibold text-foreground">{dueCount}</span>{" "}
+              {dueCount === 1 ? "card" : "cards"} due today
+            </span>
+            <span>&middot;</span>
+            <span>
+              <span className="font-semibold text-foreground">
+                {today.reviewed}
+              </span>{" "}
+              reviewed today
+            </span>
+          </div>
+        </>
+      )}
 
       {/* Progress charts with tab selector */}
       <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
