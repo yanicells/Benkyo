@@ -83,4 +83,3 @@ pnpm cf-typegen
 - `wrangler.jsonc` currently uses worker name `benkyo`. If you rename it, update both:
   - `name`
   - `services[0].service`
-- If bundle size exceeds free plan limit, use Workers Paid plan.
