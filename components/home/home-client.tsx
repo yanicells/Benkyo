@@ -186,10 +186,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
   const weeklyReviewed = data?.weeklyReviewed ?? 0;
   const sevenDayActivity = data?.sevenDayActivity ?? [];
 
-  const maxActivity = Math.max(
-    ...sevenDayActivity.map((d) => d.reviewed),
-    1
-  );
+  const maxActivity = Math.max(...sevenDayActivity.map((d) => d.reviewed), 1);
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-8 lg:py-12 w-full flex flex-col gap-8 md:gap-12 lg:gap-14">
@@ -214,7 +211,11 @@ export function HomeClient({ lessons }: HomeClientProps) {
             className="w-12 h-12 md:w-14 md:h-14 rounded-2xl btn-primary-gradient flex items-center justify-center text-white shrink-0"
             aria-hidden
           >
-            <svg className="w-6 h-6 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-6 h-6 md:w-7 md:h-7"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
             </svg>
           </div>
@@ -258,8 +259,18 @@ export function HomeClient({ lessons }: HomeClientProps) {
               className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0"
               aria-hidden
             >
-              <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              <svg
+                className="w-6 h-6 md:w-7 md:h-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
               </svg>
             </div>
             <span className="font-display text-3xl md:text-4xl lg:text-5xl font-extrabold text-primary leading-none">
@@ -275,8 +286,18 @@ export function HomeClient({ lessons }: HomeClientProps) {
               className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-success/10 flex items-center justify-center text-success shrink-0"
               aria-hidden
             >
-              <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              <svg
+                className="w-6 h-6 md:w-7 md:h-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </div>
             {loaded ? (
@@ -311,7 +332,10 @@ export function HomeClient({ lessons }: HomeClientProps) {
           )}
         </div>
         {loaded && sevenDayActivity.length > 0 ? (
-          <div className="flex items-end gap-2 md:gap-3" style={{ height: "80px" }}>
+          <div
+            className="flex items-end gap-2 md:gap-3"
+            style={{ height: "80px" }}
+          >
             {sevenDayActivity.map((day, i) => {
               const barPct =
                 day.reviewed > 0
@@ -331,12 +355,11 @@ export function HomeClient({ lessons }: HomeClientProps) {
                         day.isToday
                           ? "bg-primary"
                           : day.reviewed > 0
-                          ? "bg-primary/30"
-                          : "bg-outline-variant/20"
+                            ? "bg-primary/30"
+                            : "bg-outline-variant/20"
                       }`}
                       style={{
-                        height:
-                          day.reviewed > 0 ? `${barPct}%` : "4px",
+                        height: day.reviewed > 0 ? `${barPct}%` : "4px",
                       }}
                       title={`${day.label}: ${day.reviewed} card${day.reviewed !== 1 ? "s" : ""}`}
                     />
@@ -371,38 +394,6 @@ export function HomeClient({ lessons }: HomeClientProps) {
           </div>
         )}
       </div>
-
-      {/* Review Banner — only shown when cards are due */}
-      {loaded && dueCount > 0 && (
-        <Link
-          href="/review"
-          className="group flex items-center justify-between rounded-[2rem] btn-primary-gradient px-6 py-5 md:px-8 md:py-6 text-white shadow-[0_12px_40px_rgba(0,14,33,0.12)] hover:shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          aria-label={`Review ${dueCount} due cards`}
-        >
-          <span className="font-display font-bold text-lg lg:text-xl">
-            You have{" "}
-            <span className="font-extrabold">{dueCount}</span>{" "}
-            card{dueCount !== 1 ? "s" : ""} due for review
-          </span>
-          <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider shrink-0">
-            Start Review
-            <svg
-              className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </span>
-        </Link>
-      )}
 
       {/* Core Learning Modes (CTAs) */}
       <section aria-label="Start learning">

@@ -14,7 +14,11 @@ export default function PathPage() {
   const sorted = [...lessons].sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
   return (
-    <PageShell title="Learning Path">
+    <PageShell
+      eyebrow="Path"
+      title="Learning Path"
+      subtitle="Follow a structured progression from beginner fundamentals to advanced fluency."
+    >
       <LearningPathClient lessons={sorted} />
     </PageShell>
   );

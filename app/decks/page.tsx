@@ -8,10 +8,9 @@ export default function DecksPage() {
 
   return (
     <PageShell
-      eyebrow="CURRICULUM OVERVIEW"
-      title="Mastery Journey"
-      subtitle="Your path to Japanese fluency, structured through editorial precision and meditative focus. Progress through the foundations to reach N1 mastery."
-      stickyHeader
+      eyebrow="Lessons"
+      title="Lesson Decks"
+      subtitle="Study vocabulary and grammar across all Genki lessons with spaced repetition."
     >
       <LessonDeckGrid lessons={lessons} />
     </PageShell>

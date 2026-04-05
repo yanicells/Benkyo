@@ -106,7 +106,7 @@ function ContextModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+      <div className="absolute inset-0 bg-foreground/20" onClick={onClose} />
       <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden max-h-[80vh] flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
           <h3 className="font-display text-lg font-bold text-foreground">Card Context</h3>

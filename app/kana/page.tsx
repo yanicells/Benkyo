@@ -14,8 +14,9 @@ export default async function KanaPage({ searchParams }: Props) {
 
   return (
     <PageShell
-      title="Practice Setup"
-      subtitle="Configure your study session for optimal retention."
+      eyebrow="Kana"
+      title="Kana Practice"
+      subtitle="Select the rows you want to drill and start a session."
     >
       <KanaConfigForm initialScript={initialScript} />
     </PageShell>

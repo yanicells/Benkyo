@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { getKanaRows } from "@/lib/kana";
 import type {
   KanaBatchSize,
+  KanaEntry,
   KanaGroup,
   KanaRowKey,
   KanaScript,
@@ -17,9 +18,198 @@ type KanaConfigFormProps = {
 
 const groupOrder: KanaGroup[] = ["basic", "dakuten", "combo"];
 
-export function KanaConfigForm({
-  initialScript = "hiragana",
-}: KanaConfigFormProps) {
+/* ── Row Preview Modal ── */
+function RowPreviewModal({
+  label,
+  entries,
+  onClose,
+}: {
+  label: string;
+  entries: KanaEntry[];
+  onClose: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-foreground/20" onClick={onClose} />
+      <div className="relative w-full max-w-sm bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-outline-variant/10">
+          <h3 className="font-display text-base font-bold text-foreground">{label}</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div className="p-5 grid grid-cols-5 gap-3">
+          {entries.map((entry) => (
+            <div
+              key={entry.kana}
+              className="flex flex-col items-center gap-1.5 rounded-xl bg-surface-low p-2"
+            >
+              <span className="font-japanese-display text-3xl text-foreground leading-none">
+                {entry.kana}
+              </span>
+              <span className="text-[10px] font-bold text-on-surface-variant tracking-wider">
+                {entry.romaji}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Session Options Modal ── */
+function SessionOptionsModal({
+  mode,
+  setMode,
+  batchSize,
+  setBatchSize,
+  shuffleOrder,
+  setShuffleOrder,
+  cardCount,
+  estimatedMinutes,
+  scriptLabel,
+  rowCount,
+  onStart,
+  onClose,
+}: {
+  mode: "mc" | "typing";
+  setMode: (m: "mc" | "typing") => void;
+  batchSize: KanaBatchSize;
+  setBatchSize: (b: KanaBatchSize) => void;
+  shuffleOrder: boolean;
+  setShuffleOrder: (v: boolean) => void;
+  cardCount: number;
+  estimatedMinutes: number;
+  scriptLabel: string;
+  rowCount: number;
+  onStart: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-foreground/20" onClick={onClose} />
+      <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden max-h-[90vh] flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
+          <h3 className="font-display text-lg font-bold text-foreground">Session Options</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="p-6 space-y-5 overflow-y-auto">
+          {/* Session summary */}
+          <div className="flex items-center gap-5 rounded-xl bg-surface-low px-5 py-4">
+            <div className="text-center">
+              <p className="font-display text-2xl font-bold text-foreground">{cardCount}</p>
+              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">kana</p>
+            </div>
+            <div className="h-8 w-px bg-outline-variant/30" />
+            <div className="text-center">
+              <p className="font-display text-2xl font-bold text-foreground">~{estimatedMinutes}</p>
+              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">min</p>
+            </div>
+            <div className="h-8 w-px bg-outline-variant/30" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">{rowCount} row{rowCount !== 1 ? "s" : ""}</p>
+              <p className="text-[10px] text-on-surface-variant">{scriptLabel}</p>
+            </div>
+          </div>
+
+          {/* Study mode */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">Study Mode</p>
+            <div className="grid grid-cols-2 gap-2">
+              {(["mc", "typing"] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setMode(m)}
+                  className={`rounded-xl py-3 text-sm font-semibold transition-all ${
+                    mode === m
+                      ? "bg-primary/10 ring-2 ring-primary/20 text-primary"
+                      : "bg-surface-low text-foreground hover:bg-secondary-container"
+                  }`}
+                >
+                  {m === "mc" ? "Multiple Choice" : "Typing"}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Batch size — typing only */}
+          {mode === "typing" && (
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">Batch Size</p>
+                <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-md text-xs font-bold">
+                  {batchSize} Kana
+                </span>
+              </div>
+              <div className="relative pt-1 pb-5">
+                <input
+                  type="range"
+                  min="1"
+                  max="4"
+                  value={batchSize}
+                  onChange={(e) => setBatchSize(Number(e.target.value) as KanaBatchSize)}
+                  className="w-full h-1.5 bg-secondary-container rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-primary"
+                  style={{
+                    background: `linear-gradient(to right, var(--primary) ${((batchSize - 1) / 3) * 100}%, var(--secondary-container) ${((batchSize - 1) / 3) * 100}%)`,
+                  }}
+                />
+                <div className="absolute w-full flex justify-between px-1 text-[10px] font-semibold text-on-surface-variant top-7">
+                  <span>1</span><span>2</span><span>3</span><span>4</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Shuffle */}
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm font-semibold text-foreground">Shuffle Order</p>
+              <p className="text-[10px] text-on-surface-variant mt-0.5">Randomize kana sequence</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShuffleOrder(!shuffleOrder)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${shuffleOrder ? "bg-primary" : "bg-outline-variant/30"}`}
+            >
+              <span className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${shuffleOrder ? "translate-x-6" : "translate-x-1"}`} />
+            </button>
+          </div>
+        </div>
+
+        {/* Start */}
+        <div className="px-6 pb-6 pt-2 shrink-0">
+          <button
+            type="button"
+            onClick={onStart}
+            className="w-full btn-primary-gradient rounded-xl py-4 text-white font-bold text-base shadow-[0_8px_24px_rgba(0,36,70,0.15)] transition hover:opacity-90 hover:shadow-lg"
+          >
+            Start Session
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function KanaConfigForm({ initialScript = "hiragana" }: KanaConfigFormProps) {
   const router = useRouter();
   const [script, setScript] = useState<KanaScript>(initialScript);
   const [selectedRows, setSelectedRows] = useState<KanaRowKey[]>(() =>
@@ -30,6 +220,8 @@ export function KanaConfigForm({
   const [batchSize, setBatchSize] = useState<KanaBatchSize>(3);
   const [shuffleOrder, setShuffleOrder] = useState(true);
   const [mode, setMode] = useState<"mc" | "typing">("mc");
+  const [optionsOpen, setOptionsOpen] = useState(false);
+  const [previewRow, setPreviewRow] = useState<{ label: string; entries: KanaEntry[] } | null>(null);
 
   const groupedRows = useMemo(() => {
     const rows = getKanaRows(script);
@@ -39,27 +231,26 @@ export function KanaConfigForm({
     }));
   }, [script]);
 
-  // Script-aware group descriptions — derived from selection, not editorial copy
   const scriptLabel = script === "hiragana" ? "Hiragana" : "Katakana";
+
   const groupInfo: Record<KanaGroup, { eyebrow: string; title: string; desc: string }> = {
     basic: {
       eyebrow: "FOUNDATION",
       title: "Basic",
-      desc: `Core ${scriptLabel} characters — vowels, K, S, T, N, H, M, Y, R, W rows.`,
+      desc: `Core ${scriptLabel} — vowels, K, S, T, N, H, M, Y, R, W rows.`,
     },
     dakuten: {
       eyebrow: "MODIFIED",
       title: "Dakuten",
-      desc: `Voiced ${scriptLabel} variants — G, Z, D, B, and P rows.`,
+      desc: `Voiced variants — G, Z, D, B, and P rows.`,
     },
     combo: {
       eyebrow: "COMPLEX",
       title: "Combo",
-      desc: `Contracted ${scriptLabel} sounds — Kya, Sha, Cha, Ryu, etc.`,
+      desc: `Contracted sounds — Kya, Sha, Cha, Ryu, etc.`,
     },
   };
 
-  // Real card count from selected rows' entries
   const { cardCount, rowCount } = useMemo(() => {
     const allRows = getKanaRows(script);
     const active = allRows.filter((row) => selectedRows.includes(row.key));
@@ -69,48 +260,25 @@ export function KanaConfigForm({
     };
   }, [script, selectedRows]);
 
-  // Duration estimate: MC ~5s/card, typing ~8s/card
   const estimatedMinutes = Math.max(
     1,
     Math.round((cardCount * (mode === "typing" ? 8 : 5)) / 60),
   );
 
   const toggleGroup = (group: KanaGroup) => {
-    const groupRows =
-      groupedRows.find((item) => item.group === group)?.rows ?? [];
+    const groupRows = groupedRows.find((item) => item.group === group)?.rows ?? [];
     const groupKeys = groupRows.map((row) => row.key);
-
-    setSelectedRows((previous) => {
-      const allSelected = groupKeys.every((key) => previous.includes(key));
-      if (allSelected) {
-        return previous.filter((key) => !groupKeys.includes(key));
-      }
-      return Array.from(new Set([...previous, ...groupKeys]));
+    setSelectedRows((prev) => {
+      const allSelected = groupKeys.every((key) => prev.includes(key));
+      if (allSelected) return prev.filter((key) => !groupKeys.includes(key));
+      return Array.from(new Set([...prev, ...groupKeys]));
     });
   };
 
   const toggleRow = (row: KanaRowKey) => {
-    setSelectedRows((previous) => {
-      if (previous.includes(row))
-        return previous.filter((value) => value !== row);
-      return [...previous, row];
-    });
-  };
-
-  const selectAll = () => {
-    const activeGroups = groupOrder.filter((group) => {
-      const groupRows =
-        groupedRows.find((item) => item.group === group)?.rows ?? [];
-      return groupRows.some((r) => selectedRows.includes(r.key));
-    });
-    const rowsToSelect = groupedRows
-      .filter((g) =>
-        activeGroups.length === 0
-          ? g.group === "basic"
-          : activeGroups.includes(g.group),
-      )
-      .flatMap((g) => g.rows.map((r) => r.key));
-    setSelectedRows(Array.from(new Set([...selectedRows, ...rowsToSelect])));
+    setSelectedRows((prev) =>
+      prev.includes(row) ? prev.filter((v) => v !== row) : [...prev, row],
+    );
   };
 
   const startSession = () => {
@@ -122,271 +290,188 @@ export function KanaConfigForm({
   };
 
   return (
-    <div className="space-y-8">
-      {/* Script Segmented Control */}
-      <div className="flex rounded-xl bg-surface-lowest p-1 shadow-sm">
-        <button
-          className={`flex-1 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors ${script === "hiragana" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
-          onClick={() => setScript("hiragana")}
-        >
-          <span className="font-japanese-display text-lg">あ</span> Hiragana
-        </button>
-        <button
-          className={`flex-1 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors ${script === "katakana" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
-          onClick={() => setScript("katakana")}
-        >
-          <span className="font-japanese-display text-lg">ア</span> Katakana
-        </button>
-      </div>
-
-      {/* Group Cards */}
-      <div className="space-y-3">
-        {groupOrder.map((group) => {
-          const rows = groupedRows.find((g) => g.group === group)?.rows ?? [];
-          const allSelected = rows.every((r) => selectedRows.includes(r.key));
-          const someSelected = rows.some((r) => selectedRows.includes(r.key));
-          const isActive = allSelected || someSelected;
-
-          return (
+    <>
+      <div className="space-y-6 pb-28">
+        {/* Script toggle */}
+        <div className="flex rounded-xl bg-surface-lowest p-1 shadow-sm">
+          {(["hiragana", "katakana"] as const).map((s) => (
             <button
-              key={group}
-              onClick={() => toggleGroup(group)}
-              className={`w-full text-left rounded-xl p-5 transition-all relative ${
-                isActive
-                  ? "bg-surface-lowest border-[1.5px] border-primary shadow-sm"
-                  : "bg-surface-lowest/60 border-[1.5px] border-transparent hover:bg-surface-lowest"
+              key={s}
+              type="button"
+              onClick={() => {
+                setScript(s);
+                setSelectedRows(
+                  getKanaRows(s)
+                    .filter((row) => row.group === "basic")
+                    .map((row) => row.key),
+                );
+              }}
+              className={`flex-1 rounded-lg py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors ${
+                script === s ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"
               }`}
             >
-              {isActive && (
-                <div className="absolute top-4 right-4 text-primary">
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path
-                      fill="white"
-                      d="M10 15.5l-3.5-3.5 1.4-1.4 2.1 2.1 5.6-5.6 1.4 1.4L10 15.5z"
-                    />
-                  </svg>
-                </div>
-              )}
-              <h4 className="text-[10px] uppercase tracking-[0.2em] font-extrabold text-on-surface-variant mb-1">
-                {groupInfo[group].eyebrow}
-              </h4>
-              <p className="font-display text-xl font-bold text-foreground mb-1">
-                {groupInfo[group].title}
-              </p>
-              <p className="text-xs text-on-surface-variant leading-relaxed opacity-80">
-                {groupInfo[group].desc}
-              </p>
+              <span className="font-japanese-display text-lg">{s === "hiragana" ? "あ" : "ア"}</span>
+              {s.charAt(0).toUpperCase() + s.slice(1)}
             </button>
-          );
-        })}
-      </div>
-
-      {/* Rows Selection */}
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xs uppercase tracking-[0.2em] font-extrabold text-foreground">
-            Select Rows
-          </h3>
-          <button
-            onClick={selectAll}
-            className="text-xs font-bold text-primary hover:underline"
-          >
-            Select All
-          </button>
+          ))}
         </div>
 
+        {/* Group quick-select */}
         <div className="space-y-2">
-          {groupedRows.map((g) => {
-            const hasAnySelectedInGroup = g.rows.some((r) =>
-              selectedRows.includes(r.key),
+          {groupOrder.map((group) => {
+            const rows = groupedRows.find((g) => g.group === group)?.rows ?? [];
+            const allSelected = rows.every((r) => selectedRows.includes(r.key));
+            const someSelected = rows.some((r) => selectedRows.includes(r.key));
+            const isActive = allSelected || someSelected;
+
+            return (
+              <button
+                key={group}
+                type="button"
+                onClick={() => toggleGroup(group)}
+                className={`w-full text-left rounded-xl p-4 transition-all relative ${
+                  isActive
+                    ? "bg-surface-lowest border-2 border-primary/30 shadow-sm"
+                    : "bg-surface-lowest/60 border-2 border-transparent hover:bg-surface-lowest"
+                }`}
+              >
+                {isActive && (
+                  <div className="absolute top-4 right-4 text-primary">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                      <path fill="white" d="M10 15.5l-3.5-3.5 1.4-1.4 2.1 2.1 5.6-5.6 1.4 1.4L10 15.5z" />
+                    </svg>
+                  </div>
+                )}
+                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant mb-0.5">
+                  {groupInfo[group].eyebrow}
+                </p>
+                <p className="font-display text-base font-bold text-foreground">
+                  {groupInfo[group].title}
+                </p>
+                <p className="text-xs text-on-surface-variant mt-0.5 leading-relaxed">
+                  {groupInfo[group].desc}
+                </p>
+              </button>
             );
-            if (!hasAnySelectedInGroup && g.group !== "basic") return null;
-
-            return g.rows.map((row) => {
-              const checked = selectedRows.includes(row.key);
-              const firstKana = row.entries[0]?.kana || "";
-
-              return (
-                <div
-                  key={row.key}
-                  className={`flex items-center gap-4 p-3 rounded-xl transition-colors ${checked ? "bg-surface-lowest shadow-sm" : "bg-surface-lowest/50 opacity-60"}`}
-                >
-                  <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center font-japanese-display text-lg font-bold text-primary">
-                    {firstKana}
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-bold text-sm text-foreground">
-                      {row.label}
-                    </p>
-                    <p className="text-[10px] text-on-surface-variant">
-                      {row.entries.map((e) => e.romaji).join(", ")}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => toggleRow(row.key)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${checked ? "bg-primary" : "bg-outline-variant/30"}`}
-                  >
-                    <span
-                      className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${checked ? "translate-x-6" : "translate-x-1"}`}
-                    />
-                  </button>
-                </div>
-              );
-            });
           })}
         </div>
-      </div>
 
-      {/* Session Options */}
-      <div>
-        <h3 className="text-xs uppercase tracking-[0.2em] font-extrabold text-foreground mb-4">
-          Session Options
-        </h3>
-        <div className="rounded-xl bg-surface-lowest p-5 shadow-sm space-y-6">
-          {/* Study Mode */}
-          <div>
-            <p className="text-sm font-semibold text-foreground mb-3">
-              Study Mode
-            </p>
-            <div className="flex rounded-xl bg-surface p-1">
-              <button
-                onClick={() => setMode("mc")}
-                className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-colors ${mode === "mc" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
-              >
-                Multiple Choice
-              </button>
-              <button
-                onClick={() => setMode("typing")}
-                className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-colors ${mode === "typing" ? "bg-white shadow-sm text-primary" : "text-on-surface-variant hover:bg-surface-low"}`}
-              >
-                Typing
-              </button>
-            </div>
-          </div>
-
-          {/* Batch Size — typing mode only */}
-          {mode === "typing" && (
-            <div className="border-t border-outline-variant/10 pt-6">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-sm font-semibold text-foreground">
-                  Batch Size
-                </span>
-                <span className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs font-bold">
-                  {batchSize} Kana
-                </span>
-              </div>
-              <div className="relative pt-2 pb-6">
-                <input
-                  type="range"
-                  min="1"
-                  max="4"
-                  value={batchSize}
-                  onChange={(e) =>
-                    setBatchSize(Number(e.target.value) as KanaBatchSize)
-                  }
-                  className="w-full h-1.5 bg-secondary-container rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-0 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-primary"
-                  style={{
-                    background: `linear-gradient(to right, var(--primary) ${((batchSize - 1) / 3) * 100}%, var(--secondary-container) ${((batchSize - 1) / 3) * 100}%)`,
-                  }}
-                />
-                <div className="absolute w-full flex justify-between px-1 text-[10px] font-semibold text-on-surface-variant top-8">
-                  <span>1</span>
-                  <span>2</span>
-                  <span>3</span>
-                  <span>4</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Shuffle Order */}
-          <div className="pt-2 border-t border-outline-variant/10 flex justify-between items-center">
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                Shuffle Order
-              </p>
-              <p className="text-[10px] text-on-surface-variant mt-0.5">
-                Randomize Kana sequence each session
-              </p>
-            </div>
+        {/* Row selection */}
+        <div>
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="text-xs uppercase tracking-[0.15em] font-bold text-foreground">
+              Select Rows
+            </h3>
             <button
-              onClick={() => setShuffleOrder(!shuffleOrder)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${shuffleOrder ? "bg-primary" : "bg-outline-variant/30"}`}
+              type="button"
+              onClick={() => setSelectedRows(getKanaRows(script).map((r) => r.key))}
+              className="text-xs font-bold text-primary hover:underline"
             >
-              <span
-                className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${shuffleOrder ? "translate-x-6" : "translate-x-1"}`}
-              />
+              Select All
             </button>
           </div>
-        </div>
-      </div>
 
-      {/* Session preview — real card count and estimated duration from selection */}
-      {selectedRows.length > 0 ? (
-        <div className="rounded-xl bg-surface-lowest p-5 shadow-sm border border-outline-variant/20">
-          <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-on-surface-variant mb-4">
-            Session Preview
-          </p>
-          <div className="flex items-center gap-5">
-            <div className="text-center min-w-12">
-              <p className="font-display text-3xl font-bold text-foreground leading-none">
-                {cardCount}
-              </p>
-              <p className="text-[10px] uppercase text-on-surface-variant mt-1">
-                kana
-              </p>
-            </div>
-            <div className="h-10 w-px bg-outline-variant/30 shrink-0" />
-            <div className="text-center min-w-12">
-              <p className="font-display text-3xl font-bold text-foreground leading-none">
-                ~{estimatedMinutes}
-              </p>
-              <p className="text-[10px] uppercase text-on-surface-variant mt-1">
-                min
-              </p>
-            </div>
-            <div className="h-10 w-px bg-outline-variant/30 shrink-0" />
-            <div className="min-w-0">
-              <p className="text-sm font-semibold text-foreground leading-snug">
-                {rowCount} row{rowCount !== 1 ? "s" : ""} selected
-              </p>
-              <p className="text-[10px] text-on-surface-variant mt-0.5">
-                {scriptLabel} · {mode === "typing" ? "Typing" : "Multiple Choice"}
-              </p>
-            </div>
+          <div className="space-y-1.5">
+            {groupedRows.map((g) => {
+              const hasAnySelectedInGroup = g.rows.some((r) => selectedRows.includes(r.key));
+              if (!hasAnySelectedInGroup && g.group !== "basic") return null;
+
+              return g.rows.map((row) => {
+                const checked = selectedRows.includes(row.key);
+                const firstKana = row.entries[0]?.kana ?? "";
+
+                return (
+                  <div
+                    key={row.key}
+                    className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${
+                      checked ? "bg-surface-lowest shadow-sm" : "bg-surface-lowest/50 opacity-60"
+                    }`}
+                  >
+                    {/* Kana preview — clickable */}
+                    <button
+                      type="button"
+                      onClick={() => setPreviewRow({ label: row.label, entries: row.entries })}
+                      className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center font-japanese-display text-lg font-bold text-primary hover:bg-primary/10 transition-colors shrink-0"
+                      title={`Preview ${row.label}`}
+                    >
+                      {firstKana}
+                    </button>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-sm text-foreground">{row.label}</p>
+                      <p className="text-[10px] text-on-surface-variant truncate">
+                        {row.entries.map((e) => e.romaji).join(", ")}
+                      </p>
+                    </div>
+
+                    {/* Toggle */}
+                    <button
+                      type="button"
+                      onClick={() => toggleRow(row.key)}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0 ${
+                        checked ? "bg-primary" : "bg-outline-variant/30"
+                      }`}
+                    >
+                      <span
+                        className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${
+                          checked ? "translate-x-6" : "translate-x-1"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                );
+              });
+            })}
           </div>
         </div>
-      ) : (
-        <div className="rounded-xl bg-surface-lowest/60 p-5 text-center border border-outline-variant/20">
-          <p className="text-sm text-on-surface-variant">
-            Select at least one row to begin.
-          </p>
+      </div>
+
+      {/* Sticky bottom bar — Start Session CTA */}
+      <div className="fixed bottom-0 left-0 right-0 lg:left-72 z-30 bg-surface/95 border-t border-outline-variant/10 px-4 py-3 sm:px-8">
+        <div className="mx-auto max-w-4xl flex items-center gap-4">
+          {selectedRows.length > 0 && (
+            <p className="text-xs text-on-surface-variant shrink-0">
+              <span className="font-bold text-foreground">{cardCount}</span> kana · <span className="font-bold text-foreground">~{estimatedMinutes}m</span>
+            </p>
+          )}
+          <button
+            type="button"
+            disabled={selectedRows.length === 0}
+            onClick={() => setOptionsOpen(true)}
+            className="flex-1 btn-primary-gradient rounded-xl py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {selectedRows.length === 0 ? "Select rows to start" : "Start Session"}
+          </button>
         </div>
+      </div>
+
+      {/* Row preview modal */}
+      {previewRow && (
+        <RowPreviewModal
+          label={previewRow.label}
+          entries={previewRow.entries}
+          onClose={() => setPreviewRow(null)}
+        />
       )}
 
-      <div className="pb-8">
-        <button
-          type="button"
-          disabled={selectedRows.length === 0}
-          onClick={startSession}
-          className="w-full btn-primary-gradient flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          aria-label={
-            selectedRows.length === 0
-              ? "Select rows to enable session start"
-              : `Start ${scriptLabel} session — ${cardCount} cards, ~${estimatedMinutes} min`
-          }
-        >
-          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden>
-            <path d="M8 5v14l11-7z" />
-          </svg>
-          Start Kana Session
-        </button>
-      </div>
-    </div>
+      {/* Session options modal */}
+      {optionsOpen && (
+        <SessionOptionsModal
+          mode={mode}
+          setMode={setMode}
+          batchSize={batchSize}
+          setBatchSize={setBatchSize}
+          shuffleOrder={shuffleOrder}
+          setShuffleOrder={setShuffleOrder}
+          cardCount={cardCount}
+          estimatedMinutes={estimatedMinutes}
+          scriptLabel={scriptLabel}
+          rowCount={rowCount}
+          onStart={startSession}
+          onClose={() => setOptionsOpen(false)}
+        />
+      )}
+    </>
   );
 }
