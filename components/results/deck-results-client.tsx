@@ -23,6 +23,16 @@ function hasLatinText(value: string): boolean {
   return /[A-Za-z]/.test(value);
 }
 
+function hasJapaneseText(value: string): boolean {
+  return /[\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF]/.test(value);
+}
+
+function getResultTextFontClass(value: string): string {
+  if (hasJapaneseText(value)) return "font-japanese";
+  if (hasLatinText(value)) return "font-display";
+  return "font-display";
+}
+
 export function DeckResultsClient({
   lessonId,
   subDeckId,
@@ -62,7 +72,7 @@ export function DeckResultsClient({
         <p className="text-xs uppercase tracking-[0.22em] text-primary">
           Session complete
         </p>
-        <h2 className="mt-2 font-display text-3xl text-foreground">
+        <h2 className="mt-2 font-display text-3xl font-bold text-foreground">
           {lessonTitle}
         </h2>
         <div className="mt-3 flex flex-wrap gap-4 text-sm text-on-surface-variant">
@@ -101,11 +111,13 @@ export function DeckResultsClient({
                 </span>
                 <div className="min-w-0">
                   <p
-                    className={`${hasLatinText(card.front) ? "font-display text-lg" : "font-japanese text-xl"} font-medium text-foreground`}
+                    className={`${getResultTextFontClass(card.front)} text-lg font-medium text-foreground`}
                   >
                     {card.front}
                   </p>
-                  <p className="mt-1 text-sm text-on-surface-variant">
+                  <p
+                    className={`${getResultTextFontClass(card.back)} mt-1 text-sm text-on-surface-variant`}
+                  >
                     {card.back}
                   </p>
                 </div>
