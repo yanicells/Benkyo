@@ -131,10 +131,10 @@ export function TypingPracticeInput({
             event.preventDefault();
             submitCurrentValue();
           }}
-          className={`w-full rounded-lg border bg-white px-4 py-3 text-lg lowercase outline-none transition ${
+          className={`w-full rounded-lg border bg-white px-4 py-3 text-lg lowercase outline-none shadow-none transition ${
             showErrorState
-              ? "border-error ring-2 ring-error/20"
-              : "border-outline-variant/20 focus:border-primary focus:ring-2 focus:ring-primary/20"
+              ? "border-error focus:border-error focus:ring-0 focus:shadow-none"
+              : "border-outline-variant/20 focus:border-primary focus:ring-0 focus:shadow-none"
           }`}
           placeholder={placeholder}
           autoComplete="off"
@@ -147,13 +147,17 @@ export function TypingPracticeInput({
 
       {onGiveUp || manualAdvance ? (
         <div
-          className={`flex items-center gap-2 ${
-            controlsAlign === "right"
-              ? "justify-end"
-              : controlsAlign === "between"
-                ? "justify-between"
-                : "justify-start"
-          }`}
+          className={
+            onGiveUp && manualAdvance && controlsAlign === "between"
+              ? "grid grid-cols-2 gap-2"
+              : `flex items-center gap-2 ${
+                  controlsAlign === "right"
+                    ? "justify-end"
+                    : controlsAlign === "between"
+                      ? "justify-between"
+                      : "justify-start"
+                }`
+          }
         >
           {onGiveUp ? (
             <button
@@ -163,7 +167,7 @@ export function TypingPracticeInput({
                 setTyped("");
                 inputRef.current?.focus();
               }}
-              className="min-h-11 rounded-lg bg-surface-low px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-primary transition hover:bg-secondary-container"
+              className="min-h-11 w-full rounded-lg bg-surface-low px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-primary transition hover:bg-secondary-container"
             >
               {giveUpLabel}
             </button>
@@ -174,7 +178,7 @@ export function TypingPracticeInput({
               type="button"
               disabled={!canSubmit}
               onClick={submitCurrentValue}
-              className="btn-primary-gradient min-h-11 rounded-lg px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="btn-primary-gradient min-h-11 w-full rounded-lg px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {nextLabel}
             </button>

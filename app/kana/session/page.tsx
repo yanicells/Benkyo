@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 
-import { PageShell } from "@/components/shared/page-shell";
 import { KanaSessionRenderer } from "@/components/kana/kana-session-renderer";
 import { getKanaEntries, kanaSelectionKeys } from "@/lib/kana";
 import type {
@@ -70,23 +69,15 @@ export default async function KanaSessionPage({
   const typingDifficulty: "easy" | "hard" =
     typingDifficultyParam === "hard" ? "hard" : "easy";
 
-  const title = mode === "typing" ? "Type what you read" : "Interactive Learning";
-  const subtitle =
-    mode === "typing"
-      ? "Wrong answers gain +2 required corrects and get shuffled back in."
-      : "Select the correct romaji reading for each character.";
-
   return (
-    <PageShell eyebrow="Kana session" title={title} subtitle={subtitle}>
-      <KanaSessionRenderer
-        script={script as KanaScript}
-        groups={groups}
-        cards={cards}
-        batchSize={batchSize}
-        shuffle={shouldShuffle}
-        mode={mode}
-        typingDifficulty={typingDifficulty}
-      />
-    </PageShell>
+    <KanaSessionRenderer
+      script={script as KanaScript}
+      groups={groups}
+      cards={cards}
+      batchSize={batchSize}
+      shuffle={shouldShuffle}
+      mode={mode}
+      typingDifficulty={typingDifficulty}
+    />
   );
 }

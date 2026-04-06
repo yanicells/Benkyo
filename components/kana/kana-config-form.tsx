@@ -88,7 +88,6 @@ function SessionOptionsModal({
   setShuffleOrder,
   cardCount,
   estimatedMinutes,
-  scriptLabel,
   rowCount,
   onStart,
   onClose,
@@ -103,7 +102,6 @@ function SessionOptionsModal({
   setShuffleOrder: (v: boolean) => void;
   cardCount: number;
   estimatedMinutes: number;
-  scriptLabel: string;
   rowCount: number;
   onStart: () => void;
   onClose: () => void;
@@ -141,7 +139,7 @@ function SessionOptionsModal({
         <div className="p-6 space-y-5 overflow-y-auto">
           {/* Session summary */}
           <div className="rounded-xl border-2 border-primary/20 bg-surface-lowest px-5 py-4">
-            <div className="grid grid-cols-2 gap-y-4 text-center">
+            <div className="grid grid-cols-3 gap-3 text-center">
               <div>
                 <p className="font-display text-2xl font-bold text-foreground">
                   {cardCount}
@@ -159,17 +157,11 @@ function SessionOptionsModal({
                 </p>
               </div>
               <div>
-                <p className="text-base font-bold text-foreground">
+                <p className="font-display text-2xl font-bold text-foreground">
                   {rowCount}
                 </p>
                 <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
                   row{rowCount !== 1 ? "s" : ""}
-                </p>
-              </div>
-              <div>
-                <p className="text-base font-bold text-foreground">{scriptLabel}</p>
-                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
-                  script
                 </p>
               </div>
             </div>
@@ -604,7 +596,6 @@ export function KanaConfigForm({
           setShuffleOrder={setShuffleOrder}
           cardCount={cardCount}
           estimatedMinutes={estimatedMinutes}
-          scriptLabel={scriptLabel}
           rowCount={rowCount}
           onStart={startSession}
           onClose={() => setOptionsOpen(false)}
