@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { Lesson } from "@/lib/types";
 import { useAuth } from "@/components/shared/auth-provider";
@@ -12,9 +12,9 @@ import {
   getStreak,
   getTodayStats,
   getDueCards,
+  subscribeToStudyData,
+  getStudyDataRevision,
 } from "@/lib/srs";
-
-const subscribeNoop = () => () => {};
 
 type LocalStats = {
   lifetime: ReturnType<typeof getLifetimeStats>;
@@ -25,23 +25,21 @@ type LocalStats = {
 
 export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
   const { isSignedIn, user, syncState, triggerSync } = useAuth();
-  const cacheRef = useRef<LocalStats | null>(null);
-
-  const stats = useSyncExternalStore(
-    subscribeNoop,
-    () => {
-      if (!cacheRef.current) {
-        cacheRef.current = {
-          lifetime: getLifetimeStats(lessons),
-          streak: getStreak(),
-          today: getTodayStats(),
-          dueCount: getDueCards(lessons).length,
-        };
-      }
-      return cacheRef.current;
-    },
-    () => null,
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
   );
+
+  const stats = useMemo<LocalStats | null>(() => {
+    if (dataRevision < 0) return null;
+    return {
+      lifetime: getLifetimeStats(lessons),
+      streak: getStreak(),
+      today: getTodayStats(),
+      dueCount: getDueCards(lessons).length,
+    };
+  }, [lessons, dataRevision]);
 
   const lifetime = stats?.lifetime ?? {
     totalReviews: 0,

@@ -17,6 +17,59 @@ type SyncPayload = {
   settings?: BenkyoSettings;
 };
 
+function normalizeISODate(value: string): string {
+  if (!value) return "";
+  return value.length >= 10 ? value.slice(0, 10) : value;
+}
+
+function parseTimestamp(value: string): number {
+  const ts = Date.parse(value);
+  if (!Number.isNaN(ts)) return ts;
+
+  const normalized = Date.parse(`${normalizeISODate(value)}T00:00:00.000Z`);
+  return Number.isNaN(normalized) ? 0 : normalized;
+}
+
+function shouldReplaceCard(
+  existing: typeof cardSrs.$inferSelect,
+  incoming: CardSRS,
+): boolean {
+  const incomingTs = parseTimestamp(incoming.lastReview);
+  const existingTs = parseTimestamp(existing.lastReview);
+  if (incomingTs !== existingTs) return incomingTs > existingTs;
+
+  if (incoming.totalReviews !== existing.totalReviews) {
+    return incoming.totalReviews > existing.totalReviews;
+  }
+  if (incoming.totalCorrect !== existing.totalCorrect) {
+    return incoming.totalCorrect > existing.totalCorrect;
+  }
+  if (incoming.repetitions !== existing.repetitions) {
+    return incoming.repetitions > existing.repetitions;
+  }
+  if (incoming.interval !== existing.interval) {
+    return incoming.interval > existing.interval;
+  }
+  if (incoming.dueDate !== existing.dueDate) {
+    return incoming.dueDate > existing.dueDate;
+  }
+
+  return incoming.ease > existing.ease;
+}
+
+function shouldReplaceDailyStats(
+  existing: typeof dailyStats.$inferSelect,
+  incoming: DailyStats,
+): boolean {
+  if (incoming.reviewed !== existing.reviewed) {
+    return incoming.reviewed > existing.reviewed;
+  }
+  if (incoming.correct !== existing.correct) {
+    return incoming.correct > existing.correct;
+  }
+  return incoming.timeSpentSeconds > existing.timeSpentSeconds;
+}
+
 // GET /api/sync — download all user data to merge into localStorage
 export async function GET(req: NextRequest) {
   const session = await auth.api.getSession({ headers: req.headers });
@@ -84,7 +137,7 @@ export async function POST(req: NextRequest) {
 
       if (!existing) {
         await database.insert(cardSrs).values({ userId, cardId, ...card });
-      } else if (card.lastReview > existing.lastReview) {
+      } else if (shouldReplaceCard(existing, card)) {
         await database
           .update(cardSrs)
           .set({ ...card, updatedAt: new Date() })
@@ -104,7 +157,7 @@ export async function POST(req: NextRequest) {
 
       if (!existing) {
         await database.insert(dailyStats).values({ userId, date, ...stats });
-      } else if (stats.reviewed > existing.reviewed) {
+      } else if (shouldReplaceDailyStats(existing, stats)) {
         await database
           .update(dailyStats)
           .set(stats)
@@ -123,7 +176,10 @@ export async function POST(req: NextRequest) {
 
     if (!existing) {
       await database.insert(streakData).values({ userId, ...body.streak });
-    } else if (body.streak.lastDate > existing.lastDate) {
+    } else if (
+      body.streak.lastDate > existing.lastDate ||
+      (body.streak.lastDate === existing.lastDate && body.streak.current > existing.current)
+    ) {
       await database
         .update(streakData)
         .set({ ...body.streak, updatedAt: new Date() })

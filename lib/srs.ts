@@ -14,9 +14,122 @@ const DAILY_STATS_KEY = "benkyou-daily-stats";
 const SETTINGS_KEY = "benkyou-settings";
 const STREAK_KEY = "benkyou-streak";
 
+const STUDY_DATA_KEYS = new Set([
+  SRS_KEY,
+  DAILY_STATS_KEY,
+  SETTINGS_KEY,
+  STREAK_KEY,
+]);
+
+let studyDataRevision = 0;
+const studyDataSubscribers = new Set<() => void>();
+let storageListenerAttached = false;
+
+function notifyStudyDataChanged(): void {
+  studyDataRevision += 1;
+  for (const subscriber of studyDataSubscribers) {
+    subscriber();
+  }
+}
+
+function onStorageEvent(event: StorageEvent): void {
+  if (!event.key || STUDY_DATA_KEYS.has(event.key)) {
+    notifyStudyDataChanged();
+  }
+}
+
+function ensureStorageListener(): void {
+  if (typeof window === "undefined" || storageListenerAttached) return;
+  window.addEventListener("storage", onStorageEvent);
+  storageListenerAttached = true;
+}
+
+function cleanupStorageListener(): void {
+  if (
+    typeof window === "undefined" ||
+    !storageListenerAttached ||
+    studyDataSubscribers.size > 0
+  ) {
+    return;
+  }
+  window.removeEventListener("storage", onStorageEvent);
+  storageListenerAttached = false;
+}
+
+export function subscribeToStudyData(onStoreChange: () => void): () => void {
+  studyDataSubscribers.add(onStoreChange);
+  ensureStorageListener();
+
+  return () => {
+    studyDataSubscribers.delete(onStoreChange);
+    cleanupStorageListener();
+  };
+}
+
+export function getStudyDataRevision(): number {
+  return studyDataRevision;
+}
+
 // --- Helpers ---
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
+}
+
+function nowISO(): string {
+  return new Date().toISOString();
+}
+
+function normalizeISODate(value: string): string {
+  if (!value) return "";
+  return value.length >= 10 ? value.slice(0, 10) : value;
+}
+
+function parseTimestamp(value: string): number {
+  const ts = Date.parse(value);
+  if (!Number.isNaN(ts)) return ts;
+
+  const normalized = Date.parse(`${normalizeISODate(value)}T00:00:00.000Z`);
+  return Number.isNaN(normalized) ? 0 : normalized;
+}
+
+function shouldReplaceCard(current: CardSRS | undefined, incoming: CardSRS): boolean {
+  if (!current) return true;
+
+  const incomingTs = parseTimestamp(incoming.lastReview);
+  const currentTs = parseTimestamp(current.lastReview);
+  if (incomingTs !== currentTs) return incomingTs > currentTs;
+
+  if (incoming.totalReviews !== current.totalReviews) {
+    return incoming.totalReviews > current.totalReviews;
+  }
+  if (incoming.totalCorrect !== current.totalCorrect) {
+    return incoming.totalCorrect > current.totalCorrect;
+  }
+  if (incoming.repetitions !== current.repetitions) {
+    return incoming.repetitions > current.repetitions;
+  }
+  if (incoming.interval !== current.interval) {
+    return incoming.interval > current.interval;
+  }
+  if (incoming.dueDate !== current.dueDate) {
+    return incoming.dueDate > current.dueDate;
+  }
+
+  return incoming.ease > current.ease;
+}
+
+function shouldReplaceDailyStats(
+  current: DailyStats | undefined,
+  incoming: DailyStats,
+): boolean {
+  if (!current) return true;
+  if (incoming.reviewed !== current.reviewed) {
+    return incoming.reviewed > current.reviewed;
+  }
+  if (incoming.correct !== current.correct) {
+    return incoming.correct > current.correct;
+  }
+  return incoming.timeSpentSeconds > current.timeSpentSeconds;
 }
 
 function safeGet<T>(key: string, fallback: T): T {
@@ -34,6 +147,7 @@ function safeSet(key: string, value: unknown): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(key, JSON.stringify(value));
+    notifyStudyDataChanged();
   } catch {
     // quota exceeded — silently fail
   }
@@ -55,7 +169,7 @@ function defaultCardSRS(): CardSRS {
     interval: 0,
     dueDate: todayISO(),
     repetitions: 0,
-    lastReview: todayISO(),
+    lastReview: nowISO(),
     totalReviews: 0,
     totalCorrect: 0,
   };
@@ -81,7 +195,7 @@ export function reviewCard(cardId: string, rating: SRSRating): void {
 
   card.totalReviews += 1;
   if (rating >= 2) card.totalCorrect += 1;
-  card.lastReview = todayISO();
+  card.lastReview = nowISO();
 
   if (rating === 0) {
     // Again: full lapse — reset reps, interval is 50% of previous (min 1)
@@ -269,8 +383,7 @@ export function importData(json: string): void {
     const current = getAllSRS();
     const incoming = data.srs as Record<string, CardSRS>;
     for (const [id, card] of Object.entries(incoming)) {
-      const existing = current[id];
-      if (!existing || card.lastReview > existing.lastReview) {
+      if (shouldReplaceCard(current[id], card)) {
         current[id] = card;
       }
     }
@@ -281,7 +394,7 @@ export function importData(json: string): void {
     const current = getAllDailyStats();
     const incoming = data.dailyStats as Record<string, DailyStats>;
     for (const [date, stats] of Object.entries(incoming)) {
-      if (!current[date] || stats.reviewed > current[date].reviewed) {
+      if (shouldReplaceDailyStats(current[date], stats)) {
         current[date] = stats;
       }
     }
@@ -291,7 +404,10 @@ export function importData(json: string): void {
   if (data.streak) {
     const current = getStreak();
     const incoming = data.streak as StreakData;
-    if (incoming.lastDate > current.lastDate) {
+    if (
+      incoming.lastDate > current.lastDate ||
+      (incoming.lastDate === current.lastDate && incoming.current > current.current)
+    ) {
       safeSet(STREAK_KEY, incoming);
     }
   }
@@ -306,6 +422,7 @@ export function resetAllProgress(): void {
   localStorage.removeItem(SRS_KEY);
   localStorage.removeItem(DAILY_STATS_KEY);
   localStorage.removeItem(STREAK_KEY);
+  notifyStudyDataChanged();
 }
 
 // --- Stats aggregation ---
@@ -373,7 +490,7 @@ export function getWeakCards(lessons: Lesson[], limit = 10) {
             cardId,
             subDeckTitle: subDeck.title,
             accuracy: Math.round((srs.totalCorrect / srs.totalReviews) * 100),
-            lastReview: srs.lastReview,
+            lastReview: normalizeISODate(srs.lastReview),
           });
         }
       }
@@ -396,7 +513,9 @@ export function getMasteryTimeline(lessons: Lesson[]): { date: string; mastered:
       for (let i = 0; i < subDeck.cards.length; i++) {
         const srs = all[makeCardId(subDeck.id, i)];
         if (srs && srs.interval >= 21 && srs.lastReview) {
-          masteryByDate[srs.lastReview] = (masteryByDate[srs.lastReview] ?? 0) + 1;
+          const reviewDate = normalizeISODate(srs.lastReview);
+          if (!reviewDate) continue;
+          masteryByDate[reviewDate] = (masteryByDate[reviewDate] ?? 0) + 1;
         }
       }
     }

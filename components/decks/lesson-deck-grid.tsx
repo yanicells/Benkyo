@@ -4,7 +4,13 @@ import Link from "next/link";
 import { useMemo, useSyncExternalStore } from "react";
 
 import type { Lesson } from "@/lib/types";
-import { getLessonMastery, getAllSRS, makeCardId } from "@/lib/srs";
+import {
+  getLessonMastery,
+  getAllSRS,
+  makeCardId,
+  subscribeToStudyData,
+  getStudyDataRevision,
+} from "@/lib/srs";
 
 type LessonDeckGridProps = {
   lessons: Lesson[];
@@ -23,14 +29,16 @@ function LessonCard({
   lesson,
   index,
   isHydrated,
+  dataRevision,
 }: {
   lesson: Lesson;
   index: number;
   isHydrated: boolean;
+  dataRevision: number;
 }) {
   const mastery = useMemo(
-    () => (isHydrated ? getLessonMastery(lesson) : 0),
-    [isHydrated, lesson],
+    () => (isHydrated && dataRevision >= 0 ? getLessonMastery(lesson) : 0),
+    [isHydrated, dataRevision, lesson],
   );
 
   const totalCards = lesson.subDecks.reduce(
@@ -94,9 +102,13 @@ function LessonCard({
   );
 }
 
-function useGlobalMastery(lessons: Lesson[], isHydrated: boolean) {
+function useGlobalMastery(
+  lessons: Lesson[],
+  isHydrated: boolean,
+  dataRevision: number,
+) {
   return useMemo(() => {
-    if (!isHydrated) return EMPTY_GLOBAL;
+    if (!isHydrated || dataRevision < 0) return EMPTY_GLOBAL;
 
     const all = getAllSRS();
     let total = 0;
@@ -120,7 +132,7 @@ function useGlobalMastery(lessons: Lesson[], isHydrated: boolean) {
       mastered,
       total,
     };
-  }, [isHydrated, lessons]);
+  }, [isHydrated, lessons, dataRevision]);
 }
 
 export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
@@ -129,7 +141,12 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
     () => true,
     () => false,
   );
-  const global = useGlobalMastery(lessons, isHydrated);
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
+  );
+  const global = useGlobalMastery(lessons, isHydrated, dataRevision);
 
   return (
     <div className="flex flex-col gap-8 pb-16">
@@ -164,6 +181,7 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
             lesson={lesson}
             index={index}
             isHydrated={isHydrated}
+            dataRevision={dataRevision}
           />
         ))}
       </div>

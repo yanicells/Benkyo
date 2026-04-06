@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 import type { Lesson } from "@/lib/types";
 import {
@@ -12,6 +12,8 @@ import {
   getAllDailyStats,
   getLifetimeStats,
   getLessonMastery,
+  subscribeToStudyData,
+  getStudyDataRevision,
 } from "@/lib/srs";
 
 type HomeClientProps = {
@@ -191,10 +193,16 @@ function DailyGoalRing({
 
 export function HomeClient({ lessons }: HomeClientProps) {
   const [data, setData] = useState<ClientData | null>(null);
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
+  );
 
   useEffect(() => {
+    if (dataRevision < 0) return;
     setData(readClientData(lessons));
-  }, [lessons]);
+  }, [lessons, dataRevision]);
 
   const loaded = data !== null;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useSyncExternalStore } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -16,6 +16,8 @@ import {
   getWeakCards,
   getMasteryPercent,
   getSubDeckAccuracy,
+  subscribeToStudyData,
+  getStudyDataRevision,
 } from "@/lib/srs";
 import { SettingsModal } from "@/components/stats/settings-modal";
 
@@ -64,40 +66,31 @@ function hasJapaneseGlyphs(value: string) {
   return /[\u3040-\u30ff\u3400-\u9fff]/.test(value);
 }
 
-// Noop subscribe — localStorage doesn't push reactive updates
-const subscribeNoop = () => () => {};
-
 export function StatsClient({
   lessons,
   hideOverview = false,
 }: StatsClientProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [chartTab, setChartTab] = useState<ChartTab>("activity");
-
-  // Cache so getSnapshot returns a stable reference (useSyncExternalStore requires it)
-  const cacheRef = useRef<StatsData | null>(null);
-
-  // useSyncExternalStore correctly uses getServerSnapshot during SSR/hydration,
-  // then switches to getSnapshot after hydration — no mismatch.
-  const data = useSyncExternalStore(
-    subscribeNoop,
-    () => {
-      if (cacheRef.current === null) {
-        cacheRef.current = {
-          lifetime: getLifetimeStats(lessons),
-          streak: getStreak(),
-          today: getTodayStats(),
-          dueCount: getDueCards(lessons).length,
-          activityData: getLast30DaysActivity(),
-          accuracyData: getLast30DaysAccuracy(),
-          masteryData: getMasteryTimeline(lessons),
-          weak: getWeakCards(lessons),
-        };
-      }
-      return cacheRef.current;
-    },
-    () => null, // server snapshot — null tells us we're in SSR/hydration
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
   );
+
+  const data = useMemo<StatsData | null>(() => {
+    if (dataRevision < 0) return null;
+    return {
+      lifetime: getLifetimeStats(lessons),
+      streak: getStreak(),
+      today: getTodayStats(),
+      dueCount: getDueCards(lessons).length,
+      activityData: getLast30DaysActivity(),
+      accuracyData: getLast30DaysAccuracy(),
+      masteryData: getMasteryTimeline(lessons),
+      weak: getWeakCards(lessons),
+    };
+  }, [lessons, dataRevision]);
 
   const isLoaded = data !== null;
   const lifetime = data?.lifetime ?? {

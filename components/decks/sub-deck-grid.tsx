@@ -1,10 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 import type { CardType, Lesson } from "@/lib/types";
-import { getMasteryPercent, getSubDeckAccuracy } from "@/lib/srs";
+import {
+  getMasteryPercent,
+  getSubDeckAccuracy,
+  subscribeToStudyData,
+  getStudyDataRevision,
+} from "@/lib/srs";
 
 type SubDeckGridProps = {
   lesson: Lesson;
@@ -38,8 +43,15 @@ function getDeckPrimaryType(cards: { type: CardType }[]): CardType {
 type SubDeckStats = Record<string, { mastery: number; accuracy: number }>;
 
 export function SubDeckGrid({ lesson }: SubDeckGridProps) {
-  const [stats] = useState<SubDeckStats>(() => {
-    if (typeof window === "undefined") return {};
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
+  );
+
+  const stats = useMemo<SubDeckStats>(() => {
+    if (dataRevision < 0) return {};
+
     const result: SubDeckStats = {};
     for (const sd of lesson.subDecks) {
       result[sd.id] = {
@@ -48,7 +60,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
       };
     }
     return result;
-  });
+  }, [lesson, dataRevision]);
 
   return (
     <section className="space-y-4 pb-32 sm:pb-36">

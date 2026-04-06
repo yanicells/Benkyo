@@ -1,13 +1,17 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { Lesson } from "@/lib/types";
-import { getLessonMastery, getLessonCompletionPercent } from "@/lib/srs";
+import {
+  getLessonMastery,
+  getLessonCompletionPercent,
+  subscribeToStudyData,
+  getStudyDataRevision,
+} from "@/lib/srs";
 
 type LessonState = "not-started" | "in-progress" | "completed";
 const COMPLETED_MASTERY_THRESHOLD = 70;
-const subscribeNoop = () => () => {};
 const EMPTY_PROGRESS_SNAPSHOT: Record<
   string,
   { mastery: number; completion: number }
@@ -234,29 +238,24 @@ function ConnectorLine({ fromState }: { fromState: LessonState }) {
 }
 
 export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
-  const cacheRef = useRef<Record<
-    string,
-    { mastery: number; completion: number }
-  > | null>(null);
-
-  const data = useSyncExternalStore(
-    subscribeNoop,
-    () => {
-      if (cacheRef.current === null) {
-        const result: Record<string, { mastery: number; completion: number }> =
-          {};
-        for (const lesson of lessons) {
-          result[lesson.id] = {
-            mastery: getLessonMastery(lesson),
-            completion: getLessonCompletionPercent(lesson.id, lessons),
-          };
-        }
-        cacheRef.current = result;
-      }
-      return cacheRef.current;
-    },
-    () => EMPTY_PROGRESS_SNAPSHOT,
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
   );
+
+  const data = useMemo(() => {
+    if (dataRevision < 0) return EMPTY_PROGRESS_SNAPSHOT;
+
+    const result: Record<string, { mastery: number; completion: number }> = {};
+    for (const lesson of lessons) {
+      result[lesson.id] = {
+        mastery: getLessonMastery(lesson),
+        completion: getLessonCompletionPercent(lesson.id, lessons),
+      };
+    }
+    return result;
+  }, [lessons, dataRevision]);
 
   const withStates = computeStates(lessons, data ?? {});
   const completedCount = withStates.filter(
