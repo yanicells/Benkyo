@@ -171,27 +171,28 @@ function PathNode({
           {totalCards} cards · {lesson.subDecks.length} decks
         </p>
 
-        {/* Progress bar for in-progress */}
-        {lesson.state === "in-progress" && (
-          <div className="mt-2">
-            <div className="h-1 w-full rounded-full bg-secondary-container overflow-hidden">
-              <div
-                className="h-full rounded-full bg-primary transition-all"
-                style={{ width: `${lesson.completion}%` }}
-              />
-            </div>
-            <p className="text-[10px] text-on-surface-variant mt-0.5">
-              {lesson.completion}% reviewed
-            </p>
+        <div className="mt-2">
+          <div className="mb-1 h-1 w-full rounded-full bg-secondary-container overflow-hidden">
+            <div
+              className="h-full rounded-full bg-primary transition-all"
+              style={{ width: `${lesson.mastery}%` }}
+            />
           </div>
-        )}
-
-        {/* Mastery for completed */}
-        {lesson.state === "completed" && (
-          <p className="text-[10px] text-success mt-0.5 font-medium">
-            {lesson.mastery}% mastered
-          </p>
-        )}
+          <div className="h-1 w-full rounded-full bg-secondary-container overflow-hidden">
+            <div
+              className="h-full rounded-full bg-amber-400 transition-all"
+              style={{ width: `${lesson.completion}%` }}
+            />
+          </div>
+          <div className="mt-1 flex items-center justify-between text-[10px]">
+            <span className="font-semibold text-primary">
+              {lesson.mastery}% mastery
+            </span>
+            <span className="font-semibold text-amber-700">
+              {lesson.completion}% reviewed
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="shrink-0 flex items-center gap-2 pl-1">
@@ -328,6 +329,14 @@ export function LearningPathClient({ lessons }: { lessons: Lesson[] }) {
         <span className="flex items-center gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full bg-outline-variant/50 inline-block" />
           Not Started
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-primary inline-block" />
+          Mastery
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-amber-400 inline-block" />
+          Reviewed
         </span>
         <span className="ml-auto flex items-center gap-2">
           <DifficultyPip difficulty="beginner" />

@@ -279,14 +279,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
         {/* Daily Goal Card */}
         <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
           <div className="flex flex-col gap-2 p-1 md:hidden">
-            <div className="flex items-center gap-1.5">
-              <DailyGoalRing
-                reviewed={todayReviewed}
-                goal={dailyGoal}
-                loaded={loaded}
-                mini
-                showValue={false}
-              />
+            <div className="flex items-center">
               {loaded ? (
                 <p className="font-display text-2xl font-extrabold text-foreground leading-none">
                   {todayReviewed}

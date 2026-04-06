@@ -283,6 +283,20 @@ export function getMasteryPercent(subDeckId: string, cardCount: number): number 
   return Math.round((mastered / cardCount) * 100);
 }
 
+export function getSubDeckReviewedPercent(
+  subDeckId: string,
+  cardCount: number,
+): number {
+  if (cardCount === 0) return 0;
+  const all = getAllSRS();
+  let reviewed = 0;
+  for (let i = 0; i < cardCount; i++) {
+    const srs = all[makeCardId(subDeckId, i)];
+    if (srs && srs.totalReviews > 0) reviewed++;
+  }
+  return Math.round((reviewed / cardCount) * 100);
+}
+
 export function getLessonMastery(lesson: Lesson): number {
   let total = 0;
   let mastered = 0;

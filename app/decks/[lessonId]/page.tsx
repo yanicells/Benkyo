@@ -4,6 +4,7 @@ import lessonsData from "@/data/lessons.json";
 import { PageShell } from "@/components/shared/page-shell";
 import { SubDeckGrid } from "@/components/decks/sub-deck-grid";
 import { LessonPreStudy } from "@/components/decks/lesson-pre-study";
+import { LessonProgressOverview } from "@/components/decks/lesson-progress-overview";
 import type { LessonsData } from "@/lib/types";
 
 type SubDeckListPageProps = {
@@ -34,6 +35,7 @@ export default async function SubDeckListPage({
       backHref="/decks"
       backLabel="All Lessons"
     >
+      <LessonProgressOverview lesson={lesson} />
       {lesson.meta && (
         <LessonPreStudy meta={lesson.meta} />
       )}

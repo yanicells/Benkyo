@@ -32,6 +32,18 @@ export default async function SubDeckConfigPage({
     ? lesson.subDecks.flatMap((sd) => sd.cards)
     : subDeck!.cards;
 
+  const progressCardRefs = isStudyAll
+    ? lesson.subDecks.flatMap((sd) =>
+        sd.cards.map((_, cardIndex) => ({
+          subDeckId: sd.id,
+          cardIndex,
+        })),
+      )
+    : subDeck!.cards.map((_, cardIndex) => ({
+        subDeckId: subDeck!.id,
+        cardIndex,
+      }));
+
   const title = isStudyAll ? `${lesson.title} — All Cards` : subDeck!.title;
   const cardTypes = [...new Set(cards.map((c) => c.type))];
 
@@ -45,6 +57,7 @@ export default async function SubDeckConfigPage({
       cardTypes={cardTypes}
       meta={lesson.meta ?? null}
       cards={cards}
+      progressCardRefs={progressCardRefs}
     />
   );
 }

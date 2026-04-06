@@ -12,6 +12,8 @@ import {
   getStreak,
   getTodayStats,
   getDueCards,
+  getAllSRS,
+  makeCardId,
   subscribeToStudyData,
   getStudyDataRevision,
 } from "@/lib/srs";
@@ -21,7 +23,24 @@ type LocalStats = {
   streak: ReturnType<typeof getStreak>;
   today: ReturnType<typeof getTodayStats>;
   dueCount: number;
+  reviewedCards: number;
 };
+
+function getReviewedCardsCount(lessons: Lesson[]): number {
+  const all = getAllSRS();
+  let reviewed = 0;
+
+  for (const lesson of lessons) {
+    for (const subDeck of lesson.subDecks) {
+      for (let i = 0; i < subDeck.cards.length; i++) {
+        const srs = all[makeCardId(subDeck.id, i)];
+        if (srs && srs.totalReviews > 0) reviewed++;
+      }
+    }
+  }
+
+  return reviewed;
+}
 
 export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
   const { isSignedIn, user, syncState, triggerSync } = useAuth();
@@ -38,6 +57,7 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
       streak: getStreak(),
       today: getTodayStats(),
       dueCount: getDueCards(lessons).length,
+      reviewedCards: getReviewedCardsCount(lessons),
     };
   }, [lessons, dataRevision]);
 
@@ -54,9 +74,14 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
     timeSpentSeconds: 0,
   };
   const dueCount = stats?.dueCount ?? 0;
+  const reviewedCards = stats?.reviewedCards ?? 0;
   const overallAccuracy =
     lifetime.totalReviews > 0
       ? Math.round((lifetime.totalCorrect / lifetime.totalReviews) * 100)
+      : 0;
+  const reviewedPct =
+    lifetime.totalCards > 0
+      ? Math.round((reviewedCards / lifetime.totalCards) * 100)
       : 0;
   const masteryPct =
     lifetime.totalCards > 0
@@ -168,6 +193,25 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
                   <p className="text-[10px] text-on-surface-variant mt-1">
                     Day streak
                   </p>
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-2">
+                <div className="flex items-center justify-between text-[10px] font-semibold">
+                  <span className="text-primary">{masteryPct}% mastery</span>
+                  <span className="text-amber-700">{reviewedPct}% reviewed</span>
+                </div>
+                <div className="h-1.5 w-full rounded-full bg-secondary-container overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-primary transition-all duration-500"
+                    style={{ width: `${masteryPct}%` }}
+                  />
+                </div>
+                <div className="h-1.5 w-full rounded-full bg-secondary-container overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-amber-400 transition-all duration-500"
+                    style={{ width: `${reviewedPct}%` }}
+                  />
                 </div>
               </div>
             </div>
@@ -299,6 +343,51 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
               )}
             </div>
           ))}
+        </div>
+
+        <div className="rounded-[1.5rem] bg-surface-lowest shadow-[0_12px_40px_rgba(0,14,33,0.06)] p-6">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold">
+              Progress
+            </p>
+            <p className="text-[10px] text-on-surface-variant">
+              {lifetime.totalCards} total cards
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <div>
+              <div className="mb-1 flex items-center justify-between text-[11px]">
+                <span className="font-semibold text-primary">Mastery</span>
+                <span className="text-on-surface-variant">
+                  {lifetime.mastered}/{lifetime.totalCards} ({masteryPct}%)
+                </span>
+              </div>
+              <div className="h-2 w-full rounded-full bg-secondary-container overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-500"
+                  style={{ width: `${masteryPct}%` }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-1 flex items-center justify-between text-[11px]">
+                <span className="font-semibold text-amber-700">
+                  Reviewed
+                </span>
+                <span className="text-on-surface-variant">
+                  {reviewedCards}/{lifetime.totalCards} ({reviewedPct}%)
+                </span>
+              </div>
+              <div className="h-2 w-full rounded-full bg-secondary-container overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-amber-400 transition-all duration-500"
+                  style={{ width: `${reviewedPct}%` }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* ── Sync card ── */}

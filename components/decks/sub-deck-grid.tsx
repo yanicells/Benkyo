@@ -6,6 +6,7 @@ import { useMemo, useSyncExternalStore } from "react";
 import type { CardType, Lesson } from "@/lib/types";
 import {
   getMasteryPercent,
+  getSubDeckReviewedPercent,
   getSubDeckAccuracy,
   subscribeToStudyData,
   getStudyDataRevision,
@@ -40,7 +41,10 @@ function getDeckPrimaryType(cards: { type: CardType }[]): CardType {
   return max;
 }
 
-type SubDeckStats = Record<string, { mastery: number; accuracy: number }>;
+type SubDeckStats = Record<
+  string,
+  { mastery: number; reviewed: number; accuracy: number }
+>;
 
 export function SubDeckGrid({ lesson }: SubDeckGridProps) {
   const dataRevision = useSyncExternalStore(
@@ -56,6 +60,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
     for (const sd of lesson.subDecks) {
       result[sd.id] = {
         mastery: getMasteryPercent(sd.id, sd.cards.length),
+        reviewed: getSubDeckReviewedPercent(sd.id, sd.cards.length),
         accuracy: getSubDeckAccuracy(sd.id, sd.cards.length),
       };
     }
@@ -68,6 +73,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
         {lesson.subDecks.map((subDeck) => {
           const primaryType = getDeckPrimaryType(subDeck.cards);
           const mastery = stats[subDeck.id]?.mastery ?? 0;
+          const reviewed = stats[subDeck.id]?.reviewed ?? 0;
           const accuracy = stats[subDeck.id]?.accuracy ?? 0;
 
           return (
@@ -91,7 +97,9 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
               </div>
 
               <div className="mt-3 flex items-center gap-3 text-xs text-secondary sm:text-xs">
-                <span>{mastery}% mastered</span>
+                <span className="text-primary">{mastery}% mastery</span>
+                <span>&middot;</span>
+                <span className="text-amber-700">{reviewed}% reviewed</span>
                 {accuracy > 0 && <span>&middot; {accuracy}% accuracy</span>}
               </div>
 
@@ -101,6 +109,14 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
                   style={{ width: `${mastery}%` }}
                 />
               </div>
+
+              <div className="mt-1.5 h-1 overflow-hidden rounded-sm bg-secondary-container">
+                <div
+                  className="h-full rounded-sm bg-amber-400 transition-all duration-500"
+                  style={{ width: `${reviewed}%` }}
+                />
+              </div>
+
             </Link>
           );
         })}

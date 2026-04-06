@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { PwaInit } from "../components/shared/pwa-init";
 import { InstallBanner } from "../components/shared/install-banner";
@@ -129,6 +130,7 @@ export default function RootLayout({
           </div>
         </div>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

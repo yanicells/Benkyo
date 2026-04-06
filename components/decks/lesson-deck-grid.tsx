@@ -6,6 +6,7 @@ import { useMemo, useSyncExternalStore } from "react";
 import type { Lesson } from "@/lib/types";
 import {
   getLessonMastery,
+  getLessonCompletionPercent,
   getAllSRS,
   makeCardId,
   subscribeToStudyData,
@@ -17,7 +18,13 @@ type LessonDeckGridProps = {
 };
 
 const subscribeNoop = () => () => {};
-const EMPTY_GLOBAL = { percent: 0, reviewed: 0, mastered: 0, total: 0 };
+const EMPTY_GLOBAL = {
+  reviewedPercent: 0,
+  masteryPercent: 0,
+  reviewed: 0,
+  mastered: 0,
+  total: 0,
+};
 
 const DIFFICULTY_COLORS = {
   beginner: { badge: "bg-success/10 text-success", bar: "bg-success" },
@@ -40,6 +47,13 @@ function LessonCard({
     () => (isHydrated && dataRevision >= 0 ? getLessonMastery(lesson) : 0),
     [isHydrated, dataRevision, lesson],
   );
+  const reviewed = useMemo(
+    () =>
+      isHydrated && dataRevision >= 0
+        ? getLessonCompletionPercent(lesson.id, [lesson])
+        : 0,
+    [isHydrated, dataRevision, lesson],
+  );
 
   const totalCards = lesson.subDecks.reduce(
     (sum, sd) => sum + sd.cards.length,
@@ -48,8 +62,6 @@ function LessonCard({
 
   const diff = lesson.meta?.difficulty;
   const diffStyle = diff ? DIFFICULTY_COLORS[diff] : null;
-  const isMastered = mastery >= 70;
-
   return (
     <Link
       href={`/decks/${lesson.id}`}
@@ -85,16 +97,25 @@ function LessonCard({
 
       {/* Progress */}
       <div className="mt-auto">
-        <div className="mb-1.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.12em]">
-          <span className="text-on-surface-variant">Mastery</span>
-          <span className={isMastered ? "text-success" : "text-primary"}>
-            {mastery}%
+        <div className="mb-2 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.12em]">
+          <span className="text-on-surface-variant">Progress</span>
+          <span className="text-on-surface-variant">
+            <span className="text-primary">{mastery}% mastery</span>
+            <span className="px-1 text-on-surface-variant/40">/</span>
+            <span className="text-amber-700">{reviewed}% reviewed</span>
           </span>
+        </div>
+
+        <div className="mb-1.5 h-1.5 rounded-full bg-secondary-container overflow-hidden">
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-500"
+            style={{ width: `${mastery}%` }}
+          />
         </div>
         <div className="h-1.5 rounded-full bg-secondary-container overflow-hidden">
           <div
-            className={`h-full rounded-full transition-all duration-500 ${isMastered ? "bg-success" : "bg-primary"}`}
-            style={{ width: `${mastery}%` }}
+            className="h-full rounded-full bg-amber-400 transition-all duration-500"
+            style={{ width: `${reviewed}%` }}
           />
         </div>
       </div>
@@ -127,7 +148,8 @@ function useGlobalMastery(
       }
     }
     return {
-      percent: total === 0 ? 0 : Math.round((mastered / total) * 100),
+      reviewedPercent: total === 0 ? 0 : Math.round((reviewed / total) * 100),
+      masteryPercent: total === 0 ? 0 : Math.round((mastered / total) * 100),
       reviewed,
       mastered,
       total,
@@ -150,22 +172,36 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
 
   return (
     <div className="flex flex-col gap-8 pb-16">
-      {/* Overall mastery overview */}
+      {/* Overall progress overview */}
       <div className="rounded-2xl bg-surface-lowest shadow-[0_4px_20px_rgba(0,14,33,0.04)] p-6">
         <div className="flex items-center justify-between mb-2">
           <p className="text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant">
-            Overall Mastery
+            Overall Progress
           </p>
-          <span className="font-display text-2xl font-extrabold text-primary">
-            {global.reviewed === 0 ? "—" : `${global.percent}%`}
-          </span>
+          <p className="text-[11px] text-on-surface-variant">
+            <span className="font-semibold text-primary">
+              {global.masteryPercent}% mastery
+            </span>
+            <span className="px-1 text-on-surface-variant/40">/</span>
+            <span className="font-semibold text-amber-700">
+              {global.reviewedPercent}% reviewed
+            </span>
+          </p>
+        </div>
+
+        <div className="h-2 rounded-full bg-secondary-container overflow-hidden mb-2">
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-700"
+            style={{ width: `${global.masteryPercent}%` }}
+          />
         </div>
         <div className="h-2 rounded-full bg-secondary-container overflow-hidden mb-3">
           <div
-            className="h-full rounded-full bg-primary transition-all duration-700"
-            style={{ width: `${global.percent}%` }}
+            className="h-full rounded-full bg-amber-400 transition-all duration-700"
+            style={{ width: `${global.reviewedPercent}%` }}
           />
         </div>
+
         <p className="text-xs text-on-surface-variant">
           {global.reviewed === 0
             ? "Start any lesson to begin tracking your progress."

@@ -1,8 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {
+  getAllSRS,
+  makeCardId,
+  subscribeToStudyData,
+  getStudyDataRevision,
+} from "@/lib/srs";
 
 import type {
   Card,
@@ -21,6 +27,7 @@ type SubDeckStudyClientProps = {
   cardTypes: CardType[];
   meta: LessonMeta | null;
   cards: Card[];
+  progressCardRefs: { subDeckId: string; cardIndex: number }[];
 };
 
 const modeOptions: {
@@ -265,8 +272,14 @@ export function SubDeckStudyClient({
   cardTypes,
   meta,
   cards,
+  progressCardRefs,
 }: SubDeckStudyClientProps) {
   const router = useRouter();
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
+  );
   const [dialogOpen, setDialogOpen] = useState(false);
   const [mode, setMode] = useState<StudyMode>("flashcard");
   const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
@@ -306,6 +319,35 @@ export function SubDeckStudyClient({
 
   const keyPoints = meta?.cheatSheet?.slice(0, 3) ?? [];
 
+  const progress = useMemo(() => {
+    if (dataRevision < 0) {
+      return {
+        total: progressCardRefs.length,
+        reviewed: 0,
+        mastered: 0,
+        reviewedPct: 0,
+        masteryPct: 0,
+      };
+    }
+
+    const all = getAllSRS();
+    let reviewed = 0;
+    let mastered = 0;
+
+    for (const ref of progressCardRefs) {
+      const srs = all[makeCardId(ref.subDeckId, ref.cardIndex)];
+      if (!srs) continue;
+      if (srs.totalReviews > 0) reviewed++;
+      if (srs.interval >= 21) mastered++;
+    }
+
+    const total = progressCardRefs.length;
+    const reviewedPct = total === 0 ? 0 : Math.round((reviewed / total) * 100);
+    const masteryPct = total === 0 ? 0 : Math.round((mastered / total) * 100);
+
+    return { total, reviewed, mastered, reviewedPct, masteryPct };
+  }, [dataRevision, progressCardRefs]);
+
   return (
     <section className="relative mx-auto w-full max-w-4xl px-4 py-6 pb-32 sm:px-8 sm:py-10 sm:pb-36">
       {/* Back button */}
@@ -343,6 +385,49 @@ export function SubDeckStudyClient({
           {cardCount} cards available
         </p>
       </header>
+
+      <div className="mb-8 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)]">
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
+            {subDeckId === "all" ? "Lesson Progress" : "Deck Progress"}
+          </p>
+          <p className="text-[10px] text-on-surface-variant">
+            {progress.total} cards
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          <div>
+            <div className="mb-1 flex items-center justify-between text-[11px]">
+              <span className="font-semibold text-primary">Mastery</span>
+              <span className="text-on-surface-variant">
+                {progress.mastered}/{progress.total} ({progress.masteryPct}%)
+              </span>
+            </div>
+            <div className="h-2 w-full rounded-full bg-secondary-container overflow-hidden">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-500"
+                style={{ width: `${progress.masteryPct}%` }}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-1 flex items-center justify-between text-[11px]">
+              <span className="font-semibold text-amber-700">Reviewed</span>
+              <span className="text-on-surface-variant">
+                {progress.reviewed}/{progress.total} ({progress.reviewedPct}%)
+              </span>
+            </div>
+            <div className="h-2 w-full rounded-full bg-secondary-container overflow-hidden">
+              <div
+                className="h-full rounded-full bg-amber-400 transition-all duration-500"
+                style={{ width: `${progress.reviewedPct}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Quick Study Notes */}
       {(quickNote || keyPoints.length > 0) && (
