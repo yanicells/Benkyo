@@ -454,27 +454,50 @@ export function DeckSessionClient({
       : undefined;
 
   return (
-    <div className="max-w-screen-md mx-auto px-4 md:px-8 py-6 md:py-8 w-full flex flex-col min-h-[calc(100vh-4rem)]">
+    <div className="max-w-screen-md mx-auto px-4 md:px-8 pt-0 pb-6 md:py-8 w-full flex flex-col min-h-[calc(100vh-4rem)]">
       <div className="sticky top-14 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
-        <Link
-          href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
-          className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
-        >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <div className="flex items-center justify-between">
+          <Link
+            href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
+            className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          {isReview ? "Back to Review" : "Back to Deck"}
-        </Link>
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            {isReview ? "Back to Review" : "Back to Deck"}
+          </Link>
+          <button
+            type="button"
+            onClick={() => setContextOpen(true)}
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-low text-primary shadow-none transition-colors hover:bg-primary/10"
+            title="View context & hints"
+            aria-label="View context and hints"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Session Header — title + progress bar */}
@@ -513,31 +536,6 @@ export function DeckSessionClient({
           if (mode === "flashcard" && !revealed) setRevealed(true);
         }}
       >
-        {/* Context button — top right */}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            setContextOpen(true);
-          }}
-          className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-surface-low text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors"
-          title="View context & hints"
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </button>
-
         <div
           className={`${promptHasLatin ? "font-display" : "font-japanese"} text-center leading-tight text-foreground transition-all`}
         >
@@ -599,6 +597,9 @@ export function DeckSessionClient({
                 {multipleChoice.options.map((option) => {
                   const isSelected = selectedOption === option;
                   const isCorrect = multipleChoice.correct === option;
+                  const optionFontClass = /[A-Za-z]/.test(option)
+                    ? "font-display"
+                    : "font-japanese";
 
                   let stateClass =
                     "bg-surface-lowest text-foreground border-2 border-outline-variant/25 hover:border-primary/55";
@@ -620,7 +621,7 @@ export function DeckSessionClient({
                         setSelectedOption(option);
                         setChoiceLocked(true);
                       }}
-                      className={`font-japanese group relative flex items-center w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-xl md:text-2xl font-medium transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
+                      className={`${optionFontClass} group relative flex items-center w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-lg md:text-xl font-medium transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
                     >
                       <span className="flex-1 text-center leading-relaxed wrap-break-word">
                         {option}

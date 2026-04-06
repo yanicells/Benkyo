@@ -10,6 +10,7 @@ import { TopAppBar } from "../components/shared/top-app-bar";
 import { BottomNav } from "../components/shared/bottom-nav";
 import { DesktopSidebar } from "../components/shared/desktop-sidebar";
 import { DesktopHeader } from "../components/shared/desktop-header";
+import { MobileLaunchSplash } from "../components/shared/mobile-launch-splash";
 import "./globals.css";
 
 const displayFont = Inter({
@@ -98,6 +99,7 @@ export default function RootLayout({
         className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-dvh bg-surface flex`}
       >
         <AuthProvider>
+          <MobileLaunchSplash />
           <PwaInit />
           <InstallBanner />
           <UpdateToast />
