@@ -226,20 +226,8 @@ export function HomeClient({ lessons }: HomeClientProps) {
       <div className="grid grid-cols-3 gap-2.5 md:grid-cols-3 md:gap-4">
         {/* Streak Card */}
         <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-          <div className="flex flex-col gap-2 p-1 md:hidden">
-            <div className="flex items-center gap-1.5">
-              <div
-                className="h-7 w-7 rounded-lg btn-primary-gradient flex items-center justify-center text-white shrink-0"
-                aria-hidden
-              >
-                <svg
-                  className="w-3.5 h-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
-                </svg>
-              </div>
+          <div className="flex flex-col items-center text-center gap-2 p-1 md:hidden">
+            <div className="flex items-center justify-center">
               {loaded ? (
                 <p className="font-display text-2xl font-extrabold text-foreground leading-none">
                   {streakDays}
@@ -286,8 +274,8 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
         {/* Daily Goal Card */}
         <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-          <div className="flex flex-col gap-2 p-1 md:hidden">
-            <div className="flex items-center">
+          <div className="flex flex-col items-center text-center gap-2 p-1 md:hidden">
+            <div className="flex items-center justify-center">
               {loaded ? (
                 <p className="font-display text-2xl font-extrabold text-foreground leading-none">
                   {todayReviewed}
@@ -344,32 +332,14 @@ export function HomeClient({ lessons }: HomeClientProps) {
             className="group bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
             aria-label={`Review ${dueCount} due cards`}
           >
-            <div className="flex flex-col gap-2 p-1 md:hidden">
-              <div className="flex items-center gap-1.5">
-                <div
-                  className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0"
-                  aria-hidden
-                >
-                  <svg
-                    className="w-3.5 h-3.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                </div>
+            <div className="flex flex-col items-center text-center gap-2 p-1 md:hidden">
+              <div className="flex items-center justify-center">
                 <p className="font-display text-2xl font-extrabold text-primary leading-none">
                   {dueCount}
                 </p>
               </div>
               <p className="text-[9px] uppercase font-bold tracking-widest text-secondary group-hover:text-primary transition-colors">
-                Cards Due
+                Due Cards
               </p>
             </div>
 
@@ -404,37 +374,19 @@ export function HomeClient({ lessons }: HomeClientProps) {
           </Link>
         ) : (
           <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-            <div className="flex flex-col gap-2 p-1 md:hidden">
-              <div className="flex items-center gap-1.5">
-                <div
-                  className="h-7 w-7 rounded-lg bg-success/10 flex items-center justify-center text-success shrink-0"
-                  aria-hidden
-                >
-                  <svg
-                    className="w-3.5 h-3.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
+            <div className="flex flex-col items-center text-center gap-2 p-1 md:hidden">
+              <div className="flex items-center justify-center">
                 {loaded ? (
-                  <p className="font-display text-lg font-bold text-success leading-none">
-                    All clear
+                  <p className="font-display text-2xl font-extrabold text-primary leading-none">
+                    0
                   </p>
                 ) : (
-                  <div className="h-6 w-14 rounded bg-outline-variant/20 animate-pulse" />
+                  <div className="h-7 w-8 rounded bg-outline-variant/20 animate-pulse" />
                 )}
               </div>
               {loaded ? (
                 <p className="text-[9px] uppercase font-bold tracking-widest text-secondary">
-                  Caught Up
+                  Cards Due
                 </p>
               ) : (
                 <div className="h-2.5 w-14 rounded bg-outline-variant/20 animate-pulse" />
