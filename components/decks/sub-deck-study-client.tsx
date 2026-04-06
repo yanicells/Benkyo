@@ -26,19 +26,16 @@ type SubDeckStudyClientProps = {
 const modeOptions: {
   value: StudyMode;
   label: string;
-  icon: string;
   description: string;
 }[] = [
   {
     value: "flashcard",
     label: "Flashcard",
-    icon: "📇",
     description: "Reveal answer manually and self-grade.",
   },
   {
     value: "multiple-choice",
     label: "Multiple Choice",
-    icon: "✦",
     description: "Pick from randomized options.",
   },
 ];
@@ -65,6 +62,42 @@ const previewTypeLabels: Record<CardType, string> = {
   translate: "Translate",
   culture: "Culture",
 };
+
+function StudyModeIcon({ mode }: { mode: StudyMode }) {
+  if (mode === "flashcard") {
+    return (
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={1.8}
+      >
+        <rect x="3" y="6" width="14" height="11" rx="2" />
+        <path d="M7 10h6M7 13h4" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M17 9h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={1.8}
+    >
+      <rect x="3" y="4" width="18" height="16" rx="3" />
+      <path d="M8 9h8M8 13h5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M16 13l2 2 3-3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 function SettingsDialog({
   open,
@@ -125,7 +158,7 @@ function SettingsDialog({
           {/* Study mode */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Study mode
+              Study mode <span className="text-on-surface-variant">(Select 1)</span>
             </p>
             <div className="grid gap-2 grid-cols-2">
               {modeOptions.map((opt) => (
@@ -133,13 +166,21 @@ function SettingsDialog({
                   key={opt.value}
                   type="button"
                   onClick={() => setMode(opt.value)}
-                  className={`flex flex-col items-center gap-1.5 rounded-xl p-4 transition-all text-center ${
+                  className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-4 transition-all text-center ${
                     mode === opt.value
-                      ? "bg-primary/10 ring-2 ring-primary/20"
-                      : "bg-surface-low hover:bg-surface-low/80"
+                      ? "border-primary bg-primary/10"
+                      : "border-primary/20 bg-surface-lowest hover:border-primary/40 hover:bg-primary/5"
                   }`}
                 >
-                  <span className="text-lg">{opt.icon}</span>
+                  <span
+                    className={
+                      mode === opt.value
+                        ? "text-primary"
+                        : "text-on-surface-variant"
+                    }
+                  >
+                    <StudyModeIcon mode={opt.value} />
+                  </span>
                   <span className="text-sm font-semibold text-foreground">
                     {opt.label}
                   </span>
@@ -154,7 +195,7 @@ function SettingsDialog({
           {/* Direction */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Direction
+              Direction <span className="text-on-surface-variant">(Select 1)</span>
             </p>
             <div className="grid gap-2 grid-cols-2">
               {flipOptions.map((opt) => (
@@ -162,10 +203,10 @@ function SettingsDialog({
                   key={opt.value}
                   type="button"
                   onClick={() => setFlip(opt.value)}
-                  className={`flex items-center justify-center gap-2 rounded-xl p-3 text-sm font-semibold transition-all ${
+                  className={`flex items-center justify-center gap-2 rounded-xl border-2 p-3 text-sm font-semibold transition-all ${
                     flip === opt.value
-                      ? "bg-primary/10 ring-2 ring-primary/20 text-primary"
-                      : "bg-surface-low text-foreground hover:bg-surface-low/80"
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
                   }`}
                 >
                   {opt.label}
@@ -178,7 +219,7 @@ function SettingsDialog({
           {cardTypes.length > 1 && (
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-                Card types
+                Card types <span className="text-on-surface-variant">(Add or remove)</span>
               </p>
               <div className="flex flex-wrap gap-2">
                 {cardTypes.map((type) => (
@@ -186,10 +227,10 @@ function SettingsDialog({
                     key={type}
                     type="button"
                     onClick={() => toggleType(type)}
-                    className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-all ${
+                    className={`rounded-lg border-2 px-3 py-1.5 text-sm font-medium transition-all ${
                       selectedTypes.has(type)
-                        ? "bg-primary/10 text-primary ring-1 ring-primary/20"
-                        : "bg-surface-low text-on-surface-variant hover:bg-surface-low/80"
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-primary/20 bg-surface-lowest text-on-surface-variant hover:border-primary/40 hover:bg-primary/5"
                     }`}
                   >
                     {typeLabels[type]}

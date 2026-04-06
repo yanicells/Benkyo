@@ -528,8 +528,8 @@ export function DeckSessionClient({
           <span
             className={
               prompt.length > 6
-                ? "text-[1.9rem] md:text-[2.8rem] lg:text-[3.5rem]"
-                : "text-[2.6rem] md:text-[4rem] lg:text-[5rem]"
+                ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
+                : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]"
             }
           >
             {prompt}
@@ -612,9 +612,9 @@ export function DeckSessionClient({
                         setSelectedOption(option);
                         setChoiceLocked(true);
                       }}
-                      className={`font-japanese group relative flex items-start w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-base md:text-lg font-normal transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
+                      className={`font-japanese group relative flex items-center w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-lg md:text-xl font-normal transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
                     >
-                      <span className="flex-1 text-left leading-relaxed wrap-break-word">
+                      <span className="flex-1 text-center leading-relaxed wrap-break-word">
                         {option}
                       </span>
                     </button>
