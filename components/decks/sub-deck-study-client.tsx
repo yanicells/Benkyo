@@ -355,7 +355,7 @@ export function SubDeckStudyClient({
   }, [dataRevision, progressCardRefs]);
 
   return (
-    <section className="relative mx-auto w-full max-w-4xl px-4 py-6 pb-32 sm:px-8 sm:py-10 sm:pb-36">
+    <section className="relative mx-auto w-full max-w-4xl px-4 pt-0 pb-32 sm:px-8 sm:pt-10 sm:pb-36">
       {/* Back button */}
       <div className="sticky top-14 lg:top-16 z-20 -mx-4 sm:-mx-8 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md sm:px-8">
         <Link

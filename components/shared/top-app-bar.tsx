@@ -15,6 +15,11 @@ export function TopAppBar() {
   const { isSignedIn, user } = useAuth();
 
   const isSession = pathname.includes("/session");
+  const hideForStudySession =
+    pathname === "/kana/session" ||
+    (pathname.startsWith("/decks/") && pathname.includes("/session"));
+
+  if (hideForStudySession) return null;
 
   return (
     <>

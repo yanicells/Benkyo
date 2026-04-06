@@ -346,6 +346,14 @@ export function KanaSessionClient({
     () => activeCards.map((item) => item.card.front).join(" "),
     [activeCards],
   );
+  const mcCardSizeClass =
+    prompt.length > 8
+      ? "min-h-[180px] md:min-h-[220px]"
+      : "min-h-[150px] md:min-h-[190px]";
+  const typingCardSizeClass =
+    activeCards.length > 1 || typingPrompt.length > 10
+      ? "min-h-[190px] md:min-h-[230px]"
+      : "min-h-[160px] md:min-h-[200px]";
 
   const progressHeader = (
     <div className="mb-6">
@@ -377,7 +385,7 @@ export function KanaSessionClient({
   if (mode === "mc") {
     return (
       <div className="max-w-screen-md mx-auto px-4 md:px-8 pt-0 pb-6 md:py-8 w-full flex flex-col min-h-[calc(100vh-4rem)]">
-        <div className="sticky top-14 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
+        <div className="sticky top-0 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
           <div className="flex items-center justify-between">
             <Link
               href="/kana"
@@ -424,7 +432,9 @@ export function KanaSessionClient({
 
         {progressHeader}
 
-        <div className="relative rounded-[2rem] bg-surface-lowest p-6 md:p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center min-h-[250px]">
+        <div
+          className={`relative rounded-[2rem] border border-primary/25 bg-surface-lowest px-6 py-5 md:px-8 md:py-7 lg:px-10 lg:py-8 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center ${mcCardSizeClass}`}
+        >
 
           <div className="font-japanese text-center leading-tight text-foreground transition-all">
             <span
@@ -505,7 +515,7 @@ export function KanaSessionClient({
   // ============================================================
   return (
     <div className="max-w-screen-md mx-auto px-4 md:px-8 pt-0 pb-6 md:py-8 w-full flex flex-col min-h-[calc(100vh-4rem)]">
-      <div className="sticky top-14 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
+      <div className="sticky top-0 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
         <div className="flex items-center justify-between">
           <Link
             href="/kana"
@@ -552,7 +562,9 @@ export function KanaSessionClient({
 
       {progressHeader}
 
-      <div className="relative rounded-[2rem] bg-surface-lowest p-6 md:p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center min-h-[280px]">
+      <div
+        className={`relative rounded-[2rem] border border-primary/25 bg-surface-lowest px-6 py-5 md:px-8 md:py-7 lg:px-10 lg:py-8 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center ${typingCardSizeClass}`}
+      >
 
         <div className="font-japanese text-center leading-tight text-foreground transition-all">
           <span

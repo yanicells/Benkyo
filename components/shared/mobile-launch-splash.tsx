@@ -9,6 +9,8 @@ export function MobileLaunchSplash() {
   const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
+    const TOTAL_DURATION_MS = 1500;
+    const FADE_OUT_START_MS = 1200;
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
 
     const reduceMotion = window.matchMedia(
@@ -29,8 +31,11 @@ export function MobileLaunchSplash() {
       setContentVisible(true);
     });
 
-    const fadeTimer = window.setTimeout(() => setFadingOut(true), 420);
-    const hideTimer = window.setTimeout(() => setShow(false), 620);
+    const fadeTimer = window.setTimeout(
+      () => setFadingOut(true),
+      FADE_OUT_START_MS,
+    );
+    const hideTimer = window.setTimeout(() => setShow(false), TOTAL_DURATION_MS);
 
     return () => {
       window.cancelAnimationFrame(frame);

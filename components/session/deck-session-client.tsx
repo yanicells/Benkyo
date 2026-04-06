@@ -441,6 +441,14 @@ export function DeckSessionClient({
     : promptLength > 6
       ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
       : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]";
+  const unrevealedCardSizeClass =
+    promptLength > 16
+      ? "min-h-[180px] md:min-h-[220px]"
+      : "min-h-[150px] md:min-h-[190px]";
+  const revealedCardSizeClass =
+    promptLength > 16
+      ? "min-h-[230px] md:min-h-[280px]"
+      : "min-h-[200px] md:min-h-[250px]";
   const total = cards.length;
   const answered = total - (queue.length > total ? total : queue.length);
   const progressPercent = Math.max(
@@ -455,7 +463,9 @@ export function DeckSessionClient({
 
   return (
     <div className="max-w-screen-md mx-auto px-4 md:px-8 pt-0 pb-6 md:py-8 w-full flex flex-col min-h-[calc(100vh-4rem)]">
-      <div className="sticky top-14 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
+      <div
+        className={`sticky ${isReview ? "top-14" : "top-0"} lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8`}
+      >
         <div className="flex items-center justify-between">
           <Link
             href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
@@ -531,7 +541,7 @@ export function DeckSessionClient({
 
       {/* Main Question Card — full width */}
       <div
-        className={`relative rounded-[2rem] bg-surface-lowest p-6 md:p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center transition-all duration-300 ${revealed ? "min-h-[320px]" : "min-h-[240px]"}`}
+        className={`relative rounded-[2rem] border border-primary/25 bg-surface-lowest px-6 py-5 md:px-8 md:py-7 lg:px-10 lg:py-8 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center transition-all duration-300 ${revealed ? revealedCardSizeClass : unrevealedCardSizeClass}`}
         onClick={() => {
           if (mode === "flashcard" && !revealed) setRevealed(true);
         }}
