@@ -45,10 +45,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon-192.svg", sizes: "192x192", type: "image/svg+xml" },
-      { url: "/icon-512.svg", sizes: "512x512", type: "image/svg+xml" },
+      { url: "/icon1-192.svg", sizes: "192x192", type: "image/svg+xml" },
+      { url: "/icon1-512.svg", sizes: "512x512", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-touch-icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/icon1-512.svg", type: "image/svg+xml" }],
   },
   alternates: {
     canonical: "/",
@@ -61,12 +61,21 @@ export const metadata: Metadata = {
     siteName: "Benky\u014d",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og_image.png",
+        width: 1200,
+        height: 630,
+        alt: "Benky\u014d — Japanese Study App",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Benky\u014d",
     description:
       "A personal Japanese study app for lesson decks, kana drills, and focused repetition.",
+    images: ["/og_image.png"],
   },
 };
 
