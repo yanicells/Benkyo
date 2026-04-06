@@ -11,8 +11,8 @@ const APP_SHELL_URLS = [
   "/stats",
   "/path",
   "/manifest.webmanifest",
-  "/icon-192.svg",
-  "/icon-512.svg",
+  "/icon1-192.svg",
+  "/icon1-512.svg",
   "/apple-touch-icon.svg",
   "/_next/static/chunks/framework.js",
 ];
