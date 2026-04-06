@@ -41,7 +41,12 @@ export function DeckResultsClient({
 }: DeckResultsClientProps) {
   const [results] = useState<ResultsData>(() => {
     if (typeof window === "undefined") {
-      return { wrongCards: [], totalReviewed: 0, totalCorrect: 0, timeSeconds: 0 };
+      return {
+        wrongCards: [],
+        totalReviewed: 0,
+        totalCorrect: 0,
+        timeSeconds: 0,
+      };
     }
 
     try {
@@ -50,11 +55,21 @@ export function DeckResultsClient({
         : `deck-results:${lessonId}:${subDeckId}`;
       const raw = window.sessionStorage.getItem(key);
       if (!raw) {
-        return { wrongCards: [], totalReviewed: 0, totalCorrect: 0, timeSeconds: 0 };
+        return {
+          wrongCards: [],
+          totalReviewed: 0,
+          totalCorrect: 0,
+          timeSeconds: 0,
+        };
       }
       return JSON.parse(raw) as ResultsData;
     } catch {
-      return { wrongCards: [], totalReviewed: 0, totalCorrect: 0, timeSeconds: 0 };
+      return {
+        wrongCards: [],
+        totalReviewed: 0,
+        totalCorrect: 0,
+        timeSeconds: 0,
+      };
     }
   });
 
@@ -135,11 +150,7 @@ export function DeckResultsClient({
           {isReview ? "Home" : "Back to decks"}
         </Link>
         <Link
-          href={
-            isReview
-              ? "/review"
-              : `/decks/${lessonId}/${subDeckId}`
-          }
+          href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
           className="btn-primary-gradient w-full rounded-lg px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
         >
           {isReview ? "Review again" : "Restart deck"}

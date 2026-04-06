@@ -435,7 +435,6 @@ export function KanaSessionClient({
         <div
           className={`relative rounded-[2rem] border border-primary/25 bg-surface-lowest px-6 py-5 md:px-8 md:py-7 lg:px-10 lg:py-8 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center ${mcCardSizeClass}`}
         >
-
           <div className="font-japanese text-center leading-tight text-foreground transition-all">
             <span
               className={
@@ -565,7 +564,6 @@ export function KanaSessionClient({
       <div
         className={`relative rounded-[2rem] border border-primary/25 bg-surface-lowest px-6 py-5 md:px-8 md:py-7 lg:px-10 lg:py-8 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center ${typingCardSizeClass}`}
       >
-
         <div className="font-japanese text-center leading-tight text-foreground transition-all">
           <span
             className={

@@ -35,7 +35,10 @@ export function MobileLaunchSplash() {
       () => setFadingOut(true),
       FADE_OUT_START_MS,
     );
-    const hideTimer = window.setTimeout(() => setShow(false), TOTAL_DURATION_MS);
+    const hideTimer = window.setTimeout(
+      () => setShow(false),
+      TOTAL_DURATION_MS,
+    );
 
     return () => {
       window.cancelAnimationFrame(frame);

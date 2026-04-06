@@ -37,9 +37,7 @@ export default async function SubDeckListPage({
       backLabel="All Lessons"
     >
       <LessonProgressOverview lesson={lesson} />
-      {lesson.meta && (
-        <LessonPreStudy meta={lesson.meta} />
-      )}
+      {lesson.meta && <LessonPreStudy meta={lesson.meta} />}
       <SubDeckGrid lesson={lesson} />
     </PageShell>
   );
