@@ -123,7 +123,7 @@ export default function RootLayout({
             </div>
 
             {/* Main Content */}
-            <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-16 lg:mb-0 relative">
+            <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 relative">
               {children}
             </main>
 
