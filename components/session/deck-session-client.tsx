@@ -427,6 +427,17 @@ export function DeckSessionClient({
   }
 
   const prompt = current.card[promptSide];
+  const promptHasLatin = /[A-Za-z]/.test(prompt);
+  const promptLength = prompt.trim().length;
+  const promptTypographyClass = promptHasLatin
+    ? promptLength > 22
+      ? "text-[1.25rem] md:text-[1.8rem] lg:text-[2.2rem]"
+      : promptLength > 12
+        ? "text-[1.45rem] md:text-[2.1rem] lg:text-[2.6rem]"
+        : "text-[1.7rem] md:text-[2.4rem] lg:text-[3rem]"
+    : promptLength > 6
+      ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
+      : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]";
   const total = cards.length;
   const answered = total - (queue.length > total ? total : queue.length);
   const progressPercent = Math.max(
@@ -524,14 +535,10 @@ export function DeckSessionClient({
           </svg>
         </button>
 
-        <div className="font-japanese text-center leading-tight text-foreground transition-all">
-          <span
-            className={
-              prompt.length > 6
-                ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
-                : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]"
-            }
-          >
+        <div
+          className={`${promptHasLatin ? "font-display" : "font-japanese"} text-center leading-tight text-foreground transition-all`}
+        >
+          <span className={promptTypographyClass}>
             {prompt}
           </span>
         </div>
@@ -612,7 +619,7 @@ export function DeckSessionClient({
                         setSelectedOption(option);
                         setChoiceLocked(true);
                       }}
-                      className={`font-japanese group relative flex items-center w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-lg md:text-xl font-normal transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
+                      className={`font-japanese group relative flex items-center w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-xl md:text-2xl font-medium transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
                     >
                       <span className="flex-1 text-center leading-relaxed wrap-break-word">
                         {option}

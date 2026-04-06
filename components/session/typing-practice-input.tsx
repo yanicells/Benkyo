@@ -88,7 +88,9 @@ export function TypingPracticeInput({
 
   return (
     <div className="space-y-4">
-      {label ? <p className="text-sm text-on-surface-variant">{label}</p> : null}
+      {label ? (
+        <p className="text-sm text-on-surface-variant">{label}</p>
+      ) : null}
 
       {showExpected ? (
         <div className="rounded-lg bg-surface-low p-4">

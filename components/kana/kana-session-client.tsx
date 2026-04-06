@@ -255,10 +255,7 @@ export function KanaSessionClient({
     () => activeCards.map((c) => c.card.romaji ?? c.card.back),
     [activeCards],
   );
-  const expected = useMemo(
-    () => expectedSegments.join(""),
-    [expectedSegments],
-  );
+  const expected = useMemo(() => expectedSegments.join(""), [expectedSegments]);
   const expectedDisplay = useMemo(
     () => expectedSegments.join(" + "),
     [expectedSegments],
@@ -399,7 +396,7 @@ export function KanaSessionClient({
           </Link>
         </div>
 
-          {progressHeader}
+        {progressHeader}
 
         <div className="relative rounded-[2rem] bg-surface-lowest p-6 md:p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center min-h-[250px]">
           <button
@@ -423,16 +420,16 @@ export function KanaSessionClient({
             </svg>
           </button>
 
-            <div className="font-japanese text-center leading-tight text-foreground transition-all">
-              <span
-                className={
-                  prompt.length > 6
-                    ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
-                    : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]"
-                }
-              >
-                {prompt}
-              </span>
+          <div className="font-japanese text-center leading-tight text-foreground transition-all">
+            <span
+              className={
+                prompt.length > 6
+                  ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
+                  : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]"
+              }
+            >
+              {prompt}
+            </span>
           </div>
         </div>
 
@@ -524,7 +521,7 @@ export function KanaSessionClient({
         </Link>
       </div>
 
-        {progressHeader}
+      {progressHeader}
 
       <div className="relative rounded-[2rem] bg-surface-lowest p-6 md:p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center min-h-[280px]">
         <button
@@ -548,16 +545,16 @@ export function KanaSessionClient({
           </svg>
         </button>
 
-          <div className="font-japanese text-center leading-tight text-foreground transition-all">
-            <span
-              className={
-                typingPrompt.length > 6
-                  ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
-                  : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]"
-              }
-            >
-              {typingPrompt}
-            </span>
+        <div className="font-japanese text-center leading-tight text-foreground transition-all">
+          <span
+            className={
+              typingPrompt.length > 6
+                ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
+                : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]"
+            }
+          >
+            {typingPrompt}
+          </span>
         </div>
         {activeCards.length > 1 && (
           <p className="absolute bottom-5 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant/50">
@@ -577,7 +574,8 @@ export function KanaSessionClient({
           liveFeedback={typingDifficulty}
           controlsAlign="between"
           onSubmit={({ typed }) => {
-            const wasCorrect = normalizeTyping(typed) === normalizeTyping(expected);
+            const wasCorrect =
+              normalizeTyping(typed) === normalizeTyping(expected);
             setLastTypingAttempt({
               kana: kanaDisplay,
               correct: expectedDisplay,
@@ -599,7 +597,9 @@ export function KanaSessionClient({
               typed: "(skipped)",
               wasCorrect: false,
             });
-            setQueue((prev) => processBatch(prev, activeCards.length, answerWrong));
+            setQueue((prev) =>
+              processBatch(prev, activeCards.length, answerWrong),
+            );
           }}
           giveUpLabel="Skip"
           nextLabel="Next →"

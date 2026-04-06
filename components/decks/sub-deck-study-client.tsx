@@ -346,8 +346,8 @@ export function SubDeckStudyClient({
 
       {/* Quick Study Notes */}
       {(quickNote || keyPoints.length > 0) && (
-        <div className="mb-8 rounded-2xl bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden">
-          <div className="flex items-center gap-3 px-6 py-4 border-b border-outline-variant/10 bg-primary/3">
+        <div className="mb-8 rounded-2xl border border-primary/10 bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden">
+          <div className="flex items-center gap-3 px-6 py-4 border-b border-outline-variant/10 bg-primary/[0.03]">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
               <svg
                 className="w-4 h-4 text-primary"

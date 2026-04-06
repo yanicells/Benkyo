@@ -19,6 +19,10 @@ type DeckResultsClientProps = {
   isReview?: boolean;
 };
 
+function hasLatinText(value: string): boolean {
+  return /[A-Za-z]/.test(value);
+}
+
 export function DeckResultsClient({
   lessonId,
   subDeckId,
@@ -77,32 +81,44 @@ export function DeckResultsClient({
       </header>
 
       {results.wrongCards.length > 0 && (
-        <ul className="grid gap-3">
-          {results.wrongCards.map((card, i) => (
-            <li
-              key={`${card.front}-${card.back}-${i}`}
-              className="rounded-lg bg-surface-lowest p-4 shadow-[0_12px_32px_rgba(0,36,70,0.06)]"
-            >
-              <div className="flex items-start gap-2">
-                <span className="shrink-0 rounded-lg bg-surface-low px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+        <section className="rounded-2xl bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <p className="text-xs uppercase tracking-[0.22em] text-primary font-bold">
+              Cards to review
+            </p>
+            <p className="text-xs text-on-surface-variant">
+              {results.wrongCards.length} entries
+            </p>
+          </div>
+          <ul className="space-y-2">
+            {results.wrongCards.map((card, i) => (
+              <li
+                key={`${card.front}-${card.back}-${i}`}
+                className="flex items-center gap-2 rounded-lg bg-surface-low px-3 py-2"
+              >
+                <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
                   {card.type}
                 </span>
-                <div>
-                  <p className="font-display text-2xl text-foreground">
+                <div className="min-w-0">
+                  <p
+                    className={`${hasLatinText(card.front) ? "font-display text-lg" : "font-japanese text-xl"} font-medium text-foreground`}
+                  >
                     {card.front}
                   </p>
-                  <p className="mt-1 text-sm text-on-surface-variant">{card.back}</p>
+                  <p className="mt-1 text-sm text-on-surface-variant">
+                    {card.back}
+                  </p>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
-      <div className="flex items-center justify-between gap-3">
+      <div className="grid grid-cols-2 gap-3">
         <Link
           href={isReview ? "/" : "/decks"}
-          className="rounded-lg bg-surface-low px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-secondary-container"
+          className="w-full rounded-lg bg-surface-low px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-secondary-container"
         >
           {isReview ? "Home" : "Back to decks"}
         </Link>
@@ -112,7 +128,7 @@ export function DeckResultsClient({
               ? "/review"
               : `/decks/${lessonId}/${subDeckId}`
           }
-          className="btn-primary-gradient rounded-lg px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
+          className="btn-primary-gradient w-full rounded-lg px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
         >
           {isReview ? "Review again" : "Restart deck"}
         </Link>

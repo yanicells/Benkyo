@@ -170,7 +170,8 @@ function SessionOptionsModal({
           {/* Study mode */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Study mode <span className="text-on-surface-variant">(Select 1)</span>
+              Study mode{" "}
+              <span className="text-on-surface-variant">(Select 1)</span>
             </p>
             <div className="grid grid-cols-2 gap-2">
               {(["mc", "typing"] as const).map((m) => (
@@ -229,21 +230,24 @@ function SessionOptionsModal({
           {mode === "typing" && (
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-                Typing difficulty <span className="text-on-surface-variant">(Select 1)</span>
+                Typing difficulty{" "}
+                <span className="text-on-surface-variant">(Select 1)</span>
               </p>
               <div className="grid grid-cols-2 gap-2">
-                {([
-                  {
-                    key: "easy",
-                    title: "Easy",
-                    desc: "Mistakes show a red border",
-                  },
-                  {
-                    key: "hard",
-                    title: "Hard",
-                    desc: "No live right/wrong feedback",
-                  },
-                ] as const).map((option) => (
+                {(
+                  [
+                    {
+                      key: "easy",
+                      title: "Easy",
+                      desc: "Mistakes show a red border",
+                    },
+                    {
+                      key: "hard",
+                      title: "Hard",
+                      desc: "No live right/wrong feedback",
+                    },
+                  ] as const
+                ).map((option) => (
                   <button
                     key={option.key}
                     type="button"
