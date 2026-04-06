@@ -95,18 +95,20 @@ function DailyGoalRing({
   goal,
   loaded,
   compact = false,
+  mini = false,
   showValue = true,
 }: {
   reviewed: number;
   goal: number;
   loaded: boolean;
   compact?: boolean;
+  mini?: boolean;
   showValue?: boolean;
 }) {
-  const size = compact ? 56 : 96;
+  const size = mini ? 32 : compact ? 56 : 96;
   const center = size / 2;
-  const radius = compact ? 22 : 38;
-  const strokeWidth = compact ? 4 : 5;
+  const radius = mini ? 12 : compact ? 22 : 38;
+  const strokeWidth = mini ? 3 : compact ? 4 : 5;
   const pct = loaded ? Math.min(reviewed / goal, 1) : 0;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - pct);
@@ -153,11 +155,11 @@ function DailyGoalRing({
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         {!loaded ? (
           <span
-            className={`${compact ? "h-3 w-8" : "h-4 w-10"} rounded bg-outline-variant/30 animate-pulse block`}
+            className={`${mini ? "h-2 w-5" : compact ? "h-3 w-8" : "h-4 w-10"} rounded bg-outline-variant/30 animate-pulse block`}
           />
         ) : done ? (
           <svg
-            className={`${compact ? "h-5 w-5" : "h-7 w-7"} text-success`}
+            className={`${mini ? "h-3 w-3" : compact ? "h-5 w-5" : "h-7 w-7"} text-success`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -173,11 +175,11 @@ function DailyGoalRing({
         ) : showValue ? (
           <>
             <span
-              className={`font-display ${compact ? "text-lg" : "text-2xl"} font-extrabold text-foreground leading-none`}
+              className={`font-display ${mini ? "text-[10px]" : compact ? "text-lg" : "text-2xl"} font-extrabold text-foreground leading-none`}
             >
               {reviewed}
             </span>
-            <span className="text-[10px] text-secondary mt-0.5">of {goal}</span>
+            {!mini && <span className="text-[10px] text-secondary mt-0.5">of {goal}</span>}
           </>
         ) : (
           <span className="h-2 w-2 rounded-full bg-primary/50" aria-hidden />
@@ -209,25 +211,48 @@ export function HomeClient({ lessons }: HomeClientProps) {
   return (
     <div className="w-full flex flex-col gap-8 md:gap-10 lg:gap-12">
       {/* Stats Cards - 3 columns */}
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+      <div className="grid grid-cols-3 gap-2.5 md:grid-cols-3 md:gap-4">
         {/* Streak Card */}
-        <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-          <div className="flex items-center gap-3 md:gap-4">
+        <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+          <div className="flex flex-col gap-2 p-1 md:hidden">
+            <div className="flex items-center gap-1.5">
+              <div
+                className="h-7 w-7 rounded-lg btn-primary-gradient flex items-center justify-center text-white shrink-0"
+                aria-hidden
+              >
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
+                </svg>
+              </div>
+              {loaded ? (
+                <p className="font-display text-2xl font-extrabold text-foreground leading-none">
+                  {streakDays}
+                </p>
+              ) : (
+                <div className="h-7 w-10 rounded bg-outline-variant/20 animate-pulse" />
+              )}
+            </div>
+            {loaded ? (
+              <p className="text-[9px] uppercase font-bold tracking-widest text-secondary">
+                Day Streak
+              </p>
+            ) : (
+              <div className="h-2.5 w-14 rounded bg-outline-variant/20 animate-pulse" />
+            )}
+          </div>
+
+          <div className="hidden md:flex items-center gap-4">
             <div
-              className="h-10 w-10 md:h-12 md:w-12 rounded-xl btn-primary-gradient flex items-center justify-center text-white shrink-0"
+              className="h-12 w-12 rounded-xl btn-primary-gradient flex items-center justify-center text-white shrink-0"
               aria-hidden
             >
-              <svg
-                className="w-5 h-5 md:w-6 md:h-6"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
               </svg>
             </div>
             {loaded ? (
               <div className="min-w-0">
-                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground leading-none">
+                <p className="font-display text-xl sm:text-3xl md:text-4xl font-extrabold text-foreground leading-none">
                   {streakDays}
                 </p>
                 <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.12em] text-secondary mt-1">
@@ -244,8 +269,35 @@ export function HomeClient({ lessons }: HomeClientProps) {
         </div>
 
         {/* Daily Goal Card */}
-        <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-          <div className="flex items-center gap-3 md:gap-4">
+        <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+          <div className="flex flex-col gap-2 p-1 md:hidden">
+            <div className="flex items-center gap-1.5">
+              <DailyGoalRing
+                reviewed={todayReviewed}
+                goal={dailyGoal}
+                loaded={loaded}
+                mini
+                showValue={false}
+              />
+              {loaded ? (
+                <p className="font-display text-2xl font-extrabold text-foreground leading-none">
+                  {todayReviewed}
+                  <span className="ml-0.5 text-sm font-bold text-secondary">/{dailyGoal}</span>
+                </p>
+              ) : (
+                <div className="h-7 w-12 rounded bg-outline-variant/20 animate-pulse" />
+              )}
+            </div>
+            {loaded ? (
+              <p className="text-[9px] uppercase font-bold tracking-widest text-secondary">
+                Daily Goal
+              </p>
+            ) : (
+              <div className="h-2.5 w-14 rounded bg-outline-variant/20 animate-pulse" />
+            )}
+          </div>
+
+          <div className="hidden md:flex items-center gap-4">
             <DailyGoalRing
               reviewed={todayReviewed}
               goal={dailyGoal}
@@ -278,16 +330,45 @@ export function HomeClient({ lessons }: HomeClientProps) {
         {dueCount > 0 ? (
           <Link
             href="/review"
-            className="group col-span-2 bg-surface-lowest rounded-[1.5rem] md:col-span-1 md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+            className="group bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
             aria-label={`Review ${dueCount} due cards`}
           >
-            <div className="flex items-center gap-3 md:gap-4">
+            <div className="flex flex-col gap-2 p-1 md:hidden">
+              <div className="flex items-center gap-1.5">
+                <div
+                  className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0"
+                  aria-hidden
+                >
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                </div>
+                <p className="font-display text-2xl font-extrabold text-primary leading-none">
+                  {dueCount}
+                </p>
+              </div>
+              <p className="text-[9px] uppercase font-bold tracking-widest text-secondary group-hover:text-primary transition-colors">
+                Cards Due
+              </p>
+            </div>
+
+            <div className="hidden md:flex items-center gap-4">
               <div
-                className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0"
+                className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0"
                 aria-hidden
               >
                 <svg
-                  className="w-5 h-5 md:w-6 md:h-6"
+                  className="w-6 h-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -311,14 +392,51 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </div>
           </Link>
         ) : (
-          <div className="col-span-2 bg-surface-lowest rounded-[1.5rem] md:col-span-1 md:rounded-[2rem] p-4 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-            <div className="flex items-center gap-3 md:gap-4">
+          <div className="bg-surface-lowest rounded-[1.5rem] md:rounded-[2rem] p-3 md:p-5 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
+            <div className="flex flex-col gap-2 p-1 md:hidden">
+              <div className="flex items-center gap-1.5">
+                <div
+                  className="h-7 w-7 rounded-lg bg-success/10 flex items-center justify-center text-success shrink-0"
+                  aria-hidden
+                >
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                {loaded ? (
+                  <p className="font-display text-lg font-bold text-success leading-none">
+                    All clear
+                  </p>
+                ) : (
+                  <div className="h-6 w-14 rounded bg-outline-variant/20 animate-pulse" />
+                )}
+              </div>
+              {loaded ? (
+                <p className="text-[9px] uppercase font-bold tracking-widest text-secondary">
+                  Caught Up
+                </p>
+              ) : (
+                <div className="h-2.5 w-14 rounded bg-outline-variant/20 animate-pulse" />
+              )}
+            </div>
+
+            <div className="hidden md:flex items-center gap-4">
               <div
-                className="h-10 w-10 md:h-12 md:w-12 rounded-xl bg-success/10 flex items-center justify-center text-success shrink-0"
+                className="h-12 w-12 rounded-xl bg-success/10 flex items-center justify-center text-success shrink-0"
                 aria-hidden
               >
                 <svg
-                  className="w-5 h-5 md:w-6 md:h-6"
+                  className="w-6 h-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
