@@ -31,6 +31,7 @@ export default async function KanaSessionPage({
   const batchParam = firstParam(query.batch);
   const shuffleParam = firstParam(query.shuffle);
   const modeParam = firstParam(query.mode);
+  const typingDifficultyParam = firstParam(query.typingDifficulty);
 
   if (!script || !validScripts.has(script as KanaScript) || !groupParam) {
     redirect("/kana");
@@ -66,6 +67,8 @@ export default async function KanaSessionPage({
 
   const shouldShuffle = shuffleParam !== "false";
   const mode: "mc" | "typing" = modeParam === "typing" ? "typing" : "mc";
+  const typingDifficulty: "easy" | "hard" =
+    typingDifficultyParam === "hard" ? "hard" : "easy";
 
   const title = mode === "typing" ? "Type what you read" : "Interactive Learning";
   const subtitle =
@@ -82,6 +85,7 @@ export default async function KanaSessionPage({
         batchSize={batchSize}
         shuffle={shouldShuffle}
         mode={mode}
+        typingDifficulty={typingDifficulty}
       />
     </PageShell>
   );

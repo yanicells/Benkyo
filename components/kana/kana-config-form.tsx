@@ -80,6 +80,8 @@ function RowPreviewModal({
 function SessionOptionsModal({
   mode,
   setMode,
+  typingDifficulty,
+  setTypingDifficulty,
   batchSize,
   setBatchSize,
   shuffleOrder,
@@ -93,6 +95,8 @@ function SessionOptionsModal({
 }: {
   mode: "mc" | "typing";
   setMode: (m: "mc" | "typing") => void;
+  typingDifficulty: "easy" | "hard";
+  setTypingDifficulty: (value: "easy" | "hard") => void;
   batchSize: KanaBatchSize;
   setBatchSize: (b: KanaBatchSize) => void;
   shuffleOrder: boolean;
@@ -111,7 +115,7 @@ function SessionOptionsModal({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
           <h3 className="font-display text-lg font-bold text-foreground">
-            Session Options
+            Session Settings
           </h3>
           <button
             type="button"
@@ -136,39 +140,45 @@ function SessionOptionsModal({
 
         <div className="p-6 space-y-5 overflow-y-auto">
           {/* Session summary */}
-          <div className="flex items-center gap-5 rounded-xl bg-surface-low px-5 py-4">
-            <div className="text-center">
-              <p className="font-display text-2xl font-bold text-foreground">
-                {cardCount}
-              </p>
-              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">
-                kana
-              </p>
-            </div>
-            <div className="h-8 w-px bg-outline-variant/30" />
-            <div className="text-center">
-              <p className="font-display text-2xl font-bold text-foreground">
-                ~{estimatedMinutes}
-              </p>
-              <p className="text-[10px] uppercase text-on-surface-variant mt-0.5">
-                min
-              </p>
-            </div>
-            <div className="h-8 w-px bg-outline-variant/30" />
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                {rowCount} row{rowCount !== 1 ? "s" : ""}
-              </p>
-              <p className="text-[10px] text-on-surface-variant">
-                {scriptLabel}
-              </p>
+          <div className="rounded-xl border-2 border-primary/20 bg-surface-lowest px-5 py-4">
+            <div className="grid grid-cols-2 gap-y-4 text-center">
+              <div>
+                <p className="font-display text-2xl font-bold text-foreground">
+                  {cardCount}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
+                  kana
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-foreground">
+                  ~{estimatedMinutes}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
+                  min
+                </p>
+              </div>
+              <div>
+                <p className="text-base font-bold text-foreground">
+                  {rowCount}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
+                  row{rowCount !== 1 ? "s" : ""}
+                </p>
+              </div>
+              <div>
+                <p className="text-base font-bold text-foreground">{scriptLabel}</p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
+                  script
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Study mode */}
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
-              Study Mode
+            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
+              Study mode <span className="text-on-surface-variant">(Select 1)</span>
             </p>
             <div className="grid grid-cols-2 gap-2">
               {(["mc", "typing"] as const).map((m) => (
@@ -176,10 +186,10 @@ function SessionOptionsModal({
                   key={m}
                   type="button"
                   onClick={() => setMode(m)}
-                  className={`rounded-xl py-3 text-sm font-semibold transition-all ${
+                  className={`rounded-xl border-2 py-3 text-sm font-semibold transition-all ${
                     mode === m
-                      ? "bg-primary/10 ring-2 ring-primary/20 text-primary"
-                      : "bg-surface-low text-foreground hover:bg-secondary-container"
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
                   }`}
                 >
                   {m === "mc" ? "Multiple Choice" : "Typing"}
@@ -192,10 +202,10 @@ function SessionOptionsModal({
           {mode === "typing" && (
             <div>
               <div className="flex justify-between items-center mb-2">
-                <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">
+                <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold">
                   Batch Size
                 </p>
-                <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-md text-xs font-bold">
+                <span className="rounded-md border border-primary/30 bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
                   {batchSize} Kana
                 </span>
               </div>
@@ -223,6 +233,45 @@ function SessionOptionsModal({
             </div>
           )}
 
+          {/* Typing difficulty — typing only */}
+          {mode === "typing" && (
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
+                Typing difficulty <span className="text-on-surface-variant">(Select 1)</span>
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                {([
+                  {
+                    key: "easy",
+                    title: "Easy",
+                    desc: "Mistakes show a red border",
+                  },
+                  {
+                    key: "hard",
+                    title: "Hard",
+                    desc: "No live right/wrong feedback",
+                  },
+                ] as const).map((option) => (
+                  <button
+                    key={option.key}
+                    type="button"
+                    onClick={() => setTypingDifficulty(option.key)}
+                    className={`rounded-xl border-2 px-3 py-3 text-left transition-all ${
+                      typingDifficulty === option.key
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
+                    }`}
+                  >
+                    <p className="text-sm font-bold">{option.title}</p>
+                    <p className="mt-0.5 text-[10px] text-on-surface-variant">
+                      {option.desc}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Shuffle */}
           <div className="flex justify-between items-center">
             <div>
@@ -236,7 +285,7 @@ function SessionOptionsModal({
             <button
               type="button"
               onClick={() => setShuffleOrder(!shuffleOrder)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${shuffleOrder ? "bg-primary" : "bg-outline-variant/30"}`}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full border transition-colors ${shuffleOrder ? "border-primary bg-primary" : "border-primary/20 bg-surface-low"}`}
             >
               <span
                 className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${shuffleOrder ? "translate-x-6" : "translate-x-1"}`}
@@ -246,7 +295,7 @@ function SessionOptionsModal({
         </div>
 
         {/* Start */}
-        <div className="px-6 pb-6 pt-2 shrink-0">
+        <div className="px-6 py-4 border-t border-outline-variant/10 shrink-0">
           <button
             type="button"
             onClick={onStart}
@@ -272,7 +321,10 @@ export function KanaConfigForm({
   );
   const [batchSize, setBatchSize] = useState<KanaBatchSize>(3);
   const [shuffleOrder, setShuffleOrder] = useState(true);
-  const [mode, setMode] = useState<"mc" | "typing">("mc");
+  const [mode, setMode] = useState<"mc" | "typing">("typing");
+  const [typingDifficulty, setTypingDifficulty] = useState<"easy" | "hard">(
+    "easy",
+  );
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [previewRow, setPreviewRow] = useState<{
     label: string;
@@ -345,7 +397,7 @@ export function KanaConfigForm({
     if (selectedRows.length === 0) return;
     const serializedGroups = selectedRows.join(",");
     router.push(
-      `/kana/session?script=${script}&groups=${serializedGroups}&batch=${batchSize}&shuffle=${shuffleOrder}&mode=${mode}`,
+      `/kana/session?script=${script}&groups=${serializedGroups}&batch=${batchSize}&shuffle=${shuffleOrder}&mode=${mode}&typingDifficulty=${typingDifficulty}`,
     );
   };
 
@@ -544,6 +596,8 @@ export function KanaConfigForm({
         <SessionOptionsModal
           mode={mode}
           setMode={setMode}
+          typingDifficulty={typingDifficulty}
+          setTypingDifficulty={setTypingDifficulty}
           batchSize={batchSize}
           setBatchSize={setBatchSize}
           shuffleOrder={shuffleOrder}

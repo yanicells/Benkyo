@@ -16,6 +16,7 @@ type KanaSessionRendererProps = {
   batchSize: KanaBatchSize;
   shuffle: boolean;
   mode: "mc" | "typing";
+  typingDifficulty: "easy" | "hard";
 };
 
 const KanaSessionClient = dynamic(

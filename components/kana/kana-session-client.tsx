@@ -26,7 +26,19 @@ type KanaSessionClientProps = {
   batchSize: KanaBatchSize;
   shuffle: boolean;
   mode: "mc" | "typing";
+  typingDifficulty: "easy" | "hard";
 };
+
+type TypingAttemptSummary = {
+  kana: string;
+  correct: string;
+  typed: string;
+  wasCorrect: boolean;
+};
+
+function normalizeTyping(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, "").trim();
+}
 
 function shuffleArray<T>(items: T[]): T[] {
   const copy = [...items];
@@ -57,6 +69,7 @@ export function KanaSessionClient({
   batchSize,
   shuffle,
   mode,
+  typingDifficulty,
 }: KanaSessionClientProps) {
   const [queue, setQueue] = useState<SessionCard[]>(() =>
     shuffle ? buildQueue(cards) : buildQueueOrdered(cards),
@@ -68,6 +81,8 @@ export function KanaSessionClient({
 
   // Typing state
   const [showAnswerKey, setShowAnswerKey] = useState(false);
+  const [lastTypingAttempt, setLastTypingAttempt] =
+    useState<TypingAttemptSummary | null>(null);
 
   const current = queue[0];
   const complete = isSessionComplete(queue);
@@ -89,8 +104,20 @@ export function KanaSessionClient({
     () => (mode === "typing" ? queue.slice(0, batchSize) : []),
     [mode, queue, batchSize],
   );
+  const expectedSegments = useMemo(
+    () => activeCards.map((c) => c.card.romaji ?? c.card.back),
+    [activeCards],
+  );
   const expected = useMemo(
-    () => activeCards.map((c) => c.card.romaji ?? c.card.back).join(""),
+    () => expectedSegments.join(""),
+    [expectedSegments],
+  );
+  const expectedDisplay = useMemo(
+    () => expectedSegments.join(" + "),
+    [expectedSegments],
+  );
+  const kanaDisplay = useMemo(
+    () => activeCards.map((c) => c.card.front).join(" "),
     [activeCards],
   );
 
@@ -186,7 +213,9 @@ export function KanaSessionClient({
         </h1>
         <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-on-surface-variant mb-2">
           {selectedRowCount} rows &bull;{" "}
-          {mode === "typing" ? `batch ${batchSize}` : "multiple choice"}
+          {mode === "typing"
+            ? `batch ${batchSize} • ${typingDifficulty} mode`
+            : "multiple choice"}
         </p>
         <p className="font-display text-4xl lg:text-5xl font-bold text-foreground">
           {mode === "typing" ? "Type what you read" : "Interactive Learning"}
@@ -451,15 +480,35 @@ export function KanaSessionClient({
               placeholder="type romaji..."
               showExpected={false}
               manualAdvance
+              manualAdvanceValidation="non-empty"
+              liveFeedback={typingDifficulty}
               controlsAlign="between"
-              onComplete={() => {
+              onSubmit={({ typed }) => {
+                const wasCorrect =
+                  normalizeTyping(typed) === normalizeTyping(expected);
                 setShowAnswerKey(false);
+                setLastTypingAttempt({
+                  kana: kanaDisplay,
+                  correct: expectedDisplay,
+                  typed: typed || "(blank)",
+                  wasCorrect,
+                });
                 setQueue((prev) =>
-                  processBatch(prev, activeCards.length, answerCorrect),
+                  processBatch(
+                    prev,
+                    activeCards.length,
+                    wasCorrect ? answerCorrect : answerWrong,
+                  ),
                 );
               }}
               onGiveUp={() => {
                 setShowAnswerKey(false);
+                setLastTypingAttempt({
+                  kana: kanaDisplay,
+                  correct: expectedDisplay,
+                  typed: "(skipped)",
+                  wasCorrect: false,
+                });
                 setQueue((prev) =>
                   processBatch(prev, activeCards.length, answerWrong),
                 );
@@ -467,6 +516,48 @@ export function KanaSessionClient({
               giveUpLabel="Skip"
               nextLabel="Next →"
             />
+
+            {lastTypingAttempt && (
+              <div
+                className={`mt-4 rounded-xl border px-4 py-3 ${
+                  lastTypingAttempt.wasCorrect
+                    ? "border-success/30 bg-success/10"
+                    : "border-error/25 bg-error/10"
+                }`}
+              >
+                {lastTypingAttempt.wasCorrect ? (
+                  <p className="text-sm font-semibold text-success">
+                    Correct. Nice read.
+                  </p>
+                ) : (
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-error">
+                      Not quite. Here&apos;s a quick comparison.
+                    </p>
+                    <div className="grid grid-cols-[90px_1fr] gap-x-2 gap-y-1 text-xs">
+                      <span className="font-bold uppercase tracking-wider text-on-surface-variant">
+                        Kana
+                      </span>
+                      <span className="font-japanese-display text-foreground">
+                        {lastTypingAttempt.kana}
+                      </span>
+                      <span className="font-bold uppercase tracking-wider text-on-surface-variant">
+                        Correct
+                      </span>
+                      <span className="font-semibold text-foreground">
+                        {lastTypingAttempt.correct}
+                      </span>
+                      <span className="font-bold uppercase tracking-wider text-on-surface-variant">
+                        Your Answer
+                      </span>
+                      <span className="font-semibold text-error">
+                        {lastTypingAttempt.typed}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -544,10 +635,9 @@ export function KanaSessionClient({
                 </span>
               </div>
               <p className="text-sm text-white/80 leading-relaxed font-light">
-                Type the romaji then press{" "}
-                <span className="font-semibold text-white">Next</span>. Skip
-                cards you&apos;re unsure of — they come back with +2 required
-                corrects.
+                {typingDifficulty === "easy"
+                  ? "Easy mode highlights mistyped prefixes with a red border so you can self-correct as you type."
+                  : "Hard mode hides live correctness feedback. Commit to your answer first, then check the comparison."}
               </p>
             </div>
           </div>

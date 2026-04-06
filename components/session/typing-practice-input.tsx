@@ -8,9 +8,15 @@ type TypingPracticeInputProps = {
   placeholder: string;
   showExpected?: boolean;
   manualAdvance?: boolean;
+  manualAdvanceValidation?: "exact" | "non-empty";
+  liveFeedback?: "easy" | "hard";
   nextLabel?: string;
   controlsAlign?: "left" | "right" | "between";
-  onComplete: () => void;
+  onSubmit: (result: {
+    typed: string;
+    expected: string;
+    isCorrect: boolean;
+  }) => void;
   onGiveUp?: () => void;
   giveUpLabel?: string;
 };
@@ -25,14 +31,15 @@ export function TypingPracticeInput({
   placeholder,
   showExpected = true,
   manualAdvance = false,
+  manualAdvanceValidation = "exact",
+  liveFeedback = "easy",
   nextLabel = "Next",
   controlsAlign = "left",
-  onComplete,
+  onSubmit,
   onGiveUp,
   giveUpLabel = "Skip",
 }: TypingPracticeInputProps) {
   const [typed, setTyped] = useState("");
-  const [errorState, setErrorState] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const normalizedExpected = useMemo(() => normalize(expected), [expected]);
@@ -41,36 +48,42 @@ export function TypingPracticeInput({
     inputRef.current?.focus();
   }, []);
 
-  const isReady = typed.length > 0 && typed === normalizedExpected;
+  const isCorrect = typed.length > 0 && typed === normalizedExpected;
+  const canSubmit =
+    manualAdvanceValidation === "non-empty"
+      ? typed.length > 0
+      : typed.length > 0 && typed === normalizedExpected;
+
+  const hasPrefixMismatch =
+    typed.length > 0 && !normalizedExpected.startsWith(typed);
+  const showErrorState = liveFeedback === "easy" && hasPrefixMismatch;
+
+  const submitCurrentValue = () => {
+    if (!canSubmit) {
+      return;
+    }
+
+    onSubmit({
+      typed,
+      expected: normalizedExpected,
+      isCorrect,
+    });
+    setTyped("");
+    inputRef.current?.focus();
+  };
 
   const onChange = (value: string) => {
     const normalizedIncoming = normalize(value);
+    setTyped(normalizedIncoming);
 
-    if (normalizedIncoming.length < typed.length) {
-      setTyped(normalizedIncoming);
-      setErrorState(false);
-      return;
+    if (!manualAdvance && normalizedIncoming === normalizedExpected) {
+      onSubmit({
+        typed: normalizedIncoming,
+        expected: normalizedExpected,
+        isCorrect: true,
+      });
+      setTyped("");
     }
-
-    if (normalizedExpected.startsWith(normalizedIncoming)) {
-      if (
-        normalizedIncoming.length > 0 &&
-        normalizedIncoming === normalizedExpected
-      ) {
-        if (!manualAdvance) {
-          onComplete();
-          setTyped("");
-          setErrorState(false);
-          return;
-        }
-      }
-
-      setTyped(normalizedIncoming);
-      setErrorState(false);
-      return;
-    }
-
-    setErrorState(true);
   };
 
   return (
@@ -111,18 +124,15 @@ export function TypingPracticeInput({
           value={typed}
           onChange={(event) => onChange(event.target.value)}
           onKeyDown={(event) => {
-            if (event.key !== "Enter" || !manualAdvance || !isReady) {
+            if (event.key !== "Enter" || !manualAdvance) {
               return;
             }
 
             event.preventDefault();
-            onComplete();
-            setTyped("");
-            setErrorState(false);
-            inputRef.current?.focus();
+            submitCurrentValue();
           }}
           className={`w-full rounded-lg border bg-white px-4 py-3 text-lg lowercase outline-none transition ${
-            errorState
+            showErrorState
               ? "border-error ring-2 ring-error/20"
               : "border-outline-variant/20 focus:border-primary focus:ring-2 focus:ring-primary/20"
           }`}
@@ -151,7 +161,6 @@ export function TypingPracticeInput({
               onClick={() => {
                 onGiveUp();
                 setTyped("");
-                setErrorState(false);
                 inputRef.current?.focus();
               }}
               className="min-h-11 rounded-lg bg-surface-low px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-primary transition hover:bg-secondary-container"
@@ -163,17 +172,8 @@ export function TypingPracticeInput({
           {manualAdvance ? (
             <button
               type="button"
-              disabled={!isReady}
-              onClick={() => {
-                if (!isReady) {
-                  return;
-                }
-
-                onComplete();
-                setTyped("");
-                setErrorState(false);
-                inputRef.current?.focus();
-              }}
+              disabled={!canSubmit}
+              onClick={submitCurrentValue}
               className="btn-primary-gradient min-h-11 rounded-lg px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {nextLabel}
