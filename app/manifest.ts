@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Benkyo",
-    short_name: "Benkyo",
+    name: "Benkyō",
+    short_name: "Benkyō",
     description:
       "A fast Japanese study app for lesson decks and kana practice.",
     start_url: "/",

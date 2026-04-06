@@ -33,7 +33,7 @@ const japaneseDisplay = Noto_Serif_JP({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://benkyo.ycells.com"),
-  applicationName: "Benkyo",
+  applicationName: "Benkyō",
   title: {
     default: "Benky\u014d",
     template: "%s | Benky\u014d",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
-    title: "Benkyo",
+    title: "Benkyō",
     statusBarStyle: "default",
   },
   icons: {

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Privacy policy for the Benkyo Japanese study app.",
+  description: "Privacy policy for the Benkyō Japanese study app.",
 };
 
 export default function PrivacyPage() {
@@ -19,8 +19,8 @@ export default function PrivacyPage() {
         <section className="space-y-2">
           <h2 className="font-display text-lg font-semibold text-foreground">Overview</h2>
           <p>
-            Benkyo is a personal Japanese study app. This policy explains what data is collected
-            and how it is used. Benkyo is designed to be privacy-friendly — most data never leaves
+            Benkyō is a personal Japanese study app. This policy explains what data is collected
+            and how it is used. Benkyō is designed to be privacy-friendly — most data never leaves
             your device.
           </p>
         </section>
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
         <section className="space-y-2">
           <h2 className="font-display text-lg font-semibold text-foreground">Account Data (Optional)</h2>
           <p className="text-sm">
-            If you sign in with Google, Benkyo stores your name, email address, and profile image
+            If you sign in with Google, Benkyō stores your name, email address, and profile image
             to identify your account. This data is used solely to associate your study progress
             with your account and is not sold or shared with third parties.
           </p>
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
         <section className="space-y-2">
           <h2 className="font-display text-lg font-semibold text-foreground">Analytics</h2>
           <p className="text-sm">
-            Benkyo uses{" "}
+            Benkyō uses{" "}
             <span className="font-medium">Vercel Analytics</span> to collect anonymous,
             aggregated page-view data (e.g., which pages are visited). No personal information is
             included in these analytics events.
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
         <section className="space-y-2">
           <h2 className="font-display text-lg font-semibold text-foreground">Copyright Notice</h2>
           <p className="text-sm">
-            Study content in Benkyo is adapted from{" "}
+            Study content in Benkyō is adapted from{" "}
             <span className="font-medium italic">
               Genki: An Integrated Course in Elementary Japanese
             </span>{" "}

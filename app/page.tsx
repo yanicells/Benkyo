@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <PageShell
       eyebrow="Okaeri"
-      title="Benkyo shimasu 勉強します"
+      title="Benkyō shimasu 勉強します"
       subtitle="Genki-inspired learning through structured decks, kana drills, and steady review."
     >
       <HomeClient lessons={lessons} />

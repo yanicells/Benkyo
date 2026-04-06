@@ -65,14 +65,14 @@ export function MobileLaunchSplash() {
       >
         <Image
           src="/icon1-192.svg"
-          alt="Benkyo"
+          alt="Benkyō"
           width={56}
           height={56}
           priority
           className="h-14 w-14"
         />
         <p className="font-display text-[1.65rem] font-bold tracking-tight text-primary">
-          Benkyo
+          Benkyō
         </p>
       </div>
     </div>

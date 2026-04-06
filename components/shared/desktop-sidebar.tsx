@@ -107,14 +107,14 @@ export function DesktopSidebar() {
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/icon1-192.svg"
-            alt="Benkyo logo"
+            alt="Benkyō logo"
             width={30}
             height={30}
             className="h-7 w-7 shrink-0"
             priority
           />
           <span className="font-display font-bold text-2xl text-primary leading-tight">
-            Benkyo
+            Benkyō
           </span>
         </Link>
       </div>

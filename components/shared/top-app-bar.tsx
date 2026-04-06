@@ -59,13 +59,13 @@ export function TopAppBar() {
             >
               <Image
                 src="/icon1-192.svg"
-                alt="Benkyo logo"
+                alt="Benkyō logo"
                 width={24}
                 height={24}
                 className="h-6 w-6 shrink-0"
                 priority
               />
-              <span>Benkyo</span>
+              <span>Benkyō</span>
             </Link>
           )}
 

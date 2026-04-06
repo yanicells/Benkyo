@@ -9,31 +9,31 @@ const installGuides = [
   {
     platform: "Windows",
     title: "Install On Windows",
-    desc: "Use Benkyo like a desktop app from your taskbar or Start menu.",
+    desc: "Use Benkyō like a desktop app from your taskbar or Start menu.",
     steps: [
-      "Open Benkyo in Chrome or Edge.",
+      "Open Benkyō in Chrome or Edge.",
       "Click the install icon in the address bar.",
       "Confirm by selecting Install.",
-      "Pin Benkyo to Start or taskbar if you want quick access.",
+      "Pin Benkyō to Start or taskbar if you want quick access.",
     ],
   },
   {
     platform: "iPhone / iPad",
     title: "Install On iOS",
-    desc: "Add Benkyo to your Home Screen from Safari for full-screen usage.",
+    desc: "Add Benkyō to your Home Screen from Safari for full-screen usage.",
     steps: [
-      "Open Benkyo in Safari.",
+      "Open Benkyō in Safari.",
       "Tap Share at the bottom of the browser.",
       "Choose Add to Home Screen.",
-      "Tap Add, then open Benkyo from your Home Screen.",
+      "Tap Add, then open Benkyō from your Home Screen.",
     ],
   },
   {
     platform: "Android",
     title: "Install On Android",
-    desc: "Install Benkyo for faster launch and app-like navigation.",
+    desc: "Install Benkyō for faster launch and app-like navigation.",
     steps: [
-      "Open Benkyo in Chrome.",
+      "Open Benkyō in Chrome.",
       "Open the browser menu (three dots).",
       "Tap Install app or Add to Home screen.",
       "Confirm to install, then launch from your app list.",
@@ -45,8 +45,8 @@ export default function InstallPage() {
   return (
     <PageShell
       eyebrow="Install"
-      title="Install Benkyo"
-      subtitle="Use Benkyo as a PWA on desktop and mobile for faster launch, offline-ready behavior, and a cleaner app experience."
+      title="Install Benkyō"
+      subtitle="Use Benkyō as a PWA on desktop and mobile for faster launch, offline-ready behavior, and a cleaner app experience."
     >
       <div className="space-y-4 pb-8">
         {installGuides.map((guide) => (

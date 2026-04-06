@@ -9,7 +9,7 @@ export function Footer() {
         (© The Japan Times), used here for personal educational purposes only. All rights reserved by the original publishers.
       </p>
       <p className="text-[11px] text-on-surface-variant/40">
-        &copy; {new Date().getFullYear()} Benkyo &middot;{" "}
+        &copy; {new Date().getFullYear()} Benkyō &middot;{" "}
         <Link
           href="/legal/privacy"
           className="underline underline-offset-2 hover:text-on-surface-variant transition-colors"

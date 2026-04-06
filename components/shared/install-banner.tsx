@@ -48,7 +48,7 @@ export function InstallBanner() {
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold leading-tight">Install Benkyo</p>
+          <p className="text-sm font-semibold leading-tight">Install Benkyō</p>
           <p className="text-[11px] text-white/70 mt-0.5">Study offline, anytime</p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
