@@ -350,31 +350,39 @@ export function KanaSessionClient({
               Character Reference
             </h3>
 
-            <div className="bg-[#e4f3ed] rounded-2xl p-5 flex items-center gap-4 shadow-sm border border-[#2a9a8c]/10">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-success shadow-sm shrink-0">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={3}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+            {choiceLocked ? (
+              <div className="bg-[#e4f3ed] rounded-2xl p-5 flex items-center gap-4 shadow-sm border border-[#2a9a8c]/10">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-success shadow-sm shrink-0">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-bold text-foreground text-lg">
+                    {multipleChoice?.correct}
+                  </h4>
+                  <p className="text-[10px] text-on-surface-variant font-bold opacity-70 uppercase tracking-widest">
+                    Romaji
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg">
-                  {multipleChoice?.correct}
-                </h4>
-                <p className="text-[10px] text-on-surface-variant font-bold opacity-70 uppercase tracking-widest">
-                  Romaji
+            ) : (
+              <div className="rounded-2xl bg-surface-lowest p-5 flex items-center justify-center min-h-[72px] shadow-sm border border-outline-variant/20">
+                <p className="text-xs text-on-surface-variant font-medium">
+                  Select an answer to reveal
                 </p>
               </div>
-            </div>
+            )}
 
             <div className="bg-[#001736] rounded-2xl p-6 shadow-lg text-white mt-2 relative overflow-hidden">
               <div className="absolute -right-4 -bottom-10 font-display text-[180px] font-bold text-white/5 pointer-events-none select-none leading-none">
