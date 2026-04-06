@@ -132,9 +132,12 @@ function SettingsDialog({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0" onClick={onClose} />
-      <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
+      <div
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none"
+        onClick={onClose}
+      />
+      <div className="relative flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-[0_24px_64px_rgba(0,14,33,0.2)]">
         {/* Dialog header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10">
           <h3 className="font-display text-lg font-bold text-foreground">
@@ -161,11 +164,12 @@ function SettingsDialog({
           </button>
         </div>
 
-        <div className="p-6 space-y-5 max-h-[60vh] overflow-y-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto p-6 space-y-5">
           {/* Study mode */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Study mode <span className="text-on-surface-variant">(Select 1)</span>
+              Study mode{" "}
+              <span className="text-on-surface-variant">(Select 1)</span>
             </p>
             <div className="grid gap-2 grid-cols-2">
               {modeOptions.map((opt) => (
@@ -202,7 +206,8 @@ function SettingsDialog({
           {/* Direction */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Direction <span className="text-on-surface-variant">(Select 1)</span>
+              Direction{" "}
+              <span className="text-on-surface-variant">(Select 1)</span>
             </p>
             <div className="grid gap-2 grid-cols-2">
               {flipOptions.map((opt) => (
@@ -226,7 +231,8 @@ function SettingsDialog({
           {cardTypes.length > 1 && (
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-                Card types <span className="text-on-surface-variant">(Add or remove)</span>
+                Card types{" "}
+                <span className="text-on-surface-variant">(Add or remove)</span>
               </p>
               <div className="flex flex-wrap gap-2">
                 {cardTypes.map((type) => (

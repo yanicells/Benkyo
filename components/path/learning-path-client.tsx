@@ -160,14 +160,10 @@ function PathNode({
             </span>
           )}
         </div>
-        <h3
-          className="font-display text-sm font-bold leading-tight text-foreground"
-        >
+        <h3 className="font-display text-sm font-bold leading-tight text-foreground">
           {lesson.title}
         </h3>
-        <p
-          className="mt-0.5 text-[11px] text-on-surface-variant"
-        >
+        <p className="mt-0.5 text-[11px] text-on-surface-variant">
           {totalCards} cards · {lesson.subDecks.length} decks
         </p>
 

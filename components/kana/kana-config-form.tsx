@@ -29,9 +29,12 @@ function RowPreviewModal({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0" onClick={onClose} />
-      <div className="relative w-full max-w-sm bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
+      <div
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none"
+        onClick={onClose}
+      />
+      <div className="relative flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-sm flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-[0_24px_64px_rgba(0,14,33,0.2)]">
         <div className="flex items-center justify-between px-5 py-4 border-b border-outline-variant/10">
           <h3 className="font-display text-base font-bold text-foreground">
             {label}
@@ -56,7 +59,7 @@ function RowPreviewModal({
             </svg>
           </button>
         </div>
-        <div className="p-5 grid grid-cols-5 gap-3">
+        <div className="min-h-0 overflow-y-auto p-5 grid grid-cols-5 gap-3">
           {entries.map((entry) => (
             <div
               key={entry.kana}
@@ -107,9 +110,12 @@ function SessionOptionsModal({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0" onClick={onClose} />
-      <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
+      <div
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none"
+        onClick={onClose}
+      />
+      <div className="relative flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-[0_24px_64px_rgba(0,14,33,0.2)]">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
           <h3 className="font-display text-lg font-bold text-foreground">
@@ -136,7 +142,7 @@ function SessionOptionsModal({
           </button>
         </div>
 
-        <div className="p-6 space-y-5 overflow-y-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto p-6 space-y-5">
           {/* Session summary */}
           <div className="rounded-xl border-2 border-primary/20 bg-surface-lowest px-5 py-4">
             <div className="grid grid-cols-3 gap-3 text-center">

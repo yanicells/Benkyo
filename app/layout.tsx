@@ -98,37 +98,37 @@ export default function RootLayout({
         className={`${displayFont.variable} ${bodySans.variable} ${japaneseDisplay.variable} antialiased min-h-dvh bg-surface flex`}
       >
         <AuthProvider>
-        <PwaInit />
-        <InstallBanner />
-        <UpdateToast />
-        <MigrationPrompt />
+          <PwaInit />
+          <InstallBanner />
+          <UpdateToast />
+          <MigrationPrompt />
 
-        {/* Global Desktop Sidebar */}
-        <div className="hidden lg:block shrink-0">
-          <DesktopSidebar />
-        </div>
-
-        <div className="flex-1 flex flex-col min-h-screen min-w-0">
-          {/* Desktop Header */}
-          <div className="hidden lg:block sticky top-0 z-30">
-            <DesktopHeader />
+          {/* Global Desktop Sidebar */}
+          <div className="hidden lg:block shrink-0">
+            <DesktopSidebar />
           </div>
 
-          {/* Mobile Top App Bar */}
-          <div className="lg:hidden sticky top-0 z-30">
-            <TopAppBar />
-          </div>
+          <div className="flex-1 flex flex-col min-h-screen min-w-0">
+            {/* Desktop Header */}
+            <div className="hidden lg:block sticky top-0 z-30">
+              <DesktopHeader />
+            </div>
 
-          {/* Main Content */}
-          <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-16 lg:mb-0 relative z-0">
-            {children}
-          </main>
+            {/* Mobile Top App Bar */}
+            <div className="lg:hidden sticky top-0 z-30">
+              <TopAppBar />
+            </div>
 
-          {/* Mobile Bottom Navigation */}
-          <div className="lg:hidden relative z-40">
-            <BottomNav />
+            {/* Main Content */}
+            <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-16 lg:mb-0 relative">
+              {children}
+            </main>
+
+            {/* Mobile Bottom Navigation */}
+            <div className="lg:hidden relative z-40">
+              <BottomNav />
+            </div>
           </div>
-        </div>
         </AuthProvider>
         <Analytics />
       </body>

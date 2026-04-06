@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import {
   exportAllData,
@@ -22,8 +23,13 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
   const [settings, setSettings] = useState(() => getSettings());
   const [confirmReset, setConfirmReset] = useState(false);
   const [importStatus, setImportStatus] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const { isSignedIn, user, syncState, triggerSync } = useAuth();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleGoalChange = (goal: number) => {
     const updated = { ...settings, dailyGoal: goal };
@@ -71,20 +77,26 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
     window.location.reload();
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     // Outer: fixed overlay covering the entire viewport at z-50
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-label="Settings and data"
     >
       {/* No backdrop — click outside the panel to close */}
-      <div className="absolute inset-0" onClick={onClose} aria-hidden />
+      <div
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none"
+        onClick={onClose}
+        aria-hidden
+      />
 
       {/* Modal panel — solid surface, no transparency */}
       <div
-        className="relative z-10 w-full max-w-md rounded-2xl bg-surface-lowest shadow-[0_32px_80px_rgba(0,36,70,0.22)] border border-outline-variant/20"
+        className="relative z-10 flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-md flex-col overflow-hidden rounded-2xl border border-outline-variant/20 bg-surface-lowest shadow-[0_32px_80px_rgba(0,36,70,0.22)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -115,7 +127,7 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
           </button>
         </div>
 
-        <div className="px-6 py-5 space-y-6">
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5 space-y-6">
           {/* Daily goal */}
           <div>
             <p className="text-sm font-semibold text-foreground mb-3">
@@ -311,6 +323,7 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

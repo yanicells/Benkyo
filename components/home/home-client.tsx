@@ -181,7 +181,11 @@ function DailyGoalRing({
             >
               {reviewed}
             </span>
-            {!mini && <span className="text-[10px] text-secondary mt-0.5">of {goal}</span>}
+            {!mini && (
+              <span className="text-[10px] text-secondary mt-0.5">
+                of {goal}
+              </span>
+            )}
           </>
         ) : (
           <span className="h-2 w-2 rounded-full bg-primary/50" aria-hidden />
@@ -228,7 +232,11 @@ export function HomeClient({ lessons }: HomeClientProps) {
                 className="h-7 w-7 rounded-lg btn-primary-gradient flex items-center justify-center text-white shrink-0"
                 aria-hidden
               >
-                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M11.5,2C11.5,2 11.5,2 11.5,2C11.52,4.84 9.07,7.21 6.5,8.21C9.64,10.02 11,13.71 11,17.5C11,20.26 8.76,22.5 6,22.5C3.24,22.5 1,20.26 1,17.5C1,11 6,7 6,7C6,7 5.75,8.8 6.5,10.07C7.81,6.59 11.5,5 11.5,2M17.5,7C17.5,7 17.5,7 17.5,7C17.53,8.7 16.05,10.13 14.5,10.73C16.38,11.82 17.2,14 17.2,16.3C17.2,17.9 15.9,19.2 14.3,19.2C12.7,19.2 11.4,17.9 11.4,16.3C11.4,12.4 14.4,10 14.4,10C14.4,10 14.25,11.08 14.7,11.84C15.48,9.75 17.5,8.8 17.5,7Z" />
                 </svg>
               </div>
@@ -283,7 +291,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
               {loaded ? (
                 <p className="font-display text-2xl font-extrabold text-foreground leading-none">
                   {todayReviewed}
-                  <span className="ml-0.5 text-sm font-bold text-secondary">/{dailyGoal}</span>
+                  <span className="ml-0.5 text-sm font-bold text-secondary">
+                    /{dailyGoal}
+                  </span>
                 </p>
               ) : (
                 <div className="h-7 w-12 rounded bg-outline-variant/20 animate-pulse" />

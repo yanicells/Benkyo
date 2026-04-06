@@ -199,7 +199,9 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
               <div className="mt-5 space-y-2">
                 <div className="flex items-center justify-between text-[10px] font-semibold">
                   <span className="text-primary">{masteryPct}% mastery</span>
-                  <span className="text-amber-700">{reviewedPct}% reviewed</span>
+                  <span className="text-amber-700">
+                    {reviewedPct}% reviewed
+                  </span>
                 </div>
                 <div className="h-1.5 w-full rounded-full bg-secondary-container overflow-hidden">
                   <div
@@ -373,9 +375,7 @@ export function ProfileClient({ lessons }: { lessons: Lesson[] }) {
 
             <div>
               <div className="mb-1 flex items-center justify-between text-[11px]">
-                <span className="font-semibold text-amber-700">
-                  Reviewed
-                </span>
+                <span className="font-semibold text-amber-700">Reviewed</span>
                 <span className="text-on-surface-variant">
                   {reviewedCards}/{lifetime.totalCards} ({reviewedPct}%)
                 </span>
