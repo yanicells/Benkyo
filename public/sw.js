@@ -1,4 +1,4 @@
-const CACHE_VERSION = "benkyo-v3";
+const CACHE_VERSION = "benkyo-v4";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-app-shell`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const RUNTIME_CACHE_MAX = 60;
@@ -14,12 +14,6 @@ const APP_SHELL_URLS = [
   "/icon1-192.svg",
   "/icon1-512.svg",
   "/apple-touch-icon.svg",
-  "/_next/static/chunks/framework.js",
-];
-
-// Data files that should be cached for offline use
-const DATA_URLS = [
-  "/_next/static/chunks/app/page.js",
 ];
 
 self.addEventListener("install", (event) => {
@@ -64,12 +58,30 @@ self.addEventListener("fetch", (event) => {
   const isSameOrigin = requestUrl.origin === self.location.origin;
   if (!isSameOrigin) return;
 
+  const isNextBuildAsset = requestUrl.pathname.startsWith("/_next/static/");
   const isStaticAsset =
-    requestUrl.pathname.startsWith("/_next/static/") ||
     requestUrl.pathname.startsWith("/icons/") ||
-    /\.(?:js|css|png|jpg|jpeg|svg|webp|ico|woff2?)$/.test(requestUrl.pathname);
+    /\.(?:png|jpg|jpeg|svg|webp|ico|woff2?)$/.test(requestUrl.pathname);
 
-  // Cache-first for static assets
+  // Network-first for Next build chunks to avoid stale JS/CSS causing hydration mismatches.
+  if (isNextBuildAsset) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (!response || response.status !== 200) return response;
+          const copy = response.clone();
+          caches.open(RUNTIME_CACHE).then((cache) => {
+            cache.put(event.request, copy);
+            trimCache(RUNTIME_CACHE, RUNTIME_CACHE_MAX);
+          });
+          return response;
+        })
+        .catch(() => caches.match(event.request)),
+    );
+    return;
+  }
+
+  // Cache-first for image/font/icon static assets
   if (isStaticAsset) {
     event.respondWith(
       caches.match(event.request).then((cached) => {

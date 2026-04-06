@@ -66,10 +66,10 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs uppercase tracking-[0.2em] text-primary">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
                     {subDeck.cards.length} cards
                   </p>
-                  <h3 className="mt-1 truncate font-display text-lg text-foreground sm:text-xl">
+                  <h3 className="mt-1 truncate font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
                     {subDeck.title}
                   </h3>
                 </div>
@@ -78,7 +78,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
                 </span>
               </div>
 
-              <div className="mt-3 flex items-center gap-3 text-[11px] text-on-surface-variant sm:text-xs">
+              <div className="mt-3 flex items-center gap-3 text-xs text-secondary sm:text-xs">
                 <span>{mastery}% mastered</span>
                 {accuracy > 0 && <span>&middot; {accuracy}% accuracy</span>}
               </div>

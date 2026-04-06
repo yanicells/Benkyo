@@ -50,11 +50,11 @@ function LessonCard({
       {/* Top row: level badge + difficulty */}
       <div className="mb-3 flex items-center justify-between sm:mb-4">
         <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant">
-        Parts {index + 1}
+          Parts {index + 1}
         </span>
         {diffStyle && diff && (
           <span
-            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${diffStyle.badge}`}
+            className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] rounded-full ${diffStyle.badge}`}
           >
             {diff.charAt(0).toUpperCase() + diff.slice(1)}
           </span>
@@ -62,12 +62,12 @@ function LessonCard({
       </div>
 
       {/* Title */}
-      <h2 className="mb-1 font-display text-lg font-bold leading-tight text-foreground transition-colors group-hover:text-primary sm:text-xl">
+      <h2 className="mb-1 font-display text-lg font-bold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary sm:text-xl">
         {lesson.title}
       </h2>
 
       {/* Meta */}
-      <p className="mb-4 text-[11px] text-on-surface-variant sm:text-xs">
+      <p className="mb-4 text-xs leading-relaxed text-secondary">
         {lesson.subDecks.length} sub-deck
         {lesson.subDecks.length !== 1 ? "s" : ""} · {totalCards} cards
         {lesson.meta?.estimatedMinutes
@@ -77,7 +77,7 @@ function LessonCard({
 
       {/* Progress */}
       <div className="mt-auto">
-        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider mb-1.5">
+        <div className="mb-1.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.12em]">
           <span className="text-on-surface-variant">Mastery</span>
           <span className={isMastered ? "text-success" : "text-primary"}>
             {mastery}%

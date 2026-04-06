@@ -17,6 +17,30 @@ export function PwaInit() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
 
+    // In development, stale SW caches can cause hydration mismatches.
+    // Clean up any previous registrations/caches and skip registration.
+    if (process.env.NODE_ENV !== "production") {
+      void (async () => {
+        try {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map((reg) => reg.unregister()));
+
+          if ("caches" in window) {
+            const keys = await caches.keys();
+            await Promise.all(
+              keys
+                .filter((key) => key.startsWith("benkyo-"))
+                .map((key) => caches.delete(key)),
+            );
+          }
+        } catch {
+          // Silent fail — keep hydration and navigation unaffected
+        }
+      })();
+
+      return;
+    }
+
     const register = async () => {
       try {
         const reg = await navigator.serviceWorker.register("/sw.js", {

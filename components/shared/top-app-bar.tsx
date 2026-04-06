@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -47,9 +48,18 @@ export function TopAppBar() {
           ) : (
             <Link
               href="/"
-              className="font-display text-lg font-bold tracking-tight text-primary"
+              suppressHydrationWarning
+              className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight text-primary"
             >
-              Benkyo
+              <Image
+                src="/icon1-192.svg"
+                alt="Benkyo logo"
+                width={24}
+                height={24}
+                className="h-6 w-6 shrink-0"
+                priority
+              />
+              <span>Benkyo</span>
             </Link>
           )}
 

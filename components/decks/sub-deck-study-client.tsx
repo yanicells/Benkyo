@@ -369,7 +369,7 @@ export function SubDeckStudyClient({
                 {previewTypeLabels[card.type]}
               </span>
               <div className="min-w-0">
-                <p className="font-japanese text-xl text-foreground">
+                <p className="font-japanese text-xl font-medium text-foreground">
                   {card.front}
                 </p>
                 <p className="mt-1 text-sm text-on-surface-variant">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/shared/auth-provider";
@@ -103,7 +104,15 @@ export function DesktopSidebar() {
   return (
     <aside className="w-72 h-screen sticky top-0 bg-surface-lowest flex flex-col py-10 px-8 shadow-[1px_0_10px_rgba(0,36,70,0.02)] z-10 transition-all duration-300">
       <div className="mb-14">
-        <Link href="/" className="flex flex-col">
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/icon1-192.svg"
+            alt="Benkyo logo"
+            width={30}
+            height={30}
+            className="h-7 w-7 shrink-0"
+            priority
+          />
           <span className="font-display font-bold text-2xl text-primary leading-tight">
             Benkyo
           </span>
