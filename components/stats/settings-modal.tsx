@@ -89,7 +89,7 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
     >
       {/* No backdrop — click outside the panel to close */}
       <div
-        className="absolute inset-0 bg-black/45 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none"
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />

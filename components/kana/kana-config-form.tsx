@@ -31,7 +31,7 @@ function RowPreviewModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
       <div
-        className="absolute inset-0 bg-black/45 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none"
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm"
         onClick={onClose}
       />
       <div className="relative flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-sm flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-[0_24px_64px_rgba(0,14,33,0.2)]">
@@ -112,7 +112,7 @@ function SessionOptionsModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
       <div
-        className="absolute inset-0 bg-black/45 backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-none"
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm"
         onClick={onClose}
       />
       <div className="relative flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-[0_24px_64px_rgba(0,14,33,0.2)]">
