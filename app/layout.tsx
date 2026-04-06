@@ -11,6 +11,7 @@ import { BottomNav } from "../components/shared/bottom-nav";
 import { DesktopSidebar } from "../components/shared/desktop-sidebar";
 import { DesktopHeader } from "../components/shared/desktop-header";
 import { MobileLaunchSplash } from "../components/shared/mobile-launch-splash";
+import { Footer } from "../components/shared/footer";
 import "./globals.css";
 
 const displayFont = Inter({
@@ -125,6 +126,9 @@ export default function RootLayout({
             <main className="flex-1 pb-[env(safe-area-inset-bottom)] sm:pb-0 mb-16 lg:mb-0 relative">
               {children}
             </main>
+
+            {/* Footer */}
+            <Footer />
 
             {/* Mobile Bottom Navigation */}
             <div className="lg:hidden relative z-40">

@@ -1,3 +1,4 @@
+
 # Benkyo
 
 Benkyo is a personal Japanese study app built with Next.js App Router and TypeScript.
