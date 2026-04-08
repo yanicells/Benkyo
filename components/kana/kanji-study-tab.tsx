@@ -1,10 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 
-import type { Lesson, StudyMode, FlipSetting } from "@/lib/types";
+import type { Lesson, StudyMode, FlipSetting, CardFilter } from "@/lib/types";
 import { getKanjiSubDecks, type KanjiSubDeckEntry } from "@/lib/kanji";
+import {
+  getAllSRS,
+  makeCardId,
+  subscribeToStudyData,
+  getStudyDataRevision,
+} from "@/lib/srs";
 
 type KanjiStudyTabProps = {
   lessons: Lesson[];
@@ -19,6 +25,15 @@ const previewTypeLabels: Record<string, string> = {
   culture: "Culture",
 };
 
+type FilterCounts = { all: number; new: number; learning: number; mastered: number };
+
+const filterOptions: { value: CardFilter; label: string }[] = [
+  { value: "all", label: "All Cards" },
+  { value: "new", label: "New" },
+  { value: "learning", label: "Learning" },
+  { value: "mastered", label: "Mastered" },
+];
+
 function KanjiSessionModal({
   entries,
   onClose,
@@ -29,6 +44,12 @@ function KanjiSessionModal({
   const router = useRouter();
   const [mode, setMode] = useState<StudyMode>("flashcard");
   const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
+  const [cardFilter, setCardFilter] = useState<CardFilter>("all");
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
+  );
 
   const totalCards = entries.reduce(
     (sum, e) => sum + e.subDeck.cards.length,
@@ -36,11 +57,38 @@ function KanjiSessionModal({
   );
   const estimatedMinutes = Math.max(1, Math.round((totalCards * 5) / 60));
 
+  const filterCounts = useMemo((): FilterCounts => {
+    if (dataRevision < 0) {
+      return { all: totalCards, new: totalCards, learning: 0, mastered: 0 };
+    }
+    const allSRS = getAllSRS();
+    let newCount = 0;
+    let learning = 0;
+    let mastered = 0;
+    for (const entry of entries) {
+      for (let i = 0; i < entry.subDeck.cards.length; i++) {
+        const srs = allSRS[makeCardId(entry.subDeck.id, i)];
+        if (!srs || srs.totalReviews === 0) {
+          newCount++;
+        } else if (srs.interval >= 21) {
+          mastered++;
+        } else {
+          learning++;
+        }
+      }
+    }
+    return { all: totalCards, new: newCount, learning, mastered };
+  }, [dataRevision, entries, totalCards]);
+
   const startSession = () => {
     const deckIds = entries.map((e) => e.subDeck.id).join(",");
-    router.push(
-      `/decks/kanji/session?mode=${mode}&flip=${flip}&decks=${deckIds}`,
-    );
+    const params = new URLSearchParams({
+      mode,
+      flip,
+      decks: deckIds,
+      ...(cardFilter !== "all" && { filter: cardFilter }),
+    });
+    router.push(`/decks/kanji/session?${params.toString()}`);
   };
 
   return (
@@ -137,6 +185,45 @@ function KanjiSessionModal({
             </div>
           </div>
 
+          {/* Card filter */}
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
+              Cards
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {filterOptions.map((opt) => {
+                const count = filterCounts[opt.value];
+                const disabled = count === 0 && opt.value !== "all";
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => !disabled && setCardFilter(opt.value)}
+                    className={`flex items-center justify-center gap-1.5 rounded-xl border-2 py-3 text-sm font-semibold transition-all ${
+                      disabled
+                        ? "border-outline-variant/10 bg-surface-lowest text-on-surface-variant/40 cursor-not-allowed"
+                        : cardFilter === opt.value
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
+                    }`}
+                  >
+                    {opt.label}
+                    <span className={`text-xs ${
+                      disabled
+                        ? "text-on-surface-variant/30"
+                        : cardFilter === opt.value
+                          ? "text-primary/70"
+                          : "text-on-surface-variant"
+                    }`}>
+                      ({count})
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Direction */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
@@ -169,10 +256,11 @@ function KanjiSessionModal({
         <div className="px-6 py-4 border-t border-outline-variant/10 shrink-0">
           <button
             type="button"
+            disabled={filterCounts[cardFilter] === 0}
             onClick={startSession}
-            className="w-full btn-primary-gradient rounded-xl py-4 text-white font-bold text-base shadow-[0_8px_24px_rgba(0,36,70,0.15)] transition hover:opacity-90 hover:shadow-lg"
+            className="w-full btn-primary-gradient rounded-xl py-4 text-white font-bold text-base shadow-[0_8px_24px_rgba(0,36,70,0.15)] transition hover:opacity-90 hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Start Session
+            Start Session{filterCounts[cardFilter] > 0 ? ` · ${filterCounts[cardFilter]} cards` : ""}
           </button>
         </div>
       </div>

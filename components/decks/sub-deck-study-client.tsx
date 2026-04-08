@@ -12,6 +12,7 @@ import {
 
 import type {
   Card,
+  CardFilter,
   CardType,
   FlipSetting,
   LessonMeta,
@@ -72,6 +73,15 @@ const previewTypeLabels: Record<CardType, string> = {
   culture: "Culture",
 };
 
+type FilterCounts = { all: number; new: number; learning: number; mastered: number };
+
+const filterOptions: { value: CardFilter; label: string }[] = [
+  { value: "all", label: "All Cards" },
+  { value: "new", label: "New" },
+  { value: "learning", label: "Learning" },
+  { value: "mastered", label: "Mastered" },
+];
+
 function StudyModeIcon({ mode }: { mode: StudyMode }) {
   if (mode === "flashcard") {
     return (
@@ -115,6 +125,9 @@ function SettingsDialog({
   setMode,
   flip,
   setFlip,
+  cardFilter,
+  setCardFilter,
+  filterCounts,
   cardTypes,
   selectedTypes,
   toggleType,
@@ -126,6 +139,9 @@ function SettingsDialog({
   setMode: (m: StudyMode) => void;
   flip: FlipSetting;
   setFlip: (f: FlipSetting) => void;
+  cardFilter: CardFilter;
+  setCardFilter: (f: CardFilter) => void;
+  filterCounts: FilterCounts;
   cardTypes: CardType[];
   selectedTypes: Set<CardType>;
   toggleType: (t: CardType) => void;
@@ -205,6 +221,46 @@ function SettingsDialog({
             </div>
           </div>
 
+          {/* Card filter */}
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
+              Cards{" "}
+              <span className="text-on-surface-variant">(Select 1)</span>
+            </p>
+            <div className="grid gap-2 grid-cols-2">
+              {filterOptions.map((opt) => {
+                const count = filterCounts[opt.value];
+                const disabled = count === 0 && opt.value !== "all";
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => !disabled && setCardFilter(opt.value)}
+                    className={`flex items-center justify-center gap-1.5 rounded-xl border-2 p-3 text-sm font-semibold transition-all ${
+                      disabled
+                        ? "border-outline-variant/10 bg-surface-lowest text-on-surface-variant/40 cursor-not-allowed"
+                        : cardFilter === opt.value
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
+                    }`}
+                  >
+                    {opt.label}
+                    <span className={`text-xs ${
+                      disabled
+                        ? "text-on-surface-variant/30"
+                        : cardFilter === opt.value
+                          ? "text-primary/70"
+                          : "text-on-surface-variant"
+                    }`}>
+                      ({count})
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Direction */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
@@ -260,10 +316,11 @@ function SettingsDialog({
         <div className="px-6 py-4 border-t border-outline-variant/10">
           <button
             type="button"
+            disabled={filterCounts[cardFilter] === 0}
             onClick={onStart}
-            className="w-full btn-primary-gradient rounded-xl py-4 text-white font-bold text-base shadow-[0_8px_24px_rgba(0,36,70,0.15)] transition hover:opacity-90 hover:shadow-lg"
+            className="w-full btn-primary-gradient rounded-xl py-4 text-white font-bold text-base shadow-[0_8px_24px_rgba(0,36,70,0.15)] transition hover:opacity-90 hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Start Session
+            Start Session{filterCounts[cardFilter] > 0 ? ` · ${filterCounts[cardFilter]} cards` : ""}
           </button>
         </div>
       </div>
@@ -293,6 +350,7 @@ export function SubDeckStudyClient({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [mode, setMode] = useState<StudyMode>("flashcard");
   const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
+  const [cardFilter, setCardFilter] = useState<CardFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<Set<CardType>>(
     () => new Set(cardTypes),
@@ -310,11 +368,33 @@ export function SubDeckStudyClient({
     });
   };
 
+  const filterCounts = useMemo((): FilterCounts => {
+    if (dataRevision < 0) {
+      return { all: progressCardRefs.length, new: progressCardRefs.length, learning: 0, mastered: 0 };
+    }
+    const all = getAllSRS();
+    let newCount = 0;
+    let learning = 0;
+    let mastered = 0;
+    for (const ref of progressCardRefs) {
+      const srs = all[makeCardId(ref.subDeckId, ref.cardIndex)];
+      if (!srs || srs.totalReviews === 0) {
+        newCount++;
+      } else if (srs.interval >= 21) {
+        mastered++;
+      } else {
+        learning++;
+      }
+    }
+    return { all: progressCardRefs.length, new: newCount, learning, mastered };
+  }, [dataRevision, progressCardRefs]);
+
   const handleStart = () => {
     const searchParams = new URLSearchParams({
       mode,
       flip,
       types: [...selectedTypes].join(","),
+      ...(cardFilter !== "all" && { filter: cardFilter }),
     });
     router.push(
       `/decks/${lessonId}/${subDeckId}/session?${searchParams.toString()}`,
@@ -606,6 +686,9 @@ export function SubDeckStudyClient({
         setMode={setMode}
         flip={flip}
         setFlip={setFlip}
+        cardFilter={cardFilter}
+        setCardFilter={setCardFilter}
+        filterCounts={filterCounts}
         cardTypes={cardTypes}
         selectedTypes={selectedTypes}
         toggleType={toggleType}

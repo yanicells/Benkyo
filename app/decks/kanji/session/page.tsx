@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import lessonsData from "@/data/lessons.json";
 import { DeckSessionRenderer } from "@/components/session/deck-session-renderer";
 import { getKanjiSubDecks } from "@/lib/kanji";
-import type { CardType, FlipSetting, LessonsData, StudyMode } from "@/lib/types";
+import type { CardFilter, CardType, FlipSetting, LessonsData, StudyMode } from "@/lib/types";
 
 type KanjiSessionPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -24,6 +24,7 @@ export default async function KanjiSessionPage({
   const rawFlip = firstParam(query.flip) ?? "jp-to-en";
   const rawTypes = firstParam(query.types);
   const rawDecks = firstParam(query.decks);
+  const rawFilter = (firstParam(query.filter) ?? "all") as CardFilter;
 
   if (
     !validModes.has(rawMode as StudyMode) ||
@@ -79,6 +80,7 @@ export default async function KanjiSessionPage({
       cardSubDeckIds={cardSubDeckIds}
       cardIndexes={cardIndexes}
       allLessonCards={allKanjiCards}
+      cardFilter={rawFilter}
     />
   );
 }

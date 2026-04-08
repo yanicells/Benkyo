@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import lessonsData from "@/data/lessons.json";
 import { DeckSessionRenderer } from "@/components/session/deck-session-renderer";
-import type { CardType, FlipSetting, LessonsData, StudyMode } from "@/lib/types";
+import type { CardFilter, CardType, FlipSetting, LessonsData, StudyMode } from "@/lib/types";
 
 type DeckSessionPageProps = {
   params: Promise<{ lessonId: string; subDeckId: string }>;
@@ -26,6 +26,7 @@ export default async function DeckSessionPage({
   const rawMode = firstParam(query.mode);
   const rawFlip = firstParam(query.flip);
   const rawTypes = firstParam(query.types);
+  const rawFilter = (firstParam(query.filter) ?? "all") as CardFilter;
 
   if (
     !rawMode ||
@@ -105,6 +106,7 @@ export default async function DeckSessionPage({
       cardSubDeckIds={cardSubDeckIds}
       cardIndexes={cardIndexes}
       allLessonCards={allSubDeckCards}
+      cardFilter={rawFilter}
     />
   );
 }
