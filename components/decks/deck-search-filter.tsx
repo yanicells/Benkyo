@@ -127,15 +127,17 @@ export function DeckSearchFilter({
   const isSearching = searchQuery.trim().length > 0;
   const stickySearchTopClass =
     scope === "lesson"
-      ? "top-[6.625rem] lg:top-[6.875rem]"
+      ? "top-26 lg:top-27.5"
       : "top-14 lg:top-16";
+  const stickySearchWrapperClass =
+    scope === "lesson"
+      ? `sticky ${stickySearchTopClass} z-20 -mx-4 border-b border-outline-variant/10 bg-surface/95 px-4 py-2 backdrop-blur-md sm:-mx-8 sm:px-8`
+      : `sticky ${stickySearchTopClass} z-10 -mx-1 rounded-xl bg-surface/95 px-1 py-1.5 backdrop-blur-md`;
 
   return (
     <div className="flex flex-col gap-4">
       {/* Search bar */}
-      <div
-        className={`sticky ${stickySearchTopClass} z-10 -mx-1 rounded-xl bg-surface/95 px-1 py-1.5 backdrop-blur-md`}
-      >
+      <div className={stickySearchWrapperClass}>
         <div className="relative">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"

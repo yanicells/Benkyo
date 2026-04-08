@@ -154,7 +154,7 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
       </div>
 
       {/* Search bar */}
-      <div className="sticky top-26.5 lg:top-27.5 z-10 -mx-1 rounded-xl bg-surface/95 px-1 py-1.5 backdrop-blur-md">
+      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 border-b border-outline-variant/10 bg-surface/95 px-4 py-2 backdrop-blur-md sm:-mx-8 sm:px-8">
         <div className="relative">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"
