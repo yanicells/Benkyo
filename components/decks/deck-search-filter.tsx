@@ -126,9 +126,7 @@ export function DeckSearchFilter({
 
   const isSearching = searchQuery.trim().length > 0;
   const stickySearchTopClass =
-    scope === "lesson"
-      ? "top-26 lg:top-27.5"
-      : "top-14 lg:top-16";
+    scope === "lesson" ? "top-26 lg:top-27.5" : "top-14 lg:top-16";
   const stickySearchWrapperClass =
     scope === "lesson"
       ? `sticky ${stickySearchTopClass} z-20 -mx-4 border-b border-outline-variant/10 bg-surface/95 px-4 py-2 backdrop-blur-md sm:-mx-8 sm:px-8`

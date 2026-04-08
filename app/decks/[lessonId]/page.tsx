@@ -33,6 +33,7 @@ export default async function SubDeckListPage({
       eyebrow="Lesson"
       title={lesson.title}
       subtitle={`${lesson.subDecks.length} sub-decks · ${totalCards} cards total`}
+      tightTop
       tightTopOnMobile
       backHref="/decks"
       backLabel="All Lessons"

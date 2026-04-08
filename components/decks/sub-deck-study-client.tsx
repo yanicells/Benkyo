@@ -23,6 +23,8 @@ type SubDeckStudyClientProps = {
   subDeckId: string;
   title: string;
   lessonTitle: string;
+  backHref?: string;
+  backLabel?: string;
   cardCount: number;
   cardTypes: CardType[];
   meta: LessonMeta | null;
@@ -274,6 +276,8 @@ export function SubDeckStudyClient({
   subDeckId,
   title,
   lessonTitle,
+  backHref,
+  backLabel,
   cardCount,
   cardTypes,
   meta,
@@ -367,11 +371,11 @@ export function SubDeckStudyClient({
   }, [cards, searchQuery]);
 
   return (
-    <section className="relative mx-auto w-full max-w-4xl px-4 pt-0 pb-32 sm:px-8 sm:pt-10 sm:pb-36">
+    <section className="relative mx-auto w-full max-w-4xl px-4 pt-0 pb-32 sm:px-8 sm:pt-0 sm:pb-36">
       {/* Back button */}
       <div className="sticky top-14 lg:top-16 z-20 -mx-4 sm:-mx-8 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md sm:px-8">
         <Link
-          href={`/decks/${lessonId}`}
+          href={backHref ?? `/decks/${lessonId}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
         >
           <svg
@@ -387,7 +391,7 @@ export function SubDeckStudyClient({
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          {lessonTitle}
+          {backLabel ?? lessonTitle}
         </Link>
       </div>
 
@@ -497,7 +501,7 @@ export function SubDeckStudyClient({
       </div>
 
       {/* Search */}
-      <div className="mb-6">
+      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-2 backdrop-blur-md sm:-mx-8 sm:px-8">
         <div className="relative">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"
