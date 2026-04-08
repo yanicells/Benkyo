@@ -106,17 +106,29 @@ function ContextModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-foreground/20" onClick={onClose} />
+      <div className="absolute inset-0" onClick={onClose} />
       <div className="relative w-full max-w-md bg-surface-lowest rounded-2xl shadow-[0_24px_64px_rgba(0,14,33,0.2)] overflow-hidden max-h-[80vh] flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
-          <h3 className="font-display text-lg font-bold text-foreground">Card Context</h3>
+          <h3 className="font-display text-lg font-bold text-foreground">
+            Card Context
+          </h3>
           <button
             type="button"
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -129,7 +141,11 @@ function ContextModal({
             </div>
             <div className="relative">
               <div className="flex items-center gap-2 mb-3">
-                <svg className="w-4 h-4 text-[#8ef4e4]" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-4 h-4 text-[#8ef4e4]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z" />
                 </svg>
                 <span className="text-xs font-bold uppercase tracking-widest text-white/90">
@@ -425,6 +441,28 @@ export function DeckSessionClient({
 
   return (
     <div className="max-w-screen-md mx-auto px-4 md:px-8 py-6 md:py-8 w-full flex flex-col min-h-[calc(100vh-4rem)]">
+      <div className="sticky top-14 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
+        <Link
+          href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
+          className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
+        >
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          {isReview ? "Back to Review" : "Back to Deck"}
+        </Link>
+      </div>
+
       {/* Session Header — title + progress bar */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-3">
@@ -456,7 +494,7 @@ export function DeckSessionClient({
 
       {/* Main Question Card — full width */}
       <div
-        className={`relative rounded-[2rem] bg-surface-lowest p-8 md:p-12 lg:p-16 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center transition-all duration-300 ${revealed ? "min-h-[360px]" : "min-h-[300px]"}`}
+        className={`relative rounded-[2rem] bg-surface-lowest p-6 md:p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,14,33,0.04)] flex flex-col items-center justify-center transition-all duration-300 ${revealed ? "min-h-[320px]" : "min-h-[240px]"}`}
         onClick={() => {
           if (mode === "flashcard" && !revealed) setRevealed(true);
         }}
@@ -471,31 +509,43 @@ export function DeckSessionClient({
           className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-surface-low text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-colors"
           title="View context & hints"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
         </button>
 
-        <div
-          className="font-japanese text-center leading-tight text-foreground transition-all"
-        >
-          <span className={prompt.length > 6 ? "text-4xl md:text-6xl lg:text-7xl" : "text-6xl md:text-8xl lg:text-[120px]"}>
+        <div className="font-japanese text-center leading-tight text-foreground transition-all">
+          <span
+            className={
+              prompt.length > 6
+                ? "text-[1.9rem] md:text-[2.8rem] lg:text-[3.5rem]"
+                : "text-[2.6rem] md:text-[4rem] lg:text-[5rem]"
+            }
+          >
             {prompt}
           </span>
         </div>
 
         {current.card.hint && (
-          <p className="mt-6 text-sm italic text-on-surface-variant font-medium">
+          <p className="mt-4 text-sm italic text-on-surface-variant font-medium">
             {current.card.hint}
           </p>
         )}
 
         {mode === "flashcard" && revealed && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 mt-6 w-full flex flex-col items-center">
-            <div className="w-20 h-[2px] bg-outline-variant/30 my-5" />
-            <p
-              className="font-japanese text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-center"
-            >
+          <div className="animate-in fade-in slide-in-from-bottom-4 mt-4 w-full flex flex-col items-center">
+            <div className="w-16 h-[2px] bg-outline-variant/30 my-4" />
+            <p className="font-japanese text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center">
               {current.card[answerSide]}
             </p>
           </div>
@@ -538,24 +588,23 @@ export function DeckSessionClient({
           <div className="w-full">
             {!showSRSRating ? (
               <div className="flex flex-col gap-3 w-full">
-                {multipleChoice.options.map((option, i) => {
+                {multipleChoice.options.map((option) => {
                   const isSelected = selectedOption === option;
                   const isCorrect = multipleChoice.correct === option;
 
                   let stateClass =
-                    "bg-surface-lowest text-foreground hover:bg-surface-low border-2 border-transparent";
+                    "bg-surface-lowest text-foreground border-2 border-outline-variant/25 hover:border-primary/55";
                   if (choiceLocked) {
                     if (isCorrect)
                       stateClass =
                         "bg-success border-success text-white shadow-lg";
                     else if (isSelected)
-                      stateClass =
-                        "bg-error border-error text-white shadow-lg";
+                      stateClass = "bg-error border-error text-white shadow-lg";
                   }
 
                   return (
                     <button
-                      key={`${option}-${i}`}
+                      key={option}
                       type="button"
                       disabled={choiceLocked}
                       onClick={() => {
@@ -563,14 +612,11 @@ export function DeckSessionClient({
                         setSelectedOption(option);
                         setChoiceLocked(true);
                       }}
-                      className={`font-japanese group relative flex items-center w-full min-h-[60px] rounded-2xl px-5 text-lg font-semibold transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
+                      className={`font-japanese group relative flex items-start w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-base md:text-lg font-normal transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
                     >
-                      {!choiceLocked && (
-                        <span className="text-sm text-on-surface-variant opacity-40 font-display mr-4 w-5 shrink-0">
-                          {i + 1}
-                        </span>
-                      )}
-                      <span className="flex-1 text-left">{option}</span>
+                      <span className="flex-1 text-left leading-relaxed wrap-break-word">
+                        {option}
+                      </span>
                     </button>
                   );
                 })}

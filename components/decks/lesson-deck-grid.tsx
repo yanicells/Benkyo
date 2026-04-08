@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 import type { Lesson } from "@/lib/types";
 import { getLessonMastery, getAllSRS, makeCardId } from "@/lib/srs";
@@ -10,17 +10,28 @@ type LessonDeckGridProps = {
   lessons: Lesson[];
 };
 
+const subscribeNoop = () => () => {};
+const EMPTY_GLOBAL = { percent: 0, reviewed: 0, mastered: 0, total: 0 };
+
 const DIFFICULTY_COLORS = {
   beginner: { badge: "bg-success/10 text-success", bar: "bg-success" },
   intermediate: { badge: "bg-primary/10 text-primary", bar: "bg-primary" },
   advanced: { badge: "bg-error/10 text-error", bar: "bg-error" },
 } as const;
 
-function LessonCard({ lesson, index }: { lesson: Lesson; index: number }) {
-  const [mastery] = useState(() => {
-    if (typeof window === "undefined") return 0;
-    return getLessonMastery(lesson);
-  });
+function LessonCard({
+  lesson,
+  index,
+  isHydrated,
+}: {
+  lesson: Lesson;
+  index: number;
+  isHydrated: boolean;
+}) {
+  const mastery = useMemo(
+    () => (isHydrated ? getLessonMastery(lesson) : 0),
+    [isHydrated, lesson],
+  );
 
   const totalCards = lesson.subDecks.reduce(
     (sum, sd) => sum + sd.cards.length,
@@ -39,10 +50,12 @@ function LessonCard({ lesson, index }: { lesson: Lesson; index: number }) {
       {/* Top row: level badge + difficulty */}
       <div className="flex items-center justify-between mb-4">
         <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant">
-          Lesson {index + 1}
+        Parts {index + 1}
         </span>
         {diffStyle && diff && (
-          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${diffStyle.badge}`}>
+          <span
+            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${diffStyle.badge}`}
+          >
             {diff.charAt(0).toUpperCase() + diff.slice(1)}
           </span>
         )}
@@ -55,15 +68,20 @@ function LessonCard({ lesson, index }: { lesson: Lesson; index: number }) {
 
       {/* Meta */}
       <p className="text-xs text-on-surface-variant mb-4">
-        {lesson.subDecks.length} sub-deck{lesson.subDecks.length !== 1 ? "s" : ""} · {totalCards} cards
-        {lesson.meta?.estimatedMinutes ? ` · ~${lesson.meta.estimatedMinutes}m` : ""}
+        {lesson.subDecks.length} sub-deck
+        {lesson.subDecks.length !== 1 ? "s" : ""} · {totalCards} cards
+        {lesson.meta?.estimatedMinutes
+          ? ` · ~${lesson.meta.estimatedMinutes}m`
+          : ""}
       </p>
 
       {/* Progress */}
       <div className="mt-auto">
         <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider mb-1.5">
           <span className="text-on-surface-variant">Mastery</span>
-          <span className={isMastered ? "text-success" : "text-primary"}>{mastery}%</span>
+          <span className={isMastered ? "text-success" : "text-primary"}>
+            {mastery}%
+          </span>
         </div>
         <div className="h-1.5 rounded-full bg-secondary-container overflow-hidden">
           <div
@@ -72,20 +90,14 @@ function LessonCard({ lesson, index }: { lesson: Lesson; index: number }) {
           />
         </div>
       </div>
-
-      {/* Arrow */}
-      <div className="absolute top-5 right-5 flex h-7 w-7 items-center justify-center rounded-lg bg-surface-low text-on-surface-variant group-hover:bg-primary group-hover:text-white transition-all">
-        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-        </svg>
-      </div>
     </Link>
   );
 }
 
-function useGlobalMastery(lessons: Lesson[]) {
-  return useState(() => {
-    if (typeof window === "undefined") return { percent: 0, reviewed: 0, mastered: 0, total: 0 };
+function useGlobalMastery(lessons: Lesson[], isHydrated: boolean) {
+  return useMemo(() => {
+    if (!isHydrated) return EMPTY_GLOBAL;
+
     const all = getAllSRS();
     let total = 0;
     let mastered = 0;
@@ -108,11 +120,16 @@ function useGlobalMastery(lessons: Lesson[]) {
       mastered,
       total,
     };
-  })[0];
+  }, [isHydrated, lessons]);
 }
 
 export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
-  const global = useGlobalMastery(lessons);
+  const isHydrated = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
+  const global = useGlobalMastery(lessons, isHydrated);
 
   return (
     <div className="flex flex-col gap-8 pb-16">
@@ -142,7 +159,12 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
       {/* Lesson grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {lessons.map((lesson, index) => (
-          <LessonCard key={lesson.id} lesson={lesson} index={index} />
+          <LessonCard
+            key={lesson.id}
+            lesson={lesson}
+            index={index}
+            isHydrated={isHydrated}
+          />
         ))}
       </div>
     </div>

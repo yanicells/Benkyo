@@ -7,5 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/decks`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/kana`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/install`, changeFrequency: "monthly", priority: 0.6 },
   ];
 }
