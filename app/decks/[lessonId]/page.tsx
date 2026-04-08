@@ -5,6 +5,7 @@ import { PageShell } from "@/components/shared/page-shell";
 import { SubDeckGrid } from "@/components/decks/sub-deck-grid";
 import { LessonPreStudy } from "@/components/decks/lesson-pre-study";
 import { LessonProgressOverview } from "@/components/decks/lesson-progress-overview";
+import { DeckSearchFilter } from "@/components/decks/deck-search-filter";
 import type { LessonsData } from "@/lib/types";
 
 type SubDeckListPageProps = {
@@ -38,7 +39,9 @@ export default async function SubDeckListPage({
     >
       <LessonProgressOverview lesson={lesson} />
       {lesson.meta && <LessonPreStudy meta={lesson.meta} />}
-      <SubDeckGrid lesson={lesson} />
+      <DeckSearchFilter lessons={lessons} scope="lesson" lesson={lesson}>
+        <SubDeckGrid lesson={lesson} />
+      </DeckSearchFilter>
     </PageShell>
   );
 }

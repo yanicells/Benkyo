@@ -2294,6 +2294,198 @@
               "front": "百円",
               "back": "ひゃくえん (one hundred yen)",
               "romaji": "hyakuen"
+            },
+            {
+              "type": "vocab",
+              "front": "万",
+              "back": "まん (ten thousand)",
+              "romaji": "man"
+            },
+            {
+              "type": "vocab",
+              "front": "円",
+              "back": "えん (yen; circle)",
+              "romaji": "en"
+            },
+            {
+              "type": "vocab",
+              "front": "時",
+              "back": "じ / とき (time; hour; o'clock)",
+              "romaji": "ji / toki"
+            },
+            {
+              "type": "vocab",
+              "front": "日",
+              "back": "にち / ひ (day; sun)",
+              "romaji": "nichi / hi"
+            },
+            {
+              "type": "vocab",
+              "front": "月",
+              "back": "げつ / つき (month; moon)",
+              "romaji": "getsu / tsuki"
+            },
+            {
+              "type": "vocab",
+              "front": "火",
+              "back": "か / ひ (fire)",
+              "romaji": "ka / hi"
+            },
+            {
+              "type": "vocab",
+              "front": "木",
+              "back": "もく / き (tree; wood)",
+              "romaji": "moku / ki"
+            },
+            {
+              "type": "vocab",
+              "front": "金",
+              "back": "きん / かね (gold; money)",
+              "romaji": "kin / kane"
+            },
+            {
+              "type": "vocab",
+              "front": "土",
+              "back": "ど / つち (earth; soil)",
+              "romaji": "do / tsuchi"
+            },
+            {
+              "type": "vocab",
+              "front": "半",
+              "back": "はん (half)",
+              "romaji": "han"
+            },
+            {
+              "type": "vocab",
+              "front": "曜",
+              "back": "よう (day of the week)",
+              "romaji": "you"
+            },
+            {
+              "type": "vocab",
+              "front": "明",
+              "back": "めい / あかるい (bright; clear)",
+              "romaji": "mei / akarui"
+            },
+            {
+              "type": "vocab",
+              "front": "元",
+              "back": "げん / もと (origin; source)",
+              "romaji": "gen / moto"
+            },
+            {
+              "type": "vocab",
+              "front": "天",
+              "back": "てん / あめ (heaven; sky)",
+              "romaji": "ten / ame"
+            },
+            {
+              "type": "vocab",
+              "front": "気",
+              "back": "き (spirit; energy; mood)",
+              "romaji": "ki"
+            },
+            {
+              "type": "vocab",
+              "front": "女",
+              "back": "じょ / おんな (woman; female)",
+              "romaji": "jo / onna"
+            },
+            {
+              "type": "vocab",
+              "front": "男",
+              "back": "だん / おとこ (man; male)",
+              "romaji": "dan / otoko"
+            },
+            {
+              "type": "vocab",
+              "front": "田",
+              "back": "た / でん (rice field)",
+              "romaji": "ta / den"
+            },
+            {
+              "type": "vocab",
+              "front": "見",
+              "back": "けん / みる (to see; to look)",
+              "romaji": "ken / miru"
+            },
+            {
+              "type": "vocab",
+              "front": "行",
+              "back": "こう / いく (to go)",
+              "romaji": "kou / iku"
+            },
+            {
+              "type": "vocab",
+              "front": "食",
+              "back": "しょく / たべる (to eat; food)",
+              "romaji": "shoku / taberu"
+            },
+            {
+              "type": "vocab",
+              "front": "飲",
+              "back": "いん / のむ (to drink)",
+              "romaji": "in / nomu"
+            },
+            {
+              "type": "vocab",
+              "front": "事",
+              "back": "じ / こと (thing; matter)",
+              "romaji": "ji / koto"
+            },
+            {
+              "type": "vocab",
+              "front": "会",
+              "back": "かい / あう (to meet; meeting)",
+              "romaji": "kai / au"
+            },
+            {
+              "type": "vocab",
+              "front": "字",
+              "back": "じ (character; letter)",
+              "romaji": "ji"
+            },
+            {
+              "type": "vocab",
+              "front": "形",
+              "back": "けい / かたち (shape; form)",
+              "romaji": "kei / katachi"
+            },
+            {
+              "type": "vocab",
+              "front": "意",
+              "back": "い (meaning; intention)",
+              "romaji": "i"
+            },
+            {
+              "type": "vocab",
+              "front": "指",
+              "back": "し / ゆび (finger; to point)",
+              "romaji": "shi / yubi"
+            },
+            {
+              "type": "vocab",
+              "front": "文",
+              "back": "ぶん / もん (sentence; writing)",
+              "romaji": "bun / mon"
+            },
+            {
+              "type": "vocab",
+              "front": "象",
+              "back": "しょう / ぞう (elephant; image)",
+              "romaji": "shou / zou"
+            },
+            {
+              "type": "vocab",
+              "front": "拗",
+              "back": "よう (twisted; contracted sound)",
+              "romaji": "you"
+            },
+            {
+              "type": "vocab",
+              "front": "音",
+              "back": "おん / おと (sound; noise)",
+              "romaji": "on / oto"
             }
           ]
         }
