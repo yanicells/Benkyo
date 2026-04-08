@@ -4,16 +4,22 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { getKanaRows } from "@/lib/kana";
+import { KanjiStudyTab } from "@/components/kana/kanji-study-tab";
 import type {
   KanaBatchSize,
   KanaEntry,
   KanaGroup,
   KanaRowKey,
   KanaScript,
+  Lesson,
 } from "@/lib/types";
+
+type TabValue = KanaScript | "kanji";
 
 type KanaConfigFormProps = {
   initialScript?: KanaScript;
+  initialTab?: TabValue;
+  lessons?: Lesson[];
 };
 
 const groupOrder: KanaGroup[] = ["basic", "dakuten", "combo"];
@@ -313,8 +319,11 @@ function SessionOptionsModal({
 
 export function KanaConfigForm({
   initialScript = "hiragana",
+  initialTab = "hiragana",
+  lessons = [],
 }: KanaConfigFormProps) {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState<TabValue>(initialTab);
   const [script, setScript] = useState<KanaScript>(initialScript);
   const [selectedRows, setSelectedRows] = useState<KanaRowKey[]>(() =>
     getKanaRows(initialScript)
@@ -405,35 +414,51 @@ export function KanaConfigForm({
 
   return (
     <>
-      <div className="space-y-6 pb-32">
-        {/* Script toggle */}
-        <div className="flex rounded-xl border border-outline-variant/20 bg-surface-lowest p-1 shadow-sm">
-          {(["hiragana", "katakana"] as const).map((s) => (
-            <button
-              key={s}
-              type="button"
-              aria-pressed={script === s}
-              onClick={() => {
-                setScript(s);
+      {/* Tab toggle */}
+      <div className="flex rounded-xl border border-outline-variant/20 bg-surface-lowest p-1 shadow-sm">
+        {(
+          [
+            { value: "hiragana" as TabValue, label: "Hiragana", icon: "あ" },
+            { value: "katakana" as TabValue, label: "Katakana", icon: "ア" },
+            { value: "kanji" as TabValue, label: "Kanji", icon: "漢" },
+          ] as const
+        ).map((tab) => (
+          <button
+            key={tab.value}
+            type="button"
+            aria-pressed={activeTab === tab.value}
+            onClick={() => {
+              setActiveTab(tab.value);
+              if (tab.value !== "kanji") {
+                setScript(tab.value);
                 setSelectedRows(
-                  getKanaRows(s)
+                  getKanaRows(tab.value)
                     .filter((row) => row.group === "basic")
                     .map((row) => row.key),
                 );
-              }}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-lg border py-3 text-sm font-bold transition-all ${
-                script === s
-                  ? "border-primary/35 bg-primary/[0.07] text-primary shadow-[0_6px_16px_rgba(0,36,70,0.08)]"
-                  : "border-transparent text-on-surface-variant hover:border-primary/20 hover:bg-primary/[0.02]"
-              }`}
-            >
-              <span className="font-japanese-display text-lg">
-                {s === "hiragana" ? "あ" : "ア"}
-              </span>
-              {s.charAt(0).toUpperCase() + s.slice(1)}
-            </button>
-          ))}
-        </div>
+              }
+            }}
+            className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg border py-3 text-sm font-bold transition-all ${
+              activeTab === tab.value
+                ? "border-primary/35 bg-primary/[0.07] text-primary shadow-[0_6px_16px_rgba(0,36,70,0.08)]"
+                : "border-transparent text-on-surface-variant hover:border-primary/20 hover:bg-primary/[0.02]"
+            }`}
+          >
+            <span className="font-japanese-display text-lg">{tab.icon}</span>
+            <span className="hidden [@media(min-width:400px)]:inline">
+              {tab.label}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Kanji tab content */}
+      {activeTab === "kanji" && <KanjiStudyTab lessons={lessons} />}
+
+      {/* Kana tab content */}
+      {activeTab !== "kanji" && (
+      <>
+      <div className="space-y-6 pb-32">
 
         {/* Group quick-select */}
         <div className="grid gap-2 [@media(min-width:560px)]:grid-cols-2 [@media(min-width:900px)]:grid-cols-3">
@@ -610,6 +635,8 @@ export function KanaConfigForm({
           onStart={startSession}
           onClose={() => setOptionsOpen(false)}
         />
+      )}
+      </>
       )}
     </>
   );

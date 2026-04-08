@@ -430,17 +430,15 @@ export function DeckSessionClient({
   }
 
   const prompt = current.card[promptSide];
-  const promptHasLatin = /[A-Za-z]/.test(prompt);
   const promptLength = prompt.trim().length;
-  const promptTypographyClass = promptHasLatin
-    ? promptLength > 22
+  const promptTypographyClass =
+    promptLength > 22
       ? "text-[1.25rem] md:text-[1.8rem] lg:text-[2.2rem]"
       : promptLength > 12
         ? "text-[1.45rem] md:text-[2.1rem] lg:text-[2.6rem]"
-        : "text-[1.7rem] md:text-[2.4rem] lg:text-[3rem]"
-    : promptLength > 6
-      ? "text-[1.6rem] md:text-[2.4rem] lg:text-[3rem]"
-      : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]";
+        : promptLength > 6
+          ? "text-[1.7rem] md:text-[2.4rem] lg:text-[3rem]"
+          : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]";
   const unrevealedCardSizeClass =
     promptLength > 16
       ? "min-h-[180px] md:min-h-[220px]"
@@ -545,7 +543,7 @@ export function DeckSessionClient({
         }}
       >
         <div
-          className={`${promptHasLatin ? "font-display" : "font-japanese"} text-center leading-tight text-foreground transition-all`}
+          className="font-sans text-center leading-tight text-foreground transition-all"
         >
           <span className={promptTypographyClass}>{prompt}</span>
         </div>
@@ -605,9 +603,7 @@ export function DeckSessionClient({
                 {multipleChoice.options.map((option) => {
                   const isSelected = selectedOption === option;
                   const isCorrect = multipleChoice.correct === option;
-                  const optionFontClass = /[A-Za-z]/.test(option)
-                    ? "font-display"
-                    : "font-japanese";
+                  const optionFontClass = "font-sans";
 
                   let stateClass =
                     "bg-surface-lowest text-foreground border-2 border-outline-variant/25 hover:border-primary/55";

@@ -1,5 +1,6 @@
 import lessonsData from "@/data/lessons.json";
 import { LessonDeckGrid } from "@/components/decks/lesson-deck-grid";
+import { DeckSearchFilter } from "@/components/decks/deck-search-filter";
 import { PageShell } from "@/components/shared/page-shell";
 import type { LessonsData } from "@/lib/types";
 
@@ -12,7 +13,9 @@ export default function DecksPage() {
       title="Lesson Decks"
       subtitle="Study vocabulary and grammar across all Genki lessons with spaced repetition."
     >
-      <LessonDeckGrid lessons={lessons} />
+      <DeckSearchFilter lessons={lessons}>
+        <LessonDeckGrid lessons={lessons} />
+      </DeckSearchFilter>
     </PageShell>
   );
 }
