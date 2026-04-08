@@ -126,16 +126,21 @@ export function DeckSearchFilter({
 
   const isSearching = searchQuery.trim().length > 0;
   const stickySearchTopClass =
+    scope === "lesson" ? "top-26 lg:top-27.5" : "top-14 lg:top-16";
+  const layoutGapClass = scope === "lesson" ? "gap-3 sm:gap-4" : "gap-4";
+  const stickySearchWrapperClass =
     scope === "lesson"
-      ? "top-[6.625rem] lg:top-[6.875rem]"
-      : "top-14 lg:top-16";
+      ? `sticky ${stickySearchTopClass} z-20 -mx-4 bg-surface/95 px-4 py-1.5 backdrop-blur-md sm:-mx-8 sm:px-8 sm:py-2`
+      : `sticky ${stickySearchTopClass} z-10 -mx-1 rounded-xl bg-surface/95 px-1 py-1.5 backdrop-blur-md`;
+  const filterTabsClass =
+    scope === "lesson"
+      ? "overflow-x-auto pb-0 hide-scrollbar"
+      : "overflow-x-auto pb-0.5 hide-scrollbar";
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col ${layoutGapClass}`}>
       {/* Search bar */}
-      <div
-        className={`sticky ${stickySearchTopClass} z-10 -mx-1 rounded-xl bg-surface/95 px-1 py-1.5 backdrop-blur-md`}
-      >
+      <div className={stickySearchWrapperClass}>
         <div className="relative">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"
@@ -182,7 +187,7 @@ export function DeckSearchFilter({
       </div>
 
       {/* Filter tabs */}
-      <div className="overflow-x-auto pb-0.5 scrollbar-none">
+      <div className={filterTabsClass}>
         <div className="mx-auto flex w-max gap-2">
           {FILTER_TABS.map((tab) => (
             <button

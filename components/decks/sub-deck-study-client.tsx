@@ -23,6 +23,8 @@ type SubDeckStudyClientProps = {
   subDeckId: string;
   title: string;
   lessonTitle: string;
+  backHref?: string;
+  backLabel?: string;
   cardCount: number;
   cardTypes: CardType[];
   meta: LessonMeta | null;
@@ -274,6 +276,8 @@ export function SubDeckStudyClient({
   subDeckId,
   title,
   lessonTitle,
+  backHref,
+  backLabel,
   cardCount,
   cardTypes,
   meta,
@@ -289,6 +293,7 @@ export function SubDeckStudyClient({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [mode, setMode] = useState<StudyMode>("flashcard");
   const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<Set<CardType>>(
     () => new Set(cardTypes),
   );
@@ -354,12 +359,23 @@ export function SubDeckStudyClient({
     return { total, reviewed, mastered, reviewedPct, masteryPct };
   }, [dataRevision, progressCardRefs]);
 
+  const filteredPreviewCards = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return cards;
+    return cards.filter(
+      (card) =>
+        card.front.toLowerCase().includes(q) ||
+        card.back.toLowerCase().includes(q) ||
+        (card.romaji && card.romaji.toLowerCase().includes(q)),
+    );
+  }, [cards, searchQuery]);
+
   return (
-    <section className="relative mx-auto w-full max-w-4xl px-4 pt-0 pb-32 sm:px-8 sm:pt-10 sm:pb-36">
+    <section className="relative mx-auto w-full max-w-4xl px-4 pt-0 pb-32 sm:px-8 sm:pt-0 sm:pb-36">
       {/* Back button */}
       <div className="sticky top-14 lg:top-16 z-20 -mx-4 sm:-mx-8 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md sm:px-8">
         <Link
-          href={`/decks/${lessonId}`}
+          href={backHref ?? `/decks/${lessonId}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
         >
           <svg
@@ -375,7 +391,7 @@ export function SubDeckStudyClient({
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          {lessonTitle}
+          {backLabel ?? lessonTitle}
         </Link>
       </div>
 
@@ -392,7 +408,56 @@ export function SubDeckStudyClient({
         </p>
       </header>
 
-      <div className="mb-8 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)]">
+      {/* Read this block */}
+      {(quickNote || keyPoints.length > 0) && (
+        <div className="mb-6 rounded-2xl border border-primary/10 bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden sm:mb-8">
+          <div className="flex items-center gap-3 px-6 py-4 border-b border-outline-variant/10 bg-primary/3">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+              <svg
+                className="w-4 h-4 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
+            </div>
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary">
+              Read this first
+            </p>
+          </div>
+          <div className="px-6 py-5 space-y-4">
+            {quickNote && (
+              <p className="text-sm leading-relaxed text-on-surface-variant">
+                {quickNote}
+              </p>
+            )}
+            {keyPoints.length > 0 && (
+              <ul className="space-y-2">
+                {keyPoints.map((point, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-2.5 text-sm text-foreground leading-relaxed"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-[10px] font-bold text-primary">
+                      {i + 1}
+                    </span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Lesson/deck progress */}
+      <div className="mb-4 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)] sm:mb-8">
         <div className="mb-3 flex items-center justify-between">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
             {subDeckId === "all" ? "Lesson Progress" : "Deck Progress"}
@@ -435,13 +500,37 @@ export function SubDeckStudyClient({
         </div>
       </div>
 
-      {/* Quick Study Notes */}
-      {(quickNote || keyPoints.length > 0) && (
-        <div className="mb-8 rounded-2xl border border-primary/10 bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden">
-          <div className="flex items-center gap-3 px-6 py-4 border-b border-outline-variant/10 bg-primary/[0.03]">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+      {/* Search */}
+      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 mb-3 bg-surface/95 px-4 py-1.5 backdrop-blur-md sm:-mx-8 sm:mb-6 sm:px-8 sm:py-2">
+        <div className="relative">
+          <svg
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search cards..."
+            className="w-full rounded-xl border border-outline-variant/20 bg-surface-lowest py-3 pl-11 pr-4 text-sm text-foreground placeholder:text-on-surface-variant/50 shadow-sm transition-colors focus:border-primary/40 focus:outline-none focus:ring-0"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-low transition-colors"
+            >
               <svg
-                className="w-4 h-4 text-primary"
+                className="w-3.5 h-3.5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -450,38 +539,13 @@ export function SubDeckStudyClient({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-            </div>
-            <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary">
-              Quick Review
-            </p>
-          </div>
-          <div className="px-6 py-5 space-y-4">
-            {quickNote && (
-              <p className="text-sm leading-relaxed text-on-surface-variant">
-                {quickNote}
-              </p>
-            )}
-            {keyPoints.length > 0 && (
-              <ul className="space-y-2">
-                {keyPoints.map((point, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2.5 text-sm text-foreground leading-relaxed"
-                  >
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-[10px] font-bold text-primary">
-                      {i + 1}
-                    </span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+            </button>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Card preview */}
       <div className="rounded-2xl bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
@@ -489,28 +553,36 @@ export function SubDeckStudyClient({
           <p className="text-xs uppercase tracking-[0.22em] text-primary font-bold">
             Card preview
           </p>
-          <p className="text-xs text-on-surface-variant">{cardCount} entries</p>
+          <p className="text-xs text-on-surface-variant">
+            {filteredPreviewCards.length} entries
+          </p>
         </div>
-        <div className="space-y-2">
-          {cards.map((card, i) => (
-            <div
-              key={`${card.front}-${card.back}-${i}`}
-              className="flex items-center gap-2 rounded-lg bg-surface-low px-3 py-2"
-            >
-              <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
-                {previewTypeLabels[card.type]}
-              </span>
-              <div className="min-w-0">
-                <p className="font-japanese text-xl font-medium text-foreground">
-                  {card.front}
-                </p>
-                <p className="mt-1 text-sm text-on-surface-variant">
-                  {card.back}
-                </p>
+        {filteredPreviewCards.length === 0 ? (
+          <p className="text-sm text-on-surface-variant py-4 text-center">
+            No cards match your search.
+          </p>
+        ) : (
+          <div className="space-y-2">
+            {filteredPreviewCards.map((card, i) => (
+              <div
+                key={`${card.front}-${card.back}-${i}`}
+                className="flex items-center gap-2 rounded-lg bg-surface-low px-3 py-2"
+              >
+                <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+                  {previewTypeLabels[card.type]}
+                </span>
+                <div className="min-w-0">
+                  <p className="font-japanese text-xl font-medium text-foreground">
+                    {card.front}
+                  </p>
+                  <p className="mt-1 text-sm text-on-surface-variant">
+                    {card.back}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Sticky bottom bar — Start Session CTA */}

@@ -6,6 +6,7 @@ type PageShellProps = {
   title?: string;
   subtitle?: string;
   stickyHeader?: boolean;
+  tightTop?: boolean;
   tightTopOnMobile?: boolean;
   backHref?: string;
   backLabel?: string;
@@ -17,6 +18,7 @@ export function PageShell({
   title,
   subtitle,
   stickyHeader,
+  tightTop,
   tightTopOnMobile,
   backHref,
   backLabel,
@@ -24,7 +26,7 @@ export function PageShell({
 }: PageShellProps) {
   return (
     <section
-      className={`relative mx-auto w-full max-w-4xl px-4 pb-6 sm:px-8 sm:pb-10 ${tightTopOnMobile ? "pt-0 sm:pt-10" : "pt-6 sm:pt-10"}`}
+      className={`relative mx-auto w-full max-w-4xl px-4 pb-6 sm:px-8 sm:pb-10 ${tightTop ? "pt-0 sm:pt-0" : tightTopOnMobile ? "pt-0 sm:pt-10" : "pt-6 sm:pt-10"}`}
     >
       {backHref && (
         <div className="sticky top-14 lg:top-16 z-20 -mx-4 mb-4 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md sm:-mx-8 sm:px-8">

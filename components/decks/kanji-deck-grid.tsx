@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useSyncExternalStore } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 
 import type { KanjiSubDeckEntry } from "@/lib/kanji";
+import { CardPreviewList } from "@/components/decks/card-preview-list";
 import {
   getMasteryPercent,
   getSubDeckReviewedPercent,
@@ -21,6 +22,7 @@ type KanjiDeckGridProps = {
 const subscribeNoop = () => () => {};
 
 export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
+  const [searchQuery, setSearchQuery] = useState("");
   const isHydrated = useSyncExternalStore(
     subscribeNoop,
     () => true,
@@ -34,7 +36,13 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
 
   const globalStats = useMemo(() => {
     if (!isHydrated || dataRevision < 0)
-      return { masteryPercent: 0, reviewedPercent: 0, mastered: 0, reviewed: 0, total: 0 };
+      return {
+        masteryPercent: 0,
+        reviewedPercent: 0,
+        mastered: 0,
+        reviewed: 0,
+        total: 0,
+      };
 
     const all = getAllSRS();
     let total = 0;
@@ -60,22 +68,54 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
   }, [isHydrated, dataRevision, entries]);
 
   const subDeckStats = useMemo(() => {
-    if (dataRevision < 0) return {} as Record<string, { mastery: number; reviewed: number; accuracy: number }>;
-    const result: Record<string, { mastery: number; reviewed: number; accuracy: number }> = {};
+    if (dataRevision < 0)
+      return {} as Record<
+        string,
+        { mastery: number; reviewed: number; accuracy: number }
+      >;
+    const result: Record<
+      string,
+      { mastery: number; reviewed: number; accuracy: number }
+    > = {};
     for (const entry of entries) {
       result[entry.subDeck.id] = {
-        mastery: getMasteryPercent(entry.subDeck.id, entry.subDeck.cards.length),
-        reviewed: getSubDeckReviewedPercent(entry.subDeck.id, entry.subDeck.cards.length),
-        accuracy: getSubDeckAccuracy(entry.subDeck.id, entry.subDeck.cards.length),
+        mastery: getMasteryPercent(
+          entry.subDeck.id,
+          entry.subDeck.cards.length,
+        ),
+        reviewed: getSubDeckReviewedPercent(
+          entry.subDeck.id,
+          entry.subDeck.cards.length,
+        ),
+        accuracy: getSubDeckAccuracy(
+          entry.subDeck.id,
+          entry.subDeck.cards.length,
+        ),
       };
     }
     return result;
   }, [entries, dataRevision]);
 
-  const totalCards = entries.reduce((sum, e) => sum + e.subDeck.cards.length, 0);
+  const totalCards = entries.reduce(
+    (sum, e) => sum + e.subDeck.cards.length,
+    0,
+  );
+  const searchResults = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return null;
+
+    return entries.flatMap((entry) =>
+      entry.subDeck.cards.filter(
+        (card) =>
+          card.front.toLowerCase().includes(q) ||
+          card.back.toLowerCase().includes(q) ||
+          (card.romaji && card.romaji.toLowerCase().includes(q)),
+      ),
+    );
+  }, [entries, searchQuery]);
 
   return (
-    <div className="flex flex-col gap-8 pb-32 sm:pb-36">
+    <div className="flex flex-col gap-3 pb-32 sm:gap-8 sm:pb-36">
       {/* Overall kanji progress */}
       <div className="rounded-2xl bg-surface-lowest shadow-[0_4px_20px_rgba(0,14,33,0.04)] p-6">
         <div className="flex items-center justify-between mb-2">
@@ -113,59 +153,124 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
         </p>
       </div>
 
-      {/* Sub-deck grid */}
-      <div className="grid gap-3 [@media(min-width:520px)]:grid-cols-2 lg:grid-cols-3">
-        {entries.map((entry) => {
-          const mastery = subDeckStats[entry.subDeck.id]?.mastery ?? 0;
-          const reviewed = subDeckStats[entry.subDeck.id]?.reviewed ?? 0;
-          const accuracy = subDeckStats[entry.subDeck.id]?.accuracy ?? 0;
-
-          return (
-            <Link
-              key={entry.subDeck.id}
-              href={`/decks/${entry.lessonId}/${entry.subDeck.id}`}
-              className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
+      {/* Search bar */}
+      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 bg-surface/95 px-4 py-1.5 backdrop-blur-md sm:-mx-8 sm:px-8 sm:py-2">
+        <div className="relative">
+          <svg
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search kanji cards..."
+            className="w-full rounded-xl border border-outline-variant/20 bg-surface-lowest py-3 pl-11 pr-4 text-sm text-foreground placeholder:text-on-surface-variant/50 shadow-sm transition-colors focus:border-primary/40 focus:outline-none focus:ring-0"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-low transition-colors"
             >
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
-                    {entry.subDeck.cards.length} cards
-                  </p>
-                  <h3 className="mt-1 truncate font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                    {entry.subDeck.title}
-                  </h3>
-                  <p className="mt-0.5 text-[10px] text-on-surface-variant truncate">
-                    {entry.lessonTitle}
-                  </p>
-                </div>
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-low text-sm text-primary font-japanese-display">
-                  漢
-                </span>
-              </div>
-
-              <div className="mt-3 flex items-center gap-3 text-xs text-secondary">
-                <span className="text-primary">{mastery}% mastery</span>
-                <span>&middot;</span>
-                <span className="text-amber-700">{reviewed}% reviewed</span>
-                {accuracy > 0 && <span>&middot; {accuracy}% accuracy</span>}
-              </div>
-
-              <div className="mt-2 h-1 overflow-hidden rounded-sm bg-secondary-container">
-                <div
-                  className="h-full rounded-sm bg-primary transition-all duration-500"
-                  style={{ width: `${mastery}%` }}
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
                 />
-              </div>
-              <div className="mt-1.5 h-1 overflow-hidden rounded-sm bg-secondary-container">
-                <div
-                  className="h-full rounded-sm bg-amber-400 transition-all duration-500"
-                  style={{ width: `${reviewed}%` }}
-                />
-              </div>
-            </Link>
-          );
-        })}
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* Search results */}
+      {searchResults &&
+        (searchResults.length === 0 ? (
+          <div className="rounded-2xl bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+            <p className="text-sm text-on-surface-variant py-4 text-center">
+              No kanji cards match your search.
+            </p>
+          </div>
+        ) : (
+          <CardPreviewList
+            cards={searchResults}
+            title={`${searchResults.length} result${searchResults.length !== 1 ? "s" : ""}`}
+            maxVisible={30}
+          />
+        ))}
+
+      {/* Sub-deck grid */}
+      {!searchResults && (
+        <div className="grid gap-3 [@media(min-width:520px)]:grid-cols-2 lg:grid-cols-3">
+          {entries.map((entry) => {
+            const mastery = subDeckStats[entry.subDeck.id]?.mastery ?? 0;
+            const reviewed = subDeckStats[entry.subDeck.id]?.reviewed ?? 0;
+            const accuracy = subDeckStats[entry.subDeck.id]?.accuracy ?? 0;
+
+            return (
+              <Link
+                key={entry.subDeck.id}
+                href={`/decks/${entry.lessonId}/${entry.subDeck.id}?from=kanji`}
+                className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+                      {entry.subDeck.cards.length} cards
+                    </p>
+                    <h3 className="mt-1 truncate font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
+                      {entry.subDeck.title}
+                    </h3>
+                    <p className="mt-0.5 text-[10px] text-on-surface-variant truncate">
+                      {entry.lessonTitle}
+                    </p>
+                  </div>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-low text-sm text-primary font-japanese-display">
+                    漢
+                  </span>
+                </div>
+
+                <div className="mt-3 flex items-center gap-3 text-xs text-secondary">
+                  <span className="text-primary">{mastery}% mastery</span>
+                  <span>&middot;</span>
+                  <span className="text-amber-700">{reviewed}% reviewed</span>
+                  {accuracy > 0 && <span>&middot; {accuracy}% accuracy</span>}
+                </div>
+
+                <div className="mt-2 h-1 overflow-hidden rounded-sm bg-secondary-container">
+                  <div
+                    className="h-full rounded-sm bg-primary transition-all duration-500"
+                    style={{ width: `${mastery}%` }}
+                  />
+                </div>
+                <div className="mt-1.5 h-1 overflow-hidden rounded-sm bg-secondary-container">
+                  <div
+                    className="h-full rounded-sm bg-amber-400 transition-all duration-500"
+                    style={{ width: `${reviewed}%` }}
+                  />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
 
       {/* Sticky bottom bar — Study all kanji CTA */}
       <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
@@ -187,9 +292,7 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
                 d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
               />
             </svg>
-            <span className="uppercase tracking-[0.15em]">
-              Study all kanji
-            </span>
+            <span className="uppercase tracking-[0.15em]">Study all kanji</span>
           </Link>
         </div>
       </div>

@@ -6,12 +6,17 @@ import type { LessonsData } from "@/lib/types";
 
 type SubDeckConfigPageProps = {
   params: Promise<{ lessonId: string; subDeckId: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export default async function SubDeckConfigPage({
   params,
+  searchParams,
 }: SubDeckConfigPageProps) {
   const { lessonId, subDeckId } = await params;
+  const query = await searchParams;
+  const fromParam = Array.isArray(query.from) ? query.from[0] : query.from;
+  const fromKanjiDeck = fromParam === "kanji";
   const lessons = (lessonsData as unknown as LessonsData).lessons;
   const lesson = lessons.find((item) => item.id === lessonId);
 
@@ -46,6 +51,8 @@ export default async function SubDeckConfigPage({
 
   const title = isStudyAll ? `${lesson.title} — All Cards` : subDeck!.title;
   const cardTypes = [...new Set(cards.map((c) => c.type))];
+  const backHref = fromKanjiDeck ? "/decks/kanji" : `/decks/${lessonId}`;
+  const backLabel = fromKanjiDeck ? "Kanji Decks" : lesson.title;
 
   return (
     <SubDeckStudyClient
@@ -53,6 +60,8 @@ export default async function SubDeckConfigPage({
       subDeckId={subDeckId}
       title={title}
       lessonTitle={lesson.title}
+      backHref={backHref}
+      backLabel={backLabel}
       cardCount={cards.length}
       cardTypes={cardTypes}
       meta={lesson.meta ?? null}
