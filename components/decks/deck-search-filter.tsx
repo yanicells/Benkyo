@@ -182,7 +182,7 @@ export function DeckSearchFilter({
       </div>
 
       {/* Filter tabs */}
-      <div className="overflow-x-auto pb-0.5 scrollbar-none">
+      <div className="overflow-x-auto pb-0.5 hide-scrollbar">
         <div className="mx-auto flex w-max gap-2">
           {FILTER_TABS.map((tab) => (
             <button
