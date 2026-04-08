@@ -1,11 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ReadingPassage, ReadingDifficulty } from "@/lib/types";
+import type { ReadingStory } from "@/lib/types";
 
 type ReadingSessionRendererProps = {
-  passages: ReadingPassage[];
-  difficulty: ReadingDifficulty;
+  story: ReadingStory;
 };
 
 const ReadingSessionClient = dynamic(

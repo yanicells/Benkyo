@@ -149,3 +149,58 @@ export type ReadingsData = {
   version: string;
   passages: ReadingPassage[];
 };
+
+// Reading v2 — story-based structure
+
+export type ReadingStoryMeta = {
+  notes: string;
+  difficulty: "beginner" | "intermediate" | "advanced";
+  estimatedMinutes: number;
+  cheatSheet: string[];
+  tags?: string[];
+  tips?: string[];
+  sourceLessons: string[];
+};
+
+export type ReadingStory = {
+  id: string;
+  title: string;
+  difficulty: ReadingDifficulty;
+  meta: ReadingStoryMeta;
+  passages: {
+    passage: string;
+    translation: string;
+    vocabularyHighlights: {
+      word: string;
+      reading?: string;
+      meaning: string;
+    }[];
+  }[];
+  questions: {
+    question: string;
+    options: string[];
+    correctIndex: number;
+  }[];
+};
+
+export type ReadingDifficultyGroup = {
+  key: ReadingDifficulty;
+  label: string;
+  description: string;
+  icon: string;
+  stories: ReadingStory[];
+};
+
+export type ReadingsDataV2 = {
+  version: string;
+  difficulties: ReadingDifficultyGroup[];
+};
+
+export type ReadingStoryProgress = {
+  completed: boolean;
+  bestScore: number;
+  totalQuestions: number;
+  lastAttempted: string;
+};
+
+export type ReadingProgressData = Record<string, ReadingStoryProgress>;
