@@ -23,7 +23,9 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
   return (
     <div className="space-y-6">
       <div className="rounded-lg bg-surface-lowest p-5 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-        <p className="text-3xl font-bold text-primary sm:text-4xl">{dueCount}</p>
+        <p className="text-3xl font-bold text-primary sm:text-4xl">
+          {dueCount}
+        </p>
         <p className="mt-1 text-sm text-on-surface-variant">
           {dueCount === 1 ? "card" : "cards"} due for review
         </p>
@@ -83,7 +85,9 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
                       {opt.label}
                     </span>
                   </span>
-                  <span className="text-sm text-on-surface-variant">{opt.desc}</span>
+                  <span className="text-sm text-on-surface-variant">
+                    {opt.desc}
+                  </span>
                 </label>
               ))}
             </div>
@@ -129,10 +133,10 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
             </div>
           </section>
 
-          <div className="flex justify-end">
+          <div>
             <Link
               href={`/review/session?${searchParams.toString()}`}
-              className="btn-primary-gradient rounded-lg px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90"
+              className="btn-primary-gradient flex w-full items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90"
             >
               Start review
             </Link>

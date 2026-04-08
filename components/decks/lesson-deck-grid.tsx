@@ -16,6 +16,8 @@ import { getKanjiSubDecks } from "@/lib/kanji";
 
 type LessonDeckGridProps = {
   lessons: Lesson[];
+  showOverview?: boolean;
+  showGrid?: boolean;
 };
 
 const subscribeNoop = () => () => {};
@@ -222,7 +224,9 @@ function KanjiVirtualCard({
           <span className="text-on-surface-variant">
             <span className="text-primary">{kanjiStats.mastery}% mastery</span>
             <span className="px-1 text-on-surface-variant/40">/</span>
-            <span className="text-amber-700">{kanjiStats.reviewed}% reviewed</span>
+            <span className="text-amber-700">
+              {kanjiStats.reviewed}% reviewed
+            </span>
           </span>
         </div>
 
@@ -243,7 +247,11 @@ function KanjiVirtualCard({
   );
 }
 
-export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
+export function LessonDeckGrid({
+  lessons,
+  showOverview = true,
+  showGrid = true,
+}: LessonDeckGridProps) {
   const isHydrated = useSyncExternalStore(
     subscribeNoop,
     () => true,
@@ -257,61 +265,67 @@ export function LessonDeckGrid({ lessons }: LessonDeckGridProps) {
   const global = useGlobalMastery(lessons, isHydrated, dataRevision);
 
   return (
-    <div className="flex flex-col gap-8 pb-16">
+    <div
+      className={`flex flex-col ${showOverview && showGrid ? "gap-8" : "gap-0"} ${showGrid ? "pb-16" : "pb-0"}`}
+    >
       {/* Overall progress overview */}
-      <div className="rounded-2xl bg-surface-lowest shadow-[0_4px_20px_rgba(0,14,33,0.04)] p-6">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant">
-            Overall Progress
-          </p>
-          <p className="text-[11px] text-on-surface-variant">
-            <span className="font-semibold text-primary">
-              {global.masteryPercent}% mastery
-            </span>
-            <span className="px-1 text-on-surface-variant/40">/</span>
-            <span className="font-semibold text-amber-700">
-              {global.reviewedPercent}% reviewed
-            </span>
-          </p>
-        </div>
+      {showOverview && (
+        <div className="rounded-2xl bg-surface-lowest shadow-[0_4px_20px_rgba(0,14,33,0.04)] p-6">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant">
+              Overall Progress
+            </p>
+            <p className="text-[11px] text-on-surface-variant">
+              <span className="font-semibold text-primary">
+                {global.masteryPercent}% mastery
+              </span>
+              <span className="px-1 text-on-surface-variant/40">/</span>
+              <span className="font-semibold text-amber-700">
+                {global.reviewedPercent}% reviewed
+              </span>
+            </p>
+          </div>
 
-        <div className="h-2 rounded-full bg-secondary-container overflow-hidden mb-2">
-          <div
-            className="h-full rounded-full bg-primary transition-all duration-700"
-            style={{ width: `${global.masteryPercent}%` }}
-          />
-        </div>
-        <div className="h-2 rounded-full bg-secondary-container overflow-hidden mb-3">
-          <div
-            className="h-full rounded-full bg-amber-400 transition-all duration-700"
-            style={{ width: `${global.reviewedPercent}%` }}
-          />
-        </div>
+          <div className="h-2 rounded-full bg-secondary-container overflow-hidden mb-2">
+            <div
+              className="h-full rounded-full bg-primary transition-all duration-700"
+              style={{ width: `${global.masteryPercent}%` }}
+            />
+          </div>
+          <div className="h-2 rounded-full bg-secondary-container overflow-hidden mb-3">
+            <div
+              className="h-full rounded-full bg-amber-400 transition-all duration-700"
+              style={{ width: `${global.reviewedPercent}%` }}
+            />
+          </div>
 
-        <p className="text-xs text-on-surface-variant">
-          {global.reviewed === 0
-            ? "Start any lesson to begin tracking your progress."
-            : `${global.mastered} of ${global.total} cards mastered · ${global.reviewed} studied`}
-        </p>
-      </div>
+          <p className="text-xs text-on-surface-variant">
+            {global.reviewed === 0
+              ? "Start any lesson to begin tracking your progress."
+              : `${global.mastered} of ${global.total} cards mastered · ${global.reviewed} studied`}
+          </p>
+        </div>
+      )}
 
       {/* Lesson grid */}
-      <div className="grid grid-cols-1 gap-3 [@media(min-width:520px)]:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-        {lessons.map((lesson, index) => (
-          <LessonCard
-            key={lesson.id}
-            lesson={lesson}
-            index={index}
+      {showGrid && (
+        <div className="grid grid-cols-1 gap-3 [@media(min-width:520px)]:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+          {lessons.map((lesson, index) => (
+            <LessonCard
+              key={lesson.id}
+              lesson={lesson}
+              index={index}
+              isHydrated={isHydrated}
+              dataRevision={dataRevision}
+            />
+          ))}
+          <KanjiVirtualCard
+            lessons={lessons}
             isHydrated={isHydrated}
             dataRevision={dataRevision}
           />
-        ))}
-        <KanjiVirtualCard
-          lessons={lessons}
-          isHydrated={isHydrated}
-          dataRevision={dataRevision}
-        />
-      </div>
+        </div>
+      )}
     </div>
   );
 }

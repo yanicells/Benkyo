@@ -13,9 +13,12 @@ export default function DecksPage() {
       title="Lesson Decks"
       subtitle="Study vocabulary and grammar across all Genki lessons with spaced repetition."
     >
-      <DeckSearchFilter lessons={lessons}>
-        <LessonDeckGrid lessons={lessons} />
-      </DeckSearchFilter>
+      <LessonDeckGrid lessons={lessons} showGrid={false} />
+      <div className="mt-2 sm:mt-4">
+        <DeckSearchFilter lessons={lessons}>
+          <LessonDeckGrid lessons={lessons} showOverview={false} />
+        </DeckSearchFilter>
+      </div>
     </PageShell>
   );
 }

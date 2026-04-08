@@ -453,190 +453,199 @@ export function KanaConfigForm({
       </div>
 
       {/* Kanji tab content */}
-      {activeTab === "kanji" && <KanjiStudyTab lessons={lessons} />}
+      {activeTab === "kanji" && (
+        <div className="mt-6">
+          <KanjiStudyTab lessons={lessons} />
+        </div>
+      )}
 
       {/* Kana tab content */}
       {activeTab !== "kanji" && (
-      <>
-      <div className="space-y-6 pb-32">
-
-        {/* Group quick-select */}
-        <div className="grid gap-2 [@media(min-width:560px)]:grid-cols-2 [@media(min-width:900px)]:grid-cols-3">
-          {groupOrder.map((group) => {
-            const rows = groupedRows.find((g) => g.group === group)?.rows ?? [];
-            const allSelected = rows.every((r) => selectedRows.includes(r.key));
-            const someSelected = rows.some((r) => selectedRows.includes(r.key));
-            const isActive = allSelected || someSelected;
-            const statusLabel = allSelected
-              ? "Selected"
-              : someSelected
-                ? "Partial"
-                : "Tap to select";
-
-            return (
-              <button
-                key={group}
-                type="button"
-                onClick={() => toggleGroup(group)}
-                aria-pressed={isActive}
-                className={`relative w-full rounded-xl border-2 p-4 text-left transition-all ${
-                  isActive
-                    ? "border-primary/35 bg-primary/[0.04] shadow-[0_6px_18px_rgba(0,36,70,0.08)]"
-                    : "border-outline-variant/20 bg-surface-lowest/70 hover:border-primary/25 hover:bg-primary/[0.02]"
-                }`}
-              >
-                <div
-                  className={`absolute right-3 top-3 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] ${
-                    allSelected
-                      ? "bg-primary/15 text-primary"
-                      : someSelected
-                        ? "bg-secondary-container text-on-surface-variant"
-                        : "bg-surface-low text-on-surface-variant/80"
-                  }`}
-                >
-                  {statusLabel}
-                </div>
-                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant mb-0.5">
-                  {groupInfo[group].eyebrow}
-                </p>
-                <p className="font-display text-base font-bold text-foreground">
-                  {groupInfo[group].title}
-                </p>
-                <p className="text-xs text-on-surface-variant mt-0.5 leading-relaxed">
-                  {groupInfo[group].desc}
-                </p>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Row selection */}
-        <div>
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="text-xs uppercase tracking-[0.15em] font-bold text-foreground">
-              Select Rows
-            </h3>
-            <button
-              type="button"
-              onClick={() =>
-                setSelectedRows(getKanaRows(script).map((r) => r.key))
-              }
-              className="text-xs font-bold text-primary hover:underline"
-            >
-              Select All
-            </button>
-          </div>
-
-          <div className="space-y-1.5">
-            {groupedRows.map((g) => {
-              const hasAnySelectedInGroup = g.rows.some((r) =>
-                selectedRows.includes(r.key),
-              );
-              if (!hasAnySelectedInGroup && g.group !== "basic") return null;
-
-              return g.rows.map((row) => {
-                const checked = selectedRows.includes(row.key);
-                const firstKana = row.entries[0]?.kana ?? "";
+        <>
+          <div className="mt-6 space-y-6 pb-32">
+            {/* Group quick-select */}
+            <div className="grid gap-2 [@media(min-width:560px)]:grid-cols-2 [@media(min-width:900px)]:grid-cols-3">
+              {groupOrder.map((group) => {
+                const rows =
+                  groupedRows.find((g) => g.group === group)?.rows ?? [];
+                const allSelected = rows.every((r) =>
+                  selectedRows.includes(r.key),
+                );
+                const someSelected = rows.some((r) =>
+                  selectedRows.includes(r.key),
+                );
+                const isActive = allSelected || someSelected;
+                const statusLabel = allSelected
+                  ? "Selected"
+                  : someSelected
+                    ? "Partial"
+                    : "Tap to select";
 
                 return (
-                  <div
-                    key={row.key}
-                    className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${
-                      checked
-                        ? "bg-surface-lowest shadow-sm"
-                        : "bg-surface-lowest/50 opacity-60"
+                  <button
+                    key={group}
+                    type="button"
+                    onClick={() => toggleGroup(group)}
+                    aria-pressed={isActive}
+                    className={`relative w-full rounded-xl border-2 p-4 text-left transition-all ${
+                      isActive
+                        ? "border-primary/35 bg-primary/[0.04] shadow-[0_6px_18px_rgba(0,36,70,0.08)]"
+                        : "border-outline-variant/20 bg-surface-lowest/70 hover:border-primary/25 hover:bg-primary/[0.02]"
                     }`}
                   >
-                    {/* Kana preview — clickable */}
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setPreviewRow({
-                          label: row.label,
-                          entries: row.entries,
-                        })
-                      }
-                      className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center font-japanese-display text-lg font-bold text-primary hover:bg-primary/10 transition-colors shrink-0"
-                      title={`Preview ${row.label}`}
-                    >
-                      {firstKana}
-                    </button>
-
-                    <div className="flex-1 min-w-0">
-                      <p className="font-bold text-sm text-foreground">
-                        {row.label}
-                      </p>
-                      <p className="text-[10px] text-on-surface-variant truncate">
-                        {row.entries.map((e) => e.romaji).join(", ")}
-                      </p>
-                    </div>
-
-                    {/* Toggle */}
-                    <button
-                      type="button"
-                      onClick={() => toggleRow(row.key)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0 ${
-                        checked ? "bg-primary" : "bg-outline-variant/30"
+                    <div
+                      className={`absolute right-3 top-3 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] ${
+                        allSelected
+                          ? "bg-primary/15 text-primary"
+                          : someSelected
+                            ? "bg-secondary-container text-on-surface-variant"
+                            : "bg-surface-low text-on-surface-variant/80"
                       }`}
                     >
-                      <span
-                        className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${
-                          checked ? "translate-x-6" : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
+                      {statusLabel}
+                    </div>
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant mb-0.5">
+                      {groupInfo[group].eyebrow}
+                    </p>
+                    <p className="font-display text-base font-bold text-foreground">
+                      {groupInfo[group].title}
+                    </p>
+                    <p className="text-xs text-on-surface-variant mt-0.5 leading-relaxed">
+                      {groupInfo[group].desc}
+                    </p>
+                  </button>
                 );
-              });
-            })}
+              })}
+            </div>
+
+            {/* Row selection */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-xs uppercase tracking-[0.15em] font-bold text-foreground">
+                  Select Rows
+                </h3>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedRows(getKanaRows(script).map((r) => r.key))
+                  }
+                  className="text-xs font-bold text-primary hover:underline"
+                >
+                  Select All
+                </button>
+              </div>
+
+              <div className="space-y-1.5">
+                {groupedRows.map((g) => {
+                  const hasAnySelectedInGroup = g.rows.some((r) =>
+                    selectedRows.includes(r.key),
+                  );
+                  if (!hasAnySelectedInGroup && g.group !== "basic")
+                    return null;
+
+                  return g.rows.map((row) => {
+                    const checked = selectedRows.includes(row.key);
+                    const firstKana = row.entries[0]?.kana ?? "";
+
+                    return (
+                      <div
+                        key={row.key}
+                        className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${
+                          checked
+                            ? "bg-surface-lowest shadow-sm"
+                            : "bg-surface-lowest/50 opacity-60"
+                        }`}
+                      >
+                        {/* Kana preview — clickable */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setPreviewRow({
+                              label: row.label,
+                              entries: row.entries,
+                            })
+                          }
+                          className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center font-japanese-display text-lg font-bold text-primary hover:bg-primary/10 transition-colors shrink-0"
+                          title={`Preview ${row.label}`}
+                        >
+                          {firstKana}
+                        </button>
+
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-sm text-foreground">
+                            {row.label}
+                          </p>
+                          <p className="text-[10px] text-on-surface-variant truncate">
+                            {row.entries.map((e) => e.romaji).join(", ")}
+                          </p>
+                        </div>
+
+                        {/* Toggle */}
+                        <button
+                          type="button"
+                          onClick={() => toggleRow(row.key)}
+                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0 ${
+                            checked ? "bg-primary" : "bg-outline-variant/30"
+                          }`}
+                        >
+                          <span
+                            className={`inline-block w-4 h-4 transform rounded-full bg-white transition-transform ${
+                              checked ? "translate-x-6" : "translate-x-1"
+                            }`}
+                          />
+                        </button>
+                      </div>
+                    );
+                  });
+                })}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Sticky bottom bar — Start Session CTA */}
-      <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
-        <div className="mx-auto w-full max-w-4xl px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
-          <button
-            type="button"
-            disabled={selectedRows.length === 0}
-            onClick={() => setOptionsOpen(true)}
-            className="w-full btn-primary-gradient rounded-xl py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            {selectedRows.length === 0
-              ? "Select rows to start"
-              : "Start Session"}
-          </button>
-        </div>
-      </div>
+          {/* Sticky bottom bar — Start Session CTA */}
+          <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
+            <div className="mx-auto w-full max-w-4xl px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
+              <button
+                type="button"
+                disabled={selectedRows.length === 0}
+                onClick={() => setOptionsOpen(true)}
+                className="w-full btn-primary-gradient rounded-xl py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {selectedRows.length === 0
+                  ? "Select rows to start"
+                  : "Start Session"}
+              </button>
+            </div>
+          </div>
 
-      {/* Row preview modal */}
-      {previewRow && (
-        <RowPreviewModal
-          label={previewRow.label}
-          entries={previewRow.entries}
-          onClose={() => setPreviewRow(null)}
-        />
-      )}
+          {/* Row preview modal */}
+          {previewRow && (
+            <RowPreviewModal
+              label={previewRow.label}
+              entries={previewRow.entries}
+              onClose={() => setPreviewRow(null)}
+            />
+          )}
 
-      {/* Session options modal */}
-      {optionsOpen && (
-        <SessionOptionsModal
-          mode={mode}
-          setMode={setMode}
-          typingDifficulty={typingDifficulty}
-          setTypingDifficulty={setTypingDifficulty}
-          batchSize={batchSize}
-          setBatchSize={setBatchSize}
-          shuffleOrder={shuffleOrder}
-          setShuffleOrder={setShuffleOrder}
-          cardCount={cardCount}
-          estimatedMinutes={estimatedMinutes}
-          rowCount={rowCount}
-          onStart={startSession}
-          onClose={() => setOptionsOpen(false)}
-        />
-      )}
-      </>
+          {/* Session options modal */}
+          {optionsOpen && (
+            <SessionOptionsModal
+              mode={mode}
+              setMode={setMode}
+              typingDifficulty={typingDifficulty}
+              setTypingDifficulty={setTypingDifficulty}
+              batchSize={batchSize}
+              setBatchSize={setBatchSize}
+              shuffleOrder={shuffleOrder}
+              setShuffleOrder={setShuffleOrder}
+              cardCount={cardCount}
+              estimatedMinutes={estimatedMinutes}
+              rowCount={rowCount}
+              onStart={startSession}
+              onClose={() => setOptionsOpen(false)}
+            />
+          )}
+        </>
       )}
     </>
   );

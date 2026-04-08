@@ -125,78 +125,89 @@ export function DeckSearchFilter({
   }, [activeFilter, lessons, scope, lesson]);
 
   const isSearching = searchQuery.trim().length > 0;
+  const stickySearchTopClass =
+    scope === "lesson"
+      ? "top-[6.625rem] lg:top-[6.875rem]"
+      : "top-14 lg:top-16";
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       {/* Search bar */}
-      <div className="relative">
-        <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search all cards..."
-          className="w-full rounded-xl border border-outline-variant/20 bg-surface-lowest py-3 pl-11 pr-4 text-sm text-foreground placeholder:text-on-surface-variant/50 shadow-sm transition-colors focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/10"
-        />
-        {searchQuery && (
-          <button
-            type="button"
-            onClick={() => setSearchQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-low transition-colors"
+      <div
+        className={`sticky ${stickySearchTopClass} z-10 -mx-1 rounded-xl bg-surface/95 px-1 py-1.5 backdrop-blur-md`}
+      >
+        <div className="relative">
+          <svg
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search all cards..."
+            className="w-full rounded-xl border border-outline-variant/20 bg-surface-lowest py-3 pl-11 pr-4 text-sm text-foreground placeholder:text-on-surface-variant/50 shadow-sm transition-colors focus:border-primary/40 focus:outline-none focus:ring-0"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-low transition-colors"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        )}
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Filter tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-        {FILTER_TABS.map((tab) => (
-          <button
-            key={tab.value}
-            type="button"
-            onClick={() => {
-              setActiveFilter(tab.value);
-              setSearchQuery("");
-            }}
-            className={`shrink-0 rounded-lg border px-3.5 py-2 text-xs font-bold transition-all ${
-              activeFilter === tab.value
-                ? "border-primary/35 bg-primary/[0.07] text-primary shadow-sm"
-                : "border-outline-variant/20 bg-surface-lowest text-on-surface-variant hover:border-primary/20"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      <div className="overflow-x-auto pb-0.5 scrollbar-none">
+        <div className="mx-auto flex w-max gap-2">
+          {FILTER_TABS.map((tab) => (
+            <button
+              key={tab.value}
+              type="button"
+              onClick={() => {
+                setActiveFilter(tab.value);
+                setSearchQuery("");
+              }}
+              className={`shrink-0 rounded-lg border px-3.5 py-2 text-xs font-bold transition-all ${
+                activeFilter === tab.value
+                  ? "border-transparent btn-primary-gradient text-white"
+                  : "border-outline-variant/20 bg-surface-lowest text-on-surface-variant hover:border-primary/20"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Search results */}
-      {isSearching && searchResults && (
-        searchResults.length === 0 ? (
+      {isSearching &&
+        searchResults &&
+        (searchResults.length === 0 ? (
           <div className="rounded-2xl bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
             <p className="text-sm text-on-surface-variant py-4 text-center">
               No cards match your search.
@@ -208,8 +219,7 @@ export function DeckSearchFilter({
             title={`${searchResults.length} result${searchResults.length !== 1 ? "s" : ""}`}
             maxVisible={30}
           />
-        )
-      )}
+        ))}
 
       {/* Type-filtered cards */}
       {!isSearching && filteredCards && filteredCards.length > 0 && (
@@ -229,13 +239,13 @@ export function DeckSearchFilter({
               href={`/decks/${item.lessonId}/${item.subDeck.id}`}
               className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
             >
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary">
                 {item.subDeck.cards.length} cards
               </p>
-              <h3 className="mt-1 truncate font-display text-base font-bold tracking-tight text-foreground sm:text-lg">
+              <h3 className="mt-1 truncate font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
                 {item.subDeck.title}
               </h3>
-              <p className="mt-0.5 text-[10px] text-on-surface-variant truncate">
+              <p className="mt-0.5 text-xs text-on-surface-variant truncate">
                 {item.lessonTitle}
               </p>
             </Link>
