@@ -1,0 +1,541 @@
+{
+  "version": "1.0",
+  "passages": [
+    {
+      "id": "simple-1",
+      "title": "Good Morning",
+      "difficulty": "simple",
+      "sourceLesson": "greetings",
+      "passage": "おはよう ございます。わたしは たなかです。よろしく おねがいします。",
+      "translation": "Good morning. I am Tanaka. Nice to meet you.",
+      "vocabularyHighlights": [
+        { "word": "おはよう ございます", "meaning": "good morning (polite)" },
+        { "word": "わたし", "meaning": "I" },
+        { "word": "です", "meaning": "am/is" },
+        { "word": "よろしく おねがいします", "meaning": "nice to meet you" }
+      ],
+      "questions": [
+        {
+          "question": "What time of day is this greeting for?",
+          "options": ["Morning", "Afternoon", "Evening", "Night"],
+          "correctIndex": 0
+        },
+        {
+          "question": "What is the speaker's name?",
+          "options": ["Suzuki", "Tanaka", "Yamada", "Sato"],
+          "correctIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "simple-2",
+      "title": "Coming Home",
+      "difficulty": "simple",
+      "sourceLesson": "greetings",
+      "passage": "ただいま。おかえりなさい。いただきます。おいしい！ごちそうさまでした。",
+      "translation": "I'm home. Welcome home. Thank you for the food (before eating). Delicious! Thank you for the meal (after eating).",
+      "vocabularyHighlights": [
+        { "word": "ただいま", "meaning": "I'm home" },
+        { "word": "おかえりなさい", "meaning": "welcome home" },
+        { "word": "いただきます", "meaning": "said before eating" },
+        { "word": "ごちそうさまでした", "meaning": "said after eating" }
+      ],
+      "questions": [
+        {
+          "question": "What does the speaker say when arriving home?",
+          "options": ["いただきます", "ただいま", "おはよう", "さようなら"],
+          "correctIndex": 1
+        },
+        {
+          "question": "What is said before eating?",
+          "options": ["ごちそうさま", "おかえりなさい", "いただきます", "ただいま"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "simple-3",
+      "title": "Counting Things",
+      "difficulty": "simple",
+      "sourceLesson": "numbers",
+      "passage": "いち、に、さん、よん、ご。ごまでかぞえました。じゅうは いちと ぜろです。",
+      "translation": "One, two, three, four, five. I counted to five. Ten is one and zero.",
+      "vocabularyHighlights": [
+        { "word": "いち", "meaning": "one" },
+        { "word": "に", "meaning": "two" },
+        { "word": "さん", "meaning": "three" },
+        { "word": "じゅう", "meaning": "ten" }
+      ],
+      "questions": [
+        {
+          "question": "How high did the speaker count?",
+          "options": ["Three", "Five", "Ten", "Seven"],
+          "correctIndex": 1
+        },
+        {
+          "question": "What number is described as 'one and zero'?",
+          "options": ["Ten", "One hundred", "One", "Zero"],
+          "correctIndex": 0
+        }
+      ]
+    },
+    {
+      "id": "simple-4",
+      "title": "Saying Goodbye",
+      "difficulty": "simple",
+      "sourceLesson": "greetings",
+      "passage": "こんばんは。ありがとう ございます。さようなら。おやすみなさい。",
+      "translation": "Good evening. Thank you very much. Goodbye. Good night.",
+      "vocabularyHighlights": [
+        { "word": "こんばんは", "meaning": "good evening" },
+        { "word": "ありがとう ございます", "meaning": "thank you (polite)" },
+        { "word": "さようなら", "meaning": "goodbye" },
+        { "word": "おやすみなさい", "meaning": "good night" }
+      ],
+      "questions": [
+        {
+          "question": "What time of day does this take place?",
+          "options": ["Morning", "Afternoon", "Evening", "Noon"],
+          "correctIndex": 2
+        },
+        {
+          "question": "Which phrase means 'thank you'?",
+          "options": ["さようなら", "こんばんは", "ありがとう ございます", "おやすみなさい"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "simple-5",
+      "title": "Meeting Someone",
+      "difficulty": "simple",
+      "sourceLesson": "greetings",
+      "passage": "すみません。はじめまして。わたしは やまだです。がくせいです。よろしく おねがいします。",
+      "translation": "Excuse me. How do you do? I am Yamada. I am a student. Nice to meet you.",
+      "vocabularyHighlights": [
+        { "word": "すみません", "meaning": "excuse me" },
+        { "word": "はじめまして", "meaning": "how do you do" },
+        { "word": "がくせい", "meaning": "student" },
+        { "word": "よろしく おねがいします", "meaning": "nice to meet you" }
+      ],
+      "questions": [
+        {
+          "question": "What is Yamada's role?",
+          "options": ["Teacher", "Student", "Doctor", "Friend"],
+          "correctIndex": 1
+        },
+        {
+          "question": "What does すみません mean here?",
+          "options": ["Thank you", "Goodbye", "Excuse me", "Good morning"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "simple-6",
+      "title": "Leaving Home",
+      "difficulty": "simple",
+      "sourceLesson": "greetings",
+      "passage": "おはよう。いってきます。いってらっしゃい。こんにちは。ただいま。おかえり。",
+      "translation": "Good morning. I'm heading out. Have a good day. Good afternoon. I'm home. Welcome back.",
+      "vocabularyHighlights": [
+        { "word": "いってきます", "meaning": "I'm heading out" },
+        { "word": "いってらっしゃい", "meaning": "have a good day (response)" },
+        { "word": "こんにちは", "meaning": "good afternoon" },
+        { "word": "おかえり", "meaning": "welcome back" }
+      ],
+      "questions": [
+        {
+          "question": "What does the person say when leaving home?",
+          "options": ["ただいま", "おかえり", "いってきます", "さようなら"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What greeting marks the afternoon?",
+          "options": ["おはよう", "こんにちは", "こんばんは", "おやすみ"],
+          "correctIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "intermediate-1",
+      "title": "Self-Introduction",
+      "difficulty": "intermediate",
+      "sourceLesson": "lesson-1",
+      "passage": "はじめまして。わたしは メアリーです。アメリカじんです。いま だいがくの にねんせいです。せんこうは にほんごです。よろしく おねがいします。",
+      "translation": "How do you do? I am Mary. I am American. I am now a second-year college student. My major is Japanese. Nice to meet you.",
+      "vocabularyHighlights": [
+        { "word": "メアリー", "meaning": "Mary (katakana name)" },
+        { "word": "アメリカじん", "meaning": "American person" },
+        { "word": "だいがく", "meaning": "college; university" },
+        { "word": "にねんせい", "meaning": "second-year student" },
+        { "word": "せんこう", "meaning": "major" },
+        { "word": "にほんご", "meaning": "Japanese language" }
+      ],
+      "questions": [
+        {
+          "question": "Where is Mary from?",
+          "options": ["Japan", "England", "America", "Canada"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What year student is Mary?",
+          "options": ["First-year", "Second-year", "Third-year", "Fourth-year"],
+          "correctIndex": 1
+        },
+        {
+          "question": "What is Mary's major?",
+          "options": ["Economics", "English", "Japanese", "History"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "intermediate-2",
+      "title": "What Time Is It?",
+      "difficulty": "intermediate",
+      "sourceLesson": "lesson-1",
+      "passage": "あのう、すみません。いま なんじですか。いま くじはんです。ああ、そうですか。ありがとう ございます。",
+      "translation": "Um, excuse me. What time is it now? It's 9:30 now. Oh, is that so? Thank you very much.",
+      "vocabularyHighlights": [
+        { "word": "あのう", "meaning": "um..." },
+        { "word": "なんじ", "meaning": "what time" },
+        { "word": "くじはん", "meaning": "9:30" },
+        { "word": "そうですか", "meaning": "is that so?" }
+      ],
+      "questions": [
+        {
+          "question": "What time is it?",
+          "options": ["8:00", "9:00", "9:30", "10:30"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What does あのう express?",
+          "options": ["Anger", "Hesitation / getting attention", "Excitement", "Sadness"],
+          "correctIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "intermediate-3",
+      "title": "At the Store",
+      "difficulty": "intermediate",
+      "sourceLesson": "lesson-2",
+      "passage": "すみません。これは いくらですか。それは さんぜんえんです。じゃあ、これを ください。はい、ありがとう ございます。",
+      "translation": "Excuse me. How much is this? That is 3,000 yen. Well then, I'll take this please. Yes, thank you very much.",
+      "vocabularyHighlights": [
+        { "word": "これ", "meaning": "this one" },
+        { "word": "いくら", "meaning": "how much" },
+        { "word": "それ", "meaning": "that one" },
+        { "word": "さんぜんえん", "meaning": "3,000 yen" },
+        { "word": "ください", "meaning": "please (give me)" }
+      ],
+      "questions": [
+        {
+          "question": "How much does the item cost?",
+          "options": ["1,000 yen", "2,000 yen", "3,000 yen", "5,000 yen"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What does ください mean?",
+          "options": ["Thank you", "Please give me", "How much", "Excuse me"],
+          "correctIndex": 1
+        }
+      ]
+    },
+    {
+      "id": "intermediate-4",
+      "title": "My Friend",
+      "difficulty": "intermediate",
+      "sourceLesson": "lesson-1",
+      "passage": "これは わたしの ともだちの たけしさんです。たけしさんは にほんじんです。だいがくの さんねんせいです。せんこうは れきしです。でんわばんごうは ぜろさんの ごろくななの はちきゅうぜろいちです。",
+      "translation": "This is my friend Takeshi. Takeshi is Japanese. He is a third-year college student. His major is history. His phone number is 03-567-8901.",
+      "vocabularyHighlights": [
+        { "word": "ともだち", "meaning": "friend" },
+        { "word": "にほんじん", "meaning": "Japanese person" },
+        { "word": "さんねんせい", "meaning": "third-year student" },
+        { "word": "れきし", "meaning": "history" },
+        { "word": "でんわばんごう", "meaning": "phone number" }
+      ],
+      "questions": [
+        {
+          "question": "What nationality is Takeshi?",
+          "options": ["American", "Chinese", "Japanese", "Korean"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What is Takeshi's major?",
+          "options": ["Japanese", "Economics", "Science", "History"],
+          "correctIndex": 3
+        },
+        {
+          "question": "What year student is Takeshi?",
+          "options": ["First", "Second", "Third", "Fourth"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "intermediate-5",
+      "title": "Shopping for a Bag",
+      "difficulty": "intermediate",
+      "sourceLesson": "lesson-2",
+      "passage": "すみません。あの かばんは いくらですか。あれは よんせんごひゃくえんです。ちょっと たかいですね。じゃあ、この さいふを ください。それは せんにひゃくえんです。",
+      "translation": "Excuse me. How much is that bag over there? That is 4,500 yen. That's a bit expensive. Well then, I'll take this wallet please. That is 1,200 yen.",
+      "vocabularyHighlights": [
+        { "word": "かばん", "meaning": "bag" },
+        { "word": "たかい", "meaning": "expensive" },
+        { "word": "さいふ", "meaning": "wallet" },
+        { "word": "あの", "meaning": "that (over there)" },
+        { "word": "この", "meaning": "this" }
+      ],
+      "questions": [
+        {
+          "question": "How much is the bag?",
+          "options": ["1,200 yen", "2,500 yen", "4,500 yen", "3,000 yen"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What does the speaker buy instead?",
+          "options": ["The bag", "A wallet", "Shoes", "An umbrella"],
+          "correctIndex": 1
+        },
+        {
+          "question": "Why didn't the speaker buy the bag?",
+          "options": ["Too small", "Wrong color", "Too expensive", "Sold out"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "intermediate-6",
+      "title": "Weekend Plans",
+      "difficulty": "intermediate",
+      "sourceLesson": "lesson-3",
+      "passage": "どようびに なにを しますか。えいがを みます。なんの えいがですか。にほんの えいがです。いいですね。いっしょに いきませんか。いいですよ。",
+      "translation": "What will you do on Saturday? I will watch a movie. What movie? A Japanese movie. That's nice. Won't you go together? Sure, let's do it.",
+      "vocabularyHighlights": [
+        { "word": "どようび", "meaning": "Saturday" },
+        { "word": "えいが", "meaning": "movie" },
+        { "word": "みます", "meaning": "will watch" },
+        { "word": "いっしょに", "meaning": "together" },
+        { "word": "いきませんか", "meaning": "won't you go?" }
+      ],
+      "questions": [
+        {
+          "question": "What day are they talking about?",
+          "options": ["Sunday", "Friday", "Saturday", "Monday"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What will they do?",
+          "options": ["Listen to music", "Watch a movie", "Read a magazine", "Go shopping"],
+          "correctIndex": 1
+        },
+        {
+          "question": "What kind of movie is it?",
+          "options": ["American", "Korean", "Japanese", "Chinese"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "hard-1",
+      "title": "A Day at School",
+      "difficulty": "hard",
+      "sourceLesson": "lesson-3",
+      "passage": "月曜日に 大学で 日本語の クラスが あります。九時に いきます。先生は とても いい 先生です。クラスの あとで、図書館で 日本語を べんきょうします。三時に うちに かえります。",
+      "translation": "On Monday, I have a Japanese class at the university. I go at 9 o'clock. The teacher is a very good teacher. After class, I study Japanese at the library. I go home at 3 o'clock.",
+      "vocabularyHighlights": [
+        { "word": "月曜日", "reading": "げつようび", "meaning": "Monday" },
+        { "word": "大学", "reading": "だいがく", "meaning": "university" },
+        { "word": "日本語", "reading": "にほんご", "meaning": "Japanese language" },
+        { "word": "先生", "reading": "せんせい", "meaning": "teacher" },
+        { "word": "図書館", "reading": "としょかん", "meaning": "library" },
+        { "word": "べんきょうします", "meaning": "to study" }
+      ],
+      "questions": [
+        {
+          "question": "What day does the speaker have Japanese class?",
+          "options": ["Tuesday", "Wednesday", "Monday", "Thursday"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What time does the speaker go to class?",
+          "options": ["8 o'clock", "9 o'clock", "10 o'clock", "11 o'clock"],
+          "correctIndex": 1
+        },
+        {
+          "question": "Where does the speaker study after class?",
+          "options": ["At home", "At a café", "At the library", "At school"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "hard-2",
+      "title": "Weekend Shopping",
+      "difficulty": "hard",
+      "sourceLesson": "lesson-4",
+      "passage": "土曜日に 友だちと 買い物に 行きました。デパートで くつと かばんを 買いました。くつは 八千円で、かばんは 一万二千円でした。たかかったですが、とても いい かばんです。そのあと、レストランで ごはんを 食べました。",
+      "translation": "On Saturday, I went shopping with a friend. I bought shoes and a bag at the department store. The shoes were 8,000 yen, and the bag was 12,000 yen. It was expensive, but it's a very nice bag. After that, we ate at a restaurant.",
+      "vocabularyHighlights": [
+        { "word": "土曜日", "reading": "どようび", "meaning": "Saturday" },
+        { "word": "友だち", "reading": "ともだち", "meaning": "friend" },
+        { "word": "買い物", "reading": "かいもの", "meaning": "shopping" },
+        { "word": "行きました", "reading": "いきました", "meaning": "went" },
+        { "word": "買いました", "reading": "かいました", "meaning": "bought" },
+        { "word": "食べました", "reading": "たべました", "meaning": "ate" }
+      ],
+      "questions": [
+        {
+          "question": "When did they go shopping?",
+          "options": ["Friday", "Saturday", "Sunday", "Monday"],
+          "correctIndex": 1
+        },
+        {
+          "question": "How much was the bag?",
+          "options": ["8,000 yen", "10,000 yen", "12,000 yen", "15,000 yen"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What did they do after shopping?",
+          "options": ["Went home", "Watched a movie", "Ate at a restaurant", "Went to the library"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "hard-3",
+      "title": "A Trip to Okinawa",
+      "difficulty": "hard",
+      "sourceLesson": "lesson-5",
+      "passage": "先週、沖縄に 行きました。天気は とても よかったです。海は きれいで、水は あたたかかったです。おきなわの 食べ物は おいしかったです。ゴーヤチャンプルーを 食べました。たのしい りょこうでした。",
+      "translation": "Last week, I went to Okinawa. The weather was very good. The sea was beautiful and the water was warm. Okinawan food was delicious. I ate goya champuru. It was a fun trip.",
+      "vocabularyHighlights": [
+        { "word": "先週", "reading": "せんしゅう", "meaning": "last week" },
+        { "word": "沖縄", "reading": "おきなわ", "meaning": "Okinawa" },
+        { "word": "天気", "reading": "てんき", "meaning": "weather" },
+        { "word": "海", "reading": "うみ", "meaning": "sea" },
+        { "word": "食べ物", "reading": "たべもの", "meaning": "food" },
+        { "word": "たのしい", "meaning": "fun" }
+      ],
+      "questions": [
+        {
+          "question": "When did the speaker go to Okinawa?",
+          "options": ["Last month", "Last week", "Yesterday", "Last year"],
+          "correctIndex": 1
+        },
+        {
+          "question": "How was the weather?",
+          "options": ["Rainy", "Cold", "Very good", "Cloudy"],
+          "correctIndex": 2
+        },
+        {
+          "question": "How was the food?",
+          "options": ["Bad", "Okay", "Expensive", "Delicious"],
+          "correctIndex": 3
+        }
+      ]
+    },
+    {
+      "id": "hard-4",
+      "title": "My Town",
+      "difficulty": "hard",
+      "sourceLesson": "lesson-4",
+      "passage": "わたしの まちに 大きい 公園が あります。公園の 右に 図書館が あって、左に 病院が あります。まいにち 公園で さんぽします。公園の 前に おいしい レストランも あります。よく ともだちと そこで 食べます。",
+      "translation": "There is a big park in my town. To the right of the park there is a library, and to the left there is a hospital. I take a walk in the park every day. There is also a delicious restaurant in front of the park. I often eat there with friends.",
+      "vocabularyHighlights": [
+        { "word": "公園", "reading": "こうえん", "meaning": "park" },
+        { "word": "右", "reading": "みぎ", "meaning": "right" },
+        { "word": "左", "reading": "ひだり", "meaning": "left" },
+        { "word": "図書館", "reading": "としょかん", "meaning": "library" },
+        { "word": "病院", "reading": "びょういん", "meaning": "hospital" },
+        { "word": "前", "reading": "まえ", "meaning": "front" }
+      ],
+      "questions": [
+        {
+          "question": "What is to the right of the park?",
+          "options": ["A hospital", "A library", "A restaurant", "A school"],
+          "correctIndex": 1
+        },
+        {
+          "question": "What does the speaker do at the park every day?",
+          "options": ["Study", "Eat lunch", "Take a walk", "Play games"],
+          "correctIndex": 2
+        },
+        {
+          "question": "Where is the restaurant?",
+          "options": ["Behind the park", "Inside the park", "Next to the library", "In front of the park"],
+          "correctIndex": 3
+        }
+      ]
+    },
+    {
+      "id": "hard-5",
+      "title": "Meeting a New Friend",
+      "difficulty": "hard",
+      "sourceLesson": "lesson-3",
+      "passage": "金曜日に 大学で 新しい 友だちに 会いました。名前は キムさんです。韓国人の 留学生です。日本語が 上手です。いっしょに コーヒーを 飲みました。来週、いっしょに 映画を 見に 行きます。",
+      "translation": "On Friday, I met a new friend at the university. Their name is Kim. They are a Korean international student. They are good at Japanese. We drank coffee together. Next week, we will go see a movie together.",
+      "vocabularyHighlights": [
+        { "word": "金曜日", "reading": "きんようび", "meaning": "Friday" },
+        { "word": "新しい", "reading": "あたらしい", "meaning": "new" },
+        { "word": "友だち", "reading": "ともだち", "meaning": "friend" },
+        { "word": "留学生", "reading": "りゅうがくせい", "meaning": "international student" },
+        { "word": "上手", "reading": "じょうず", "meaning": "skillful; good at" },
+        { "word": "映画", "reading": "えいが", "meaning": "movie" }
+      ],
+      "questions": [
+        {
+          "question": "When did the speaker meet their new friend?",
+          "options": ["Monday", "Wednesday", "Friday", "Saturday"],
+          "correctIndex": 2
+        },
+        {
+          "question": "Where is Kim from?",
+          "options": ["Japan", "China", "Korea", "America"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What will they do together next week?",
+          "options": ["Study Japanese", "Go shopping", "See a movie", "Eat dinner"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "hard-6",
+      "title": "A Busy Week",
+      "difficulty": "hard",
+      "sourceLesson": "lesson-5",
+      "passage": "今週は いそがしかったです。月曜日から 金曜日まで まいにち 大学に 行きました。水曜日に テストが ありました。むずかしかったですが、だいじょうぶでした。土曜日は ともだちの うちで パーティーが ありました。とても たのしかったです。日曜日は うちで ゆっくり 休みました。",
+      "translation": "This week was busy. I went to university every day from Monday to Friday. On Wednesday, there was a test. It was difficult, but it was okay. On Saturday, there was a party at a friend's house. It was very fun. On Sunday, I relaxed at home.",
+      "vocabularyHighlights": [
+        { "word": "今週", "reading": "こんしゅう", "meaning": "this week" },
+        { "word": "いそがしい", "meaning": "busy" },
+        { "word": "水曜日", "reading": "すいようび", "meaning": "Wednesday" },
+        { "word": "むずかしい", "meaning": "difficult" },
+        { "word": "たのしい", "meaning": "fun" },
+        { "word": "休みました", "reading": "やすみました", "meaning": "rested" }
+      ],
+      "questions": [
+        {
+          "question": "How was the speaker's week?",
+          "options": ["Boring", "Busy", "Easy", "Short"],
+          "correctIndex": 1
+        },
+        {
+          "question": "What happened on Wednesday?",
+          "options": ["A party", "A movie", "A test", "A trip"],
+          "correctIndex": 2
+        },
+        {
+          "question": "What did the speaker do on Sunday?",
+          "options": ["Went to a party", "Studied", "Relaxed at home", "Went shopping"],
+          "correctIndex": 2
+        }
+      ]
+    }
+  ]
+}

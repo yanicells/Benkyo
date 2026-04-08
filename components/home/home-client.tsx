@@ -589,6 +589,50 @@ export function HomeClient({ lessons }: HomeClientProps) {
             </div>
           </Link>
 
+          {/* Reading Practice */}
+          <Link
+            href="/reading"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label="Start reading practice"
+          >
+            <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-[#fef3c7]/60 to-[#f59e0b]/10 flex items-center justify-center relative overflow-hidden shrink-0">
+              <span
+                className="font-japanese-display text-6xl md:text-8xl text-[#b45309]/20 group-hover:scale-110 transition-transform duration-500"
+                aria-hidden
+              >
+                読
+              </span>
+            </div>
+            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
+              <span className="inline-block px-2 py-1 bg-[#fef3c7] text-[#b45309] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
+                PRACTICE
+              </span>
+              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
+                Reading Practice
+              </h3>
+              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
+                Sentences &amp; paragraphs at three difficulty levels.
+              </p>
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
+                Start Reading
+                <svg
+                  className="w-4 h-4 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
+
           {/* Learning Path */}
           <Link
             href="/path"

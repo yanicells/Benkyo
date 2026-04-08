@@ -122,3 +122,30 @@ export type KanaScript = "hiragana" | "katakana";
 export type KanaBatchSize = 1 | 2 | 3 | 4;
 
 export type KanaEntry = { kana: string; romaji: string };
+
+// Reading practice types
+export type ReadingDifficulty = "simple" | "intermediate" | "hard";
+
+export type ReadingPassage = {
+  id: string;
+  title: string;
+  difficulty: ReadingDifficulty;
+  sourceLesson: string;
+  passage: string;
+  translation: string;
+  vocabularyHighlights: {
+    word: string;
+    reading?: string;
+    meaning: string;
+  }[];
+  questions: {
+    question: string;
+    options: string[];
+    correctIndex: number;
+  }[];
+};
+
+export type ReadingsData = {
+  version: string;
+  passages: ReadingPassage[];
+};
