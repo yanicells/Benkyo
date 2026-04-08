@@ -115,7 +115,7 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
   }, [entries, searchQuery]);
 
   return (
-    <div className="flex flex-col gap-8 pb-32 sm:pb-36">
+    <div className="flex flex-col gap-3 pb-32 sm:gap-8 sm:pb-36">
       {/* Overall kanji progress */}
       <div className="rounded-2xl bg-surface-lowest shadow-[0_4px_20px_rgba(0,14,33,0.04)] p-6">
         <div className="flex items-center justify-between mb-2">
@@ -154,7 +154,7 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
       </div>
 
       {/* Search bar */}
-      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 border-b border-outline-variant/10 bg-surface/95 px-4 py-2 backdrop-blur-md sm:-mx-8 sm:px-8">
+      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 bg-surface/95 px-4 py-1.5 backdrop-blur-md sm:-mx-8 sm:px-8 sm:py-2">
         <div className="relative">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"

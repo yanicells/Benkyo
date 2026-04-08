@@ -127,13 +127,18 @@ export function DeckSearchFilter({
   const isSearching = searchQuery.trim().length > 0;
   const stickySearchTopClass =
     scope === "lesson" ? "top-26 lg:top-27.5" : "top-14 lg:top-16";
+  const layoutGapClass = scope === "lesson" ? "gap-3 sm:gap-4" : "gap-4";
   const stickySearchWrapperClass =
     scope === "lesson"
-      ? `sticky ${stickySearchTopClass} z-20 -mx-4 border-b border-outline-variant/10 bg-surface/95 px-4 py-2 backdrop-blur-md sm:-mx-8 sm:px-8`
+      ? `sticky ${stickySearchTopClass} z-20 -mx-4 bg-surface/95 px-4 py-1.5 backdrop-blur-md sm:-mx-8 sm:px-8 sm:py-2`
       : `sticky ${stickySearchTopClass} z-10 -mx-1 rounded-xl bg-surface/95 px-1 py-1.5 backdrop-blur-md`;
+  const filterTabsClass =
+    scope === "lesson"
+      ? "overflow-x-auto pb-0 hide-scrollbar"
+      : "overflow-x-auto pb-0.5 hide-scrollbar";
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col ${layoutGapClass}`}>
       {/* Search bar */}
       <div className={stickySearchWrapperClass}>
         <div className="relative">
@@ -182,7 +187,7 @@ export function DeckSearchFilter({
       </div>
 
       {/* Filter tabs */}
-      <div className="overflow-x-auto pb-0.5 hide-scrollbar">
+      <div className={filterTabsClass}>
         <div className="mx-auto flex w-max gap-2">
           {FILTER_TABS.map((tab) => (
             <button

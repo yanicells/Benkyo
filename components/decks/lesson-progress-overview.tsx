@@ -59,7 +59,7 @@ export function LessonProgressOverview({
     lesson.subDecks.reduce((sum, sd) => sum + sd.cards.length, 0);
 
   return (
-    <div className="mb-6 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)]">
+    <div className="mb-4 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)] sm:mb-6">
       <div className="mb-3 flex items-center justify-between">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
           Lesson Progress

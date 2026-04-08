@@ -410,7 +410,7 @@ export function SubDeckStudyClient({
 
       {/* Read this block */}
       {(quickNote || keyPoints.length > 0) && (
-        <div className="mb-8 rounded-2xl border border-primary/10 bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden">
+        <div className="mb-6 rounded-2xl border border-primary/10 bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden sm:mb-8">
           <div className="flex items-center gap-3 px-6 py-4 border-b border-outline-variant/10 bg-primary/3">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
               <svg
@@ -457,7 +457,7 @@ export function SubDeckStudyClient({
       )}
 
       {/* Lesson/deck progress */}
-      <div className="mb-8 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)]">
+      <div className="mb-4 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)] sm:mb-8">
         <div className="mb-3 flex items-center justify-between">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
             {subDeckId === "all" ? "Lesson Progress" : "Deck Progress"}
@@ -501,7 +501,7 @@ export function SubDeckStudyClient({
       </div>
 
       {/* Search */}
-      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-2 backdrop-blur-md sm:-mx-8 sm:px-8">
+      <div className="sticky top-26 lg:top-27.5 z-20 -mx-4 mb-3 bg-surface/95 px-4 py-1.5 backdrop-blur-md sm:-mx-8 sm:mb-6 sm:px-8 sm:py-2">
         <div className="relative">
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant/60"

@@ -80,7 +80,7 @@ export function LessonPreStudy({ meta }: LessonPreStudyProps) {
     .join(" · ");
 
   return (
-    <div className="mb-8">
+    <div className="mb-6 sm:mb-8">
       <div className="overflow-hidden rounded-2xl border border-primary/10 bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)]">
         <SectionToggle
           isFirst
