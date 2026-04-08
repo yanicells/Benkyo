@@ -37,8 +37,8 @@ export default async function SubDeckListPage({
       backHref="/decks"
       backLabel="All Lessons"
     >
-      <LessonProgressOverview lesson={lesson} />
       {lesson.meta && <LessonPreStudy meta={lesson.meta} />}
+      <LessonProgressOverview lesson={lesson} />
       <DeckSearchFilter lessons={lessons} scope="lesson" lesson={lesson}>
         <SubDeckGrid lesson={lesson} />
       </DeckSearchFilter>
