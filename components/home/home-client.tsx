@@ -195,6 +195,135 @@ function DailyGoalRing({
   );
 }
 
+type LearningModeCardConfig = {
+  href: string;
+  ariaLabel: string;
+  title: string;
+  actionLabel: string;
+  badge: string;
+  badgeClass: string;
+  panelClass: string;
+  glyph: string;
+  glyphClass: string;
+  summary: string;
+};
+
+const LEARNING_MODE_CARDS: LearningModeCardConfig[] = [
+  {
+    href: "/kana",
+    ariaLabel: "Start kana practice session",
+    title: "Kana Practice",
+    actionLabel: "Start Session",
+    badge: "FOUNDATION",
+    badgeClass: "bg-[#8ef4e4] text-[#2a9a8c]",
+    panelClass: "bg-[#eaeefd]",
+    glyph: "ひ",
+    glyphClass: "text-primary/20 italic",
+    summary: "Drill hiragana & katakana with instant feedback.",
+  },
+  {
+    href: "/decks",
+    ariaLabel: "Browse lesson decks",
+    title: "Lesson Decks",
+    actionLabel: "Browse Lessons",
+    badge: "STUDY",
+    badgeClass: "bg-primary/10 text-primary",
+    panelClass: "bg-gradient-to-br from-primary/10 to-primary/5",
+    glyph: "学",
+    glyphClass: "text-primary/20",
+    summary: "Genki vocab & grammar with spaced repetition.",
+  },
+  {
+    href: "/reading",
+    ariaLabel: "Start reading practice",
+    title: "Reading Practice",
+    actionLabel: "Start Reading",
+    badge: "PRACTICE",
+    badgeClass: "bg-[#fef3c7] text-[#b45309]",
+    panelClass: "bg-gradient-to-br from-[#fef3c7]/60 to-[#f59e0b]/10",
+    glyph: "読",
+    glyphClass: "text-[#b45309]/20",
+    summary: "Sentences & paragraphs at three difficulty levels.",
+  },
+  {
+    href: "/path",
+    ariaLabel: "View learning path",
+    title: "Learning Path",
+    actionLabel: "View Path",
+    badge: "GUIDED",
+    badgeClass: "bg-[#8ef4e4] text-[#2a9a8c]",
+    panelClass: "bg-gradient-to-br from-[#8ef4e4]/20 to-[#2a9a8c]/10",
+    glyph: "道",
+    glyphClass: "text-[#2a9a8c]/20",
+    summary: "Follow a structured path from beginner to fluent.",
+  },
+];
+
+function LearningModeCard({ mode }: { mode: LearningModeCardConfig }) {
+  return (
+    <Link
+      href={mode.href}
+      className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      aria-label={mode.ariaLabel}
+    >
+      <div
+        className={`w-[30%] md:w-auto md:h-[45%] ${mode.panelClass} flex items-center justify-center relative overflow-hidden shrink-0`}
+      >
+        <span
+          className={`font-japanese-display text-6xl md:text-8xl ${mode.glyphClass} group-hover:scale-110 transition-transform duration-500`}
+          aria-hidden
+        >
+          {mode.glyph}
+        </span>
+      </div>
+      <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
+        <div className="mb-2 md:mb-3">
+          <span
+            className={`inline-block md:hidden px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded w-fit ${mode.badgeClass}`}
+          >
+            {mode.badge}
+          </span>
+          <div className="hidden md:flex items-start justify-between gap-3">
+            <h3 className="font-display font-bold text-lg md:text-xl text-foreground">
+              {mode.title}
+            </h3>
+            <span
+              className={`inline-block shrink-0 px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded w-fit ${mode.badgeClass}`}
+            >
+              {mode.badge}
+            </span>
+          </div>
+          <h3 className="mt-1 font-display font-bold text-lg text-foreground md:hidden">
+            {mode.title}
+          </h3>
+        </div>
+
+        <p className="mt-1 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-foreground md:hidden">
+          {mode.actionLabel}
+          <svg
+            className="h-3.5 w-3.5 text-primary"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2.5}
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </p>
+
+        <p className="hidden text-xs text-secondary leading-relaxed md:block md:mb-4">
+          {mode.summary}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
 export function HomeClient({ lessons }: HomeClientProps) {
   const dataRevision = useSyncExternalStore(
     subscribeToStudyData,
@@ -499,194 +628,10 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
       {/* Core Learning Modes (CTAs) */}
       <section aria-label="Start learning">
-        <div className="grid grid-cols-2 gap-3 md:gap-4">
-          {/* Kana Practice */}
-          <Link
-            href="/kana"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="Start kana practice session"
-          >
-            <div className="w-[30%] md:w-auto md:h-[45%] bg-[#0a0a0c] flex items-center justify-center relative overflow-hidden shrink-0">
-              <span
-                className="font-japanese-display text-6xl md:text-8xl text-surface-low/30 italic group-hover:scale-110 transition-transform duration-500"
-                aria-hidden
-              >
-                ひ
-              </span>
-            </div>
-            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
-              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
-                FOUNDATION
-              </span>
-              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
-                Kana Practice
-              </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
-                Drill hiragana &amp; katakana with instant feedback.
-              </p>
-              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
-                Focus on recognition speed and pronunciation confidence.
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
-                Start Session
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </div>
-            </div>
-          </Link>
-
-          {/* Lesson Decks */}
-          <Link
-            href="/decks"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="Browse lesson decks"
-          >
-            <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative overflow-hidden shrink-0">
-              <span
-                className="font-japanese-display text-6xl md:text-8xl text-primary/20 group-hover:scale-110 transition-transform duration-500"
-                aria-hidden
-              >
-                学
-              </span>
-            </div>
-            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
-              <span className="inline-block px-2 py-1 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
-                STUDY
-              </span>
-              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
-                Lesson Decks
-              </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
-                Genki vocab &amp; grammar with spaced repetition.
-              </p>
-              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
-                Continue lesson by lesson and keep your recall stable.
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
-                Browse Lessons
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </div>
-            </div>
-          </Link>
-
-          {/* Reading Practice */}
-          <Link
-            href="/reading"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="Start reading practice"
-          >
-            <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-[#fef3c7]/60 to-[#f59e0b]/10 flex items-center justify-center relative overflow-hidden shrink-0">
-              <span
-                className="font-japanese-display text-6xl md:text-8xl text-[#b45309]/20 group-hover:scale-110 transition-transform duration-500"
-                aria-hidden
-              >
-                読
-              </span>
-            </div>
-            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
-              <span className="inline-block px-2 py-1 bg-[#fef3c7] text-[#b45309] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
-                PRACTICE
-              </span>
-              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
-                Reading Practice
-              </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
-                Sentences &amp; paragraphs at three difficulty levels.
-              </p>
-              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
-                Build comprehension with furigana, context, and recall checks.
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
-                Start Reading
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </div>
-            </div>
-          </Link>
-
-          {/* Learning Path */}
-          <Link
-            href="/path"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="View learning path"
-          >
-            <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-[#8ef4e4]/20 to-[#2a9a8c]/10 flex items-center justify-center relative overflow-hidden shrink-0">
-              <span
-                className="font-japanese-display text-6xl md:text-8xl text-[#2a9a8c]/20 group-hover:scale-110 transition-transform duration-500"
-                aria-hidden
-              >
-                道
-              </span>
-            </div>
-            <div className="flex-1 p-5 md:p-6 lg:p-8 flex flex-col justify-center md:justify-start">
-              <span className="inline-block px-2 py-1 bg-[#8ef4e4] text-[#2a9a8c] text-[9px] font-bold uppercase tracking-wider rounded w-fit mb-2 md:mb-3">
-                GUIDED
-              </span>
-              <h3 className="font-display font-bold text-lg md:text-xl text-foreground mb-1 md:mb-2">
-                Learning Path
-              </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
-                Follow a structured path from beginner to fluent.
-              </p>
-              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
-                See your next milestone and keep your study flow consistent.
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
-                View Path
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </div>
-            </div>
-          </Link>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
+          {LEARNING_MODE_CARDS.map((mode) => (
+            <LearningModeCard key={mode.href} mode={mode} />
+          ))}
         </div>
       </section>
     </div>

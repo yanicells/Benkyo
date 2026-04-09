@@ -5,15 +5,21 @@ import { usePathname } from "next/navigation";
 import { useMemo, useSyncExternalStore } from "react";
 
 import lessonsData from "@/data/lessons.json";
-import { getDueCards, getStudyDataRevision, subscribeToStudyData } from "@/lib/srs";
+import {
+  getDueCards,
+  getStudyDataRevision,
+  subscribeToStudyData,
+} from "@/lib/srs";
 import type { LessonsData } from "@/lib/types";
 
 const lessons = (lessonsData as unknown as LessonsData).lessons;
 
 function shouldHideReviewDialog(pathname: string): boolean {
-  if (pathname.includes("/session") || pathname.includes("/results")) return true;
+  if (pathname.includes("/session") || pathname.includes("/results"))
+    return true;
   if (pathname.startsWith("/review")) return true;
-  if (pathname.startsWith("/install") || pathname.startsWith("/legal")) return true;
+  if (pathname.startsWith("/install") || pathname.startsWith("/legal"))
+    return true;
   return false;
 }
 
@@ -36,23 +42,29 @@ export function ReviewDueDialog() {
 
   return (
     <div className="pointer-events-none fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-30 lg:bottom-6 lg:right-6">
-      <div className="pointer-events-auto w-[min(19.5rem,calc(100vw-2rem))] rounded-2xl border border-primary/20 bg-surface-lowest/95 p-3 shadow-[0_12px_32px_rgba(0,36,70,0.2)] backdrop-blur-md">
-        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-primary">
-          Review Ready
-        </p>
-        <p className="mt-1 text-sm font-bold text-foreground">
-          {dueCount} {dueCount === 1 ? "card" : "cards"} due
-        </p>
-        <p className="mt-0.5 text-xs text-on-surface-variant">
-          Keep momentum with a quick daily review.
-        </p>
-        <Link
-          href="/review"
-          className="btn-primary-gradient mt-3 inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-xs font-bold uppercase tracking-[0.12em] text-white transition hover:opacity-90"
+      <Link
+        href="/review"
+        className="pointer-events-auto btn-primary-gradient inline-flex min-h-11 items-center gap-2.5 rounded-full border border-white/15 px-4 py-2.5 text-white shadow-[0_14px_30px_rgba(0,36,70,0.3)] transition hover:opacity-90"
+        aria-label={`Start review, ${dueCount} ${dueCount === 1 ? "card" : "cards"} due`}
+      >
+        <svg
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden
         >
-          Start Daily Session
-        </Link>
-      </div>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2.2}
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+        <span className="text-sm font-bold tracking-[0.04em]">
+          {dueCount} {dueCount === 1 ? "card" : "cards"} due
+        </span>
+      </Link>
     </div>
   );
 }

@@ -39,7 +39,12 @@ export default async function ReadingDifficultyPage({ params }: Props) {
   const diffKey = difficulty as ReadingDifficulty;
   const diffMeta = {
     notes: group.description,
-    difficulty: diffKey === "simple" ? "beginner" as const : diffKey === "intermediate" ? "intermediate" as const : "advanced" as const,
+    difficulty:
+      diffKey === "simple"
+        ? ("beginner" as const)
+        : diffKey === "intermediate"
+          ? ("intermediate" as const)
+          : ("advanced" as const),
     estimatedMinutes: group.stories.reduce(
       (sum, s) => sum + (s.meta.estimatedMinutes || 0),
       0,

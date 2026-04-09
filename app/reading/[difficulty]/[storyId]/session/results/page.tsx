@@ -37,10 +37,7 @@ export default async function ReadingResultsPage({ params }: Props) {
       backHref={`/reading/${difficulty}`}
       backLabel={`${DIFFICULTY_LABELS[diffKey]} Stories`}
     >
-      <ReadingResultsClient
-        difficulty={diffKey}
-        storyId={storyId}
-      />
+      <ReadingResultsClient difficulty={diffKey} storyId={storyId} />
     </PageShell>
   );
 }

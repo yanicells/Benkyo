@@ -81,9 +81,7 @@ export function DeckResultsClient({
   const minutes = Math.floor(results.timeSeconds / 60);
   const seconds = results.timeSeconds % 60;
   const backHref = isReview ? "/" : `/decks/${lessonId}`;
-  const continueHref = isReview
-    ? "/review"
-    : `/decks/${lessonId}/${subDeckId}`;
+  const continueHref = isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`;
   const backLabel = isReview ? "Home" : "Back to lesson";
   const continueLabel = isReview
     ? "Review again"

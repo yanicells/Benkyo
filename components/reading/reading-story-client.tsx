@@ -52,7 +52,8 @@ export function ReadingStoryClient({
             Story Progress
           </p>
           <p className="text-[10px] text-on-surface-variant">
-            {story.passages.length} {story.passages.length === 1 ? "passage" : "passages"}
+            {story.passages.length}{" "}
+            {story.passages.length === 1 ? "passage" : "passages"}
           </p>
         </div>
 
@@ -75,7 +76,11 @@ export function ReadingStoryClient({
           <div className="flex items-center justify-between text-[11px]">
             <span className="font-semibold text-amber-700">Status</span>
             <span className="text-on-surface-variant">
-              {progress?.completed ? "Completed" : progress ? "In progress" : "Not started"}
+              {progress?.completed
+                ? "Completed"
+                : progress
+                  ? "In progress"
+                  : "Not started"}
             </span>
           </div>
         </div>

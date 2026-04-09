@@ -44,7 +44,10 @@ function FuriganaText({
       if (earliestIdx > 0) {
         parts.push({ text: remaining.slice(0, earliestIdx) });
       }
-      parts.push({ text: matchedHighlight.word, reading: matchedHighlight.reading });
+      parts.push({
+        text: matchedHighlight.word,
+        reading: matchedHighlight.reading,
+      });
       remaining = remaining.slice(earliestIdx + matchedHighlight.word.length);
     } else {
       parts.push({ text: remaining });
@@ -88,9 +91,7 @@ export function ReadingSessionClient({ story }: Props) {
   const totalSteps = totalPassages + totalQuestions;
 
   const currentStep =
-    phase === "read"
-      ? passageIdx
-      : totalPassages + questionIdx;
+    phase === "read" ? passageIdx : totalPassages + questionIdx;
   const progressPercent =
     totalSteps > 0 ? Math.round((currentStep / totalSteps) * 100) : 0;
 
@@ -116,7 +117,9 @@ export function ReadingSessionClient({ story }: Props) {
             `reading-results:${story.difficulty}:${story.id}`,
             JSON.stringify(resultsData),
           );
-          router.push(`/reading/${story.difficulty}/${story.id}/session/results`);
+          router.push(
+            `/reading/${story.difficulty}/${story.id}/session/results`,
+          );
           return;
         }
         setPhase("questions");
@@ -179,7 +182,12 @@ export function ReadingSessionClient({ story }: Props) {
             href={`/reading/${story.difficulty}/${story.id}`}
             className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
           >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -222,7 +230,9 @@ export function ReadingSessionClient({ story }: Props) {
             {story.title}
           </h1>
           <span className="ml-3 whitespace-nowrap text-xs font-bold tracking-wider text-success">
-            {phase === "read" ? `${passageIdx + 1}/${totalPassages}` : `${questionIdx + (answered ? 1 : 0)}/${totalQuestions}`}
+            {phase === "read"
+              ? `${passageIdx + 1}/${totalPassages}`
+              : `${questionIdx + (answered ? 1 : 0)}/${totalQuestions}`}
           </span>
         </div>
         <div className="h-2 w-full rounded-full overflow-hidden bg-secondary-container">
@@ -279,21 +289,25 @@ export function ReadingSessionClient({ story }: Props) {
                   Key Vocabulary ({passage.vocabularyHighlights.length})
                 </p>
                 <div className="flex flex-wrap gap-2">
-                {passage.vocabularyHighlights.map((v, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-surface-low px-3 py-1.5 text-sm"
-                  >
-                    <span className="font-japanese font-medium text-foreground">
-                      {v.word}
+                  {passage.vocabularyHighlights.map((v, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-surface-low px-3 py-1.5 text-sm"
+                    >
+                      <span className="font-japanese font-medium text-foreground">
+                        {v.word}
+                      </span>
+                      {v.reading && (
+                        <span className="text-xs text-secondary">
+                          ({v.reading})
+                        </span>
+                      )}
+                      <span className="text-secondary">-</span>
+                      <span className="text-on-surface-variant">
+                        {v.meaning}
+                      </span>
                     </span>
-                    {v.reading && (
-                      <span className="text-xs text-secondary">({v.reading})</span>
-                    )}
-                    <span className="text-secondary">-</span>
-                    <span className="text-on-surface-variant">{v.meaning}</span>
-                  </span>
-                ))}
+                  ))}
                 </div>
               </div>
             )}

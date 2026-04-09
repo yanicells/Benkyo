@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -73,7 +73,12 @@ const previewTypeLabels: Record<CardType, string> = {
   culture: "Culture",
 };
 
-type FilterCounts = { all: number; new: number; learning: number; mastered: number };
+type FilterCounts = {
+  all: number;
+  new: number;
+  learning: number;
+  mastered: number;
+};
 
 const filterOptions: { value: CardFilter; label: string }[] = [
   { value: "all", label: "All Cards" },
@@ -148,6 +153,10 @@ function SettingsDialog({
   onStart: () => void;
 }) {
   if (!open) return null;
+
+  const availableFilterOptions = filterOptions.filter(
+    (opt) => opt.value === "all" || filterCounts[opt.value] > 0,
+  );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
@@ -224,35 +233,30 @@ function SettingsDialog({
           {/* Card filter */}
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Cards{" "}
-              <span className="text-on-surface-variant">(Select 1)</span>
+              Cards <span className="text-on-surface-variant">(Select 1)</span>
             </p>
             <div className="grid gap-2 grid-cols-2">
-              {filterOptions.map((opt) => {
+              {availableFilterOptions.map((opt) => {
                 const count = filterCounts[opt.value];
-                const disabled = count === 0 && opt.value !== "all";
                 return (
                   <button
                     key={opt.value}
                     type="button"
-                    disabled={disabled}
-                    onClick={() => !disabled && setCardFilter(opt.value)}
+                    onClick={() => setCardFilter(opt.value)}
                     className={`flex items-center justify-center gap-1.5 rounded-xl border-2 p-3 text-sm font-semibold transition-all ${
-                      disabled
-                        ? "border-outline-variant/10 bg-surface-lowest text-on-surface-variant/40 cursor-not-allowed"
-                        : cardFilter === opt.value
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
+                      cardFilter === opt.value
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
                     }`}
                   >
                     {opt.label}
-                    <span className={`text-xs ${
-                      disabled
-                        ? "text-on-surface-variant/30"
-                        : cardFilter === opt.value
+                    <span
+                      className={`text-xs ${
+                        cardFilter === opt.value
                           ? "text-primary/70"
                           : "text-on-surface-variant"
-                    }`}>
+                      }`}
+                    >
                       ({count})
                     </span>
                   </button>
@@ -320,7 +324,10 @@ function SettingsDialog({
             onClick={onStart}
             className="w-full btn-primary-gradient rounded-xl py-4 text-white font-bold text-base shadow-[0_8px_24px_rgba(0,36,70,0.15)] transition hover:opacity-90 hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Start Session{filterCounts[cardFilter] > 0 ? ` · ${filterCounts[cardFilter]} cards` : ""}
+            Start Session
+            {filterCounts[cardFilter] > 0
+              ? ` · ${filterCounts[cardFilter]} cards`
+              : ""}
           </button>
         </div>
       </div>
@@ -370,7 +377,12 @@ export function SubDeckStudyClient({
 
   const filterCounts = useMemo((): FilterCounts => {
     if (dataRevision < 0) {
-      return { all: progressCardRefs.length, new: progressCardRefs.length, learning: 0, mastered: 0 };
+      return {
+        all: progressCardRefs.length,
+        new: progressCardRefs.length,
+        learning: 0,
+        mastered: 0,
+      };
     }
     const all = getAllSRS();
     let newCount = 0;
@@ -388,6 +400,12 @@ export function SubDeckStudyClient({
     }
     return { all: progressCardRefs.length, new: newCount, learning, mastered };
   }, [dataRevision, progressCardRefs]);
+
+  useEffect(() => {
+    if (cardFilter !== "all" && filterCounts[cardFilter] === 0) {
+      setCardFilter("all");
+    }
+  }, [cardFilter, filterCounts]);
 
   const handleStart = () => {
     const searchParams = new URLSearchParams({

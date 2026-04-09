@@ -123,9 +123,7 @@ export default function RootLayout({
             </div>
 
             {/* Main Content */}
-            <main className="flex-1 pb-20 lg:pb-0 relative">
-              {children}
-            </main>
+            <main className="flex-1 pb-20 lg:pb-0 relative">{children}</main>
 
             <ReviewDueDialog />
 
