@@ -13,6 +13,85 @@ type Props = {
 
 type Phase = "read" | "questions";
 
+function VocabularyModal({
+  open,
+  onClose,
+  highlights,
+}: {
+  open: boolean;
+  onClose: () => void;
+  highlights: ReadingStory["passages"][number]["vocabularyHighlights"];
+}) {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
+      <div
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-[0_24px_64px_rgba(0,14,33,0.2)]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
+          <h3 className="font-display text-lg font-bold text-foreground">
+            Key Vocabulary
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
+            aria-label="Close vocabulary"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div className="min-h-0 flex-1 overflow-y-auto p-6">
+          {highlights.length === 0 ? (
+            <p className="text-sm text-on-surface-variant text-center py-6">
+              No highlighted vocabulary for this passage.
+            </p>
+          ) : (
+            <div className="space-y-2.5">
+              {highlights.map((v, i) => (
+                <div
+                  key={`${v.word}-${i}`}
+                  className="rounded-xl bg-surface-low px-3.5 py-3"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-japanese text-xl font-semibold text-foreground">
+                      {v.word}
+                    </span>
+                    {v.reading && (
+                      <span className="text-xs font-medium text-secondary">
+                        ({v.reading})
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-1.5 text-sm text-on-surface-variant">
+                    {v.meaning}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FuriganaText({
   text,
   highlights,
@@ -97,6 +176,38 @@ export function ReadingSessionClient({ story }: Props) {
 
   const passage = story.passages[passageIdx];
   const question = story.questions[questionIdx];
+  const passageLength = passage?.passage.trim().length ?? 0;
+  const questionLength = question?.question.trim().length ?? 0;
+
+  const passageTypographyClass =
+    passageLength > 70
+      ? "text-xl md:text-2xl lg:text-3xl"
+      : passageLength > 40
+        ? "text-[1.55rem] md:text-[2.05rem] lg:text-[2.55rem]"
+        : passageLength > 18
+          ? "text-2xl md:text-3xl lg:text-[2.9rem]"
+          : "text-[2.25rem] md:text-[3.1rem] lg:text-[3.8rem]";
+
+  const readCardSizeClass =
+    passageLength > 40
+      ? "min-h-45 md:min-h-55"
+      : passageLength > 18
+        ? "min-h-40 md:min-h-50"
+        : "min-h-36 md:min-h-44";
+
+  const questionTypographyClass =
+    questionLength > 22
+      ? "text-[1.25rem] md:text-[1.8rem] lg:text-[2.2rem]"
+      : questionLength > 12
+        ? "text-[1.45rem] md:text-[2.1rem] lg:text-[2.6rem]"
+        : questionLength > 6
+          ? "text-[1.7rem] md:text-[2.4rem] lg:text-[3rem]"
+          : "text-[2.2rem] md:text-[3.3rem] lg:text-[4.2rem]";
+
+  const questionCardSizeClass =
+    questionLength > 16
+      ? "min-h-[180px] md:min-h-[220px]"
+      : "min-h-[150px] md:min-h-[190px]";
 
   const handleNext = useCallback(() => {
     if (phase === "read") {
@@ -245,8 +356,12 @@ export function ReadingSessionClient({ story }: Props) {
 
       {phase === "read" && passage && (
         <>
-          <div className="relative flex min-h-45 flex-col items-center justify-center rounded-4xl border border-primary/35 bg-surface-lowest px-6 py-5 shadow-[0_4px_24px_rgba(0,14,33,0.04)] md:min-h-55 md:px-8 md:py-7 lg:px-10 lg:py-8">
-            <p className="font-japanese text-center text-2xl leading-relaxed text-foreground md:text-3xl lg:text-4xl">
+          <div
+            className={`relative flex ${readCardSizeClass} flex-col items-center justify-center rounded-4xl border border-primary/35 bg-surface-lowest px-6 py-5 shadow-[0_4px_24px_rgba(0,14,33,0.04)] md:px-8 md:py-7 lg:px-10 lg:py-8`}
+          >
+            <p
+              className={`font-japanese text-center leading-relaxed text-foreground ${passageTypographyClass}`}
+            >
               <FuriganaText
                 text={passage.passage}
                 highlights={passage.vocabularyHighlights}
@@ -281,45 +396,16 @@ export function ReadingSessionClient({ story }: Props) {
                 : "Continue to Questions"}
             </button>
           </div>
-
-          <div className="mt-4">
-            {showVocab && (
-              <div className="animate-in fade-in slide-in-from-top-1">
-                <p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant">
-                  Key Vocabulary ({passage.vocabularyHighlights.length})
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {passage.vocabularyHighlights.map((v, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-surface-low px-3 py-1.5 text-sm"
-                    >
-                      <span className="font-japanese font-medium text-foreground">
-                        {v.word}
-                      </span>
-                      {v.reading && (
-                        <span className="text-xs text-secondary">
-                          ({v.reading})
-                        </span>
-                      )}
-                      <span className="text-secondary">-</span>
-                      <span className="text-on-surface-variant">
-                        {v.meaning}
-                      </span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </>
       )}
 
       {phase === "questions" && question && (
         <div className="flex flex-1 flex-col">
-          <div className="relative flex min-h-45 flex-col items-center justify-center rounded-4xl border border-primary/35 bg-surface-lowest px-6 py-5 shadow-[0_4px_24px_rgba(0,14,33,0.04)] md:min-h-55 md:px-8 md:py-7 lg:px-10 lg:py-8">
+          <div
+            className={`relative flex ${questionCardSizeClass} flex-col items-center justify-center rounded-4xl border border-primary/35 bg-surface-lowest px-6 py-5 shadow-[0_4px_24px_rgba(0,14,33,0.04)] md:px-8 md:py-7 lg:px-10 lg:py-8`}
+          >
             <div className="font-sans text-center leading-tight text-foreground transition-all">
-              <span className="text-2xl font-bold md:text-3xl lg:text-4xl">
+              <span className={questionTypographyClass}>
                 {question.question}
               </span>
             </div>
@@ -375,6 +461,14 @@ export function ReadingSessionClient({ story }: Props) {
             )}
           </div>
         </div>
+      )}
+
+      {phase === "read" && passage && (
+        <VocabularyModal
+          open={showVocab}
+          onClose={() => setShowVocab(false)}
+          highlights={passage.vocabularyHighlights}
+        />
       )}
     </div>
   );

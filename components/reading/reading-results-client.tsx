@@ -139,16 +139,16 @@ export function ReadingResultsClient({
         </div>
       </section>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 items-stretch gap-3">
         <Link
           href={`/reading/${difficulty}`}
-          className="w-full rounded-lg border border-primary/45 bg-surface-lowest px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-primary/5"
+          className="inline-flex h-full min-h-11 w-full items-center justify-center rounded-lg border border-primary/45 bg-surface-lowest px-4 py-2 text-center text-xs font-semibold uppercase tracking-widest text-primary whitespace-nowrap leading-tight transition hover:bg-primary/5 sm:px-5 sm:text-sm"
         >
           Back to stories
         </Link>
         <Link
           href={`/reading/${difficulty}/${storyId}/session`}
-          className="btn-primary-gradient w-full rounded-lg px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
+          className="btn-primary-gradient inline-flex h-full min-h-11 w-full items-center justify-center rounded-lg px-4 py-2 text-center text-xs font-semibold uppercase tracking-widest text-white whitespace-nowrap leading-tight transition hover:opacity-90 sm:px-5 sm:text-sm"
         >
           Read again
         </Link>

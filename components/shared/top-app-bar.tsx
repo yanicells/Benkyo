@@ -18,7 +18,8 @@ export function TopAppBar() {
   const hideForStudySession =
     pathname === "/kana/session" ||
     pathname === "/review/session" ||
-    (pathname.startsWith("/decks/") && pathname.includes("/session"));
+    (pathname.startsWith("/decks/") && pathname.includes("/session")) ||
+    (pathname.startsWith("/reading/") && pathname.includes("/session"));
 
   if (hideForStudySession) return null;
 
