@@ -46,17 +46,17 @@ export function ReadingResultsClient({
 
   if (!results) {
     return (
-      <div className="min-h-dvh bg-surface flex items-center justify-center p-6">
-        <div className="text-center">
-          <p className="text-on-surface-variant mb-4">No results found.</p>
+      <section className="space-y-6">
+        <div className="rounded-lg bg-surface-lowest p-5 text-center shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+          <p className="mb-4 text-on-surface-variant">No results found.</p>
           <Link
             href={`/reading/${difficulty}`}
-            className="text-sm font-semibold text-primary hover:underline"
+            className="inline-flex rounded-lg border border-primary/45 bg-surface-lowest px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-primary/5"
           >
-            Back to stories
+            Back to Stories
           </Link>
         </div>
-      </div>
+      </section>
     );
   }
 
@@ -64,66 +64,95 @@ export function ReadingResultsClient({
     results.totalQuestions > 0
       ? Math.round((results.score / results.totalQuestions) * 100)
       : 0;
-  const isPerfect = pct === 100;
+  const isPerfect = pct === 100 && results.totalQuestions > 0;
+
+  const statusText =
+    results.totalQuestions === 0
+      ? "Reading complete. No quiz questions in this session."
+      : isPerfect
+        ? "Perfect run. You answered every question correctly."
+        : `Questions missed: ${Math.max(0, results.totalQuestions - results.score)}`;
 
   return (
-    <div className="min-h-dvh bg-surface flex flex-col">
-      <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-lg text-center">
-          <div className="bg-surface-lowest rounded-3xl p-8 md:p-10 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-            <div className="mb-6">
-              <span
-                className="font-japanese-display text-5xl md:text-6xl text-primary/20 block mb-4"
-                aria-hidden
-              >
-                {isPerfect ? "\u5B8C" : "\u8AAD"}
+    <section className="space-y-6">
+      <header className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <p className="text-xs uppercase tracking-[0.22em] text-primary">
+          Session complete
+        </p>
+        <h2 className="mt-2 font-display text-3xl font-bold text-foreground">
+          {results.storyTitle}
+        </h2>
+        <div className="mt-3 flex flex-wrap gap-4 text-sm text-on-surface-variant">
+          <span>{results.passagesRead} passages read</span>
+          <span>
+            {results.score}/{results.totalQuestions} correct
+          </span>
+          <span>{pct}% accuracy</span>
+        </div>
+        <p className="mt-2 text-on-surface-variant">{statusText}</p>
+      </header>
+
+      <section className="rounded-2xl bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary">
+            Performance
+          </p>
+          <p className="text-xs text-on-surface-variant">
+            {DIFFICULTY_LABELS[difficulty]}
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-lg bg-surface-low px-3 py-2">
+              <p className="text-xs uppercase tracking-[0.12em] text-on-surface-variant">
+                Passages
+              </p>
+              <p className="mt-1 font-display text-2xl font-bold text-foreground">
+                {results.passagesRead}
+              </p>
+            </div>
+            <div className="rounded-lg bg-surface-low px-3 py-2">
+              <p className="text-xs uppercase tracking-[0.12em] text-on-surface-variant">
+                Accuracy
+              </p>
+              <p className="mt-1 font-display text-2xl font-bold text-foreground">
+                {pct}%
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-1 flex items-center justify-between text-xs text-on-surface-variant">
+              <span>Score</span>
+              <span>
+                {results.score}/{results.totalQuestions}
               </span>
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                {isPerfect ? "Perfect Score!" : "Story Complete"}
-              </h2>
-              <p className="text-sm text-secondary mt-2">{results.storyTitle}</p>
             </div>
-
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="bg-surface-low rounded-2xl p-4">
-                <p className="font-display text-3xl font-extrabold text-foreground">
-                  {results.passagesRead}
-                </p>
-                <p className="text-xs text-secondary uppercase font-bold tracking-wider mt-1">
-                  Passages Read
-                </p>
-              </div>
-              <div className="bg-surface-low rounded-2xl p-4">
-                <p className="font-display text-3xl font-extrabold text-foreground">
-                  {pct}%
-                </p>
-                <p className="text-xs text-secondary uppercase font-bold tracking-wider mt-1">
-                  Accuracy
-                </p>
-              </div>
-            </div>
-
-            <p className="text-sm text-secondary mb-8">
-              {results.score} of {results.totalQuestions} questions correct
-            </p>
-
-            <div className="flex flex-col gap-3">
-              <Link
-                href={`/reading/${difficulty}/${storyId}/session`}
-                className="btn-primary-gradient text-white font-bold py-3 px-6 rounded-xl shadow-[0_8px_24px_rgba(0,36,70,0.12)] hover:opacity-90 transition text-center"
-              >
-                Try Again
-              </Link>
-              <Link
-                href={`/reading/${difficulty}`}
-                className="text-sm font-semibold text-primary hover:underline py-2"
-              >
-                Back to {DIFFICULTY_LABELS[difficulty]} Stories
-              </Link>
+            <div className="h-2 w-full overflow-hidden rounded-full bg-secondary-container">
+              <div
+                className="h-full rounded-full bg-success transition-all duration-500"
+                style={{ width: `${Math.max(0, Math.min(100, pct))}%` }}
+              />
             </div>
           </div>
         </div>
+      </section>
+
+      <div className="grid grid-cols-2 gap-3">
+        <Link
+          href={`/reading/${difficulty}`}
+          className="w-full rounded-lg border border-primary/45 bg-surface-lowest px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-primary/5"
+        >
+          Back to stories
+        </Link>
+        <Link
+          href={`/reading/${difficulty}/${storyId}/session`}
+          className="btn-primary-gradient w-full rounded-lg px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
+        >
+          Read again
+        </Link>
       </div>
-    </div>
+    </section>
   );
 }

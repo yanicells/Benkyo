@@ -16,6 +16,12 @@ const VALID_DIFFICULTIES = new Set<ReadingDifficulty>([
   "hard",
 ]);
 
+const DIFFICULTY_LABELS: Record<ReadingDifficulty, string> = {
+  simple: "Beginner",
+  intermediate: "Intermediate",
+  hard: "Hard",
+};
+
 export default async function ReadingStoryPage({ params }: Props) {
   const { difficulty, storyId } = await params;
 
@@ -39,7 +45,15 @@ export default async function ReadingStoryPage({ params }: Props) {
   const diffKey = difficulty as ReadingDifficulty;
 
   return (
-    <PageShell tightTopOnMobile>
+    <PageShell
+      eyebrow="Reading"
+      title={story.title}
+      subtitle={`${story.passages.length} ${story.passages.length === 1 ? "passage" : "passages"} · ${story.questions.length} ${story.questions.length === 1 ? "question" : "questions"}`}
+      tightTop
+      tightTopOnMobile
+      backHref={`/reading/${difficulty}`}
+      backLabel={`${DIFFICULTY_LABELS[diffKey]} Stories`}
+    >
       <ReadingPreStudy meta={story.meta} />
       <ReadingStoryClient story={story} difficulty={diffKey} />
     </PageShell>

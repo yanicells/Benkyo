@@ -58,6 +58,7 @@ export default async function ReadingDifficultyPage({ params }: Props) {
       eyebrow="Reading"
       title={`${DIFFICULTY_LABELS[diffKey]} Stories`}
       subtitle={`${group.stories.length} stories to practice reading comprehension.`}
+      tightTop
       tightTopOnMobile
       backHref="/reading"
       backLabel="Reading"

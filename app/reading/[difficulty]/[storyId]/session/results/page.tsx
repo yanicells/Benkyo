@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { PageShell } from "@/components/shared/page-shell";
 import { ReadingResultsClient } from "@/components/reading/reading-results-client";
 import type { ReadingDifficulty } from "@/lib/types";
 
@@ -13,6 +14,12 @@ const VALID_DIFFICULTIES = new Set<ReadingDifficulty>([
   "hard",
 ]);
 
+const DIFFICULTY_LABELS: Record<ReadingDifficulty, string> = {
+  simple: "Beginner",
+  intermediate: "Intermediate",
+  hard: "Hard",
+};
+
 export default async function ReadingResultsPage({ params }: Props) {
   const { difficulty, storyId } = await params;
 
@@ -20,10 +27,20 @@ export default async function ReadingResultsPage({ params }: Props) {
     redirect("/reading");
   }
 
+  const diffKey = difficulty as ReadingDifficulty;
+
   return (
-    <ReadingResultsClient
-      difficulty={difficulty as ReadingDifficulty}
-      storyId={storyId}
-    />
+    <PageShell
+      eyebrow="Results"
+      title="Reading summary"
+      subtitle="Review how you did, then jump back in while it is still fresh."
+      backHref={`/reading/${difficulty}`}
+      backLabel={`${DIFFICULTY_LABELS[diffKey]} Stories`}
+    >
+      <ReadingResultsClient
+        difficulty={diffKey}
+        storyId={storyId}
+      />
+    </PageShell>
   );
 }

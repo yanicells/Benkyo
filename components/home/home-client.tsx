@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 import type { Lesson } from "@/lib/types";
 import {
@@ -196,17 +196,16 @@ function DailyGoalRing({
 }
 
 export function HomeClient({ lessons }: HomeClientProps) {
-  const [data, setData] = useState<ClientData | null>(null);
   const dataRevision = useSyncExternalStore(
     subscribeToStudyData,
     getStudyDataRevision,
     () => -1,
   );
 
-  useEffect(() => {
-    if (dataRevision < 0) return;
-    setData(readClientData(lessons));
-  }, [lessons, dataRevision]);
+  const data = useMemo(
+    () => (dataRevision < 0 ? null : readClientData(lessons)),
+    [lessons, dataRevision],
+  );
 
   const loaded = data !== null;
 
@@ -500,11 +499,11 @@ export function HomeClient({ lessons }: HomeClientProps) {
 
       {/* Core Learning Modes (CTAs) */}
       <section aria-label="Start learning">
-        <div className="grid grid-cols-1 gap-4 [@media(min-width:560px)]:grid-cols-2 [@media(min-width:900px)]:grid-cols-3 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 gap-3 md:gap-4">
           {/* Kana Practice */}
           <Link
             href="/kana"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Start kana practice session"
           >
             <div className="w-[30%] md:w-auto md:h-[45%] bg-[#0a0a0c] flex items-center justify-center relative overflow-hidden shrink-0">
@@ -524,6 +523,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
               </h3>
               <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
                 Drill hiragana &amp; katakana with instant feedback.
+              </p>
+              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
+                Focus on recognition speed and pronunciation confidence.
               </p>
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
                 Start Session
@@ -548,7 +550,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
           {/* Lesson Decks */}
           <Link
             href="/decks"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Browse lesson decks"
           >
             <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center relative overflow-hidden shrink-0">
@@ -568,6 +570,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
               </h3>
               <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
                 Genki vocab &amp; grammar with spaced repetition.
+              </p>
+              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
+                Continue lesson by lesson and keep your recall stable.
               </p>
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
                 Browse Lessons
@@ -592,7 +597,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
           {/* Reading Practice */}
           <Link
             href="/reading"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Start reading practice"
           >
             <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-[#fef3c7]/60 to-[#f59e0b]/10 flex items-center justify-center relative overflow-hidden shrink-0">
@@ -612,6 +617,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
               </h3>
               <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
                 Sentences &amp; paragraphs at three difficulty levels.
+              </p>
+              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
+                Build comprehension with furigana, context, and recall checks.
               </p>
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
                 Start Reading
@@ -636,7 +644,7 @@ export function HomeClient({ lessons }: HomeClientProps) {
           {/* Learning Path */}
           <Link
             href="/path"
-            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-[240px] lg:min-h-[280px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group rounded-[2rem] bg-surface-lowest overflow-hidden shadow-[0_12px_40px_rgba(0,14,33,0.06)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-row md:flex-col min-h-0 md:min-h-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="View learning path"
           >
             <div className="w-[30%] md:w-auto md:h-[45%] bg-gradient-to-br from-[#8ef4e4]/20 to-[#2a9a8c]/10 flex items-center justify-center relative overflow-hidden shrink-0">
@@ -656,6 +664,9 @@ export function HomeClient({ lessons }: HomeClientProps) {
               </h3>
               <p className="text-xs text-secondary leading-relaxed mb-3 md:mb-4 hidden xs:block">
                 Follow a structured path from beginner to fluent.
+              </p>
+              <p className="hidden lg:block text-xs text-secondary/80 leading-relaxed mb-3">
+                See your next milestone and keep your study flow consistent.
               </p>
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground md:mt-auto">
                 View Path

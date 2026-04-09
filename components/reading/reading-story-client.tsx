@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { ReadingDifficulty, ReadingStory } from "@/lib/types";
 import {
@@ -16,12 +15,6 @@ type ReadingStoryClientProps = {
 };
 
 const subscribeNoop = () => () => {};
-
-const DIFFICULTY_LABELS: Record<ReadingDifficulty, string> = {
-  simple: "Beginner",
-  intermediate: "Intermediate",
-  hard: "Hard",
-};
 
 export function ReadingStoryClient({
   story,
@@ -45,79 +38,48 @@ export function ReadingStoryClient({
     return all[story.id] ?? null;
   }, [isHydrated, dataRevision, story.id]);
 
+  const bestScore = progress?.bestScore ?? 0;
+  const totalQuestions = story.questions.length;
+  const scorePct =
+    totalQuestions > 0 ? Math.round((bestScore / totalQuestions) * 100) : 0;
+
   return (
-    <section className="relative mx-auto w-full max-w-4xl px-4 pt-0 pb-32 sm:px-8 sm:pt-10 sm:pb-36">
-      {/* Back button */}
-      <div className="sticky top-14 lg:top-16 z-20 -mx-4 sm:-mx-8 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md sm:px-8">
-        <Link
-          href={`/reading/${difficulty}`}
-          className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          {DIFFICULTY_LABELS[difficulty]} Stories
-        </Link>
-      </div>
+    <div className="space-y-4 pb-32 sm:space-y-6 sm:pb-36">
+      {/* Story progress */}
+      <div className="rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)]">
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
+            Story Progress
+          </p>
+          <p className="text-[10px] text-on-surface-variant">
+            {story.passages.length} {story.passages.length === 1 ? "passage" : "passages"}
+          </p>
+        </div>
 
-      {/* Header */}
-      <header className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-on-surface-variant mb-2">
-          Story
-        </p>
-        <h1 className="font-display text-4xl font-bold leading-tight tracking-tight text-primary sm:text-5xl">
-          {story.title}
-        </h1>
-        <p className="mt-2 text-base text-on-surface-variant">
-          {story.passages.length}{" "}
-          {story.passages.length === 1 ? "passage" : "passages"} ·{" "}
-          {story.questions.length}{" "}
-          {story.questions.length === 1 ? "question" : "questions"}
-        </p>
-      </header>
-
-      {/* Progress card */}
-      {progress && (
-        <div className="mb-8 rounded-2xl bg-surface-lowest p-5 shadow-[0_8px_28px_rgba(0,36,70,0.06)]">
-          <div className="mb-3 flex items-center justify-between">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
-              Your Progress
-            </p>
-          </div>
-          <div className="space-y-3">
-            <div>
-              <div className="mb-1 flex items-center justify-between text-[11px]">
-                <span className="font-semibold text-primary">Best Score</span>
-                <span className="text-on-surface-variant">
-                  {progress.bestScore}/{progress.totalQuestions} (
-                  {Math.round(
-                    (progress.bestScore / progress.totalQuestions) * 100,
-                  )}
-                  %)
-                </span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-secondary-container overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-primary transition-all duration-500"
-                  style={{
-                    width: `${Math.round((progress.bestScore / progress.totalQuestions) * 100)}%`,
-                  }}
-                />
-              </div>
+        <div className="space-y-3">
+          <div>
+            <div className="mb-1 flex items-center justify-between text-[11px]">
+              <span className="font-semibold text-primary">Best Score</span>
+              <span className="text-on-surface-variant">
+                {bestScore}/{totalQuestions} ({scorePct}%)
+              </span>
+            </div>
+            <div className="h-2 w-full rounded-full bg-secondary-container overflow-hidden">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-500"
+                style={{ width: `${scorePct}%` }}
+              />
             </div>
           </div>
+
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="font-semibold text-amber-700">Status</span>
+            <span className="text-on-surface-variant">
+              {progress?.completed ? "Completed" : progress ? "In progress" : "Not started"}
+            </span>
+          </div>
         </div>
-      )}
+      </div>
 
       {/* Passage preview */}
       <div className="rounded-2xl bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
@@ -132,10 +94,7 @@ export function ReadingStoryClient({
         </div>
         <div className="space-y-2">
           {story.passages.map((p, i) => (
-            <div
-              key={i}
-              className="rounded-lg bg-surface-low px-3 py-2"
-            >
+            <div key={i} className="rounded-lg bg-surface-low px-3 py-2">
               <p className="font-japanese text-base text-foreground line-clamp-2">
                 {p.passage}
               </p>
@@ -161,6 +120,6 @@ export function ReadingStoryClient({
           </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

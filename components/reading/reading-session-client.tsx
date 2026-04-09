@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import type { ReadingStory } from "@/lib/types";
 import { saveStoryResult } from "@/lib/reading-progress";
 
@@ -9,7 +11,7 @@ type Props = {
   story: ReadingStory;
 };
 
-type Phase = "read" | "questions" | "results";
+type Phase = "read" | "questions";
 
 function FuriganaText({
   text,
@@ -42,10 +44,7 @@ function FuriganaText({
       if (earliestIdx > 0) {
         parts.push({ text: remaining.slice(0, earliestIdx) });
       }
-      parts.push({
-        text: matchedHighlight.word,
-        reading: matchedHighlight.reading,
-      });
+      parts.push({ text: matchedHighlight.word, reading: matchedHighlight.reading });
       remaining = remaining.slice(earliestIdx + matchedHighlight.word.length);
     } else {
       parts.push({ text: remaining });
@@ -73,38 +72,30 @@ function FuriganaText({
 
 export function ReadingSessionClient({ story }: Props) {
   const router = useRouter();
-  const [passageIdx, setPassageIdx] = useState(0);
+
   const [phase, setPhase] = useState<Phase>("read");
+  const [passageIdx, setPassageIdx] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [showVocab, setShowVocab] = useState(false);
+
   const [questionIdx, setQuestionIdx] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [showVocab, setShowVocab] = useState(false);
 
   const totalPassages = story.passages.length;
   const totalQuestions = story.questions.length;
   const totalSteps = totalPassages + totalQuestions;
 
-  // Progress: passages read + questions answered
   const currentStep =
     phase === "read"
       ? passageIdx
-      : phase === "questions"
-        ? totalPassages + questionIdx + (answered ? 1 : 0)
-        : totalSteps;
-  const progress = totalSteps > 0 ? (currentStep / totalSteps) * 100 : 0;
+      : totalPassages + questionIdx;
+  const progressPercent =
+    totalSteps > 0 ? Math.round((currentStep / totalSteps) * 100) : 0;
 
   const passage = story.passages[passageIdx];
   const question = story.questions[questionIdx];
-
-  const handleSubmitAnswer = useCallback(() => {
-    if (selectedAnswer === null || !question) return;
-    setAnswered(true);
-    if (selectedAnswer === question.correctIndex) {
-      setScore((s) => s + 1);
-    }
-  }, [selectedAnswer, question]);
 
   const handleNext = useCallback(() => {
     if (phase === "read") {
@@ -113,7 +104,21 @@ export function ReadingSessionClient({ story }: Props) {
         setShowTranslation(false);
         setShowVocab(false);
       } else {
-        // Done reading all passages, move to questions
+        if (totalQuestions === 0) {
+          saveStoryResult(story.id, 0, 0);
+          const resultsData = {
+            storyTitle: story.title,
+            passagesRead: totalPassages,
+            score: 0,
+            totalQuestions: 0,
+          };
+          sessionStorage.setItem(
+            `reading-results:${story.difficulty}:${story.id}`,
+            JSON.stringify(resultsData),
+          );
+          router.push(`/reading/${story.difficulty}/${story.id}/session/results`);
+          return;
+        }
         setPhase("questions");
         setQuestionIdx(0);
         setSelectedAnswer(null);
@@ -122,62 +127,59 @@ export function ReadingSessionClient({ story }: Props) {
       return;
     }
 
-    if (phase === "questions") {
-      if (questionIdx < totalQuestions - 1) {
-        setQuestionIdx((q) => q + 1);
-        setSelectedAnswer(null);
-        setAnswered(false);
-      } else {
-        // Done with all questions — save results and navigate
-        // score was already incremented in handleSubmitAnswer
-        saveStoryResult(story.id, score, totalQuestions);
+    if (!question || !answered) return;
 
-        const resultsData = {
-          storyTitle: story.title,
-          passagesRead: totalPassages,
-          score,
-          totalQuestions,
-        };
-        sessionStorage.setItem(
-          `reading-results:${story.difficulty}:${story.id}`,
-          JSON.stringify(resultsData),
-        );
-        router.push(
-          `/reading/${story.difficulty}/${story.id}/session/results`,
-        );
-      }
+    const isCorrect = selectedAnswer === question.correctIndex;
+    const nextScore = score + (isCorrect ? 1 : 0);
+
+    if (questionIdx < totalQuestions - 1) {
+      setScore(nextScore);
+      setQuestionIdx((q) => q + 1);
+      setSelectedAnswer(null);
+      setAnswered(false);
       return;
     }
+
+    saveStoryResult(story.id, nextScore, totalQuestions);
+    const resultsData = {
+      storyTitle: story.title,
+      passagesRead: totalPassages,
+      score: nextScore,
+      totalQuestions,
+    };
+    sessionStorage.setItem(
+      `reading-results:${story.difficulty}:${story.id}`,
+      JSON.stringify(resultsData),
+    );
+    router.push(`/reading/${story.difficulty}/${story.id}/session/results`);
   }, [
     phase,
     passageIdx,
     totalPassages,
+    question,
+    answered,
+    selectedAnswer,
+    score,
     questionIdx,
     totalQuestions,
-    score,
     story,
     router,
   ]);
 
+  const questionOptions = useMemo(() => {
+    if (phase !== "questions" || !question) return [];
+    return question.options.map((option, idx) => ({ option, idx }));
+  }, [phase, question]);
+
   return (
-    <div className="min-h-dvh bg-surface flex flex-col">
-      {/* Header */}
-      <div className="sticky top-0 z-30 bg-surface/95 backdrop-blur-sm">
-        <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() =>
-              router.push(`/reading/${story.difficulty}/${story.id}`)
-            }
-            className="text-on-surface-variant hover:text-foreground transition-colors p-1"
-            aria-label="Back to story"
+    <div className="max-w-3xl mx-auto w-full flex min-h-[calc(100vh-4rem)] flex-col px-4 pt-0 pb-6 md:px-8 md:py-8">
+      <div className="sticky top-0 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
+        <div className="flex items-center justify-between">
+          <Link
+            href={`/reading/${story.difficulty}/${story.id}`}
+            className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -185,217 +187,181 @@ export function ReadingSessionClient({ story }: Props) {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-          </button>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold uppercase tracking-wider text-secondary">
-              {story.title} &middot;{" "}
-              {phase === "read"
-                ? `Passage ${passageIdx + 1}/${totalPassages}`
-                : `Question ${questionIdx + 1}/${totalQuestions}`}
-            </p>
-          </div>
+            Back to Story
+          </Link>
+          {phase === "read" && passage && (
+            <button
+              type="button"
+              onClick={() => setShowVocab((v) => !v)}
+              className="inline-flex items-center gap-1.5 rounded-xl bg-surface-low px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+              title="Vocabulary help"
+              aria-label="Toggle vocabulary help"
+            >
+              <span>Vocab</span>
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </button>
+          )}
         </div>
-        <div className="h-[2px] bg-outline-variant/20">
+      </div>
+
+      <div className="mb-6">
+        <div className="mb-3 flex items-center justify-between">
+          <h1 className="text-xs font-bold uppercase tracking-[0.15em] text-primary truncate">
+            {story.title}
+          </h1>
+          <span className="ml-3 whitespace-nowrap text-xs font-bold tracking-wider text-success">
+            {phase === "read" ? `${passageIdx + 1}/${totalPassages}` : `${questionIdx + (answered ? 1 : 0)}/${totalQuestions}`}
+          </span>
+        </div>
+        <div className="h-2 w-full rounded-full overflow-hidden bg-secondary-container">
           <div
-            className="h-full bg-primary transition-all duration-500"
-            style={{ width: `${Math.min(progress, 100)}%` }}
+            className="h-full rounded-full bg-success transition-all duration-300"
+            style={{ width: `${Math.max(0, Math.min(100, progressPercent))}%` }}
           />
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 max-w-3xl mx-auto w-full px-4 py-6 md:py-10">
-        {phase === "read" && passage && (
-          <div className="flex flex-col gap-6">
-            {/* Passage Card */}
-            <div className="rounded-[2rem] border border-primary/35 bg-surface-lowest px-6 py-5 md:px-8 md:py-7 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-              <p className="font-japanese-display text-xl md:text-2xl lg:text-[1.75rem] leading-relaxed md:leading-loose text-foreground tracking-wide text-center">
-                <FuriganaText
-                  text={passage.passage}
-                  highlights={passage.vocabularyHighlights}
-                />
-              </p>
-            </div>
+      {phase === "read" && passage && (
+        <>
+          <div className="relative flex min-h-45 flex-col items-center justify-center rounded-4xl border border-primary/35 bg-surface-lowest px-6 py-5 shadow-[0_4px_24px_rgba(0,14,33,0.04)] md:min-h-55 md:px-8 md:py-7 lg:px-10 lg:py-8">
+            <p className="font-japanese text-center text-2xl leading-relaxed text-foreground md:text-3xl lg:text-4xl">
+              <FuriganaText
+                text={passage.passage}
+                highlights={passage.vocabularyHighlights}
+              />
+            </p>
 
-            {/* Translation reveal */}
-            {!showTranslation ? (
-              <button
-                type="button"
-                onClick={() => setShowTranslation(true)}
-                className="self-start text-sm font-semibold text-primary hover:text-primary/80 transition-colors flex items-center gap-1.5"
-              >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-                Show Translation
-              </button>
-            ) : (
-              <div className="bg-primary/5 rounded-xl p-4 md:p-5 border border-primary/10">
-                <p className="text-sm md:text-base text-foreground leading-relaxed">
+            {showTranslation && (
+              <div className="animate-in fade-in slide-in-from-bottom-4 mt-4 w-full flex flex-col items-center">
+                <div className="my-4 h-0.5 w-16 bg-outline-variant/30" />
+                <p className="text-center text-sm text-on-surface-variant md:text-base">
                   {passage.translation}
                 </p>
               </div>
             )}
+          </div>
 
-            {/* Vocabulary highlights */}
-            <div>
-              <button
-                type="button"
-                onClick={() => setShowVocab(!showVocab)}
-                className="text-sm font-semibold text-secondary hover:text-foreground transition-colors flex items-center gap-1.5 mb-3"
-              >
-                <svg
-                  className={`w-4 h-4 transition-transform ${showVocab ? "rotate-90" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-                Key Vocabulary ({passage.vocabularyHighlights.length})
-              </button>
-              {showVocab && (
-                <div className="flex flex-wrap gap-2">
-                  {passage.vocabularyHighlights.map((v, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 bg-surface-low rounded-lg px-3 py-1.5 text-sm"
-                    >
-                      <span className="font-japanese font-medium text-foreground">
-                        {v.word}
-                      </span>
-                      {v.reading && (
-                        <span className="text-secondary text-xs">
-                          ({v.reading})
-                        </span>
-                      )}
-                      <span className="text-secondary">&mdash;</span>
-                      <span className="text-on-surface-variant">
-                        {v.meaning}
-                      </span>
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Continue button */}
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => setShowTranslation((v) => !v)}
+              className="rounded-2xl border-2 border-outline-variant/25 bg-surface-lowest px-4 py-3.5 text-sm font-semibold text-foreground transition-all hover:border-primary/55"
+            >
+              {showTranslation ? "Hide Translation" : "Show Translation"}
+            </button>
             <button
               type="button"
               onClick={handleNext}
-              className="mt-2 w-full btn-primary-gradient text-white font-bold py-3 px-8 rounded-xl shadow-[0_8px_24px_rgba(0,36,70,0.12)] hover:opacity-90 transition"
+              className="btn-primary-gradient rounded-2xl px-4 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(0,36,70,0.12)] transition hover:opacity-90"
             >
               {passageIdx < totalPassages - 1
                 ? "Next Passage"
                 : "Continue to Questions"}
             </button>
           </div>
-        )}
 
-        {phase === "questions" && question && (
-          <div className="flex flex-col gap-6">
-            {/* Passage reminder (collapsed) */}
-            <div className="bg-surface-lowest rounded-xl p-4 border border-outline-variant/10">
-              <p className="font-japanese text-sm md:text-base text-secondary leading-relaxed line-clamp-2">
-                {story.passages.map((p) => p.passage).join(" ")}
-              </p>
-            </div>
+          <div className="mt-4">
+            {showVocab && (
+              <div className="animate-in fade-in slide-in-from-top-1">
+                <p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-on-surface-variant">
+                  Key Vocabulary ({passage.vocabularyHighlights.length})
+                </p>
+                <div className="flex flex-wrap gap-2">
+                {passage.vocabularyHighlights.map((v, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-surface-low px-3 py-1.5 text-sm"
+                  >
+                    <span className="font-japanese font-medium text-foreground">
+                      {v.word}
+                    </span>
+                    {v.reading && (
+                      <span className="text-xs text-secondary">({v.reading})</span>
+                    )}
+                    <span className="text-secondary">-</span>
+                    <span className="text-on-surface-variant">{v.meaning}</span>
+                  </span>
+                ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </>
+      )}
 
-            {/* Question */}
-            <div className="rounded-[2rem] border border-primary/35 bg-surface-lowest px-6 py-5 md:px-8 md:py-7 shadow-[0_12px_40px_rgba(0,14,33,0.06)]">
-              <p className="text-xs font-bold uppercase tracking-wider text-secondary mb-3">
-                Question {questionIdx + 1} of {totalQuestions}
-              </p>
-              <h3 className="font-display text-lg md:text-xl font-bold text-foreground mb-6">
+      {phase === "questions" && question && (
+        <div className="flex flex-1 flex-col">
+          <div className="relative flex min-h-45 flex-col items-center justify-center rounded-4xl border border-primary/35 bg-surface-lowest px-6 py-5 shadow-[0_4px_24px_rgba(0,14,33,0.04)] md:min-h-55 md:px-8 md:py-7 lg:px-10 lg:py-8">
+            <div className="font-sans text-center leading-tight text-foreground transition-all">
+              <span className="text-2xl font-bold md:text-3xl lg:text-4xl">
                 {question.question}
-              </h3>
-
-              <div className="flex flex-col gap-3">
-                {question.options.map((option, i) => {
-                  let optionStyle =
-                    "border-2 border-outline-variant/25 bg-surface-lowest hover:border-primary/55";
-                  if (answered) {
-                    if (i === question.correctIndex) {
-                      optionStyle =
-                        "border-2 border-success bg-success/10 text-foreground";
-                    } else if (i === selectedAnswer) {
-                      optionStyle =
-                        "border-2 border-error bg-error/10 text-foreground";
-                    } else {
-                      optionStyle =
-                        "border-2 border-outline-variant/20 opacity-50";
-                    }
-                  } else if (i === selectedAnswer) {
-                    optionStyle =
-                      "border-2 border-primary bg-primary/10";
-                  }
-
-                  return (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => {
-                        if (!answered) setSelectedAnswer(i);
-                      }}
-                      disabled={answered}
-                      className={`w-full text-center min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 transition-all ${optionStyle}`}
-                    >
-                      <span className="text-base md:text-lg font-medium">
-                        {option}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Submit / Next */}
-              <div className="mt-6 flex justify-center">
-                {!answered ? (
-                  <button
-                    type="button"
-                    onClick={handleSubmitAnswer}
-                    disabled={selectedAnswer === null}
-                    className="btn-primary-gradient text-white font-bold py-3 px-8 rounded-xl shadow-[0_8px_24px_rgba(0,36,70,0.12)] hover:opacity-90 transition disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    Check Answer
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    className="btn-primary-gradient text-white font-bold py-3 px-8 rounded-xl shadow-[0_8px_24px_rgba(0,36,70,0.12)] hover:opacity-90 transition"
-                  >
-                    {questionIdx < totalQuestions - 1
-                      ? "Next Question"
-                      : "See Results"}
-                  </button>
-                )}
-              </div>
+              </span>
             </div>
           </div>
-        )}
-      </div>
+
+          <div className="mt-6 w-full">
+            <div className="flex flex-col gap-3">
+              {questionOptions.map(({ option, idx }) => {
+                const isSelected = selectedAnswer === idx;
+                const isCorrect = answered && idx === question.correctIndex;
+                const isWrongSelected = answered && isSelected && !isCorrect;
+
+                let stateClass =
+                  "bg-surface-lowest text-foreground border-2 border-outline-variant/25 hover:border-primary/55";
+                if (isCorrect) {
+                  stateClass = "bg-success border-success text-white shadow-lg";
+                } else if (isWrongSelected) {
+                  stateClass = "bg-error border-error text-white shadow-lg";
+                } else if (isSelected) {
+                  stateClass = "bg-primary/10 border-2 border-primary";
+                }
+
+                return (
+                  <button
+                    key={`${option}-${idx}`}
+                    type="button"
+                    disabled={answered}
+                    onClick={() => {
+                      if (answered) return;
+                      setSelectedAnswer(idx);
+                      setAnswered(true);
+                    }}
+                    className={`relative flex min-h-17 w-full items-center rounded-2xl px-4 py-3.5 text-lg font-medium shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-200 md:px-5 md:py-4 md:text-xl ${stateClass}`}
+                  >
+                    <span className="flex-1 text-center leading-relaxed wrap-break-word">
+                      {option}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {answered && (
+              <div className="mt-2">
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="w-full btn-primary-gradient rounded-2xl py-5 text-lg font-bold text-white shadow-[0_8px_20px_rgba(0,36,70,0.12)] transition hover:opacity-90 hover:shadow-lg animate-in slide-in-from-bottom-2"
+                >
+                  Continue
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
