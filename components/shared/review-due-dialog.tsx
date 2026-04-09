@@ -20,6 +20,16 @@ function shouldHideReviewDialog(pathname: string): boolean {
   if (pathname.startsWith("/review")) return true;
   if (pathname.startsWith("/install") || pathname.startsWith("/legal"))
     return true;
+
+  // Hide on pages that already have a fixed bottom CTA to avoid stacked actions.
+  const hasDeckStickyCta = /^\/decks\/[^/]+(?:\/[^/]+)?$/.test(pathname);
+  const hasKanaStickyCta = pathname === "/kana";
+  const hasReadingStoryStickyCta = /^\/reading\/[^/]+\/[^/]+$/.test(pathname);
+
+  if (hasDeckStickyCta || hasKanaStickyCta || hasReadingStoryStickyCta) {
+    return true;
+  }
+
   return false;
 }
 

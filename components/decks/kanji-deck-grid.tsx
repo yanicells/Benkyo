@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useRouter } from "next/navigation";
 
 import type { KanjiSubDeckEntry } from "@/lib/kanji";
 import { CardPreviewList } from "@/components/decks/card-preview-list";
+import type { CardFilter, FlipSetting, StudyMode } from "@/lib/types";
 import {
   getMasteryPercent,
   getSubDeckReviewedPercent,
@@ -21,8 +23,262 @@ type KanjiDeckGridProps = {
 
 const subscribeNoop = () => () => {};
 
+type FilterCounts = {
+  all: number;
+  new: number;
+  learning: number;
+  mastered: number;
+};
+
+const filterOptions: { value: CardFilter; label: string }[] = [
+  { value: "all", label: "All Cards" },
+  { value: "new", label: "New" },
+  { value: "learning", label: "Learning" },
+  { value: "mastered", label: "Mastered" },
+];
+
+function KanjiSessionModal({
+  entries,
+  onClose,
+}: {
+  entries: KanjiSubDeckEntry[];
+  onClose: () => void;
+}) {
+  const router = useRouter();
+  const [mode, setMode] = useState<StudyMode>("flashcard");
+  const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
+  const [cardFilter, setCardFilter] = useState<CardFilter>("all");
+  const dataRevision = useSyncExternalStore(
+    subscribeToStudyData,
+    getStudyDataRevision,
+    () => -1,
+  );
+
+  const totalCards = entries.reduce(
+    (sum, e) => sum + e.subDeck.cards.length,
+    0,
+  );
+  const estimatedMinutes = Math.max(1, Math.round((totalCards * 5) / 60));
+
+  const filterCounts = useMemo((): FilterCounts => {
+    if (dataRevision < 0) {
+      return { all: totalCards, new: totalCards, learning: 0, mastered: 0 };
+    }
+    const allSRS = getAllSRS();
+    let newCount = 0;
+    let learning = 0;
+    let mastered = 0;
+    for (const entry of entries) {
+      for (let i = 0; i < entry.subDeck.cards.length; i++) {
+        const srs = allSRS[makeCardId(entry.subDeck.id, i)];
+        if (!srs || srs.totalReviews === 0) {
+          newCount++;
+        } else if (srs.interval >= 21) {
+          mastered++;
+        } else {
+          learning++;
+        }
+      }
+    }
+    return { all: totalCards, new: newCount, learning, mastered };
+  }, [dataRevision, entries, totalCards]);
+
+  useEffect(() => {
+    if (cardFilter !== "all" && filterCounts[cardFilter] === 0) {
+      setCardFilter("all");
+    }
+  }, [cardFilter, filterCounts]);
+
+  const availableFilterOptions = filterOptions.filter(
+    (opt) => opt.value === "all" || filterCounts[opt.value] > 0,
+  );
+
+  const startSession = () => {
+    const deckIds = entries.map((e) => e.subDeck.id).join(",");
+    const params = new URLSearchParams({
+      mode,
+      flip,
+      decks: deckIds,
+      ...(cardFilter !== "all" && { filter: cardFilter }),
+    });
+    router.push(`/decks/kanji/session?${params.toString()}`);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-3 sm:p-4">
+      <div
+        className="absolute inset-0 bg-black/45 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative flex max-h-[75vh] sm:max-h-[80vh] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-[0_24px_64px_rgba(0,14,33,0.2)]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
+          <h3 className="font-display text-lg font-bold text-foreground">
+            Kanji Session
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-low transition-colors"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div className="min-h-0 flex-1 overflow-y-auto p-6 space-y-5">
+          <div className="rounded-xl border-2 border-primary/20 bg-surface-lowest px-5 py-4">
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div>
+                <p className="font-display text-2xl font-bold text-foreground">
+                  {totalCards}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
+                  cards
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-foreground">
+                  ~{estimatedMinutes}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
+                  min
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-foreground">
+                  {entries.length}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-on-surface-variant mt-0.5">
+                  deck{entries.length !== 1 ? "s" : ""}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
+              Study mode
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {(
+                [
+                  { value: "flashcard" as StudyMode, label: "Flashcard" },
+                  {
+                    value: "multiple-choice" as StudyMode,
+                    label: "Multiple Choice",
+                  },
+                ] as const
+              ).map((m) => (
+                <button
+                  key={m.value}
+                  type="button"
+                  onClick={() => setMode(m.value)}
+                  className={`rounded-xl border-2 py-3 text-sm font-semibold transition-all ${
+                    mode === m.value
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
+                  }`}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
+              Cards
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {availableFilterOptions.map((opt) => {
+                const count = filterCounts[opt.value];
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setCardFilter(opt.value)}
+                    className={`flex items-center justify-center gap-1.5 rounded-xl border-2 py-3 text-sm font-semibold transition-all ${
+                      cardFilter === opt.value
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
+                    }`}
+                  >
+                    {opt.label}
+                    <span
+                      className={`text-xs ${
+                        cardFilter === opt.value
+                          ? "text-primary/70"
+                          : "text-on-surface-variant"
+                      }`}
+                    >
+                      ({count})
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
+              Direction
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {(
+                [
+                  { value: "jp-to-en" as FlipSetting, label: "日 → English" },
+                  { value: "en-to-jp" as FlipSetting, label: "English → 日" },
+                ] as const
+              ).map((f) => (
+                <button
+                  key={f.value}
+                  type="button"
+                  onClick={() => setFlip(f.value)}
+                  className={`rounded-xl border-2 py-3 text-sm font-semibold transition-all ${
+                    flip === f.value
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="px-6 py-4 border-t border-outline-variant/10 shrink-0">
+          <button
+            type="button"
+            disabled={filterCounts[cardFilter] === 0}
+            onClick={startSession}
+            className="w-full btn-primary-gradient rounded-xl py-4 text-white font-bold text-base shadow-[0_8px_24px_rgba(0,36,70,0.15)] transition hover:opacity-90 hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Start Session
+            {filterCounts[cardFilter] > 0
+              ? ` · ${filterCounts[cardFilter]} cards`
+              : ""}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sessionOpen, setSessionOpen] = useState(false);
   const isHydrated = useSyncExternalStore(
     subscribeNoop,
     () => true,
@@ -275,8 +531,9 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
       {/* Sticky bottom bar — Study all kanji CTA */}
       <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
         <div className="mx-auto w-full max-w-4xl px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
-          <Link
-            href="/decks/kanji/session"
+          <button
+            type="button"
+            onClick={() => setSessionOpen(true)}
             className="group flex w-full items-center justify-center gap-3 rounded-xl btn-primary-gradient py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90"
           >
             <svg
@@ -293,9 +550,16 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
               />
             </svg>
             <span className="uppercase tracking-[0.15em]">Study all kanji</span>
-          </Link>
+          </button>
         </div>
       </div>
+
+      {sessionOpen && (
+        <KanjiSessionModal
+          entries={entries}
+          onClose={() => setSessionOpen(false)}
+        />
+      )}
     </div>
   );
 }
