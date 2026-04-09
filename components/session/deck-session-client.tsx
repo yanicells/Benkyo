@@ -8,11 +8,13 @@ import { answerCorrect, answerWrong, buildQueue } from "@/lib/session";
 import {
   reviewCard,
   makeCardId,
+  getAllSRS,
   recordDailyReview,
   updateStreak,
 } from "@/lib/srs";
 import type {
   Card,
+  CardFilter,
   CardType,
   FlipSetting,
   SRSRating,
@@ -32,6 +34,7 @@ type DeckSessionClientProps = {
   allLessonCards: Card[];
   isReview?: boolean;
   reviewLabels?: string[];
+  cardFilter?: CardFilter;
 };
 
 const typeIcons: Record<CardType, string> = {
@@ -196,21 +199,60 @@ function ContextModal({
   );
 }
 
+function applyCardFilter(
+  cards: Card[],
+  cardSubDeckIds: string[],
+  cardIndexes: number[],
+  filter: CardFilter,
+) {
+  if (filter === "all") return { cards, cardSubDeckIds, cardIndexes };
+  const allSRS = getAllSRS();
+  const keep: number[] = [];
+  for (let i = 0; i < cards.length; i++) {
+    const srs = allSRS[makeCardId(cardSubDeckIds[i], cardIndexes[i])];
+    const isNew = !srs || srs.totalReviews === 0;
+    const isMastered = srs != null && srs.interval >= 21;
+    if (
+      (filter === "new" && isNew) ||
+      (filter === "learning" && !isNew && !isMastered) ||
+      (filter === "mastered" && isMastered)
+    ) {
+      keep.push(i);
+    }
+  }
+  if (keep.length === 0) return { cards, cardSubDeckIds, cardIndexes };
+  return {
+    cards: keep.map((i) => cards[i]),
+    cardSubDeckIds: keep.map((i) => cardSubDeckIds[i]),
+    cardIndexes: keep.map((i) => cardIndexes[i]),
+  };
+}
+
 export function DeckSessionClient({
   lessonId,
   subDeckId,
   lessonTitle,
-  cards,
+  cards: rawCards,
   mode,
   flip,
-  cardSubDeckIds,
-  cardIndexes,
+  cardSubDeckIds: rawSubDeckIds,
+  cardIndexes: rawCardIndexes,
   allLessonCards,
   isReview = false,
   reviewLabels,
+  cardFilter = "all",
 }: DeckSessionClientProps) {
   const router = useRouter();
-  const [queue, setQueue] = useState<SessionCard[]>(() => buildQueue(cards));
+  const filtered = useMemo(
+    () => applyCardFilter(rawCards, rawSubDeckIds, rawCardIndexes, cardFilter),
+    [rawCards, rawSubDeckIds, rawCardIndexes, cardFilter],
+  );
+  const cards = filtered.cards;
+  const cardSubDeckIds = filtered.cardSubDeckIds;
+  const cardIndexes = filtered.cardIndexes;
+  const [queue, setQueue] = useState<SessionCard[]>(() =>
+    buildQueue(applyCardFilter(rawCards, rawSubDeckIds, rawCardIndexes, cardFilter).cards),
+  );
   const [revealed, setRevealed] = useState(false);
   const [wrongKeys, setWrongKeys] = useState<Set<string>>(() => new Set());
   const [selectedOption, setSelectedOption] = useState<string | null>(null);

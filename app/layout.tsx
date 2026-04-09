@@ -11,6 +11,7 @@ import { BottomNav } from "../components/shared/bottom-nav";
 import { DesktopSidebar } from "../components/shared/desktop-sidebar";
 import { DesktopHeader } from "../components/shared/desktop-header";
 import { MobileLaunchSplash } from "../components/shared/mobile-launch-splash";
+import { ReviewDueDialog } from "../components/shared/review-due-dialog";
 import "./globals.css";
 
 const displayFont = Inter({
@@ -122,9 +123,9 @@ export default function RootLayout({
             </div>
 
             {/* Main Content */}
-            <main className="flex-1 pb-20 lg:pb-0 relative">
-              {children}
-            </main>
+            <main className="flex-1 pb-20 lg:pb-0 relative">{children}</main>
+
+            <ReviewDueDialog />
 
             {/* Mobile Bottom Navigation */}
             <div className="lg:hidden relative z-40">

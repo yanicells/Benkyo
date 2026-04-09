@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-import type { Card, FlipSetting, StudyMode } from "@/lib/types";
+import type { Card, CardFilter, FlipSetting, StudyMode } from "@/lib/types";
 
 type DeckSessionRendererProps = {
   lessonId: string;
@@ -16,6 +16,7 @@ type DeckSessionRendererProps = {
   allLessonCards: Card[];
   isReview?: boolean;
   reviewLabels?: string[];
+  cardFilter?: CardFilter;
 };
 
 const DeckSessionClient = dynamic(

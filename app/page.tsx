@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <PageShell
+      <PageShell  
         eyebrow="Okaeri"
         title="Benkyō shimasu"
         subtitle="Genki-inspired learning through structured decks, kana drills, and steady review."

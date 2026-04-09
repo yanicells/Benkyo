@@ -80,6 +80,14 @@ export function DeckResultsClient({
 
   const minutes = Math.floor(results.timeSeconds / 60);
   const seconds = results.timeSeconds % 60;
+  const backHref = isReview ? "/" : `/decks/${lessonId}`;
+  const continueHref = isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`;
+  const backLabel = isReview ? "Home" : "Back to lesson";
+  const continueLabel = isReview
+    ? "Review again"
+    : subDeckId === "all"
+      ? "Back to all cards"
+      : "Back to deck";
 
   return (
     <section className="space-y-6">
@@ -144,16 +152,16 @@ export function DeckResultsClient({
 
       <div className="grid grid-cols-2 gap-3">
         <Link
-          href={isReview ? "/" : "/decks"}
-          className="w-full rounded-lg bg-surface-low px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-secondary-container"
+          href={backHref}
+          className="w-full rounded-lg border border-primary/45 bg-surface-lowest px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-primary transition hover:bg-primary/5"
         >
-          {isReview ? "Home" : "Back to decks"}
+          {backLabel}
         </Link>
         <Link
-          href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
+          href={continueHref}
           className="btn-primary-gradient w-full rounded-lg px-5 py-2 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white transition hover:opacity-90"
         >
-          {isReview ? "Review again" : "Restart deck"}
+          {continueLabel}
         </Link>
       </div>
     </section>
