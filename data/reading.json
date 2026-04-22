@@ -355,6 +355,86 @@
           ]
         },
         {
+          "id": "beginner-lost-umbrella",
+          "title": "Whose Umbrella?",
+          "difficulty": "simple",
+          "meta": {
+            "notes": "A classroom dialogue about a lost umbrella. Practices だれの (whose), possessive の, and the も particle — all in a natural back-and-forth.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 3,
+            "cheatSheet": [
+              "だれの X = whose X",
+              "の links nouns: わたしの かさ = my umbrella",
+              "も = also/too (replaces は)",
+              "ちがいます = that's wrong / it's different"
+            ],
+            "tags": ["dialogue", "possessive の", "だれの", "classroom"],
+            "tips": [
+              "ちがいます is a polite way to correct — softer than 'no' (いいえ)",
+              "When asking 'whose is this?', Japanese flips to: これは だれの X ですか?"
+            ],
+            "sourceLessons": ["lesson-1", "lesson-2"]
+          },
+          "passages": [
+            {
+              "passage": "せんせい: みなさん、これは だれの かさですか。\nゲイブ: ぼくの じゃないです。\nミナ: わたしの でも ないです。\nせんせい: たけしさん、たけしさんの かさですか。",
+              "translation": "Teacher: Everyone, whose umbrella is this?\nGabe: It's not mine.\nMina: It's not mine either.\nTeacher: Takeshi, is it your umbrella?",
+              "vocabularyHighlights": [
+                { "word": "みなさん", "meaning": "everyone" },
+                { "word": "だれの", "meaning": "whose" },
+                { "word": "かさ", "meaning": "umbrella" },
+                { "word": "ぼく", "meaning": "I (masculine casual)" }
+              ]
+            },
+            {
+              "passage": "たけし: ちがいます。ぼくの かさは くろいです。これは あかいです。\nせんせい: そうですか。あかい かさ...\nミナ: あ！ユキさんの かさかも しれません。\nゲイブ: ユキさんは どこですか。",
+              "translation": "Takeshi: It's not. My umbrella is black. This one is red.\nTeacher: I see. A red umbrella...\nMina: Ah! It might be Yuki's umbrella.\nGabe: Where is Yuki?",
+              "vocabularyHighlights": [
+                { "word": "ちがいます", "meaning": "that's not right / different" },
+                { "word": "くろい", "meaning": "black (い-adj)" },
+                { "word": "あかい", "meaning": "red (い-adj)" },
+                { "word": "かも しれません", "meaning": "might be / perhaps" }
+              ]
+            },
+            {
+              "passage": "ミナ: ユキさんは としょかんです。\nせんせい: じゃあ、あとで わたします。ありがとう、みなさん。\nゲイブ: はい、せんせい。\nたけし: また あした！",
+              "translation": "Mina: Yuki is in the library.\nTeacher: Well then, I'll hand it over later. Thank you, everyone.\nGabe: Yes, sensei.\nTakeshi: See you tomorrow!",
+              "vocabularyHighlights": [
+                { "word": "としょかん", "meaning": "library" },
+                { "word": "あとで", "meaning": "later" },
+                { "word": "わたします", "meaning": "will hand over" }
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "What color is the found umbrella?",
+              "options": ["Black", "Blue", "Red", "White"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What color is Takeshi's umbrella?",
+              "options": ["Black", "Red", "Yellow", "Green"],
+              "correctIndex": 0
+            },
+            {
+              "question": "Whose umbrella might it be?",
+              "options": ["Gabe's", "Mina's", "Yuki's", "The teacher's"],
+              "correctIndex": 2
+            },
+            {
+              "question": "Where is Yuki?",
+              "options": ["Home", "The cafe", "The library", "Class"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What does ちがいます mean?",
+              "options": ["It's the same", "That's not right", "I don't know", "Thank you"],
+              "correctIndex": 1
+            }
+          ]
+        },
+        {
           "id": "beginner-convenience-store",
           "title": "At the Convenience Store",
           "difficulty": "simple",
@@ -838,6 +918,105 @@
             {
               "question": "What do they plan to do next week?",
               "options": ["Try a different restaurant", "Come back here", "Cook at home", "Eat sushi"],
+              "correctIndex": 1
+            }
+          ]
+        },
+        {
+          "id": "intermediate-train-directions",
+          "title": "Asking for Train Directions",
+          "difficulty": "intermediate",
+          "meta": {
+            "notes": "Gabe is lost at Shinjuku station and asks a stranger for help. Practices location words, で/に particles, counters (番線), and polite request language.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 5,
+            "cheatSheet": [
+              "〜番線 (banseん) = platform number",
+              "で = method/means: でんしゃで = by train",
+              "で乗りかえます = transfer (trains)",
+              "まっすぐ = straight ahead"
+            ],
+            "tags": ["dialogue", "directions", "transportation", "で particle"],
+            "tips": [
+              "すみません is both 'excuse me' and 'sorry' — the most-used word in Japan",
+              "Japanese directions are usually given by landmarks + 'turn there', not by street names",
+              "〜で乗りかえます (de norikaemasu) is the standard phrase for transferring lines"
+            ],
+            "sourceLessons": ["lesson-3", "lesson-4"]
+          },
+          "passages": [
+            {
+              "passage": "ゲイブ: すみません、ちょっと いいですか。\nじょせい: はい、なんですか。\nゲイブ: しぶやえきまで どう いきますか。\nじょせい: ああ、しぶやですね。でんしゃが いちばん はやいですよ。",
+              "translation": "Gabe: Excuse me, do you have a moment?\nWoman: Yes, what is it?\nGabe: How do I get to Shibuya station?\nWoman: Ah, Shibuya huh. The train is the fastest.",
+              "vocabularyHighlights": [
+                { "word": "ちょっと いいですか", "meaning": "do you have a moment?" },
+                { "word": "〜まで", "meaning": "up to / until" },
+                { "word": "どう", "meaning": "how" },
+                { "word": "いちばん", "meaning": "most / number one" }
+              ]
+            },
+            {
+              "passage": "ゲイブ: なんばんせんですか。\nじょせい: やまのてせんです。さんばんせんに のってください。\nゲイブ: さんばんせん... どこですか。\nじょせい: あそこの かいだんを おりてください。みぎがわです。",
+              "translation": "Gabe: Which platform?\nWoman: The Yamanote line. Please take platform 3.\nGabe: Platform 3... where is it?\nWoman: Please go down those stairs over there. It's on the right side.",
+              "vocabularyHighlights": [
+                { "word": "なんばんせん", "meaning": "which platform (number)" },
+                { "word": "やまのてせん", "meaning": "Yamanote line" },
+                { "word": "のってください", "meaning": "please get on" },
+                { "word": "かいだん", "meaning": "stairs" },
+                { "word": "みぎがわ", "meaning": "right side" }
+              ]
+            },
+            {
+              "passage": "ゲイブ: じかんは どのぐらい かかりますか。\nじょせい: だいたい じゅうごふんぐらいです。\nゲイブ: のりかえは ありますか。\nじょせい: いいえ、のりかえは ないです。しぶやまで まっすぐです。",
+              "translation": "Gabe: How long does it take?\nWoman: About fifteen minutes.\nGabe: Are there any transfers?\nWoman: No, there are no transfers. It's direct to Shibuya.",
+              "vocabularyHighlights": [
+                { "word": "じかん", "meaning": "time" },
+                { "word": "どのぐらい", "meaning": "about how much" },
+                { "word": "だいたい", "meaning": "roughly / about" },
+                { "word": "のりかえ", "meaning": "transfer" },
+                { "word": "まっすぐ", "meaning": "straight" }
+              ]
+            },
+            {
+              "passage": "ゲイブ: ほんとうに たすかりました。どうも ありがとうございます！\nじょせい: いいえ、どういたしまして。きを つけて。\nゲイブ: はい、しつれいします。",
+              "translation": "Gabe: You really saved me. Thank you so much!\nWoman: No, you're welcome. Take care.\nGabe: Yes, excuse me (leaving).",
+              "vocabularyHighlights": [
+                { "word": "たすかりました", "meaning": "you saved me / that helped" },
+                { "word": "どういたしまして", "meaning": "you're welcome" },
+                { "word": "きを つけて", "meaning": "take care" },
+                { "word": "しつれいします", "meaning": "excuse me (leaving)" }
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "Where does Gabe want to go?",
+              "options": ["Shinjuku", "Shibuya", "Tokyo station", "Harajuku"],
+              "correctIndex": 1
+            },
+            {
+              "question": "Which line should Gabe take?",
+              "options": ["Chuo", "Yamanote", "Ginza", "Tozai"],
+              "correctIndex": 1
+            },
+            {
+              "question": "Which platform number?",
+              "options": ["Platform 1", "Platform 2", "Platform 3", "Platform 4"],
+              "correctIndex": 2
+            },
+            {
+              "question": "How long does the trip take?",
+              "options": ["5 minutes", "10 minutes", "15 minutes", "30 minutes"],
+              "correctIndex": 2
+            },
+            {
+              "question": "Does Gabe need to transfer?",
+              "options": ["Yes, once", "Yes, twice", "No, it's direct", "The woman doesn't know"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What does きを つけて mean?",
+              "options": ["Watch out!", "Take care", "Hurry up", "Good luck"],
               "correctIndex": 1
             }
           ]

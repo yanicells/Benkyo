@@ -2198,302 +2198,302 @@
             {
               "type": "vocab",
               "front": "一",
-              "back": "いち (one)",
+              "back": "Meaning: one\nOnyomi: イチ, イツ\nKunyomi: ひと-\nExample: 一つ (ひとつ) — one thing",
               "romaji": "ichi"
             },
             {
               "type": "vocab",
               "front": "二",
-              "back": "に (two)",
+              "back": "Meaning: two\nOnyomi: ニ\nKunyomi: ふた-\nExample: 二つ (ふたつ) — two things",
               "romaji": "ni"
             },
             {
               "type": "vocab",
               "front": "三",
-              "back": "さん (three)",
+              "back": "Meaning: three\nOnyomi: サン\nKunyomi: み-, みっ-\nExample: 三つ (みっつ) — three things",
               "romaji": "san"
             },
             {
               "type": "vocab",
               "front": "四",
-              "back": "よん (four)",
-              "romaji": "yon"
+              "back": "Meaning: four\nOnyomi: シ\nKunyomi: よ-, よん, よっ-\nExample: 四月 (しがつ) — April",
+              "romaji": "shi / yon"
             },
             {
               "type": "vocab",
               "front": "五",
-              "back": "ご (five)",
+              "back": "Meaning: five\nOnyomi: ゴ\nKunyomi: いつ-\nExample: 五つ (いつつ) — five things",
               "romaji": "go"
             },
             {
               "type": "vocab",
               "front": "六",
-              "back": "ろく (six)",
+              "back": "Meaning: six\nOnyomi: ロク\nKunyomi: む-, むっ-\nExample: 六月 (ろくがつ) — June",
               "romaji": "roku"
             },
             {
               "type": "vocab",
               "front": "七",
-              "back": "しち／なな (seven)",
-              "romaji": "shichi/nana"
+              "back": "Meaning: seven\nOnyomi: シチ\nKunyomi: なな, なの-\nExample: 七時 (しちじ) — 7 o'clock",
+              "romaji": "shichi / nana"
             },
             {
               "type": "vocab",
               "front": "八",
-              "back": "はち (eight)",
+              "back": "Meaning: eight\nOnyomi: ハチ\nKunyomi: や-, やっ-\nExample: 八月 (はちがつ) — August",
               "romaji": "hachi"
             },
             {
               "type": "vocab",
               "front": "九",
-              "back": "きゅう (nine)",
-              "romaji": "kyuu"
+              "back": "Meaning: nine\nOnyomi: キュウ, ク\nKunyomi: ここの-\nExample: 九月 (くがつ) — September",
+              "romaji": "kyuu / ku"
             },
             {
               "type": "vocab",
               "front": "十",
-              "back": "じゅう (ten)",
+              "back": "Meaning: ten\nOnyomi: ジュウ, ジッ\nKunyomi: とお\nExample: 十時 (じゅうじ) — 10 o'clock",
               "romaji": "juu"
             },
             {
               "type": "vocab",
               "front": "百",
-              "back": "ひゃく (hundred)",
+              "back": "Meaning: hundred\nOnyomi: ヒャク\nKunyomi: —\nExample: 百円 (ひゃくえん) — 100 yen",
               "romaji": "hyaku"
             },
             {
               "type": "vocab",
               "front": "千",
-              "back": "せん (thousand)",
+              "back": "Meaning: thousand\nOnyomi: セン\nKunyomi: ち\nExample: 千円 (せんえん) — 1,000 yen",
               "romaji": "sen"
             },
             {
               "type": "vocab",
-              "front": "一万",
-              "back": "いちまん (ten thousand)",
-              "romaji": "ichiman"
-            },
-            {
-              "type": "vocab",
-              "front": "四時",
-              "back": "よじ (four o'clock)",
-              "romaji": "yoji"
-            },
-            {
-              "type": "vocab",
-              "front": "六百",
-              "back": "ろっぴゃく (six hundred)",
-              "romaji": "roppyaku"
-            },
-            {
-              "type": "vocab",
-              "front": "八百",
-              "back": "はっぴゃく (eight hundred)",
-              "romaji": "happyaku"
-            },
-            {
-              "type": "vocab",
-              "front": "三千",
-              "back": "さんぜん (three thousand)",
-              "romaji": "sanzen"
-            },
-            {
-              "type": "vocab",
-              "front": "八千",
-              "back": "はっせん (eight thousand)",
-              "romaji": "hassen"
-            },
-            {
-              "type": "vocab",
-              "front": "千円",
-              "back": "せんえん (one thousand yen)",
-              "romaji": "senen"
-            },
-            {
-              "type": "vocab",
-              "front": "百円",
-              "back": "ひゃくえん (one hundred yen)",
-              "romaji": "hyakuen"
-            },
-            {
-              "type": "vocab",
               "front": "万",
-              "back": "まん (ten thousand)",
+              "back": "Meaning: ten thousand\nOnyomi: マン, バン\nKunyomi: —\nExample: 一万 (いちまん) — 10,000",
               "romaji": "man"
             },
             {
               "type": "vocab",
               "front": "円",
-              "back": "えん (yen; circle)",
+              "back": "Meaning: yen; circle; round\nOnyomi: エン\nKunyomi: まる-い\nExample: 千円 (せんえん) — 1,000 yen",
               "romaji": "en"
             },
             {
               "type": "vocab",
               "front": "時",
-              "back": "じ / とき (time; hour; o'clock)",
+              "back": "Meaning: time; hour; o'clock\nOnyomi: ジ\nKunyomi: とき\nExample: 時間 (じかん) — time; hours",
               "romaji": "ji / toki"
             },
             {
               "type": "vocab",
+              "front": "半",
+              "back": "Meaning: half\nOnyomi: ハン\nKunyomi: なか-ば\nExample: 三時半 (さんじはん) — 3:30",
+              "romaji": "han"
+            },
+            {
+              "type": "vocab",
               "front": "日",
-              "back": "にち / ひ (day; sun)",
+              "back": "Meaning: day; sun\nOnyomi: ニチ, ジツ\nKunyomi: ひ, -び, -か\nExample: 日本 (にほん) — Japan",
               "romaji": "nichi / hi"
             },
             {
               "type": "vocab",
               "front": "月",
-              "back": "げつ / つき (month; moon)",
+              "back": "Meaning: month; moon\nOnyomi: ゲツ, ガツ\nKunyomi: つき\nExample: 月曜日 (げつようび) — Monday",
               "romaji": "getsu / tsuki"
             },
             {
               "type": "vocab",
               "front": "火",
-              "back": "か / ひ (fire)",
+              "back": "Meaning: fire\nOnyomi: カ\nKunyomi: ひ, -び\nExample: 火曜日 (かようび) — Tuesday",
               "romaji": "ka / hi"
             },
             {
               "type": "vocab",
               "front": "木",
-              "back": "もく / き (tree; wood)",
+              "back": "Meaning: tree; wood\nOnyomi: モク, ボク\nKunyomi: き\nExample: 木曜日 (もくようび) — Thursday",
               "romaji": "moku / ki"
             },
             {
               "type": "vocab",
               "front": "金",
-              "back": "きん / かね (gold; money)",
+              "back": "Meaning: gold; money\nOnyomi: キン, コン\nKunyomi: かね\nExample: 金曜日 (きんようび) — Friday",
               "romaji": "kin / kane"
             },
             {
               "type": "vocab",
               "front": "土",
-              "back": "ど / つち (earth; soil)",
+              "back": "Meaning: earth; soil; ground\nOnyomi: ド, ト\nKunyomi: つち\nExample: 土曜日 (どようび) — Saturday",
               "romaji": "do / tsuchi"
             },
             {
               "type": "vocab",
-              "front": "半",
-              "back": "はん (half)",
-              "romaji": "han"
-            },
-            {
-              "type": "vocab",
               "front": "曜",
-              "back": "よう (day of the week)",
+              "back": "Meaning: day of the week\nOnyomi: ヨウ\nKunyomi: —\nExample: 曜日 (ようび) — day of the week",
               "romaji": "you"
             },
             {
               "type": "vocab",
               "front": "明",
-              "back": "めい / あかるい (bright; clear)",
+              "back": "Meaning: bright; clear; next\nOnyomi: メイ, ミョウ\nKunyomi: あか-るい, あ-ける\nExample: 明日 (あした) — tomorrow",
               "romaji": "mei / akarui"
             },
             {
               "type": "vocab",
               "front": "元",
-              "back": "げん / もと (origin; source)",
+              "back": "Meaning: origin; source\nOnyomi: ゲン, ガン\nKunyomi: もと\nExample: 元気 (げんき) — healthy; energetic",
               "romaji": "gen / moto"
             },
             {
               "type": "vocab",
               "front": "天",
-              "back": "てん / あめ (heaven; sky)",
+              "back": "Meaning: heaven; sky\nOnyomi: テン\nKunyomi: あめ, あま-\nExample: 天気 (てんき) — weather",
               "romaji": "ten / ame"
             },
             {
               "type": "vocab",
               "front": "気",
-              "back": "き (spirit; energy; mood)",
+              "back": "Meaning: spirit; energy; mood\nOnyomi: キ, ケ\nKunyomi: —\nExample: 元気 (げんき) — healthy; energetic",
               "romaji": "ki"
             },
             {
               "type": "vocab",
               "front": "女",
-              "back": "じょ / おんな (woman; female)",
+              "back": "Meaning: woman; female\nOnyomi: ジョ, ニョ\nKunyomi: おんな, め\nExample: 女の人 (おんなのひと) — woman",
               "romaji": "jo / onna"
             },
             {
               "type": "vocab",
               "front": "男",
-              "back": "だん / おとこ (man; male)",
+              "back": "Meaning: man; male\nOnyomi: ダン, ナン\nKunyomi: おとこ\nExample: 男の人 (おとこのひと) — man",
               "romaji": "dan / otoko"
             },
             {
               "type": "vocab",
               "front": "田",
-              "back": "た / でん (rice field)",
+              "back": "Meaning: rice field\nOnyomi: デン\nKunyomi: た\nExample: 田中 (たなか) — Tanaka (surname)",
               "romaji": "ta / den"
             },
             {
               "type": "vocab",
               "front": "見",
-              "back": "けん / みる (to see; to look)",
+              "back": "Meaning: to see; to look\nOnyomi: ケン\nKunyomi: み-る, み-える\nExample: 見る (みる) — to see, watch",
               "romaji": "ken / miru"
             },
             {
               "type": "vocab",
               "front": "行",
-              "back": "こう / いく (to go)",
+              "back": "Meaning: to go; to conduct\nOnyomi: コウ, ギョウ\nKunyomi: い-く, おこな-う\nExample: 行く (いく) — to go",
               "romaji": "kou / iku"
             },
             {
               "type": "vocab",
               "front": "食",
-              "back": "しょく / たべる (to eat; food)",
+              "back": "Meaning: to eat; food\nOnyomi: ショク, ジキ\nKunyomi: た-べる, く-う\nExample: 食べる (たべる) — to eat",
               "romaji": "shoku / taberu"
             },
             {
               "type": "vocab",
               "front": "飲",
-              "back": "いん / のむ (to drink)",
+              "back": "Meaning: to drink\nOnyomi: イン\nKunyomi: の-む\nExample: 飲む (のむ) — to drink",
               "romaji": "in / nomu"
             },
             {
               "type": "vocab",
               "front": "事",
-              "back": "じ / こと (thing; matter)",
+              "back": "Meaning: thing; matter; affair\nOnyomi: ジ\nKunyomi: こと\nExample: 食事 (しょくじ) — a meal",
               "romaji": "ji / koto"
             },
             {
               "type": "vocab",
               "front": "会",
-              "back": "かい / あう (to meet; meeting)",
+              "back": "Meaning: to meet; meeting\nOnyomi: カイ, エ\nKunyomi: あ-う\nExample: 会社 (かいしゃ) — company",
               "romaji": "kai / au"
             },
             {
               "type": "vocab",
               "front": "字",
-              "back": "じ (character; letter)",
+              "back": "Meaning: character; letter\nOnyomi: ジ\nKunyomi: あざ\nExample: 漢字 (かんじ) — kanji",
               "romaji": "ji"
             },
             {
               "type": "vocab",
               "front": "形",
-              "back": "けい / かたち (shape; form)",
+              "back": "Meaning: shape; form\nOnyomi: ケイ, ギョウ\nKunyomi: かたち, かた\nExample: 象形 (しょうけい) — pictograph",
               "romaji": "kei / katachi"
             },
             {
               "type": "vocab",
               "front": "意",
-              "back": "い (meaning; intention)",
+              "back": "Meaning: meaning; intention; idea\nOnyomi: イ\nKunyomi: —\nExample: 意味 (いみ) — meaning",
               "romaji": "i"
             },
             {
               "type": "vocab",
               "front": "指",
-              "back": "し / ゆび (finger; to point)",
+              "back": "Meaning: finger; to point\nOnyomi: シ\nKunyomi: ゆび, さ-す\nExample: 指事 (しじ) — indicative (kanji)",
               "romaji": "shi / yubi"
             },
             {
               "type": "vocab",
               "front": "文",
-              "back": "ぶん / もん (sentence; writing)",
+              "back": "Meaning: sentence; writing; text\nOnyomi: ブン, モン\nKunyomi: ふみ\nExample: 文字 (もじ) — character; letter",
               "romaji": "bun / mon"
             },
             {
               "type": "vocab",
               "front": "象",
-              "back": "しょう / ぞう (elephant; image)",
+              "back": "Meaning: elephant; image; shape\nOnyomi: ショウ, ゾウ\nKunyomi: —\nExample: 象形文字 (しょうけいもじ) — pictographic character",
               "romaji": "shou / zou"
+            },
+            {
+              "type": "vocab",
+              "front": "百円",
+              "back": "Reading: ひゃくえん\nMeaning: 100 yen\nBreakdown: 百 (hundred) + 円 (yen)",
+              "romaji": "hyakuen"
+            },
+            {
+              "type": "vocab",
+              "front": "千円",
+              "back": "Reading: せんえん\nMeaning: 1,000 yen\nBreakdown: 千 (thousand) + 円 (yen)",
+              "romaji": "senen"
+            },
+            {
+              "type": "vocab",
+              "front": "一万",
+              "back": "Reading: いちまん\nMeaning: 10,000\nBreakdown: 一 (one) + 万 (ten thousand)",
+              "romaji": "ichiman"
+            },
+            {
+              "type": "vocab",
+              "front": "四時",
+              "back": "Reading: よじ\nMeaning: 4 o'clock\nBreakdown: 四 (four, irregular reading よ) + 時 (o'clock)",
+              "romaji": "yoji"
+            },
+            {
+              "type": "vocab",
+              "front": "六百",
+              "back": "Reading: ろっぴゃく\nMeaning: 600\nNote: sound change ろく+ひゃく → ろっぴゃく",
+              "romaji": "roppyaku"
+            },
+            {
+              "type": "vocab",
+              "front": "八百",
+              "back": "Reading: はっぴゃく\nMeaning: 800\nNote: sound change はち+ひゃく → はっぴゃく",
+              "romaji": "happyaku"
+            },
+            {
+              "type": "vocab",
+              "front": "三千",
+              "back": "Reading: さんぜん\nMeaning: 3,000\nNote: sound change さん+せん → さんぜん",
+              "romaji": "sanzen"
+            },
+            {
+              "type": "vocab",
+              "front": "八千",
+              "back": "Reading: はっせん\nMeaning: 8,000\nNote: sound change はち+せん → はっせん",
+              "romaji": "hassen"
             },
             {
               "type": "vocab",
@@ -3062,104 +3062,104 @@
           "cards": [
             {
               "type": "vocab",
-              "front": "日本",
-              "back": "にほん (Japan)",
-              "romaji": "nihon"
-            },
-            {
-              "type": "vocab",
-              "front": "日曜日",
-              "back": "にちようび (Sunday)",
-              "romaji": "nichiyoubi"
-            },
-            {
-              "type": "vocab",
               "front": "本",
-              "back": "ほん (book)",
+              "back": "Meaning: book; origin; main\nOnyomi: ホン\nKunyomi: もと\nExample: 本 (ほん) — book",
               "romaji": "hon"
             },
             {
               "type": "vocab",
               "front": "人",
-              "back": "ひと (person) / じん (people)",
-              "romaji": "hito/jin"
+              "back": "Meaning: person\nOnyomi: ジン, ニン\nKunyomi: ひと\nExample: 一人 (ひとり) — one person",
+              "romaji": "hito / jin"
             },
             {
               "type": "vocab",
-              "front": "一人で",
-              "back": "ひとりで (alone)",
-              "romaji": "hitoride"
+              "front": "水",
+              "back": "Meaning: water\nOnyomi: スイ\nKunyomi: みず\nExample: 水曜日 (すいようび) — Wednesday",
+              "romaji": "mizu / sui"
+            },
+            {
+              "type": "vocab",
+              "front": "上",
+              "back": "Meaning: above; on; up\nOnyomi: ジョウ, ショウ\nKunyomi: うえ, あ-がる, のぼ-る\nExample: テーブルの上 (テーブルのうえ) — on the table",
+              "romaji": "ue / jou"
+            },
+            {
+              "type": "vocab",
+              "front": "下",
+              "back": "Meaning: below; under; down\nOnyomi: カ, ゲ\nKunyomi: した, さ-がる, くだ-る\nExample: 下 (した) — below; under",
+              "romaji": "shita / ka"
+            },
+            {
+              "type": "vocab",
+              "front": "中",
+              "back": "Meaning: inside; middle; center\nOnyomi: チュウ\nKunyomi: なか\nExample: 中 (なか) — inside",
+              "romaji": "naka / chuu"
+            },
+            {
+              "type": "vocab",
+              "front": "日本",
+              "back": "Reading: にほん\nMeaning: Japan\nBreakdown: 日 (sun) + 本 (origin) = 'origin of the sun'",
+              "romaji": "nihon"
+            },
+            {
+              "type": "vocab",
+              "front": "日曜日",
+              "back": "Reading: にちようび\nMeaning: Sunday\nBreakdown: 日 (sun) + 曜 (day of week) + 日 (day)",
+              "romaji": "nichiyoubi"
             },
             {
               "type": "vocab",
               "front": "月曜日",
-              "back": "げつようび (Monday)",
+              "back": "Reading: げつようび\nMeaning: Monday\nBreakdown: 月 (moon) + 曜 + 日",
               "romaji": "getsuyoubi"
             },
             {
               "type": "vocab",
-              "front": "一月",
-              "back": "いちがつ (January)",
-              "romaji": "ichigatsu"
-            },
-            {
-              "type": "vocab",
               "front": "火曜日",
-              "back": "かようび (Tuesday)",
+              "back": "Reading: かようび\nMeaning: Tuesday\nBreakdown: 火 (fire) + 曜 + 日",
               "romaji": "kayoubi"
             },
             {
               "type": "vocab",
               "front": "水曜日",
-              "back": "すいようび (Wednesday)",
+              "back": "Reading: すいようび\nMeaning: Wednesday\nBreakdown: 水 (water) + 曜 + 日",
               "romaji": "suiyoubi"
             },
             {
               "type": "vocab",
-              "front": "水",
-              "back": "みず (water)",
-              "romaji": "mizu"
-            },
-            {
-              "type": "vocab",
               "front": "木曜日",
-              "back": "もくようび (Thursday)",
+              "back": "Reading: もくようび\nMeaning: Thursday\nBreakdown: 木 (tree) + 曜 + 日",
               "romaji": "mokuyoubi"
             },
             {
               "type": "vocab",
               "front": "金曜日",
-              "back": "きんようび (Friday)",
+              "back": "Reading: きんようび\nMeaning: Friday\nBreakdown: 金 (gold) + 曜 + 日",
               "romaji": "kinyoubi"
             },
             {
               "type": "vocab",
               "front": "土曜日",
-              "back": "どようび (Saturday)",
+              "back": "Reading: どようび\nMeaning: Saturday\nBreakdown: 土 (earth) + 曜 + 日",
               "romaji": "doyoubi"
             },
             {
               "type": "vocab",
-              "front": "上",
-              "back": "うえ (above; on)",
-              "romaji": "ue"
+              "front": "一月",
+              "back": "Reading: いちがつ\nMeaning: January\nBreakdown: 一 (one) + 月 (month)",
+              "romaji": "ichigatsu"
             },
             {
               "type": "vocab",
-              "front": "下",
-              "back": "した (below; under)",
-              "romaji": "shita"
-            },
-            {
-              "type": "vocab",
-              "front": "中",
-              "back": "なか (inside; middle)",
-              "romaji": "naka"
+              "front": "一人で",
+              "back": "Reading: ひとりで\nMeaning: alone; by oneself\nBreakdown: 一人 (ひとり, one person) + で (particle)",
+              "romaji": "hitoride"
             },
             {
               "type": "vocab",
               "front": "三時半",
-              "back": "さんじはん (half past three)",
+              "back": "Reading: さんじはん\nMeaning: 3:30\nBreakdown: 三 (three) + 時 (o'clock) + 半 (half)",
               "romaji": "sanjihan"
             }
           ]
@@ -3865,91 +3865,91 @@
             {
               "type": "vocab",
               "front": "山",
-              "back": "やま (mountain)",
-              "romaji": "yama"
+              "back": "Meaning: mountain\nOnyomi: サン\nKunyomi: やま\nExample: 富士山 (ふじさん) — Mt. Fuji",
+              "romaji": "yama / san"
             },
             {
               "type": "vocab",
               "front": "川",
-              "back": "かわ (river)",
-              "romaji": "kawa"
-            },
-            {
-              "type": "vocab",
-              "front": "元気",
-              "back": "げんき (healthy; energetic)",
-              "romaji": "genki"
-            },
-            {
-              "type": "vocab",
-              "front": "天気",
-              "back": "てんき (weather)",
-              "romaji": "tenki"
+              "back": "Meaning: river\nOnyomi: セン\nKunyomi: かわ\nExample: 川 (かわ) — river",
+              "romaji": "kawa / sen"
             },
             {
               "type": "vocab",
               "front": "私",
-              "back": "わたし (I; me)",
-              "romaji": "watashi"
+              "back": "Meaning: I; me; private\nOnyomi: シ\nKunyomi: わたし, わたくし\nExample: 私 (わたし) — I; me",
+              "romaji": "watashi / shi"
             },
             {
               "type": "vocab",
               "front": "今",
-              "back": "いま (now)",
-              "romaji": "ima"
-            },
-            {
-              "type": "vocab",
-              "front": "今日",
-              "back": "きょう (today)",
-              "romaji": "kyou"
-            },
-            {
-              "type": "vocab",
-              "front": "女の人",
-              "back": "おんなのひと (woman)",
-              "romaji": "onnanohito"
-            },
-            {
-              "type": "vocab",
-              "front": "男の人",
-              "back": "おとこのひと (man)",
-              "romaji": "otokonohito"
+              "back": "Meaning: now\nOnyomi: コン, キン\nKunyomi: いま\nExample: 今 (いま) — now",
+              "romaji": "ima / kon"
             },
             {
               "type": "vocab",
               "front": "見る",
-              "back": "みる (to see; to watch)",
+              "back": "Reading: みる\nMeaning: to see; to watch; to look at\nKanji: 見 — Onyomi ケン / Kunyomi み-る",
               "romaji": "miru"
             },
             {
               "type": "vocab",
               "front": "行く",
-              "back": "いく (to go)",
+              "back": "Reading: いく\nMeaning: to go\nKanji: 行 — Onyomi コウ, ギョウ / Kunyomi い-く",
               "romaji": "iku"
             },
             {
               "type": "vocab",
               "front": "食べる",
-              "back": "たべる (to eat)",
+              "back": "Reading: たべる\nMeaning: to eat\nKanji: 食 — Onyomi ショク / Kunyomi た-べる",
               "romaji": "taberu"
             },
             {
               "type": "vocab",
               "front": "飲む",
-              "back": "のむ (to drink)",
+              "back": "Reading: のむ\nMeaning: to drink\nKanji: 飲 — Onyomi イン / Kunyomi の-む",
               "romaji": "nomu"
             },
             {
               "type": "vocab",
+              "front": "今日",
+              "back": "Reading: きょう\nMeaning: today\nBreakdown: 今 (now) + 日 (day). Irregular reading — memorize as a unit",
+              "romaji": "kyou"
+            },
+            {
+              "type": "vocab",
+              "front": "元気",
+              "back": "Reading: げんき\nMeaning: healthy; energetic; lively\nBreakdown: 元 (origin) + 気 (spirit)",
+              "romaji": "genki"
+            },
+            {
+              "type": "vocab",
+              "front": "天気",
+              "back": "Reading: てんき\nMeaning: weather\nBreakdown: 天 (sky) + 気 (mood/air)",
+              "romaji": "tenki"
+            },
+            {
+              "type": "vocab",
+              "front": "女の人",
+              "back": "Reading: おんなのひと\nMeaning: woman\nBreakdown: 女 (woman) + の + 人 (person)",
+              "romaji": "onnanohito"
+            },
+            {
+              "type": "vocab",
+              "front": "男の人",
+              "back": "Reading: おとこのひと\nMeaning: man\nBreakdown: 男 (man) + の + 人 (person)",
+              "romaji": "otokonohito"
+            },
+            {
+              "type": "vocab",
               "front": "田中さん",
-              "back": "たなかさん (Mr./Ms. Tanaka)",
+              "back": "Reading: たなかさん\nMeaning: Mr./Ms. Tanaka\nBreakdown: 田 (rice field) + 中 (middle) + さん — 'middle-of-rice-field' surname",
               "romaji": "tanakasan"
             },
             {
               "type": "vocab",
               "front": "山田さん",
-              "back": "やまださん (Mr./Ms. Yamada)",
+              "back": "Reading: やまださん\nMeaning: Mr./Ms. Yamada\nBreakdown: 山 (mountain) + 田 (rice field) + さん",
               "romaji": "yamadasan"
             }
           ]

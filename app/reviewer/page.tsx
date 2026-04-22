@@ -1,6 +1,5 @@
 import reviewerData from "@/data/reviewer.json";
 import { LessonDeckGrid } from "@/components/decks/lesson-deck-grid";
-import { DeckSearchFilter } from "@/components/decks/deck-search-filter";
 import { PageShell } from "@/components/shared/page-shell";
 import type { LessonsData } from "@/lib/types";
 
@@ -15,13 +14,11 @@ export default function ReviewerPage() {
     >
       <LessonDeckGrid lessons={lessons} showGrid={false} basePath="/reviewer" />
       <div className="mt-2 sm:mt-4">
-        <DeckSearchFilter lessons={lessons} basePath="/reviewer">
-          <LessonDeckGrid
-            lessons={lessons}
-            showOverview={false}
-            basePath="/reviewer"
-          />
-        </DeckSearchFilter>
+        <LessonDeckGrid
+          lessons={lessons}
+          showOverview={false}
+          basePath="/reviewer"
+        />
       </div>
     </PageShell>
   );
