@@ -1,0 +1,158 @@
+{
+  "version": "1.0",
+  "schema": {
+    "description": "Review decks. Same shape as lessons.json. Cards here exist to test applied knowledge, not teach.",
+    "types": {
+      "Lesson": "{ id, title, meta?, subDecks[], order? }",
+      "SubDeck": "{ id, title, cards[] }",
+      "Card": "{ type, front, back, romaji?, hint? }",
+      "conventions": {
+        "*-en-to-jp": "type=translate, front=English sentence, back=Japanese translation",
+        "*-jp-to-en": "type=translate, front=Japanese sentence, back=English translation",
+        "*-fill-in": "type=fill-in, front=Japanese sentence with ___ blank, back=missing token"
+      }
+    }
+  },
+  "lessons": [
+    {
+      "id": "lesson-1",
+      "title": "Lesson 1: New Friends",
+      "order": 1,
+      "meta": {
+        "notes": "Apply greetings, introductions, and the copula です. Drill the は topic marker and basic nationality / language vocabulary from Lesson 1.",
+        "cheatSheet": [],
+        "difficulty": "beginner",
+        "tags": ["review", "lesson-1"]
+      },
+      "subDecks": [
+        {
+          "id": "lesson-1-en-to-jp",
+          "title": "English → Japanese",
+          "cards": []
+        },
+        {
+          "id": "lesson-1-jp-to-en",
+          "title": "Japanese → English",
+          "cards": []
+        },
+        {
+          "id": "lesson-1-fill-in",
+          "title": "Fill in the Blank",
+          "cards": []
+        }
+      ]
+    },
+    {
+      "id": "lesson-2",
+      "title": "Lesson 2: Shopping",
+      "order": 2,
+      "meta": {
+        "notes": "Apply shopping vocabulary, numbers, and the これ / それ / あれ demonstratives from Lesson 2.",
+        "cheatSheet": [],
+        "difficulty": "beginner",
+        "tags": ["review", "lesson-2"]
+      },
+      "subDecks": [
+        {
+          "id": "lesson-2-en-to-jp",
+          "title": "English → Japanese",
+          "cards": []
+        },
+        {
+          "id": "lesson-2-jp-to-en",
+          "title": "Japanese → English",
+          "cards": []
+        },
+        {
+          "id": "lesson-2-fill-in",
+          "title": "Fill in the Blank",
+          "cards": []
+        }
+      ]
+    },
+    {
+      "id": "lesson-3",
+      "title": "Lesson 3: Making a Date",
+      "order": 3,
+      "meta": {
+        "notes": "Apply verb conjugation (〜ます / 〜ません), time expressions, and basic invitation patterns from Lesson 3.",
+        "cheatSheet": [],
+        "difficulty": "beginner",
+        "tags": ["review", "lesson-3"]
+      },
+      "subDecks": [
+        {
+          "id": "lesson-3-en-to-jp",
+          "title": "English → Japanese",
+          "cards": []
+        },
+        {
+          "id": "lesson-3-jp-to-en",
+          "title": "Japanese → English",
+          "cards": []
+        },
+        {
+          "id": "lesson-3-fill-in",
+          "title": "Fill in the Blank",
+          "cards": []
+        }
+      ]
+    },
+    {
+      "id": "lesson-4",
+      "title": "Lesson 4: The First Date",
+      "order": 4,
+      "meta": {
+        "notes": "Apply location words, past tense, and existence verbs (あります / います) from Lesson 4.",
+        "cheatSheet": [],
+        "difficulty": "beginner",
+        "tags": ["review", "lesson-4"]
+      },
+      "subDecks": [
+        {
+          "id": "lesson-4-en-to-jp",
+          "title": "English → Japanese",
+          "cards": []
+        },
+        {
+          "id": "lesson-4-jp-to-en",
+          "title": "Japanese → English",
+          "cards": []
+        },
+        {
+          "id": "lesson-4-fill-in",
+          "title": "Fill in the Blank",
+          "cards": []
+        }
+      ]
+    },
+    {
+      "id": "lesson-5",
+      "title": "Lesson 5: A Trip to Okinawa",
+      "order": 5,
+      "meta": {
+        "notes": "Apply い-adjective conjugation (present, negative, past affirmative, past negative) and travel vocabulary from Lesson 5.",
+        "cheatSheet": [],
+        "difficulty": "beginner",
+        "tags": ["review", "lesson-5"]
+      },
+      "subDecks": [
+        {
+          "id": "lesson-5-en-to-jp",
+          "title": "English → Japanese",
+          "cards": []
+        },
+        {
+          "id": "lesson-5-jp-to-en",
+          "title": "Japanese → English",
+          "cards": []
+        },
+        {
+          "id": "lesson-5-fill-in",
+          "title": "Fill in the Blank",
+          "cards": []
+        }
+      ]
+    }
+  ]
+}

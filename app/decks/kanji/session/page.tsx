@@ -3,14 +3,13 @@ import { redirect } from "next/navigation";
 import lessonsData from "@/data/lessons.json";
 import { DeckSessionRenderer } from "@/components/session/deck-session-renderer";
 import { getKanjiSubDecks } from "@/lib/kanji";
-import type { CardFilter, CardType, FlipSetting, LessonsData, StudyMode } from "@/lib/types";
+import type { CardFilter, CardType, LessonsData, StudyMode } from "@/lib/types";
 
 type KanjiSessionPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 const validModes = new Set<StudyMode>(["flashcard", "multiple-choice"]);
-const validFlips = new Set<FlipSetting>(["jp-to-en", "en-to-jp"]);
 
 function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
@@ -21,15 +20,11 @@ export default async function KanjiSessionPage({
 }: KanjiSessionPageProps) {
   const query = await searchParams;
   const rawMode = firstParam(query.mode) ?? "flashcard";
-  const rawFlip = firstParam(query.flip) ?? "jp-to-en";
   const rawTypes = firstParam(query.types);
   const rawDecks = firstParam(query.decks);
   const rawFilter = (firstParam(query.filter) ?? "all") as CardFilter;
 
-  if (
-    !validModes.has(rawMode as StudyMode) ||
-    !validFlips.has(rawFlip as FlipSetting)
-  ) {
+  if (!validModes.has(rawMode as StudyMode)) {
     redirect("/decks/kanji");
   }
 
@@ -76,7 +71,6 @@ export default async function KanjiSessionPage({
       lessonTitle="Kanji — All Decks"
       cards={cards}
       mode={rawMode as StudyMode}
-      flip={rawFlip as FlipSetting}
       cardSubDeckIds={cardSubDeckIds}
       cardIndexes={cardIndexes}
       allLessonCards={allKanjiCards}

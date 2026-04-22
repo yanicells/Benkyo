@@ -14,6 +14,7 @@ import {
 
 type SubDeckGridProps = {
   lesson: Lesson;
+  basePath?: "/decks" | "/reviewer";
 };
 
 const typeIcons: Record<CardType, string> = {
@@ -46,7 +47,7 @@ type SubDeckStats = Record<
   { mastery: number; reviewed: number; accuracy: number }
 >;
 
-export function SubDeckGrid({ lesson }: SubDeckGridProps) {
+export function SubDeckGrid({ lesson, basePath = "/decks" }: SubDeckGridProps) {
   const dataRevision = useSyncExternalStore(
     subscribeToStudyData,
     getStudyDataRevision,
@@ -79,7 +80,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
           return (
             <Link
               key={subDeck.id}
-              href={`/decks/${lesson.id}/${subDeck.id}`}
+              href={`${basePath}/${lesson.id}/${subDeck.id}`}
               className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
             >
               <div className="flex items-start justify-between gap-2">
@@ -126,7 +127,7 @@ export function SubDeckGrid({ lesson }: SubDeckGridProps) {
       <div className="fixed bottom-16 left-0 right-0 lg:bottom-0 lg:left-72 z-30 bg-surface/95 backdrop-blur-md border-t border-outline-variant/10">
         <div className="mx-auto w-full max-w-4xl px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 sm:px-8">
           <Link
-            href={`/decks/${lesson.id}/all`}
+            href={`${basePath}/${lesson.id}/all`}
             className="group flex w-full items-center justify-center gap-3 rounded-xl btn-primary-gradient py-3.5 text-white font-bold text-sm shadow-[0_8px_20px_rgba(0,36,70,0.15)] transition hover:opacity-90"
           >
             <svg

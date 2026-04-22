@@ -38,6 +38,7 @@ type DeckSearchFilterProps = {
   children: React.ReactNode;
   scope?: "global" | "lesson";
   lesson?: Lesson;
+  basePath?: "/decks" | "/reviewer";
 };
 
 type SearchResult = {
@@ -53,6 +54,7 @@ export function DeckSearchFilter({
   children,
   scope = "global",
   lesson,
+  basePath = "/decks",
 }: DeckSearchFilterProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterTab>("grouped");
@@ -241,7 +243,7 @@ export function DeckSearchFilter({
           {allSubDecks.map((item) => (
             <Link
               key={`${item.lessonId}-${item.subDeck.id}`}
-              href={`/decks/${item.lessonId}/${item.subDeck.id}`}
+              href={`${basePath}/${item.lessonId}/${item.subDeck.id}`}
               className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
             >
               <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary">

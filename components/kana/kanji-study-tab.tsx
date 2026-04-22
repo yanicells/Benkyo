@@ -3,7 +3,7 @@
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 
-import type { Lesson, StudyMode, FlipSetting, CardFilter } from "@/lib/types";
+import type { Lesson, StudyMode, CardFilter } from "@/lib/types";
 import { getKanjiSubDecks, type KanjiSubDeckEntry } from "@/lib/kanji";
 import {
   getAllSRS,
@@ -43,7 +43,6 @@ function KanjiSessionModal({
 }) {
   const router = useRouter();
   const [mode, setMode] = useState<StudyMode>("flashcard");
-  const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
   const [cardFilter, setCardFilter] = useState<CardFilter>("all");
   const dataRevision = useSyncExternalStore(
     subscribeToStudyData,
@@ -84,7 +83,6 @@ function KanjiSessionModal({
     const deckIds = entries.map((e) => e.subDeck.id).join(",");
     const params = new URLSearchParams({
       mode,
-      flip,
       decks: deckIds,
       ...(cardFilter !== "all" && { filter: cardFilter }),
     });
@@ -224,33 +222,6 @@ function KanjiSessionModal({
             </div>
           </div>
 
-          {/* Direction */}
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Direction
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              {(
-                [
-                  { value: "jp-to-en" as FlipSetting, label: "日 → English" },
-                  { value: "en-to-jp" as FlipSetting, label: "English → 日" },
-                ] as const
-              ).map((f) => (
-                <button
-                  key={f.value}
-                  type="button"
-                  onClick={() => setFlip(f.value)}
-                  className={`rounded-xl border-2 py-3 text-sm font-semibold transition-all ${
-                    flip === f.value
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
-                  }`}
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
 
         <div className="px-6 py-4 border-t border-outline-variant/10 shrink-0">

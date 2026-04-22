@@ -3,13 +3,12 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
-import type { FlipSetting, Lesson, StudyMode } from "@/lib/types";
+import type { Lesson, StudyMode } from "@/lib/types";
 import { getDueCards } from "@/lib/srs";
 
 type ReviewSessionRendererProps = {
   lessons: Lesson[];
   mode: StudyMode;
-  flip: FlipSetting;
 };
 
 const DeckSessionClient = dynamic(
@@ -40,7 +39,6 @@ function buildReviewData(lessons: Lesson[]) {
 export function ReviewSessionRenderer({
   lessons,
   mode,
-  flip,
 }: ReviewSessionRendererProps) {
   const [data] = useState<ReviewData | null>(() => {
     if (typeof window === "undefined") return null;
@@ -72,7 +70,6 @@ export function ReviewSessionRenderer({
       lessonTitle="Review — Due Cards"
       cards={data.cards}
       mode={mode}
-      flip={flip}
       cardSubDeckIds={data.subDeckIds}
       cardIndexes={data.indexes}
       allLessonCards={data.allCards}

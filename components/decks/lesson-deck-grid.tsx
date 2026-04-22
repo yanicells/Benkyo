@@ -18,6 +18,7 @@ type LessonDeckGridProps = {
   lessons: Lesson[];
   showOverview?: boolean;
   showGrid?: boolean;
+  basePath?: "/decks" | "/reviewer";
 };
 
 const subscribeNoop = () => () => {};
@@ -40,11 +41,13 @@ function LessonCard({
   index,
   isHydrated,
   dataRevision,
+  basePath,
 }: {
   lesson: Lesson;
   index: number;
   isHydrated: boolean;
   dataRevision: number;
+  basePath: "/decks" | "/reviewer";
 }) {
   const mastery = useMemo(
     () => (isHydrated && dataRevision >= 0 ? getLessonMastery(lesson) : 0),
@@ -67,7 +70,7 @@ function LessonCard({
   const diffStyle = diff ? DIFFICULTY_COLORS[diff] : null;
   return (
     <Link
-      href={`/decks/${lesson.id}`}
+      href={`${basePath}/${lesson.id}`}
       className="group relative flex flex-col rounded-2xl bg-surface-lowest p-4 shadow-[0_4px_20px_rgba(0,14,33,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,14,33,0.1)] cursor-pointer sm:p-5"
     >
       {/* Top row: level badge + difficulty */}
@@ -253,6 +256,7 @@ export function LessonDeckGrid({
   lessons,
   showOverview = true,
   showGrid = true,
+  basePath = "/decks",
 }: LessonDeckGridProps) {
   const isHydrated = useSyncExternalStore(
     subscribeNoop,
@@ -312,11 +316,13 @@ export function LessonDeckGrid({
       {/* Lesson grid */}
       {showGrid && (
         <div className="grid grid-cols-1 gap-3 [@media(min-width:520px)]:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          <KanjiVirtualCard
-            lessons={lessons}
-            isHydrated={isHydrated}
-            dataRevision={dataRevision}
-          />
+          {basePath === "/decks" && (
+            <KanjiVirtualCard
+              lessons={lessons}
+              isHydrated={isHydrated}
+              dataRevision={dataRevision}
+            />
+          )}
           {lessons.map((lesson, index) => (
             <LessonCard
               key={lesson.id}
@@ -324,6 +330,7 @@ export function LessonDeckGrid({
               index={index}
               isHydrated={isHydrated}
               dataRevision={dataRevision}
+              basePath={basePath}
             />
           ))}
         </div>

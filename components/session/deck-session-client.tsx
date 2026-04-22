@@ -16,7 +16,6 @@ import type {
   Card,
   CardFilter,
   CardType,
-  FlipSetting,
   SRSRating,
   SessionCard,
   StudyMode,
@@ -28,13 +27,13 @@ type DeckSessionClientProps = {
   lessonTitle: string;
   cards: Card[];
   mode: StudyMode;
-  flip: FlipSetting;
   cardSubDeckIds: string[];
   cardIndexes: number[];
   allLessonCards: Card[];
   isReview?: boolean;
   reviewLabels?: string[];
   cardFilter?: CardFilter;
+  basePath?: "/decks" | "/reviewer";
 };
 
 const typeIcons: Record<CardType, string> = {
@@ -234,13 +233,13 @@ export function DeckSessionClient({
   lessonTitle,
   cards: rawCards,
   mode,
-  flip,
   cardSubDeckIds: rawSubDeckIds,
   cardIndexes: rawCardIndexes,
   allLessonCards,
   isReview = false,
   reviewLabels,
   cardFilter = "all",
+  basePath = "/decks",
 }: DeckSessionClientProps) {
   const router = useRouter();
   const filtered = useMemo(
@@ -281,15 +280,6 @@ export function DeckSessionClient({
     return cards.filter((_, i) => i !== currentOriginalIndex).slice(0, 3);
   }, [currentOriginalIndex, cards]);
 
-  const promptSide = useMemo(
-    () => (flip === "jp-to-en" ? "front" : "back"),
-    [flip],
-  );
-  const answerSide = useMemo(
-    () => (flip === "jp-to-en" ? "back" : "front"),
-    [flip],
-  );
-
   useEffect(() => {
     if (queue.length !== 0) return;
 
@@ -311,15 +301,15 @@ export function DeckSessionClient({
     if (isReview) {
       router.replace("/review/session/results");
     } else {
-      router.replace(`/decks/${lessonId}/${subDeckId}/session/results`);
+      router.replace(`${basePath}/${lessonId}/${subDeckId}/session/results`);
     }
-  }, [queue, cards, wrongKeys, lessonId, subDeckId, router, isReview]);
+  }, [queue, cards, wrongKeys, lessonId, subDeckId, router, isReview, basePath]);
 
   const multipleChoice = useMemo(() => {
     if (!current || mode !== "multiple-choice") return null;
 
     const isFillIn = current.card.type === "fill-in";
-    const correct = current.card[answerSide];
+    const correct = current.card.back;
 
     let distractorPool: string[];
 
@@ -328,12 +318,12 @@ export function DeckSessionClient({
         .filter(
           (c) => c.type === "fill-in" && cardKey(c) !== cardKey(current.card),
         )
-        .map((c) => c[answerSide])
+        .map((c) => c.back)
         .filter((v) => v !== correct);
     } else {
       distractorPool = allLessonCards
         .filter((card) => cardKey(card) !== cardKey(current.card))
-        .map((card) => card[answerSide])
+        .map((card) => card.back)
         .filter((value) => value !== correct);
     }
 
@@ -341,7 +331,7 @@ export function DeckSessionClient({
     const options = shuffle(Array.from(new Set([correct, ...distractors])));
 
     return { options, correct };
-  }, [current, mode, answerSide, allLessonCards]);
+  }, [current, mode, allLessonCards]);
 
   const doSRSReview = useCallback(
     (rating: SRSRating) => {
@@ -471,7 +461,7 @@ export function DeckSessionClient({
     );
   }
 
-  const prompt = current.card[promptSide];
+  const prompt = current.card.front;
   const promptLength = prompt.trim().length;
   const promptTypographyClass =
     promptLength > 22
@@ -506,7 +496,7 @@ export function DeckSessionClient({
       <div className="sticky top-0 lg:top-16 z-20 -mx-4 md:-mx-8 mb-5 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md md:px-8">
         <div className="flex items-center justify-between">
           <Link
-            href={isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`}
+            href={isReview ? "/review" : `${basePath}/${lessonId}/${subDeckId}`}
             className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
           >
             <svg
@@ -600,7 +590,7 @@ export function DeckSessionClient({
           <div className="animate-in fade-in slide-in-from-bottom-4 mt-4 w-full flex flex-col items-center">
             <div className="w-16 h-[2px] bg-outline-variant/30 my-4" />
             <p className="font-japanese text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center">
-              {current.card[answerSide]}
+              {current.card.back}
             </p>
           </div>
         )}
