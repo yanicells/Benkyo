@@ -39,14 +39,7 @@ export default async function ReviewerSubDeckListPage({
     >
       {lesson.meta && <LessonPreStudy meta={lesson.meta} />}
       <LessonProgressOverview lesson={lesson} />
-      <DeckSearchFilter
-        lessons={lessons}
-        scope="lesson"
-        lesson={lesson}
-        basePath="/reviewer"
-      >
-        <SubDeckGrid lesson={lesson} basePath="/reviewer" />
-      </DeckSearchFilter>
+      <SubDeckGrid lesson={lesson} basePath="/reviewer" />
     </PageShell>
   );
 }

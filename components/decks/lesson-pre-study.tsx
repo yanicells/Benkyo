@@ -103,9 +103,15 @@ export function LessonPreStudy({ meta }: LessonPreStudyProps) {
           title="Read this first"
           badge={readFirstBadge || undefined}
         >
-          <p className="text-sm leading-relaxed text-on-surface-variant">
-            {meta.notes}
-          </p>
+          <div className="space-y-3 text-sm leading-relaxed text-on-surface-variant">
+            {meta.notes
+              .split(/\n\n+/)
+              .map((paragraph, i) => (
+                <p key={i} className="whitespace-pre-line">
+                  {paragraph.trim()}
+                </p>
+              ))}
+          </div>
           {meta.tags && meta.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
               {meta.tags.map((tag) => (
