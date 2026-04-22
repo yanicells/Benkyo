@@ -680,14 +680,16 @@
       "id": "lesson-1",
       "title": "Lesson 1: New Friends",
       "meta": {
-        "notes": "This lesson introduces self-introduction vocabulary and the basic sentence structure of Japanese. Key pattern: [Noun] は [Noun] です (X is Y). Japanese does not conjugate verbs for person — です works for all subjects.",
+        "notes": "The absolute foundation of Japanese sentences. General form: [Topic] は [Something] です = 'As for Topic, it is Something.' Think of です as an '=' sign — the whole point of the sentence sits in the noun right before it. は is the topic marker (written は but pronounced 'wa' — one of Japanese's most-forgotten quirks). When to use: any time you are identifying, describing, or equating something — 'I am a student,' 'This is a book,' 'Tanaka is Japanese.' How to use: state the topic, add は, state the descriptor, end with です. You do NOT conjugate です for person, number, or gender — one size fits all (わたしは がくせいです / かれは がくせいです / ミナさんは がくせいです). To ask a question, just add か at the end — no word order change: がくせいです → がくせいですか. For negation, swap です for じゃないです (casual-polite) or ではありません (formal). Japanese is Subject-Object-Verb, so the です or real verb always lands last — keep listening until the end of the sentence before you decide what was said.",
         "cheatSheet": [
-          "は (wa) = topic marker — marks what you're talking about",
-          "です (desu) = is/am/are — polite sentence ender",
-          "わたし (watashi) = I, ぼく (boku) = I (male, casual)",
-          "〜じん (jin) = nationality: アメリカじん = American",
-          "〜ご (go) = language: にほんご = Japanese language",
-          "せんこう (senko) = major/field of study"
+          "General form: [Topic] は [X] です — 'Topic is X'",
+          "は is written は but pronounced 'wa' when used as a particle",
+          "です works for I/you/he/she/it/we/they — never conjugates for person",
+          "Question: just add か at the end (です → ですか). Word order unchanged",
+          "Negative: じゃないです (casual-polite) or ではありません (formal)",
+          "〜じん = nationality (アメリカじん), 〜ご = language (にほんご)",
+          "Drop the topic when context is clear: がくせいです = '(I'm) a student'",
+          "Name + さん for others, never for yourself. Sensei for teachers replaces さん"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/y00DJEYOeQ8",
         "difficulty": "beginner",
@@ -698,10 +700,14 @@
           "particles"
         ],
         "tips": [
-          "は (wa) marks the topic; が (ga) marks the subject — they overlap but differ in nuance",
-          "です (desu) is the polite copula — the u is often silent in natural speech",
-          "じゃないです is more casual than ではありません for negation",
-          "Sentence order in Japanese is Subject → Object → Verb (SOV)"
+          "The 'u' in です is almost silent — natives say 'des'. Don't over-pronounce it",
+          "は marks the topic, not necessarily the subject. 'As for X...' is the mental model",
+          "Drop わたし/ぼく whenever context makes it obvious — Japanese loves to omit pronouns",
+          "さん attaches to others' names, NEVER your own. Saying 'わたしは ゲイブさんです' sounds arrogant",
+          "Age question: なんさいですか (casual) / おいくつですか (polite). Answer: にじゅっさいです",
+          "じゃないです and じゃありません are interchangeable; じゃ is a contraction of では",
+          "When someone asks '〜ですか?', answer 'はい、〜です' or 'いいえ、〜じゃないです'",
+          "Sentence order is Subject → Object → Verb — the verb/です always comes last"
         ]
       },
       "subDecks": [
@@ -1111,14 +1117,17 @@
       "id": "lesson-2",
       "title": "Lesson 2: Shopping",
       "meta": {
-        "notes": "Shopping vocabulary and the これ/それ/あれ system for pointing at things. Also covers asking for prices and using the question particle か. Japanese questions use the same word order as statements — just add か at the end.",
+        "notes": "The 'Ko-So-A-Do' system — Japanese uses distance from BOTH speaker and listener to pick the right 'this/that' word. これ/それ/あれ stand alone as pronouns ('this one'); この/その/あの must be followed by a noun ('this book'); ここ/そこ/あそこ point to locations ('here/there'). The 'do-' versions are the question forms (どれ = which, どの = which [noun], どこ = where). Rule: こ- = near me, そ- = near you, あ- = far from both. General pattern for shopping: 〜はいくらですか (how much is ~?) → answer with number + 円. To buy, use 〜をください (please give me ~). Question particle か is the Swiss-army-knife: stick it on ANY statement to make a question — no inversion, no auxiliary verbs. Another staple introduced here: 〜じゃないです for noun negation, and the particle も ('also/too') which REPLACES は (never say はも). だれの X = 'whose X' — the の particle makes possessives. The sentence-end particles ね (seeking agreement, 'right?') and よ (new info, 'you know') also show up here — drop them and you sound flat.",
         "cheatSheet": [
-          "これ = this (near me), それ = that (near you), あれ = that over there",
-          "〜をください = Please give me ~ / I'll take ~",
-          "いくらですか = How much is it?",
-          "か (ka) = question particle — attach to end of any statement",
-          "〜円 (en) = yen — always attach to the number",
-          "どれ = which one? どこ = where?"
+          "これ/それ/あれ stand alone; この/その/あの need a noun; ここ/そこ/あそこ are places",
+          "こ-=near me, そ-=near you, あ-=far from both, ど-=question form",
+          "〜をください = 'please give me ~' — polite request",
+          "〜はいくらですか = 'how much is ~?' — answer with number + 円",
+          "か = question particle — just append, no word order change",
+          "も = 'also/too' — REPLACES は, never combine (say 'わたしも', not 'わたしはも')",
+          "だれの X = 'whose X' — の particle links nouns (ゲイブの ほん = Gabe's book)",
+          "じゃないです = 'is not' — contraction of ではない",
+          "ね = seeking agreement ('right?'), よ = asserting new info ('you know')"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/2fKV-l1l7B4",
         "difficulty": "beginner",
@@ -1129,10 +1138,14 @@
           "questions"
         ],
         "tips": [
-          "これ/それ/あれ (this/that/that over there) depend on speaker and listener position",
-          "いくら (ikura) means \"how much\" — essential for shopping",
-          "Prices use the counter 円 (en/yen) — numbers stay the same, just add 円",
-          "ください (kudasai) = please give me — polite way to request something"
+          "Natives often drop は and flip word order in conversation: 'なんですか、それ?' = 'What's that?'",
+          "In shops, いらっしゃいませ ('welcome') is a broadcast greeting — you don't answer it",
+          "Use えっと or あのう as natural fillers when thinking ('uh...', 'um...')",
+          "When pointing at nearby items: これ. When pointing at listener's item: それ. At distant item: あれ",
+          "どれ (which) for 3+ choices; どっち for 2 choices",
+          "も is one of the highest-ROI particles — master it early",
+          "しらない is the casual 'I don't know'; わかりません is the polite 'I don't understand/know'",
+          "Prices: 100=ひゃく, 1000=せん, 10000=まん. Note 300 = さんびゃく (sound change)"
         ]
       },
       "subDecks": [
@@ -1577,14 +1590,17 @@
       "id": "lesson-3",
       "title": "Lesson 3: Making a Date",
       "meta": {
-        "notes": "Covers verb conjugation into て-form, making invitations, and telling time. て-form is one of the most versatile verb forms in Japanese — it connects actions, makes requests (〜てください), and forms the progressive (〜ています). Learn the て-form rules early.",
+        "notes": "The polite ます-form is your daily-driver verb conjugation — it signals politeness and is what you'll hear constantly. Verbs split into two big groups: 'u-verbs' (Group 1, e.g., いく→いきます, のむ→のみます) and 'iru/eru-verbs' (Group 2, e.g., たべる→たべます, みる→みます). Iru/eru verbs just drop る and add ます. U-verbs shift the final kana to the 'i' row, then add ます (のむ→のみ+ます). There's a short list of exceptions like かえる (to return) that LOOK iru/eru but conjugate as u-verbs → かえります. Two irregulars to memorize forever: する→します, くる→きます. Particle rules introduced here: を marks direct objects (pronounced 'o'), で marks location OF AN ACTION (カフェで たべます = eat AT the cafe), に marks destination or specific time (3じに = at 3 o'clock). Time words like まいにち (every day), あした (tomorrow), きょう (today), こんしゅう (this week) take NO particle — they stand alone. Invitations use 〜ませんか ('won't you ~?') and 〜ましょう ('let's ~'). Negative/past conjugations: たべます → たべません (don't eat) → たべました (ate) → たべませんでした (didn't eat).",
         "cheatSheet": [
-          "て-form: Group 1 verbs follow consonant rules (く→いて, ぐ→いで, す→して...)",
-          "〜ませんか = Won't you ~? / Would you like to ~? (invitation)",
-          "〜ましょう = Let's ~ (suggestion)",
-          "時 (ji) = o'clock, 分 (fun/pun) = minute",
-          "前 (mae) = before/ago, 後 (go) = after/later",
-          "いつ = when? 何時 (nanji) = what time?"
+          "ます-form conjugations: 〜ます (pres.), 〜ません (neg.), 〜ました (past), 〜ませんでした (past neg.)",
+          "Group 2 (iru/eru): drop る, add ます → たべる→たべます, みる→みます",
+          "Group 1 (u-verbs): shift final kana to 'i' row + ます → のむ→のみます, かう→かいます",
+          "Irregulars: する→します, くる→きます. Exception: かえる→かえります (u-verb despite looking iru/eru)",
+          "を (pronounced 'o') marks direct object: ごはんを たべる",
+          "で = location of an ACTION (カフェで のむ); に = destination/specific time (3じに / にほんに)",
+          "Time words with no particle: まいにち, あした, きょう, こんしゅう, しゅうまつ",
+          "〜ませんか = 'won't you ~?' (invitation); 〜ましょう = 'let's ~'; 〜ましょうか = 'shall we?'",
+          "Days: げつようび, かようび, すいようび, もくようび, きんようび, どようび, にちようび"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/Fg-YOJgMbsI",
         "difficulty": "intermediate",
@@ -1595,10 +1611,14 @@
           "invitations"
         ],
         "tips": [
-          "Time expressions come before the verb in Japanese",
-          "に (ni) marks specific time points (3時に); で (de) marks duration context",
-          "ませんか is a polite invitation form — softer than a direct imperative",
-          "Days of the week follow a pattern: 月火水木金土日 (moon, fire, water, wood, gold, earth, sun)"
+          "Beginners always forget: を is pronounced 'o', not 'wo'",
+          "Biggest trap: で vs に. で = where you DO something, に = where you GO or where something EXISTS",
+          "Relative time words (まいにち, あした, きょう) take NO particle — resist the urge to add に",
+          "Specific times take に: しちじに おきます (wake up AT 7)",
+          "Invitation chain: 〜ませんか → 〜ましょう → 〜ましょうか are all softer than commands",
+          "かえる looks like it should be Group 2 but it's Group 1 → かえります. Memorize the ~10 exceptions",
+          "する (do) and くる (come) are the only true irregulars — します / きます",
+          "For a soft 'no' to an invitation, say ちょっと... (trailing off) — more polite than direct refusal"
         ]
       },
       "subDecks": [
@@ -2499,14 +2519,17 @@
       "id": "lesson-4",
       "title": "Lesson 4: The First Date",
       "meta": {
-        "notes": "Focuses on describing locations, giving directions, and using the particle に for destination. Also introduces adjective conjugation (い-adj vs な-adj). These two adjective types behave very differently — especially in past tense and negative forms.",
+        "notes": "Existence and location. Two verbs mean 'exist': あります for non-living things (books, buildings, events) and います for living things (people, animals — and by convention, anything that moves on its own like a moving car). General form: [Place] に [Thing] が あります/います. The particle に here marks the location where something exists — different from the に in lesson 3 that marked destination. Direction words (うえ, した, まえ, うしろ, みぎ, ひだり, となり, ちかく) plug into 'X の Y に' — 'テーブルの うえに ある' = 'on top of the table'. This lesson also introduces 'like/dislike' with が: 〜が すきです (like ~), 〜が きらいです (dislike ~). Critical: use が, NOT を, with these. だいすき (love a lot) and だいきらい (hate a lot) intensify them. The も-form extends too: パンも すき ('I like bread too'). Duration expressions come with COUNTERS (いちじかん = 1 hour, にじかん = 2 hours), and like relative time words take NO particle. The particle と links nouns ('and') AND means 'with' for companionship (ともだちと いきました = 'went with a friend').",
         "cheatSheet": [
-          "に (ni) = direction/destination marker: がっこうに行く = go to school",
-          "で (de) = location of action: としょかんで読む = read at the library",
-          "い-adj negative: たかい → たかくない (not expensive)",
-          "な-adj negative: しずかな → しずかじゃない (not quiet)",
-          "い-adj past: たかい → たかかった (was expensive)",
-          "Location words: 上 (ue), 下 (shita), 右 (migi), 左 (hidari), 中 (naka)"
+          "あります = exist (non-living); います = exist (living/animate)",
+          "General form: [Place] に [Thing] が あります/います",
+          "Direction words: うえ, した, まえ, うしろ, みぎ, ひだり, となり, ちかく, なか, そと",
+          "Plug form: [Reference] の [Direction] に — 'テーブルの うえに'",
+          "〜が すき / きらい = like / dislike. Use が, NOT を",
+          "だいすき = love a lot; だいきらい = hate a lot",
+          "と = 'and' (linking nouns) OR 'with' (companionship): ともだちと いく",
+          "Duration counters take no particle: さんじかん べんきょうしました",
+          "Negative: ありません / いません. Past: ありました / いました"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/F27okQQZ6J0",
         "difficulty": "intermediate",
@@ -2517,10 +2540,14 @@
           "past-tense"
         ],
         "tips": [
-          "い-adjectives conjugate directly; な-adjectives need な before nouns",
-          "Past tense of い-adj: drop い, add かった (e.g. たのしい→たのしかった)",
-          "Past tense of な-adj/nouns: でした instead of です",
-          "が here often expresses \"but\" as a soft connector between clauses"
+          "Mnemonic: あります for objects, います for things that 'I'm alive' — い starts both います and 'iru'",
+          "で (action location) vs に (existence/destination) trips everyone up — just memorize with common verbs",
+          "が (not を) with すき/きらい — 'りんごが すきです' = 'I like apples'",
+          "Duration (さんじかん) takes NO particle; specific time (さんじに) takes に",
+          "Adverbs like ぜんぜん and あまり REQUIRE a negative verb: あまり すきじゃない (not much)",
+          "Use となり for 'next to' things of the same category, よこ for physically beside",
+          "Animal Crossing / video games: どうぶつのもり — memorable reminder that どうぶつ = animals (using います)",
+          "と has two meanings but context always makes it clear: noun-and-noun vs verb-with-companion"
         ]
       },
       "subDecks": [
@@ -3165,14 +3192,17 @@
       "id": "lesson-5",
       "title": "Lesson 5: A Trip to Okinawa",
       "meta": {
-        "notes": "Covers past-tense verbs, adjective conjugation in past tense, and travel vocabulary. This lesson also introduces the て-form for connecting sequential actions (verb て verb). Focus on how plain past forms differ between verb groups.",
+        "notes": "Adjectives — and how they change for tense. Japanese has two adjective types: い-adjectives (たのしい, おいしい, たかい) and な-adjectives (きれい(な), しずか(な), げんき(な), すき(な)). They look similar in present but diverge for past and negative. General forms for い-adjectives: present たのしい→たのしいです; negative drop final い + くない → たのしくない(です); past drop い + かった → たのしかった(です); past negative drop い + くなかった → たのしくなかった(です). General forms for な-adjectives: treat them like nouns — きれいです / きれいじゃない(です) / きれいでした / きれいじゃなかった(です). IMPORTANT irregular: いい (good) acts like よい when conjugated → よかった (was good), よくない (not good), よくなかった (wasn't good). To modify a noun: い-adj goes directly (たのしい えいが = 'a fun movie'); な-adj needs な between (きれいな けしき = 'beautiful scenery'). Likes/dislikes (〜が すき) carry over from lesson 4 as な-adjectives. This lesson also covers ましょう invitations (lesson 3 review) and the counter 〜まい for flat objects (paper, plates, tickets): ちけっとを にまい ください = 'two tickets please'. People counters are irregular: ひとり (1), ふたり (2), さんにん (3)...",
         "cheatSheet": [
-          "Past tense (polite): 〜ました (affirmative), 〜ませんでした (negative)",
-          "い-adj past: おもしろい → おもしろかった (was interesting)",
-          "な-adj past: きれいな → きれいだった (was pretty)",
-          "〜てから = after doing ~: 食べてから行く = go after eating",
-          "〜たい = want to ~: 行きたい = want to go",
-          "もう = already, まだ = not yet, また = again"
+          "い-adj: present たのしい / neg たのしくない / past たのしかった / past neg たのしくなかった",
+          "な-adj: present きれいです / neg きれいじゃない / past きれいでした / past neg きれいじゃなかった",
+          "Irregular: いい → よかった (was good), よくない (not good)",
+          "Modify noun: い-adj direct (たのしい えいが); な-adj + な (きれいな けしき)",
+          "〜が すき / きらい / だいすき / だいきらい — all use が, all act as な-adj",
+          "Counter 〜まい for flat objects: いちまい, にまい, さんまい... (paper, plates, tickets)",
+          "People counter: ひとり, ふたり, さんにん, よにん, ごにん...",
+          "〜ましょう = 'let's ~'; 〜ませんか = 'won't you ~?'; いっしょに = 'together'",
+          "Past neg: verb ~ませんでした; な-adj/noun ~じゃなかった(です)"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/AzAdOqnJ4nk",
         "difficulty": "intermediate",
@@ -3183,10 +3213,15 @@
           "te-form"
         ],
         "tips": [
-          "て-form is the Swiss Army knife of Japanese — it connects actions and forms many patterns",
-          "て+います can mean an ongoing action OR a state resulting from an action",
-          "Transport: で marks the means (バスで = by bus); に marks the destination",
-          "Okinawa dialect (うちなーぐち) differs significantly from standard Japanese"
+          "いい is the only common irregular adjective — conjugate from よい, never from いい",
+          "Test yourself: 'was not fun' = たのしくなかった(です). Drop い, add くなかった",
+          "な-adj past looks exactly like the noun past: きれいでした = きれい + でした (like です → でした)",
+          "Before a noun, い-adj keeps い (あたらしい くるま); な-adj adds な (しずかな まち)",
+          "すき/きらい always take が, even though English 'like/hate' feels like a transitive verb",
+          "だいすき is stronger than すき; use it for people/things you genuinely love",
+          "〜まい counts flat things — tickets, paper, plates, photos, SIM cards",
+          "'Shall we walk?' = あるきましょうか; 'yes, let's walk' = あるきましょう",
+          "Small-talk opener: 'どうだった?' (casual past of どう) = 'how was it?' — key for past-tense practice"
         ]
       },
       "subDecks": [

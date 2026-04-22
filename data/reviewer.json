@@ -19,8 +19,14 @@
       "title": "Lesson 1: New Friends",
       "order": 1,
       "meta": {
-        "notes": "Apply greetings, introductions, and the copula です. Drill the は topic marker and basic nationality / language vocabulary from Lesson 1.",
-        "cheatSheet": [],
+        "notes": "Core pattern: [Topic] は [X] です = 'Topic is X'. です never conjugates for person. は is written は but pronounced 'wa'. Question = add か. Negative = じゃないです. さん attaches to others' names, not yours.",
+        "cheatSheet": [
+          "[Topic] は [X] です — the foundational sentence",
+          "は pronounced 'wa' as a particle",
+          "Question: add か. Negative: じゃないです / ではありません",
+          "さん for others, never yourself; せんせい replaces さん for teachers",
+          "Drop the topic when context is clear"
+        ],
         "difficulty": "beginner",
         "tags": ["review", "lesson-1"]
       },
@@ -120,8 +126,15 @@
       "title": "Lesson 2: Shopping",
       "order": 2,
       "meta": {
-        "notes": "Apply shopping vocabulary, numbers, and the これ / それ / あれ demonstratives from Lesson 2.",
-        "cheatSheet": [],
+        "notes": "Ko-So-A-Do system: こ=near me, そ=near you, あ=far from both, ど=which. これ/それ/あれ stand alone; この/その/あの need a noun; ここ/そこ/あそこ are places. いくらですか asks price; 〜をください requests. も ('also') REPLACES は. ね = seeking agreement, よ = asserting.",
+        "cheatSheet": [
+          "こ-/そ-/あ-/ど- maps to near-me / near-you / far / which",
+          "Standalone: これ/それ/あれ. Before noun: この/その/あの. Places: ここ/そこ/あそこ",
+          "〜はいくらですか + answer with number + 円 / 〜をください",
+          "だれの X = whose X (possessive の)",
+          "も replaces は (say 'わたしも', not 'わたしはも')",
+          "ね (confirm 'right?') vs よ (assert 'you know')"
+        ],
         "difficulty": "beginner",
         "tags": ["review", "lesson-2"]
       },
@@ -221,8 +234,15 @@
       "title": "Lesson 3: Making a Date",
       "order": 3,
       "meta": {
-        "notes": "Apply verb conjugation (〜ます / 〜ません), time expressions, and basic invitation patterns from Lesson 3.",
-        "cheatSheet": [],
+        "notes": "ます-form is the polite daily driver. Group 2 (iru/eru): drop る + ます. Group 1 (u-verbs): final kana → 'i' row + ます. Irregulars: する→します, くる→きます. Watch for iru/eru-looking exceptions like かえる→かえります. を = object (say 'o'), で = where action happens, に = destination or specific time. Relative time words (まいにち, あした) take NO particle. 〜ませんか / 〜ましょう for invitations.",
+        "cheatSheet": [
+          "Group 2: たべる→たべます. Group 1: のむ→のみます. Irregular: する/くる",
+          "Past: 〜ました / Past neg: 〜ませんでした / Neg: 〜ません",
+          "を = object (pronounced 'o'); で = action location; に = destination/specific time",
+          "Relative time (まいにち, あした, こんしゅう): NO particle",
+          "〜ませんか = 'won't you ~?' / 〜ましょう = 'let's ~'",
+          "かえる is a Group 1 exception → かえります"
+        ],
         "difficulty": "beginner",
         "tags": ["review", "lesson-3"]
       },
@@ -324,8 +344,14 @@
       "title": "Lesson 4: The First Date",
       "order": 4,
       "meta": {
-        "notes": "Apply location words, past tense, and existence verbs (あります / います) from Lesson 4.",
-        "cheatSheet": [],
+        "notes": "Existence: あります (non-living) vs います (living). Pattern: [Place] に [Thing] が あります/います. Direction words (うえ/した/まえ/うしろ/みぎ/ひだり/となり/ちかく) plug in as [Ref] の [Dir] に. Like/dislike uses が (NOT を): 〜が すき/きらい. と = 'and' (nouns) OR 'with' (companionship). Duration (さんじかん) takes no particle.",
+        "cheatSheet": [
+          "あります = objects; います = people/animals",
+          "[Place] に [Thing] が あります/います",
+          "すき / きらい / だいすき / だいきらい — all use が",
+          "と = noun-and-noun OR verb-with-companion",
+          "Duration counters (さんじかん): no particle. Specific time (さんじに): に"
+        ],
         "difficulty": "beginner",
         "tags": ["review", "lesson-4"]
       },
@@ -428,8 +454,14 @@
       "title": "Lesson 5: A Trip to Okinawa",
       "order": 5,
       "meta": {
-        "notes": "Apply い-adjective conjugation (present, negative, past affirmative, past negative) and travel vocabulary from Lesson 5.",
-        "cheatSheet": [],
+        "notes": "Adjectives and tense. い-adj: たのしい→たのしくない→たのしかった→たのしくなかった. な-adj: treat like nouns — きれいです→きれいじゃない→きれいでした→きれいじゃなかった. Irregular: いい→よかった (past), よくない (neg). Modifying noun: い-adj direct (たのしい えいが); な-adj + な (きれいな けしき). すき/きらい act as な-adj. Counter 〜まい for flat objects; people: ひとり, ふたり, さんにん.",
+        "cheatSheet": [
+          "い-adj: drop い + くない / かった / くなかった",
+          "な-adj: behaves like a noun with です → じゃない / でした / じゃなかった",
+          "いい is irregular → conjugate from よい: よかった, よくない",
+          "Before nouns: い-adj direct; な-adj needs な",
+          "Counter 〜まい (flat objects); people: ひとり, ふたり, さんにん, よにん..."
+        ],
         "difficulty": "beginner",
         "tags": ["review", "lesson-5"]
       },

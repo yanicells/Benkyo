@@ -281,6 +281,80 @@
           ]
         },
         {
+          "id": "beginner-morning-cafe-chat",
+          "title": "Morning Cafe Chat",
+          "difficulty": "simple",
+          "meta": {
+            "notes": "A pure-dialogue scene: two classmates bump into each other at a cafe and introduce themselves. Every line is labeled with the speaker's name, Tokini-Andy style.",
+            "difficulty": "beginner",
+            "estimatedMinutes": 3,
+            "cheatSheet": [
+              "はじめまして = how do you do (first meeting)",
+              "よろしくおねがいします = nice to meet you",
+              "わたし / ぼく = I (feminine-neutral / masculine casual)",
+              "せんこう = major (school)"
+            ],
+            "tags": ["dialogue", "self-introduction", "greetings"],
+            "tips": [
+              "Notice how each line starts with the speaker's name and a colon — this is the clearest way to follow who is talking.",
+              "よろしくおねがいします has no direct English equivalent — it's a set greeting you say right after meeting someone."
+            ],
+            "sourceLessons": ["greetings", "lesson-1"]
+          },
+          "passages": [
+            {
+              "passage": "ゲイブ: あ、おはようございます！\nミナ: おはようございます！\nゲイブ: いま なんじですか。\nミナ: はちじはんです。",
+              "translation": "Gabe: Oh, good morning!\nMina: Good morning!\nGabe: What time is it now?\nMina: It's 8:30.",
+              "vocabularyHighlights": [
+                { "word": "おはようございます", "meaning": "good morning (polite)" },
+                { "word": "なんじ", "meaning": "what time" },
+                { "word": "はちじはん", "meaning": "8:30" }
+              ]
+            },
+            {
+              "passage": "ゲイブ: はじめまして。わたしは ゲイブです。アメリカじんです。\nミナ: はじめまして。ミナです。にほんじんです。\nゲイブ: だいがくの がくせいですか。\nミナ: はい、がくせいです。せんこうは にほんごです。ゲイブさんは？\nゲイブ: ぼくの せんこうも にほんごです！",
+              "translation": "Gabe: How do you do. I'm Gabe. I'm American.\nMina: How do you do. I'm Mina. I'm Japanese.\nGabe: Are you a university student?\nMina: Yes, I'm a student. My major is Japanese. And you, Gabe?\nGabe: My major is also Japanese!",
+              "vocabularyHighlights": [
+                { "word": "はじめまして", "meaning": "how do you do" },
+                { "word": "だいがく", "meaning": "university" },
+                { "word": "せんこう", "meaning": "major" },
+                { "word": "も", "meaning": "also/too" }
+              ]
+            },
+            {
+              "passage": "ミナ: すごい！よろしくおねがいします。\nゲイブ: よろしくおねがいします！\nミナ: じゃあ、また あした。\nゲイブ: また あした！",
+              "translation": "Mina: Cool! Nice to meet you.\nGabe: Nice to meet you!\nMina: Well then, see you tomorrow.\nGabe: See you tomorrow!",
+              "vocabularyHighlights": [
+                { "word": "すごい", "meaning": "cool/amazing" },
+                { "word": "よろしくおねがいします", "meaning": "nice to meet you" },
+                { "word": "また あした", "meaning": "see you tomorrow" }
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "What time is it in the conversation?",
+              "options": ["7:30", "8:00", "8:30", "9:00"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What is Mina's major?",
+              "options": ["History", "English", "Japanese", "Economics"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What does も indicate in ぼくの せんこうも にほんごです?",
+              "options": ["Only", "Also", "But", "Not"],
+              "correctIndex": 1
+            },
+            {
+              "question": "How do they part?",
+              "options": ["さようなら", "おやすみ", "また あした", "いってきます"],
+              "correctIndex": 2
+            }
+          ]
+        },
+        {
           "id": "beginner-convenience-store",
           "title": "At the Convenience Store",
           "difficulty": "simple",
@@ -668,6 +742,102 @@
             {
               "question": "How was the theater?",
               "options": ["Noisy and dirty", "Quiet and beautiful", "Big and old", "Small and new"],
+              "correctIndex": 1
+            }
+          ]
+        },
+        {
+          "id": "intermediate-restaurant-order",
+          "title": "Ordering at a Restaurant",
+          "difficulty": "intermediate",
+          "meta": {
+            "notes": "A three-person dialogue at a ramen restaurant. Practices ください, ませんか, と for listing, counters, and the yo/ne particles — all in a natural ordering scene.",
+            "difficulty": "intermediate",
+            "estimatedMinutes": 5,
+            "cheatSheet": [
+              "～を ください = please give me ~",
+              "～ませんか = won't you ~? (soft invitation)",
+              "と lists nouns: ラーメンと ぎょうざ = ramen and gyoza",
+              "～つ general counter: ひとつ, ふたつ, みっつ..."
+            ],
+            "tags": ["dialogue", "restaurant", "ordering", "ください"],
+            "tips": [
+              "Staff will say いらっしゃいませ (welcome) — you don't reply to it; just nod.",
+              "When ordering, stating the number BEFORE ください is natural: ビールを ふたつ ください."
+            ],
+            "sourceLessons": ["lesson-2", "lesson-3", "numbers"]
+          },
+          "passages": [
+            {
+              "passage": "てんいん: いらっしゃいませ！なんめいさまですか。\nゲイブ: さんにんです。\nてんいん: こちらへ どうぞ。\nミナ: メニューを ください。\nてんいん: はい、どうぞ。",
+              "translation": "Staff: Welcome! How many people?\nGabe: Three people.\nStaff: This way please.\nMina: The menu, please.\nStaff: Here you go.",
+              "vocabularyHighlights": [
+                { "word": "いらっしゃいませ", "meaning": "welcome (to a shop)" },
+                { "word": "なんめいさま", "meaning": "how many people (polite)" },
+                { "word": "さんにん", "meaning": "three people" },
+                { "word": "メニュー", "meaning": "menu" }
+              ]
+            },
+            {
+              "passage": "ゲイブ: ぼくは しょうゆラーメンに します。\nミナ: わたしは みそラーメンを たべます。\nたけし: ぼくも みそラーメン。おいしいですよ。\nミナ: ぎょうざも たべませんか。\nゲイブ: いいですね、たべましょう！",
+              "translation": "Gabe: I'll have the soy-sauce ramen.\nMina: I'll eat the miso ramen.\nTakeshi: Me too, miso ramen. It's delicious.\nMina: Shall we also eat gyoza?\nGabe: Sounds good, let's eat (some)!",
+              "vocabularyHighlights": [
+                { "word": "しょうゆラーメン", "meaning": "soy-sauce ramen" },
+                { "word": "みそラーメン", "meaning": "miso ramen" },
+                { "word": "ぎょうざ", "meaning": "gyoza (dumplings)" },
+                { "word": "たべませんか", "meaning": "won't you eat?" }
+              ]
+            },
+            {
+              "passage": "てんいん: ごちゅうもんは？\nゲイブ: しょうゆラーメンを ひとつ、みそラーメンを ふたつ、ぎょうざを みっつ ください。\nてんいん: のみものは？\nミナ: おちゃを さんつ おねがいします。\nてんいん: しょうしょう おまちください。",
+              "translation": "Staff: Your order?\nGabe: One soy-sauce ramen, two miso ramen, and three gyoza, please.\nStaff: Drinks?\nMina: Three teas please.\nStaff: One moment please.",
+              "vocabularyHighlights": [
+                { "word": "ごちゅうもん", "meaning": "order (polite)" },
+                { "word": "ひとつ / ふたつ / みっつ", "meaning": "one / two / three (general counter)" },
+                { "word": "のみもの", "meaning": "drinks" },
+                { "word": "しょうしょう おまちください", "meaning": "please wait a moment" }
+              ]
+            },
+            {
+              "passage": "ミナ: いただきます！\nゲイブ: うん、おいしい！\nたけし: この みそラーメンは さいこうですね。\nミナ: らいしゅうも きましょう！\nゲイブ: ぜひ！",
+              "translation": "Mina: Let's eat!\nGabe: Mm, delicious!\nTakeshi: This miso ramen is the best, right?\nMina: Let's come next week too!\nGabe: Absolutely!",
+              "vocabularyHighlights": [
+                { "word": "いただきます", "meaning": "said before eating" },
+                { "word": "さいこう", "meaning": "the best" },
+                { "word": "らいしゅう", "meaning": "next week" },
+                { "word": "ぜひ", "meaning": "by all means" }
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "How many people are in the group?",
+              "options": ["Two", "Three", "Four", "Five"],
+              "correctIndex": 1
+            },
+            {
+              "question": "What does Gabe order for himself?",
+              "options": ["Miso ramen", "Soy-sauce ramen", "Tonkotsu ramen", "Gyoza only"],
+              "correctIndex": 1
+            },
+            {
+              "question": "How many gyoza did they order?",
+              "options": ["One", "Two", "Three", "Four"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What does たべませんか express here?",
+              "options": ["A command", "A soft invitation", "Refusal", "Past tense"],
+              "correctIndex": 1
+            },
+            {
+              "question": "What does さいこう mean?",
+              "options": ["The worst", "The best", "So-so", "Expensive"],
+              "correctIndex": 1
+            },
+            {
+              "question": "What do they plan to do next week?",
+              "options": ["Try a different restaurant", "Come back here", "Cook at home", "Eat sushi"],
               "correctIndex": 1
             }
           ]
@@ -1188,6 +1358,120 @@
             {
               "question": "What does も...も mean?",
               "options": ["Neither...nor", "Both...and", "Either...or", "Not only...but"],
+              "correctIndex": 1
+            }
+          ]
+        },
+        {
+          "id": "hard-job-interview",
+          "title": "A Part-Time Job Interview",
+          "difficulty": "hard",
+          "meta": {
+            "notes": "A formal dialogue interview at a cafe. Practices keigo-ish polite speech, past/present mixing, adjective forms, and week/day vocabulary. Fully dialogue-formatted with speaker labels on every line.",
+            "difficulty": "advanced",
+            "estimatedMinutes": 8,
+            "cheatSheet": [
+              "～が できます = can do ~",
+              "Days: げつ/か/すい/もく/きん/ど/にち ようび",
+              "Past negative verb: ～ませんでした",
+              "よろしくおねがいします closes most formal interactions"
+            ],
+            "tags": ["dialogue", "formal", "interview", "mixed tense"],
+            "tips": [
+              "In formal contexts, use フルネーム (full name) and mention your 学校 (school) when introducing yourself.",
+              "Employers often ask なにようびに はたらけますか — answer with specific days and times."
+            ],
+            "sourceLessons": ["lesson-1", "lesson-3", "lesson-4", "lesson-5"]
+          },
+          "passages": [
+            {
+              "passage": "てんちょう: はじめまして。てんちょうの さとうです。どうぞ すわってください。\nゲイブ: はじめまして。ゲイブ・スミスです。よろしくおねがいします。\nてんちょう: スミスさんは アメリカじんですか。\nゲイブ: はい、アメリカじんです。いま だいがくの にねんせいです。",
+              "translation": "Manager: Nice to meet you. I'm Sato, the manager. Please have a seat.\nGabe: Nice to meet you. I'm Gabe Smith. Thank you.\nManager: Mr. Smith, are you American?\nGabe: Yes, I'm American. I'm a second-year university student now.",
+              "vocabularyHighlights": [
+                { "word": "てんちょう", "meaning": "store manager" },
+                { "word": "すわってください", "meaning": "please sit down" },
+                { "word": "にねんせい", "meaning": "second-year student" }
+              ]
+            },
+            {
+              "passage": "てんちょう: にほんごは だいじょうぶですか。\nゲイブ: はい、まいにち べんきょうしています。まだ むずかしいですが、がんばります。\nてんちょう: そうですか。まえに アルバイトを しましたか。\nゲイブ: はい、アメリカで レストランで はたらきました。さんかげつ はたらきました。",
+              "translation": "Manager: Is Japanese okay (for you)?\nGabe: Yes, I study every day. It's still difficult, but I'll do my best.\nManager: I see. Have you worked part-time before?\nGabe: Yes, I worked at a restaurant in America. I worked for three months.",
+              "vocabularyHighlights": [
+                { "word": "だいじょうぶ", "meaning": "okay / alright" },
+                { "word": "アルバイト", "meaning": "part-time job" },
+                { "word": "はたらきました", "meaning": "worked (past)" },
+                { "word": "さんかげつ", "meaning": "three months" }
+              ]
+            },
+            {
+              "passage": "てんちょう: なにようびに はたらけますか。\nゲイブ: かようびと もくようびと どようびに はたらけます。\nてんちょう: なんじから なんじまで だいじょうぶですか。\nゲイブ: ごごよじから よるじゅうじまで だいじょうぶです。",
+              "translation": "Manager: Which days can you work?\nGabe: I can work on Tuesday, Thursday, and Saturday.\nManager: From what time to what time is okay?\nGabe: From 4 PM to 10 PM is fine.",
+              "vocabularyHighlights": [
+                { "word": "なにようび", "meaning": "what day of the week" },
+                { "word": "はたらけます", "meaning": "can work (potential)" },
+                { "word": "から...まで", "meaning": "from... to..." },
+                { "word": "ごご", "meaning": "afternoon/PM" }
+              ]
+            },
+            {
+              "passage": "てんちょう: いいですね。じきゅうは せんごひゃくえんです。\nゲイブ: はい、だいじょうぶです。\nてんちょう: しごとは たのしいですが、いそがしい ひも ありますよ。\nゲイブ: はい、がんばります！",
+              "translation": "Manager: That's good. The hourly wage is 1,500 yen.\nGabe: Yes, that's fine.\nManager: The job is fun, but there are busy days too.\nGabe: Yes, I'll do my best!",
+              "vocabularyHighlights": [
+                { "word": "じきゅう", "meaning": "hourly wage" },
+                { "word": "せんごひゃくえん", "meaning": "1,500 yen" },
+                { "word": "しごと", "meaning": "work/job" },
+                { "word": "いそがしい", "meaning": "busy" }
+              ]
+            },
+            {
+              "passage": "てんちょう: じゃあ、らいしゅうの かようびから おねがいします。\nゲイブ: はい、ありがとうございます！がんばります。\nてんちょう: よろしく おねがいします。\nゲイブ: しつれいします。",
+              "translation": "Manager: Well then, please start from next Tuesday.\nGabe: Yes, thank you! I'll do my best.\nManager: Thanks in advance.\nGabe: Excuse me (leaving).",
+              "vocabularyHighlights": [
+                { "word": "らいしゅう", "meaning": "next week" },
+                { "word": "おねがいします", "meaning": "please (request)" },
+                { "word": "しつれいします", "meaning": "excuse me (leaving)" }
+              ]
+            }
+          ],
+          "questions": [
+            {
+              "question": "What is the manager's name?",
+              "options": ["Suzuki", "Sato", "Tanaka", "Yamada"],
+              "correctIndex": 1
+            },
+            {
+              "question": "What year of university is Gabe in?",
+              "options": ["First year", "Second year", "Third year", "Fourth year"],
+              "correctIndex": 1
+            },
+            {
+              "question": "How long did Gabe work at the previous job?",
+              "options": ["One month", "Two months", "Three months", "Six months"],
+              "correctIndex": 2
+            },
+            {
+              "question": "Which days can Gabe work?",
+              "options": ["Mon/Wed/Fri", "Tue/Thu/Sat", "Wed/Fri/Sun", "Every day"],
+              "correctIndex": 1
+            },
+            {
+              "question": "What hours can Gabe work?",
+              "options": ["9 AM to 5 PM", "10 AM to 6 PM", "4 PM to 10 PM", "6 PM to midnight"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What is the hourly wage?",
+              "options": ["1,000 yen", "1,200 yen", "1,500 yen", "2,000 yen"],
+              "correctIndex": 2
+            },
+            {
+              "question": "When does Gabe start?",
+              "options": ["Tomorrow", "Next Monday", "Next Tuesday", "Next month"],
+              "correctIndex": 2
+            },
+            {
+              "question": "What does しつれいします mean when leaving?",
+              "options": ["Goodbye forever", "Excuse me / taking my leave", "Sorry, I'm late", "See you later"],
               "correctIndex": 1
             }
           ]
