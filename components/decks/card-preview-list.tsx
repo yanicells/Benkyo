@@ -53,7 +53,7 @@ export function CardPreviewList({
                 {card.front}
               </p>
               <p
-                className={`mt-1 text-sm text-on-surface-variant ${preserveNewlines ? "whitespace-pre-line" : ""}`}
+                className={`mt-1 text-sm text-on-surface-variant ${preserveNewlines ? "whitespace-pre-line font-japanese" : ""}`}
               >
                 {card.back}
               </p>

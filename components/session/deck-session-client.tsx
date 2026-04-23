@@ -49,6 +49,31 @@ function cardKey(card: Card): string {
   return `${card.front}__${card.back}`;
 }
 
+function isKanjiBack(back: string): boolean {
+  return /^(Meaning|Reading):\s/.test(back.trim());
+}
+
+function KanjiBack({ back }: { back: string }) {
+  const rows = back
+    .split(/\n+/)
+    .map((line) => {
+      const m = line.match(/^([^:]+):\s*(.*)$/);
+      return m ? { label: m[1].trim(), value: m[2].trim() } : null;
+    })
+    .filter((r): r is { label: string; value: string } => r !== null);
+
+  return (
+    <div className="mx-auto flex w-full max-w-md flex-col gap-1.5 text-center leading-relaxed">
+      {rows.map((r, i) => (
+        <p key={i} className="font-japanese text-lg md:text-xl lg:text-2xl text-foreground wrap-break-word">
+          <span className="font-semibold text-primary">{r.label}:</span>{" "}
+          {r.value}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
   for (let index = copy.length - 1; index > 0; index -= 1) {
@@ -589,9 +614,13 @@ export function DeckSessionClient({
         {mode === "flashcard" && revealed && (
           <div className="animate-in fade-in slide-in-from-bottom-4 mt-4 w-full flex flex-col items-center">
             <div className="w-16 h-[2px] bg-outline-variant/30 my-4" />
-            <p className="font-japanese text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center whitespace-pre-line">
-              {current.card.back}
-            </p>
+            {isKanjiBack(current.card.back) ? (
+              <KanjiBack back={current.card.back} />
+            ) : (
+              <p className="font-japanese text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center whitespace-pre-line">
+                {current.card.back}
+              </p>
+            )}
           </div>
         )}
       </div>

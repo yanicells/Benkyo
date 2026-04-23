@@ -2198,253 +2198,253 @@
             {
               "type": "vocab",
               "front": "一",
-              "back": "Meaning: one\nOnyomi: イチ, イツ\nKunyomi: ひと-\nExample: 一つ (ひとつ) — one thing\nRomaji: ichi",
+              "back": "Meaning: one\nOnyomi: イチ, イツ\nKunyomi: ひと-\nRomaji: ichi\nExample: 一つ (ひとつ) — one thing",
               "romaji": "ichi"
             },
             {
               "type": "vocab",
               "front": "二",
-              "back": "Meaning: two\nOnyomi: ニ\nKunyomi: ふた-\nExample: 二つ (ふたつ) — two things\nRomaji: ni",
+              "back": "Meaning: two\nOnyomi: ニ\nKunyomi: ふた-\nRomaji: ni\nExample: 二つ (ふたつ) — two things",
               "romaji": "ni"
             },
             {
               "type": "vocab",
               "front": "三",
-              "back": "Meaning: three\nOnyomi: サン\nKunyomi: み-, みっ-\nExample: 三つ (みっつ) — three things\nRomaji: san",
+              "back": "Meaning: three\nOnyomi: サン\nKunyomi: み-, みっ-\nRomaji: san\nExample: 三つ (みっつ) — three things",
               "romaji": "san"
             },
             {
               "type": "vocab",
               "front": "四",
-              "back": "Meaning: four\nOnyomi: シ\nKunyomi: よ-, よん, よっ-\nExample: 四月 (しがつ) — April\nRomaji: shi / yon",
+              "back": "Meaning: four\nOnyomi: シ\nKunyomi: よ-, よん, よっ-\nRomaji: shi / yon\nExample: 四月 (しがつ) — April",
               "romaji": "shi / yon"
             },
             {
               "type": "vocab",
               "front": "五",
-              "back": "Meaning: five\nOnyomi: ゴ\nKunyomi: いつ-\nExample: 五つ (いつつ) — five things\nRomaji: go",
+              "back": "Meaning: five\nOnyomi: ゴ\nKunyomi: いつ-\nRomaji: go\nExample: 五つ (いつつ) — five things",
               "romaji": "go"
             },
             {
               "type": "vocab",
               "front": "六",
-              "back": "Meaning: six\nOnyomi: ロク\nKunyomi: む-, むっ-\nExample: 六月 (ろくがつ) — June\nRomaji: roku",
+              "back": "Meaning: six\nOnyomi: ロク\nKunyomi: む-, むっ-\nRomaji: roku\nExample: 六月 (ろくがつ) — June",
               "romaji": "roku"
             },
             {
               "type": "vocab",
               "front": "七",
-              "back": "Meaning: seven\nOnyomi: シチ\nKunyomi: なな, なの-\nExample: 七時 (しちじ) — 7 o'clock\nRomaji: shichi / nana",
+              "back": "Meaning: seven\nOnyomi: シチ\nKunyomi: なな, なの-\nRomaji: shichi / nana\nExample: 七時 (しちじ) — 7 o'clock",
               "romaji": "shichi / nana"
             },
             {
               "type": "vocab",
               "front": "八",
-              "back": "Meaning: eight\nOnyomi: ハチ\nKunyomi: や-, やっ-\nExample: 八月 (はちがつ) — August\nRomaji: hachi",
+              "back": "Meaning: eight\nOnyomi: ハチ\nKunyomi: や-, やっ-\nRomaji: hachi\nExample: 八月 (はちがつ) — August",
               "romaji": "hachi"
             },
             {
               "type": "vocab",
               "front": "九",
-              "back": "Meaning: nine\nOnyomi: キュウ, ク\nKunyomi: ここの-\nExample: 九月 (くがつ) — September\nRomaji: kyuu / ku",
+              "back": "Meaning: nine\nOnyomi: キュウ, ク\nKunyomi: ここの-\nRomaji: kyuu / ku\nExample: 九月 (くがつ) — September",
               "romaji": "kyuu / ku"
             },
             {
               "type": "vocab",
               "front": "十",
-              "back": "Meaning: ten\nOnyomi: ジュウ, ジッ\nKunyomi: とお\nExample: 十時 (じゅうじ) — 10 o'clock\nRomaji: juu",
+              "back": "Meaning: ten\nOnyomi: ジュウ, ジッ\nKunyomi: とお\nRomaji: juu\nExample: 十時 (じゅうじ) — 10 o'clock",
               "romaji": "juu"
             },
             {
               "type": "vocab",
               "front": "百",
-              "back": "Meaning: hundred\nOnyomi: ヒャク\nKunyomi: —\nExample: 百円 (ひゃくえん) — 100 yen\nRomaji: hyaku",
+              "back": "Meaning: hundred\nOnyomi: ヒャク\nKunyomi: —\nRomaji: hyaku\nExample: 百円 (ひゃくえん) — 100 yen",
               "romaji": "hyaku"
             },
             {
               "type": "vocab",
               "front": "千",
-              "back": "Meaning: thousand\nOnyomi: セン\nKunyomi: ち\nExample: 千円 (せんえん) — 1,000 yen\nRomaji: sen",
+              "back": "Meaning: thousand\nOnyomi: セン\nKunyomi: ち\nRomaji: sen\nExample: 千円 (せんえん) — 1,000 yen",
               "romaji": "sen"
             },
             {
               "type": "vocab",
               "front": "万",
-              "back": "Meaning: ten thousand\nOnyomi: マン, バン\nKunyomi: —\nExample: 一万 (いちまん) — 10,000\nRomaji: man",
+              "back": "Meaning: ten thousand\nOnyomi: マン, バン\nKunyomi: —\nRomaji: man\nExample: 一万 (いちまん) — 10,000",
               "romaji": "man"
             },
             {
               "type": "vocab",
               "front": "円",
-              "back": "Meaning: yen; circle; round\nOnyomi: エン\nKunyomi: まる-い\nExample: 千円 (せんえん) — 1,000 yen\nRomaji: en",
+              "back": "Meaning: yen; circle; round\nOnyomi: エン\nKunyomi: まる-い\nRomaji: en\nExample: 千円 (せんえん) — 1,000 yen",
               "romaji": "en"
             },
             {
               "type": "vocab",
               "front": "時",
-              "back": "Meaning: time; hour; o'clock\nOnyomi: ジ\nKunyomi: とき\nExample: 時間 (じかん) — time; hours\nRomaji: ji / toki",
+              "back": "Meaning: time; hour; o'clock\nOnyomi: ジ\nKunyomi: とき\nRomaji: ji / toki\nExample: 時間 (じかん) — time; hours",
               "romaji": "ji / toki"
             },
             {
               "type": "vocab",
               "front": "半",
-              "back": "Meaning: half\nOnyomi: ハン\nKunyomi: なか-ば\nExample: 三時半 (さんじはん) — 3:30\nRomaji: han",
+              "back": "Meaning: half\nOnyomi: ハン\nKunyomi: なか-ば\nRomaji: han\nExample: 三時半 (さんじはん) — 3:30",
               "romaji": "han"
             },
             {
               "type": "vocab",
               "front": "日",
-              "back": "Meaning: day; sun\nOnyomi: ニチ, ジツ\nKunyomi: ひ, -び, -か\nExample: 日本 (にほん) — Japan\nRomaji: nichi / hi",
+              "back": "Meaning: day; sun\nOnyomi: ニチ, ジツ\nKunyomi: ひ, -び, -か\nRomaji: nichi / hi\nExample: 日本 (にほん) — Japan",
               "romaji": "nichi / hi"
             },
             {
               "type": "vocab",
               "front": "月",
-              "back": "Meaning: month; moon\nOnyomi: ゲツ, ガツ\nKunyomi: つき\nExample: 月曜日 (げつようび) — Monday\nRomaji: getsu / tsuki",
+              "back": "Meaning: month; moon\nOnyomi: ゲツ, ガツ\nKunyomi: つき\nRomaji: getsu / tsuki\nExample: 月曜日 (げつようび) — Monday",
               "romaji": "getsu / tsuki"
             },
             {
               "type": "vocab",
               "front": "火",
-              "back": "Meaning: fire\nOnyomi: カ\nKunyomi: ひ, -び\nExample: 火曜日 (かようび) — Tuesday\nRomaji: ka / hi",
+              "back": "Meaning: fire\nOnyomi: カ\nKunyomi: ひ, -び\nRomaji: ka / hi\nExample: 火曜日 (かようび) — Tuesday",
               "romaji": "ka / hi"
             },
             {
               "type": "vocab",
               "front": "木",
-              "back": "Meaning: tree; wood\nOnyomi: モク, ボク\nKunyomi: き\nExample: 木曜日 (もくようび) — Thursday\nRomaji: moku / ki",
+              "back": "Meaning: tree; wood\nOnyomi: モク, ボク\nKunyomi: き\nRomaji: moku / ki\nExample: 木曜日 (もくようび) — Thursday",
               "romaji": "moku / ki"
             },
             {
               "type": "vocab",
               "front": "金",
-              "back": "Meaning: gold; money\nOnyomi: キン, コン\nKunyomi: かね\nExample: 金曜日 (きんようび) — Friday\nRomaji: kin / kane",
+              "back": "Meaning: gold; money\nOnyomi: キン, コン\nKunyomi: かね\nRomaji: kin / kane\nExample: 金曜日 (きんようび) — Friday",
               "romaji": "kin / kane"
             },
             {
               "type": "vocab",
               "front": "土",
-              "back": "Meaning: earth; soil; ground\nOnyomi: ド, ト\nKunyomi: つち\nExample: 土曜日 (どようび) — Saturday\nRomaji: do / tsuchi",
+              "back": "Meaning: earth; soil; ground\nOnyomi: ド, ト\nKunyomi: つち\nRomaji: do / tsuchi\nExample: 土曜日 (どようび) — Saturday",
               "romaji": "do / tsuchi"
             },
             {
               "type": "vocab",
               "front": "曜",
-              "back": "Meaning: day of the week\nOnyomi: ヨウ\nKunyomi: —\nExample: 曜日 (ようび) — day of the week\nRomaji: you",
+              "back": "Meaning: day of the week\nOnyomi: ヨウ\nKunyomi: —\nRomaji: you\nExample: 曜日 (ようび) — day of the week",
               "romaji": "you"
             },
             {
               "type": "vocab",
               "front": "明",
-              "back": "Meaning: bright; clear; next\nOnyomi: メイ, ミョウ\nKunyomi: あか-るい, あ-ける\nExample: 明日 (あした) — tomorrow\nRomaji: mei / akarui",
+              "back": "Meaning: bright; clear; next\nOnyomi: メイ, ミョウ\nKunyomi: あか-るい, あ-ける\nRomaji: mei / akarui\nExample: 明日 (あした) — tomorrow",
               "romaji": "mei / akarui"
             },
             {
               "type": "vocab",
               "front": "元",
-              "back": "Meaning: origin; source\nOnyomi: ゲン, ガン\nKunyomi: もと\nExample: 元気 (げんき) — healthy; energetic\nRomaji: gen / moto",
+              "back": "Meaning: origin; source\nOnyomi: ゲン, ガン\nKunyomi: もと\nRomaji: gen / moto\nExample: 元気 (げんき) — healthy; energetic",
               "romaji": "gen / moto"
             },
             {
               "type": "vocab",
               "front": "天",
-              "back": "Meaning: heaven; sky\nOnyomi: テン\nKunyomi: あめ, あま-\nExample: 天気 (てんき) — weather\nRomaji: ten / ame",
+              "back": "Meaning: heaven; sky\nOnyomi: テン\nKunyomi: あめ, あま-\nRomaji: ten / ame\nExample: 天気 (てんき) — weather",
               "romaji": "ten / ame"
             },
             {
               "type": "vocab",
               "front": "気",
-              "back": "Meaning: spirit; energy; mood\nOnyomi: キ, ケ\nKunyomi: —\nExample: 元気 (げんき) — healthy; energetic\nRomaji: ki",
+              "back": "Meaning: spirit; energy; mood\nOnyomi: キ, ケ\nKunyomi: —\nRomaji: ki\nExample: 元気 (げんき) — healthy; energetic",
               "romaji": "ki"
             },
             {
               "type": "vocab",
               "front": "女",
-              "back": "Meaning: woman; female\nOnyomi: ジョ, ニョ\nKunyomi: おんな, め\nExample: 女の人 (おんなのひと) — woman\nRomaji: jo / onna",
+              "back": "Meaning: woman; female\nOnyomi: ジョ, ニョ\nKunyomi: おんな, め\nRomaji: jo / onna\nExample: 女の人 (おんなのひと) — woman",
               "romaji": "jo / onna"
             },
             {
               "type": "vocab",
               "front": "男",
-              "back": "Meaning: man; male\nOnyomi: ダン, ナン\nKunyomi: おとこ\nExample: 男の人 (おとこのひと) — man\nRomaji: dan / otoko",
+              "back": "Meaning: man; male\nOnyomi: ダン, ナン\nKunyomi: おとこ\nRomaji: dan / otoko\nExample: 男の人 (おとこのひと) — man",
               "romaji": "dan / otoko"
             },
             {
               "type": "vocab",
               "front": "田",
-              "back": "Meaning: rice field\nOnyomi: デン\nKunyomi: た\nExample: 田中 (たなか) — Tanaka (surname)\nRomaji: ta / den",
+              "back": "Meaning: rice field\nOnyomi: デン\nKunyomi: た\nRomaji: ta / den\nExample: 田中 (たなか) — Tanaka (surname)",
               "romaji": "ta / den"
             },
             {
               "type": "vocab",
               "front": "見",
-              "back": "Meaning: to see; to look\nOnyomi: ケン\nKunyomi: み-る, み-える\nExample: 見る (みる) — to see, watch\nRomaji: ken / miru",
+              "back": "Meaning: to see; to look\nOnyomi: ケン\nKunyomi: み-る, み-える\nRomaji: ken / miru\nExample: 見る (みる) — to see, watch",
               "romaji": "ken / miru"
             },
             {
               "type": "vocab",
               "front": "行",
-              "back": "Meaning: to go; to conduct\nOnyomi: コウ, ギョウ\nKunyomi: い-く, おこな-う\nExample: 行く (いく) — to go\nRomaji: kou / iku",
+              "back": "Meaning: to go; to conduct\nOnyomi: コウ, ギョウ\nKunyomi: い-く, おこな-う\nRomaji: kou / iku\nExample: 行く (いく) — to go",
               "romaji": "kou / iku"
             },
             {
               "type": "vocab",
               "front": "食",
-              "back": "Meaning: to eat; food\nOnyomi: ショク, ジキ\nKunyomi: た-べる, く-う\nExample: 食べる (たべる) — to eat\nRomaji: shoku / taberu",
+              "back": "Meaning: to eat; food\nOnyomi: ショク, ジキ\nKunyomi: た-べる, く-う\nRomaji: shoku / taberu\nExample: 食べる (たべる) — to eat",
               "romaji": "shoku / taberu"
             },
             {
               "type": "vocab",
               "front": "飲",
-              "back": "Meaning: to drink\nOnyomi: イン\nKunyomi: の-む\nExample: 飲む (のむ) — to drink\nRomaji: in / nomu",
+              "back": "Meaning: to drink\nOnyomi: イン\nKunyomi: の-む\nRomaji: in / nomu\nExample: 飲む (のむ) — to drink",
               "romaji": "in / nomu"
             },
             {
               "type": "vocab",
               "front": "事",
-              "back": "Meaning: thing; matter; affair\nOnyomi: ジ\nKunyomi: こと\nExample: 食事 (しょくじ) — a meal\nRomaji: ji / koto",
+              "back": "Meaning: thing; matter; affair\nOnyomi: ジ\nKunyomi: こと\nRomaji: ji / koto\nExample: 食事 (しょくじ) — a meal",
               "romaji": "ji / koto"
             },
             {
               "type": "vocab",
               "front": "会",
-              "back": "Meaning: to meet; meeting\nOnyomi: カイ, エ\nKunyomi: あ-う\nExample: 会社 (かいしゃ) — company\nRomaji: kai / au",
+              "back": "Meaning: to meet; meeting\nOnyomi: カイ, エ\nKunyomi: あ-う\nRomaji: kai / au\nExample: 会社 (かいしゃ) — company",
               "romaji": "kai / au"
             },
             {
               "type": "vocab",
               "front": "字",
-              "back": "Meaning: character; letter\nOnyomi: ジ\nKunyomi: あざ\nExample: 漢字 (かんじ) — kanji\nRomaji: ji",
+              "back": "Meaning: character; letter\nOnyomi: ジ\nKunyomi: あざ\nRomaji: ji\nExample: 漢字 (かんじ) — kanji",
               "romaji": "ji"
             },
             {
               "type": "vocab",
               "front": "形",
-              "back": "Meaning: shape; form\nOnyomi: ケイ, ギョウ\nKunyomi: かたち, かた\nExample: 象形 (しょうけい) — pictograph\nRomaji: kei / katachi",
+              "back": "Meaning: shape; form\nOnyomi: ケイ, ギョウ\nKunyomi: かたち, かた\nRomaji: kei / katachi\nExample: 象形 (しょうけい) — pictograph",
               "romaji": "kei / katachi"
             },
             {
               "type": "vocab",
               "front": "意",
-              "back": "Meaning: meaning; intention; idea\nOnyomi: イ\nKunyomi: —\nExample: 意味 (いみ) — meaning\nRomaji: i",
+              "back": "Meaning: meaning; intention; idea\nOnyomi: イ\nKunyomi: —\nRomaji: i\nExample: 意味 (いみ) — meaning",
               "romaji": "i"
             },
             {
               "type": "vocab",
               "front": "指",
-              "back": "Meaning: finger; to point\nOnyomi: シ\nKunyomi: ゆび, さ-す\nExample: 指事 (しじ) — indicative (kanji)\nRomaji: shi / yubi",
+              "back": "Meaning: finger; to point\nOnyomi: シ\nKunyomi: ゆび, さ-す\nRomaji: shi / yubi\nExample: 指事 (しじ) — indicative (kanji)",
               "romaji": "shi / yubi"
             },
             {
               "type": "vocab",
               "front": "文",
-              "back": "Meaning: sentence; writing; text\nOnyomi: ブン, モン\nKunyomi: ふみ\nExample: 文字 (もじ) — character; letter\nRomaji: bun / mon",
+              "back": "Meaning: sentence; writing; text\nOnyomi: ブン, モン\nKunyomi: ふみ\nRomaji: bun / mon\nExample: 文字 (もじ) — character; letter",
               "romaji": "bun / mon"
             },
             {
               "type": "vocab",
               "front": "象",
-              "back": "Meaning: elephant; image; shape\nOnyomi: ショウ, ゾウ\nKunyomi: —\nExample: 象形文字 (しょうけいもじ) — pictographic character\nRomaji: shou / zou",
+              "back": "Meaning: elephant; image; shape\nOnyomi: ショウ, ゾウ\nKunyomi: —\nRomaji: shou / zou\nExample: 象形文字 (しょうけいもじ) — pictographic character",
               "romaji": "shou / zou"
             },
             {
@@ -2474,37 +2474,37 @@
             {
               "type": "vocab",
               "front": "六百",
-              "back": "Reading: ろっぴゃく\nMeaning: 600\nNote: sound change ろく+ひゃく → ろっぴゃく\nRomaji: roppyaku",
+              "back": "Reading: ろっぴゃく\nMeaning: 600\nBreakdown: 六 + 百 (sound change: ろく+ひゃく → ろっぴゃく)\nRomaji: roppyaku",
               "romaji": "roppyaku"
             },
             {
               "type": "vocab",
               "front": "八百",
-              "back": "Reading: はっぴゃく\nMeaning: 800\nNote: sound change はち+ひゃく → はっぴゃく\nRomaji: happyaku",
+              "back": "Reading: はっぴゃく\nMeaning: 800\nBreakdown: 八 + 百 (sound change: はち+ひゃく → はっぴゃく)\nRomaji: happyaku",
               "romaji": "happyaku"
             },
             {
               "type": "vocab",
               "front": "三千",
-              "back": "Reading: さんぜん\nMeaning: 3,000\nNote: sound change さん+せん → さんぜん\nRomaji: sanzen",
+              "back": "Reading: さんぜん\nMeaning: 3,000\nBreakdown: 三 + 千 (sound change: さん+せん → さんぜん)\nRomaji: sanzen",
               "romaji": "sanzen"
             },
             {
               "type": "vocab",
               "front": "八千",
-              "back": "Reading: はっせん\nMeaning: 8,000\nNote: sound change はち+せん → はっせん\nRomaji: hassen",
+              "back": "Reading: はっせん\nMeaning: 8,000\nBreakdown: 八 + 千 (sound change: はち+せん → はっせん)\nRomaji: hassen",
               "romaji": "hassen"
             },
             {
               "type": "vocab",
               "front": "拗",
-              "back": "よう (twisted; contracted sound)",
+              "back": "Meaning: twisted; bent; contracted (sound)\nOnyomi: ヨウ, オウ\nKunyomi: ねじ-る, こじ-れる\nRomaji: you / ou\nExample: 拗音 (ようおん) — contracted sound (palatalized sound)",
               "romaji": "you"
             },
             {
               "type": "vocab",
               "front": "音",
-              "back": "おん / おと (sound; noise)",
+              "back": "Meaning: sound; noise\nOnyomi: オン, イン\nKunyomi: おと, ね\nRomaji: on / oto\nExample: 音楽 (おんがく) — music",
               "romaji": "on / oto"
             }
           ]
@@ -3063,37 +3063,37 @@
             {
               "type": "vocab",
               "front": "本",
-              "back": "Meaning: book; origin; main\nOnyomi: ホン\nKunyomi: もと\nExample: 本 (ほん) — book\nRomaji: hon",
+              "back": "Meaning: book; origin; main\nOnyomi: ホン\nKunyomi: もと\nRomaji: hon\nExample: 本 (ほん) — book",
               "romaji": "hon"
             },
             {
               "type": "vocab",
               "front": "人",
-              "back": "Meaning: person\nOnyomi: ジン, ニン\nKunyomi: ひと\nExample: 一人 (ひとり) — one person\nRomaji: hito / jin",
+              "back": "Meaning: person\nOnyomi: ジン, ニン\nKunyomi: ひと\nRomaji: hito / jin\nExample: 一人 (ひとり) — one person",
               "romaji": "hito / jin"
             },
             {
               "type": "vocab",
               "front": "水",
-              "back": "Meaning: water\nOnyomi: スイ\nKunyomi: みず\nExample: 水曜日 (すいようび) — Wednesday\nRomaji: mizu / sui",
+              "back": "Meaning: water\nOnyomi: スイ\nKunyomi: みず\nRomaji: mizu / sui\nExample: 水曜日 (すいようび) — Wednesday",
               "romaji": "mizu / sui"
             },
             {
               "type": "vocab",
               "front": "上",
-              "back": "Meaning: above; on; up\nOnyomi: ジョウ, ショウ\nKunyomi: うえ, あ-がる, のぼ-る\nExample: テーブルの上 (テーブルのうえ) — on the table\nRomaji: ue / jou",
+              "back": "Meaning: above; on; up\nOnyomi: ジョウ, ショウ\nKunyomi: うえ, あ-がる, のぼ-る\nRomaji: ue / jou\nExample: テーブルの上 (テーブルのうえ) — on the table",
               "romaji": "ue / jou"
             },
             {
               "type": "vocab",
               "front": "下",
-              "back": "Meaning: below; under; down\nOnyomi: カ, ゲ\nKunyomi: した, さ-がる, くだ-る\nExample: 下 (した) — below; under\nRomaji: shita / ka",
+              "back": "Meaning: below; under; down\nOnyomi: カ, ゲ\nKunyomi: した, さ-がる, くだ-る\nRomaji: shita / ka\nExample: 下 (した) — below; under",
               "romaji": "shita / ka"
             },
             {
               "type": "vocab",
               "front": "中",
-              "back": "Meaning: inside; middle; center\nOnyomi: チュウ\nKunyomi: なか\nExample: 中 (なか) — inside\nRomaji: naka / chuu",
+              "back": "Meaning: inside; middle; center\nOnyomi: チュウ\nKunyomi: なか\nRomaji: naka / chuu\nExample: 中 (なか) — inside",
               "romaji": "naka / chuu"
             },
             {
@@ -3865,49 +3865,49 @@
             {
               "type": "vocab",
               "front": "山",
-              "back": "Meaning: mountain\nOnyomi: サン\nKunyomi: やま\nExample: 富士山 (ふじさん) — Mt. Fuji\nRomaji: yama / san",
+              "back": "Meaning: mountain\nOnyomi: サン\nKunyomi: やま\nRomaji: yama / san\nExample: 富士山 (ふじさん) — Mt. Fuji",
               "romaji": "yama / san"
             },
             {
               "type": "vocab",
               "front": "川",
-              "back": "Meaning: river\nOnyomi: セン\nKunyomi: かわ\nExample: 川 (かわ) — river\nRomaji: kawa / sen",
+              "back": "Meaning: river\nOnyomi: セン\nKunyomi: かわ\nRomaji: kawa / sen\nExample: 川 (かわ) — river",
               "romaji": "kawa / sen"
             },
             {
               "type": "vocab",
               "front": "私",
-              "back": "Meaning: I; me; private\nOnyomi: シ\nKunyomi: わたし, わたくし\nExample: 私 (わたし) — I; me\nRomaji: watashi / shi",
+              "back": "Meaning: I; me; private\nOnyomi: シ\nKunyomi: わたし, わたくし\nRomaji: watashi / shi\nExample: 私 (わたし) — I; me",
               "romaji": "watashi / shi"
             },
             {
               "type": "vocab",
               "front": "今",
-              "back": "Meaning: now\nOnyomi: コン, キン\nKunyomi: いま\nExample: 今 (いま) — now\nRomaji: ima / kon",
+              "back": "Meaning: now\nOnyomi: コン, キン\nKunyomi: いま\nRomaji: ima / kon\nExample: 今 (いま) — now",
               "romaji": "ima / kon"
             },
             {
               "type": "vocab",
               "front": "見る",
-              "back": "Reading: みる\nMeaning: to see; to watch; to look at\nKanji: 見 — Onyomi ケン / Kunyomi み-る\nRomaji: miru",
+              "back": "Reading: みる\nMeaning: to see; to watch; to look at\nBreakdown: 見 (ケン / み-) + る — ichidan verb\nRomaji: miru",
               "romaji": "miru"
             },
             {
               "type": "vocab",
               "front": "行く",
-              "back": "Reading: いく\nMeaning: to go\nKanji: 行 — Onyomi コウ, ギョウ / Kunyomi い-く\nRomaji: iku",
+              "back": "Reading: いく\nMeaning: to go\nBreakdown: 行 (コウ, ギョウ / い-) + く — godan verb\nRomaji: iku",
               "romaji": "iku"
             },
             {
               "type": "vocab",
               "front": "食べる",
-              "back": "Reading: たべる\nMeaning: to eat\nKanji: 食 — Onyomi ショク / Kunyomi た-べる\nRomaji: taberu",
+              "back": "Reading: たべる\nMeaning: to eat\nBreakdown: 食 (ショク / た-) + べる — ichidan verb\nRomaji: taberu",
               "romaji": "taberu"
             },
             {
               "type": "vocab",
               "front": "飲む",
-              "back": "Reading: のむ\nMeaning: to drink\nKanji: 飲 — Onyomi イン / Kunyomi の-む\nRomaji: nomu",
+              "back": "Reading: のむ\nMeaning: to drink\nBreakdown: 飲 (イン / の-) + む — godan verb\nRomaji: nomu",
               "romaji": "nomu"
             },
             {
