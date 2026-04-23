@@ -1,6 +1,7 @@
 import type { Lesson, SubDeck } from "@/lib/types";
 
-const KANJI_SUBDECK_PATTERN = /^(kanji-intro|lesson-\d+-kanji)$/;
+const KANJI_SUBDECK_PATTERN =
+  /^(kanji-intro|lesson-\d+-kanji|jlpt-n[45]-kanji-part-\d+)$/;
 
 export type KanjiSubDeckEntry = {
   lessonId: string;

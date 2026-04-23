@@ -5,7 +5,9 @@ import { Footer } from "@/components/shared/footer";
 import type { LessonsData } from "@/lib/types";
 
 export default function Home() {
-  const lessons = (lessonsData as unknown as LessonsData).lessons;
+  const lessons = (lessonsData as unknown as LessonsData).lessons.filter(
+    (l) => !l.id.startsWith("jlpt-"),
+  );
 
   return (
     <>

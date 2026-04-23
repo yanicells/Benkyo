@@ -4,7 +4,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { answerCorrect, answerWrong, buildQueue } from "@/lib/session";
+import {
+  answerCorrect,
+  answerWrong,
+  buildQueue,
+  buildQueueOrdered,
+} from "@/lib/session";
 import {
   reviewCard,
   makeCardId,
@@ -274,9 +279,24 @@ export function DeckSessionClient({
   const cards = filtered.cards;
   const cardSubDeckIds = filtered.cardSubDeckIds;
   const cardIndexes = filtered.cardIndexes;
-  const [queue, setQueue] = useState<SessionCard[]>(() =>
-    buildQueue(applyCardFilter(rawCards, rawSubDeckIds, rawCardIndexes, cardFilter).cards),
-  );
+  const [queue, setQueue] = useState<SessionCard[]>(() => {
+    const f = applyCardFilter(rawCards, rawSubDeckIds, rawCardIndexes, cardFilter);
+    const isKanjiCharDeck =
+      f.cards.length > 0 && f.cards.every((c) => isKanjiBack(c.back));
+    if (!isKanjiCharDeck) return buildQueue(f.cards);
+
+    const srs = getAllSRS();
+    const learning: Card[] = [];
+    const mastered: Card[] = [];
+    f.cards.forEach((card, i) => {
+      const id = makeCardId(f.cardSubDeckIds[i], f.cardIndexes[i]);
+      const s = srs[id];
+      if (s && s.interval >= 21) mastered.push(card);
+      else learning.push(card);
+    });
+    // Keep new/learning cards in JSON order; shuffle only mastered ones.
+    return [...buildQueueOrdered(learning), ...buildQueue(mastered)];
+  });
   const [revealed, setRevealed] = useState(false);
   const [wrongKeys, setWrongKeys] = useState<Set<string>>(() => new Set());
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
