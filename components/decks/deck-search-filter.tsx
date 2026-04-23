@@ -188,7 +188,8 @@ export function DeckSearchFilter({
         </div>
       </div>
 
-      {/* Filter tabs */}
+      {/* Filter tabs — hidden for JLPT lessons (kanji-only, tabs are redundant) */}
+      {!lesson?.id.startsWith("jlpt-") && (
       <div className={filterTabsClass}>
         <div className="mx-auto flex w-max gap-2">
           {FILTER_TABS.map((tab) => (
@@ -210,6 +211,7 @@ export function DeckSearchFilter({
           ))}
         </div>
       </div>
+      )}
 
       {/* Search results */}
       {isSearching &&
@@ -225,6 +227,7 @@ export function DeckSearchFilter({
             cards={searchResults.map((r) => r.card)}
             title={`${searchResults.length} result${searchResults.length !== 1 ? "s" : ""}`}
             maxVisible={30}
+            preserveNewlines={lesson?.id.startsWith("jlpt-")}
           />
         ))}
 
@@ -234,6 +237,9 @@ export function DeckSearchFilter({
           cards={filteredCards}
           title={`${FILTER_TABS.find((t) => t.value === activeFilter)?.label ?? ""} cards`}
           maxVisible={30}
+          preserveNewlines={
+            activeFilter === "kanji" || lesson?.id.startsWith("jlpt-")
+          }
         />
       )}
 

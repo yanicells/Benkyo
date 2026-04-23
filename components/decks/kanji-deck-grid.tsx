@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 
-import type { KanjiSubDeckEntry } from "@/lib/kanji";
+import type { KanjiLessonGroup, KanjiSubDeckEntry } from "@/lib/kanji";
 import { CardPreviewList } from "@/components/decks/card-preview-list";
 import type { CardFilter, StudyMode } from "@/lib/types";
 import {
@@ -19,6 +19,8 @@ import {
 
 type KanjiDeckGridProps = {
   entries: KanjiSubDeckEntry[];
+  individual: KanjiSubDeckEntry[];
+  groups: KanjiLessonGroup[];
 };
 
 const subscribeNoop = () => () => {};
@@ -82,11 +84,10 @@ function KanjiSessionModal({
     return { all: totalCards, new: newCount, learning, mastered };
   }, [dataRevision, entries, totalCards]);
 
-  useEffect(() => {
-    if (cardFilter !== "all" && filterCounts[cardFilter] === 0) {
-      setCardFilter("all");
-    }
-  }, [cardFilter, filterCounts]);
+  // Derive the effective filter during render: if the user's picked filter no
+  // longer has any cards (data changed), fall back to "all" without a state sync.
+  const effectiveFilter: CardFilter =
+    cardFilter !== "all" && filterCounts[cardFilter] === 0 ? "all" : cardFilter;
 
   const availableFilterOptions = filterOptions.filter(
     (opt) => opt.value === "all" || filterCounts[opt.value] > 0,
@@ -97,7 +98,7 @@ function KanjiSessionModal({
     const params = new URLSearchParams({
       mode,
       decks: deckIds,
-      ...(cardFilter !== "all" && { filter: cardFilter }),
+      ...(effectiveFilter !== "all" && { filter: effectiveFilter }),
     });
     router.push(`/decks/kanji/session?${params.toString()}`);
   };
@@ -248,7 +249,11 @@ function KanjiSessionModal({
   );
 }
 
-export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
+export function KanjiDeckGrid({
+  entries,
+  individual,
+  groups,
+}: KanjiDeckGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [sessionOpen, setSessionOpen] = useState(false);
   const isHydrated = useSyncExternalStore(
@@ -445,10 +450,79 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
           />
         ))}
 
-      {/* Sub-deck grid */}
+      {/* Group cards (JLPT proficiency) */}
+      {!searchResults && groups.length > 0 && (
+        <div className="grid gap-3 [@media(min-width:520px)]:grid-cols-2 lg:grid-cols-3">
+          {groups.map((group) => {
+            const masterySum = group.entries.reduce(
+              (s, e) =>
+                s + (subDeckStats[e.subDeck.id]?.mastery ?? 0) *
+                  e.subDeck.cards.length,
+              0,
+            );
+            const reviewedSum = group.entries.reduce(
+              (s, e) =>
+                s + (subDeckStats[e.subDeck.id]?.reviewed ?? 0) *
+                  e.subDeck.cards.length,
+              0,
+            );
+            const mastery = group.totalCards
+              ? Math.round(masterySum / group.totalCards)
+              : 0;
+            const reviewed = group.totalCards
+              ? Math.round(reviewedSum / group.totalCards)
+              : 0;
+            return (
+              <Link
+                key={group.lessonId}
+                href={`/decks/${group.lessonId}`}
+                className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+                      {group.entries.length} parts · {group.totalCards} cards
+                    </p>
+                    <h3 className="mt-1 truncate font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
+                      {group.lessonTitle}
+                    </h3>
+                    <p className="mt-0.5 text-[10px] text-on-surface-variant truncate">
+                      Tap to view parts
+                    </p>
+                  </div>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm text-primary font-japanese-display">
+                    漢
+                  </span>
+                </div>
+
+                <div className="mt-3 flex items-center gap-3 text-xs text-secondary">
+                  <span className="text-primary">{mastery}% mastery</span>
+                  <span>&middot;</span>
+                  <span className="text-amber-700">{reviewed}% reviewed</span>
+                </div>
+
+                <div className="mt-2 h-1 overflow-hidden rounded-sm bg-secondary-container">
+                  <div
+                    className="h-full rounded-sm bg-primary transition-all duration-500"
+                    style={{ width: `${mastery}%` }}
+                  />
+                </div>
+                <div className="mt-1.5 h-1 overflow-hidden rounded-sm bg-secondary-container">
+                  <div
+                    className="h-full rounded-sm bg-amber-400 transition-all duration-500"
+                    style={{ width: `${reviewed}%` }}
+                  />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Individual sub-deck grid (Genki kanji) */}
       {!searchResults && (
         <div className="grid gap-3 [@media(min-width:520px)]:grid-cols-2 lg:grid-cols-3">
-          {entries.map((entry) => {
+          {individual.map((entry) => {
             const mastery = subDeckStats[entry.subDeck.id]?.mastery ?? 0;
             const reviewed = subDeckStats[entry.subDeck.id]?.reviewed ?? 0;
             const accuracy = subDeckStats[entry.subDeck.id]?.accuracy ?? 0;

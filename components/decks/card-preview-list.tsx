@@ -38,28 +38,34 @@ export function CardPreviewList({
         <p className="text-xs text-on-surface-variant">{cards.length} entries</p>
       </div>
       <div className="space-y-2">
-        {visibleCards.map((card, i) => (
-          <div
-            key={`${card.front}-${card.back}-${i}`}
-            className={`flex gap-2 rounded-lg bg-surface-low px-3 py-2 ${preserveNewlines ? "items-start" : "items-center"}`}
-          >
-            <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center self-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
-              {previewTypeLabels[card.type]}
-            </span>
-            <div className="min-w-0">
-              <p
-                className={`font-sans text-xl font-medium text-foreground ${preserveNewlines ? "whitespace-pre-line" : ""}`}
-              >
-                {card.front}
-              </p>
-              <p
-                className={`mt-1 text-sm text-on-surface-variant ${preserveNewlines ? "whitespace-pre-line font-japanese" : ""}`}
-              >
-                {card.back}
-              </p>
+        {visibleCards.map((card, i) => {
+          // Auto-detect kanji-formatted backs (Meaning:/Reading: prefix) so they
+          // render with line breaks even inside a mixed-content search result.
+          const isKanjiCard =
+            preserveNewlines || /^(Meaning|Reading):\s/.test(card.back.trim());
+          return (
+            <div
+              key={`${card.front}-${card.back}-${i}`}
+              className={`flex gap-2 rounded-lg bg-surface-low px-3 py-2 ${isKanjiCard ? "items-start" : "items-center"}`}
+            >
+              <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center self-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+                {previewTypeLabels[card.type]}
+              </span>
+              <div className="min-w-0">
+                <p
+                  className={`font-sans text-xl font-medium text-foreground ${isKanjiCard ? "whitespace-pre-line" : ""}`}
+                >
+                  {card.front}
+                </p>
+                <p
+                  className={`mt-1 text-sm text-on-surface-variant ${isKanjiCard ? "whitespace-pre-line font-japanese" : ""}`}
+                >
+                  {card.back}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       {hasMore && (
         <button
