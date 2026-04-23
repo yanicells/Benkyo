@@ -17,6 +17,7 @@ type DeckResultsClientProps = {
   subDeckId: string;
   lessonTitle: string;
   isReview?: boolean;
+  basePath?: "/decks" | "/reviewer";
 };
 
 function hasLatinText(value: string): boolean {
@@ -38,6 +39,7 @@ export function DeckResultsClient({
   subDeckId,
   lessonTitle,
   isReview = false,
+  basePath = "/decks",
 }: DeckResultsClientProps) {
   const [results] = useState<ResultsData>(() => {
     if (typeof window === "undefined") {
@@ -80,8 +82,8 @@ export function DeckResultsClient({
 
   const minutes = Math.floor(results.timeSeconds / 60);
   const seconds = results.timeSeconds % 60;
-  const backHref = isReview ? "/" : `/decks/${lessonId}`;
-  const continueHref = isReview ? "/review" : `/decks/${lessonId}/${subDeckId}`;
+  const backHref = isReview ? "/" : `${basePath}/${lessonId}`;
+  const continueHref = isReview ? "/review" : `${basePath}/${lessonId}/${subDeckId}`;
   const backLabel = isReview ? "Home" : "Back to lesson";
   const continueLabel = isReview
     ? "Review again"

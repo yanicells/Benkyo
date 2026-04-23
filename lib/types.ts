@@ -51,8 +51,6 @@ export type StudyMode = "flashcard" | "multiple-choice";
 
 export type CardFilter = "all" | "new" | "learning" | "mastered";
 
-export type FlipSetting = "jp-to-en" | "en-to-jp";
-
 export type SessionCard = {
   card: Card;
   correctsNeeded: number;

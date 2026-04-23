@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import type { CardType, FlipSetting, StudyMode } from "@/lib/types";
+import type { CardType, StudyMode } from "@/lib/types";
 
 type SubDeckConfigClientProps = {
   lessonId: string;
   subDeckId: string;
   cardTypes: CardType[];
+  basePath?: "/decks" | "/reviewer";
 };
 
 const modeOptions: { value: StudyMode; label: string; description: string }[] =
@@ -25,11 +26,6 @@ const modeOptions: { value: StudyMode; label: string; description: string }[] =
     },
   ];
 
-const flipOptions: { value: FlipSetting; label: string }[] = [
-  { value: "jp-to-en", label: "Japanese → English" },
-  { value: "en-to-jp", label: "English → Japanese" },
-];
-
 const typeLabels: Record<CardType, string> = {
   vocab: "Vocabulary",
   grammar: "Grammar",
@@ -43,9 +39,9 @@ export function SubDeckConfigClient({
   lessonId,
   subDeckId,
   cardTypes,
+  basePath = "/decks",
 }: SubDeckConfigClientProps) {
   const [mode, setMode] = useState<StudyMode>("flashcard");
-  const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
   const [selectedTypes, setSelectedTypes] = useState<Set<CardType>>(
     () => new Set(cardTypes),
   );
@@ -64,7 +60,6 @@ export function SubDeckConfigClient({
 
   const searchParams = new URLSearchParams({
     mode,
-    flip,
     types: [...selectedTypes].join(","),
   });
 
@@ -103,34 +98,6 @@ export function SubDeckConfigClient({
         </div>
       </section>
 
-      <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-        <p className="text-xs uppercase tracking-[0.22em] text-primary">
-          Direction
-        </p>
-        <div className="mt-4 grid gap-3 [@media(min-width:520px)]:grid-cols-2">
-          {flipOptions.map((opt) => (
-            <label
-              key={opt.value}
-              className={`flex cursor-pointer items-center gap-2 rounded-lg border p-4 transition ${
-                flip === opt.value
-                  ? "border-primary/20 bg-surface-low"
-                  : "border-outline-variant/20 bg-white hover:border-primary/30"
-              }`}
-            >
-              <input
-                type="radio"
-                name="flip"
-                value={opt.value}
-                checked={flip === opt.value}
-                onChange={() => setFlip(opt.value)}
-                className="accent-primary"
-              />
-              <span className="font-semibold text-foreground">{opt.label}</span>
-            </label>
-          ))}
-        </div>
-      </section>
-
       {cardTypes.length > 1 && (
         <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
           <p className="text-xs uppercase tracking-[0.22em] text-primary">
@@ -161,13 +128,13 @@ export function SubDeckConfigClient({
 
       <div className="flex items-center justify-between gap-3">
         <Link
-          href={`/decks/${lessonId}`}
+          href={`${basePath}/${lessonId}`}
           className="rounded-lg bg-surface-low px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-primary transition hover:bg-secondary-container"
         >
           Back
         </Link>
         <Link
-          href={`/decks/${lessonId}/${subDeckId}/session?${searchParams.toString()}`}
+          href={`${basePath}/${lessonId}/${subDeckId}/session?${searchParams.toString()}`}
           className="btn-primary-gradient rounded-lg px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:opacity-90"
         >
           Start session

@@ -680,14 +680,16 @@
       "id": "lesson-1",
       "title": "Lesson 1: New Friends",
       "meta": {
-        "notes": "This lesson introduces self-introduction vocabulary and the basic sentence structure of Japanese. Key pattern: [Noun] は [Noun] です (X is Y). Japanese does not conjugate verbs for person — です works for all subjects.",
+        "notes": "The absolute foundation of Japanese sentences.\n\n**General form:** [Topic] は [Something] です = 'As for Topic, it is Something.' Think of です as an '=' sign — the whole point of the sentence sits in the noun right before it. は is the topic marker (written は but pronounced 'wa' — one of Japanese's most-forgotten quirks).\n\n**When to use:** any time you are identifying, describing, or equating something — 'I am a student,' 'This is a book,' 'Tanaka is Japanese.'\n\n**How to use:** state the topic, add は, state the descriptor, end with です. You do NOT conjugate です for person, number, or gender — one size fits all (わたしは がくせいです / かれは がくせいです / ミナさんは がくせいです).\n\n**Questions & negation:** To ask a question, just add か at the end — no word order change: がくせいです → がくせいですか. For negation, swap です for じゃないです (casual-polite) or ではありません (formal).\n\n**Word order:** Japanese is Subject-Object-Verb, so the です or real verb always lands last — keep listening until the end of the sentence before you decide what was said.",
         "cheatSheet": [
-          "は (wa) = topic marker — marks what you're talking about",
-          "です (desu) = is/am/are — polite sentence ender",
-          "わたし (watashi) = I, ぼく (boku) = I (male, casual)",
-          "〜じん (jin) = nationality: アメリカじん = American",
-          "〜ご (go) = language: にほんご = Japanese language",
-          "せんこう (senko) = major/field of study"
+          "General form: [Topic] は [X] です — 'Topic is X'",
+          "は is written は but pronounced 'wa' when used as a particle",
+          "です works for I/you/he/she/it/we/they — never conjugates for person",
+          "Question: just add か at the end (です → ですか). Word order unchanged",
+          "Negative: じゃないです (casual-polite) or ではありません (formal)",
+          "〜じん = nationality (アメリカじん), 〜ご = language (にほんご)",
+          "Drop the topic when context is clear: がくせいです = '(I'm) a student'",
+          "Name + さん for others, never for yourself. Sensei for teachers replaces さん"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/y00DJEYOeQ8",
         "difficulty": "beginner",
@@ -698,10 +700,14 @@
           "particles"
         ],
         "tips": [
-          "は (wa) marks the topic; が (ga) marks the subject — they overlap but differ in nuance",
-          "です (desu) is the polite copula — the u is often silent in natural speech",
-          "じゃないです is more casual than ではありません for negation",
-          "Sentence order in Japanese is Subject → Object → Verb (SOV)"
+          "The 'u' in です is almost silent — natives say 'des'. Don't over-pronounce it",
+          "は marks the topic, not necessarily the subject. 'As for X...' is the mental model",
+          "Drop わたし/ぼく whenever context makes it obvious — Japanese loves to omit pronouns",
+          "さん attaches to others' names, NEVER your own. Saying 'わたしは ゲイブさんです' sounds arrogant",
+          "Age question: なんさいですか (casual) / おいくつですか (polite). Answer: にじゅっさいです",
+          "じゃないです and じゃありません are interchangeable; じゃ is a contraction of では",
+          "When someone asks '〜ですか?', answer 'はい、〜です' or 'いいえ、〜じゃないです'",
+          "Sentence order is Subject → Object → Verb — the verb/です always comes last"
         ]
       },
       "subDecks": [
@@ -1111,14 +1117,17 @@
       "id": "lesson-2",
       "title": "Lesson 2: Shopping",
       "meta": {
-        "notes": "Shopping vocabulary and the これ/それ/あれ system for pointing at things. Also covers asking for prices and using the question particle か. Japanese questions use the same word order as statements — just add か at the end.",
+        "notes": "The 'Ko-So-A-Do' system — Japanese uses distance from BOTH speaker and listener to pick the right 'this/that' word.\n\n**The three flavors:**\n- これ/それ/あれ stand alone as pronouns ('this one')\n- この/その/あの must be followed by a noun ('this book')\n- ここ/そこ/あそこ point to locations ('here/there')\n- The 'do-' versions are the question forms (どれ = which, どの = which [noun], どこ = where)\n\n**Distance rule:** こ- = near me, そ- = near you, あ- = far from both.\n\n**Shopping pattern:** 〜はいくらですか (how much is ~?) → answer with number + 円. To buy, use 〜をください (please give me ~).\n\n**Question particle か** is the Swiss-army-knife: stick it on ANY statement to make a question — no inversion, no auxiliary verbs.\n\n**Other staples:** 〜じゃないです for noun negation. The particle も ('also/too') REPLACES は (never say はも). だれの X = 'whose X' — the の particle makes possessives.\n\n**Sentence-end particles:** ね (seeking agreement, 'right?') and よ (new info, 'you know') also show up here — drop them and you sound flat.",
         "cheatSheet": [
-          "これ = this (near me), それ = that (near you), あれ = that over there",
-          "〜をください = Please give me ~ / I'll take ~",
-          "いくらですか = How much is it?",
-          "か (ka) = question particle — attach to end of any statement",
-          "〜円 (en) = yen — always attach to the number",
-          "どれ = which one? どこ = where?"
+          "これ/それ/あれ stand alone; この/その/あの need a noun; ここ/そこ/あそこ are places",
+          "こ-=near me, そ-=near you, あ-=far from both, ど-=question form",
+          "〜をください = 'please give me ~' — polite request",
+          "〜はいくらですか = 'how much is ~?' — answer with number + 円",
+          "か = question particle — just append, no word order change",
+          "も = 'also/too' — REPLACES は, never combine (say 'わたしも', not 'わたしはも')",
+          "だれの X = 'whose X' — の particle links nouns (ゲイブの ほん = Gabe's book)",
+          "じゃないです = 'is not' — contraction of ではない",
+          "ね = seeking agreement ('right?'), よ = asserting new info ('you know')"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/2fKV-l1l7B4",
         "difficulty": "beginner",
@@ -1129,10 +1138,14 @@
           "questions"
         ],
         "tips": [
-          "これ/それ/あれ (this/that/that over there) depend on speaker and listener position",
-          "いくら (ikura) means \"how much\" — essential for shopping",
-          "Prices use the counter 円 (en/yen) — numbers stay the same, just add 円",
-          "ください (kudasai) = please give me — polite way to request something"
+          "Natives often drop は and flip word order in conversation: 'なんですか、それ?' = 'What's that?'",
+          "In shops, いらっしゃいませ ('welcome') is a broadcast greeting — you don't answer it",
+          "Use えっと or あのう as natural fillers when thinking ('uh...', 'um...')",
+          "When pointing at nearby items: これ. When pointing at listener's item: それ. At distant item: あれ",
+          "どれ (which) for 3+ choices; どっち for 2 choices",
+          "も is one of the highest-ROI particles — master it early",
+          "しらない is the casual 'I don't know'; わかりません is the polite 'I don't understand/know'",
+          "Prices: 100=ひゃく, 1000=せん, 10000=まん. Note 300 = さんびゃく (sound change)"
         ]
       },
       "subDecks": [
@@ -1577,14 +1590,17 @@
       "id": "lesson-3",
       "title": "Lesson 3: Making a Date",
       "meta": {
-        "notes": "Covers verb conjugation into て-form, making invitations, and telling time. て-form is one of the most versatile verb forms in Japanese — it connects actions, makes requests (〜てください), and forms the progressive (〜ています). Learn the て-form rules early.",
+        "notes": "The polite ます-form is your daily-driver verb conjugation — it signals politeness and is what you'll hear constantly.\n\n**Verb groups:**\n- **Group 2 (iru/eru-verbs):** drop る, add ます → たべる→たべます, みる→みます\n- **Group 1 (u-verbs):** shift final kana to the 'i' row + ます → のむ→のみます, かう→かいます\n- **Irregulars:** する→します, くる→きます (only two!)\n- **Watch out:** a short list of u-verb exceptions LOOK iru/eru but aren't — かえる (to return) → かえります\n\n**ます-form conjugations:**\n- Present: たべます\n- Negative: たべません\n- Past: たべました\n- Past negative: たべませんでした\n\n**Particle rules:**\n- を marks direct objects (pronounced 'o'): ごはんを たべます\n- で marks location OF AN ACTION: カフェで たべます = eat AT the cafe\n- に marks destination or specific time: 3じに = at 3 o'clock\n- Time words like まいにち, あした, きょう, こんしゅう take NO particle — they stand alone\n\n**Invitations:** 〜ませんか ('won't you ~?') is softer; 〜ましょう ('let's ~') assumes agreement; 〜ましょうか ('shall we ~?') asks first.",
         "cheatSheet": [
-          "て-form: Group 1 verbs follow consonant rules (く→いて, ぐ→いで, す→して...)",
-          "〜ませんか = Won't you ~? / Would you like to ~? (invitation)",
-          "〜ましょう = Let's ~ (suggestion)",
-          "時 (ji) = o'clock, 分 (fun/pun) = minute",
-          "前 (mae) = before/ago, 後 (go) = after/later",
-          "いつ = when? 何時 (nanji) = what time?"
+          "ます-form conjugations: 〜ます (pres.), 〜ません (neg.), 〜ました (past), 〜ませんでした (past neg.)",
+          "Group 2 (iru/eru): drop る, add ます → たべる→たべます, みる→みます",
+          "Group 1 (u-verbs): shift final kana to 'i' row + ます → のむ→のみます, かう→かいます",
+          "Irregulars: する→します, くる→きます. Exception: かえる→かえります (u-verb despite looking iru/eru)",
+          "を (pronounced 'o') marks direct object: ごはんを たべる",
+          "で = location of an ACTION (カフェで のむ); に = destination/specific time (3じに / にほんに)",
+          "Time words with no particle: まいにち, あした, きょう, こんしゅう, しゅうまつ",
+          "〜ませんか = 'won't you ~?' (invitation); 〜ましょう = 'let's ~'; 〜ましょうか = 'shall we?'",
+          "Days: げつようび, かようび, すいようび, もくようび, きんようび, どようび, にちようび"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/Fg-YOJgMbsI",
         "difficulty": "intermediate",
@@ -1595,10 +1611,14 @@
           "invitations"
         ],
         "tips": [
-          "Time expressions come before the verb in Japanese",
-          "に (ni) marks specific time points (3時に); で (de) marks duration context",
-          "ませんか is a polite invitation form — softer than a direct imperative",
-          "Days of the week follow a pattern: 月火水木金土日 (moon, fire, water, wood, gold, earth, sun)"
+          "Beginners always forget: を is pronounced 'o', not 'wo'",
+          "Biggest trap: で vs に. で = where you DO something, に = where you GO or where something EXISTS",
+          "Relative time words (まいにち, あした, きょう) take NO particle — resist the urge to add に",
+          "Specific times take に: しちじに おきます (wake up AT 7)",
+          "Invitation chain: 〜ませんか → 〜ましょう → 〜ましょうか are all softer than commands",
+          "かえる looks like it should be Group 2 but it's Group 1 → かえります. Memorize the ~10 exceptions",
+          "する (do) and くる (come) are the only true irregulars — します / きます",
+          "For a soft 'no' to an invitation, say ちょっと... (trailing off) — more polite than direct refusal"
         ]
       },
       "subDecks": [
@@ -2178,302 +2198,302 @@
             {
               "type": "vocab",
               "front": "一",
-              "back": "いち (one)",
+              "back": "Meaning: one\nOnyomi: イチ, イツ\nKunyomi: ひと-\nExample: 一つ (ひとつ) — one thing",
               "romaji": "ichi"
             },
             {
               "type": "vocab",
               "front": "二",
-              "back": "に (two)",
+              "back": "Meaning: two\nOnyomi: ニ\nKunyomi: ふた-\nExample: 二つ (ふたつ) — two things",
               "romaji": "ni"
             },
             {
               "type": "vocab",
               "front": "三",
-              "back": "さん (three)",
+              "back": "Meaning: three\nOnyomi: サン\nKunyomi: み-, みっ-\nExample: 三つ (みっつ) — three things",
               "romaji": "san"
             },
             {
               "type": "vocab",
               "front": "四",
-              "back": "よん (four)",
-              "romaji": "yon"
+              "back": "Meaning: four\nOnyomi: シ\nKunyomi: よ-, よん, よっ-\nExample: 四月 (しがつ) — April",
+              "romaji": "shi / yon"
             },
             {
               "type": "vocab",
               "front": "五",
-              "back": "ご (five)",
+              "back": "Meaning: five\nOnyomi: ゴ\nKunyomi: いつ-\nExample: 五つ (いつつ) — five things",
               "romaji": "go"
             },
             {
               "type": "vocab",
               "front": "六",
-              "back": "ろく (six)",
+              "back": "Meaning: six\nOnyomi: ロク\nKunyomi: む-, むっ-\nExample: 六月 (ろくがつ) — June",
               "romaji": "roku"
             },
             {
               "type": "vocab",
               "front": "七",
-              "back": "しち／なな (seven)",
-              "romaji": "shichi/nana"
+              "back": "Meaning: seven\nOnyomi: シチ\nKunyomi: なな, なの-\nExample: 七時 (しちじ) — 7 o'clock",
+              "romaji": "shichi / nana"
             },
             {
               "type": "vocab",
               "front": "八",
-              "back": "はち (eight)",
+              "back": "Meaning: eight\nOnyomi: ハチ\nKunyomi: や-, やっ-\nExample: 八月 (はちがつ) — August",
               "romaji": "hachi"
             },
             {
               "type": "vocab",
               "front": "九",
-              "back": "きゅう (nine)",
-              "romaji": "kyuu"
+              "back": "Meaning: nine\nOnyomi: キュウ, ク\nKunyomi: ここの-\nExample: 九月 (くがつ) — September",
+              "romaji": "kyuu / ku"
             },
             {
               "type": "vocab",
               "front": "十",
-              "back": "じゅう (ten)",
+              "back": "Meaning: ten\nOnyomi: ジュウ, ジッ\nKunyomi: とお\nExample: 十時 (じゅうじ) — 10 o'clock",
               "romaji": "juu"
             },
             {
               "type": "vocab",
               "front": "百",
-              "back": "ひゃく (hundred)",
+              "back": "Meaning: hundred\nOnyomi: ヒャク\nKunyomi: —\nExample: 百円 (ひゃくえん) — 100 yen",
               "romaji": "hyaku"
             },
             {
               "type": "vocab",
               "front": "千",
-              "back": "せん (thousand)",
+              "back": "Meaning: thousand\nOnyomi: セン\nKunyomi: ち\nExample: 千円 (せんえん) — 1,000 yen",
               "romaji": "sen"
             },
             {
               "type": "vocab",
-              "front": "一万",
-              "back": "いちまん (ten thousand)",
-              "romaji": "ichiman"
-            },
-            {
-              "type": "vocab",
-              "front": "四時",
-              "back": "よじ (four o'clock)",
-              "romaji": "yoji"
-            },
-            {
-              "type": "vocab",
-              "front": "六百",
-              "back": "ろっぴゃく (six hundred)",
-              "romaji": "roppyaku"
-            },
-            {
-              "type": "vocab",
-              "front": "八百",
-              "back": "はっぴゃく (eight hundred)",
-              "romaji": "happyaku"
-            },
-            {
-              "type": "vocab",
-              "front": "三千",
-              "back": "さんぜん (three thousand)",
-              "romaji": "sanzen"
-            },
-            {
-              "type": "vocab",
-              "front": "八千",
-              "back": "はっせん (eight thousand)",
-              "romaji": "hassen"
-            },
-            {
-              "type": "vocab",
-              "front": "千円",
-              "back": "せんえん (one thousand yen)",
-              "romaji": "senen"
-            },
-            {
-              "type": "vocab",
-              "front": "百円",
-              "back": "ひゃくえん (one hundred yen)",
-              "romaji": "hyakuen"
-            },
-            {
-              "type": "vocab",
               "front": "万",
-              "back": "まん (ten thousand)",
+              "back": "Meaning: ten thousand\nOnyomi: マン, バン\nKunyomi: —\nExample: 一万 (いちまん) — 10,000",
               "romaji": "man"
             },
             {
               "type": "vocab",
               "front": "円",
-              "back": "えん (yen; circle)",
+              "back": "Meaning: yen; circle; round\nOnyomi: エン\nKunyomi: まる-い\nExample: 千円 (せんえん) — 1,000 yen",
               "romaji": "en"
             },
             {
               "type": "vocab",
               "front": "時",
-              "back": "じ / とき (time; hour; o'clock)",
+              "back": "Meaning: time; hour; o'clock\nOnyomi: ジ\nKunyomi: とき\nExample: 時間 (じかん) — time; hours",
               "romaji": "ji / toki"
             },
             {
               "type": "vocab",
+              "front": "半",
+              "back": "Meaning: half\nOnyomi: ハン\nKunyomi: なか-ば\nExample: 三時半 (さんじはん) — 3:30",
+              "romaji": "han"
+            },
+            {
+              "type": "vocab",
               "front": "日",
-              "back": "にち / ひ (day; sun)",
+              "back": "Meaning: day; sun\nOnyomi: ニチ, ジツ\nKunyomi: ひ, -び, -か\nExample: 日本 (にほん) — Japan",
               "romaji": "nichi / hi"
             },
             {
               "type": "vocab",
               "front": "月",
-              "back": "げつ / つき (month; moon)",
+              "back": "Meaning: month; moon\nOnyomi: ゲツ, ガツ\nKunyomi: つき\nExample: 月曜日 (げつようび) — Monday",
               "romaji": "getsu / tsuki"
             },
             {
               "type": "vocab",
               "front": "火",
-              "back": "か / ひ (fire)",
+              "back": "Meaning: fire\nOnyomi: カ\nKunyomi: ひ, -び\nExample: 火曜日 (かようび) — Tuesday",
               "romaji": "ka / hi"
             },
             {
               "type": "vocab",
               "front": "木",
-              "back": "もく / き (tree; wood)",
+              "back": "Meaning: tree; wood\nOnyomi: モク, ボク\nKunyomi: き\nExample: 木曜日 (もくようび) — Thursday",
               "romaji": "moku / ki"
             },
             {
               "type": "vocab",
               "front": "金",
-              "back": "きん / かね (gold; money)",
+              "back": "Meaning: gold; money\nOnyomi: キン, コン\nKunyomi: かね\nExample: 金曜日 (きんようび) — Friday",
               "romaji": "kin / kane"
             },
             {
               "type": "vocab",
               "front": "土",
-              "back": "ど / つち (earth; soil)",
+              "back": "Meaning: earth; soil; ground\nOnyomi: ド, ト\nKunyomi: つち\nExample: 土曜日 (どようび) — Saturday",
               "romaji": "do / tsuchi"
             },
             {
               "type": "vocab",
-              "front": "半",
-              "back": "はん (half)",
-              "romaji": "han"
-            },
-            {
-              "type": "vocab",
               "front": "曜",
-              "back": "よう (day of the week)",
+              "back": "Meaning: day of the week\nOnyomi: ヨウ\nKunyomi: —\nExample: 曜日 (ようび) — day of the week",
               "romaji": "you"
             },
             {
               "type": "vocab",
               "front": "明",
-              "back": "めい / あかるい (bright; clear)",
+              "back": "Meaning: bright; clear; next\nOnyomi: メイ, ミョウ\nKunyomi: あか-るい, あ-ける\nExample: 明日 (あした) — tomorrow",
               "romaji": "mei / akarui"
             },
             {
               "type": "vocab",
               "front": "元",
-              "back": "げん / もと (origin; source)",
+              "back": "Meaning: origin; source\nOnyomi: ゲン, ガン\nKunyomi: もと\nExample: 元気 (げんき) — healthy; energetic",
               "romaji": "gen / moto"
             },
             {
               "type": "vocab",
               "front": "天",
-              "back": "てん / あめ (heaven; sky)",
+              "back": "Meaning: heaven; sky\nOnyomi: テン\nKunyomi: あめ, あま-\nExample: 天気 (てんき) — weather",
               "romaji": "ten / ame"
             },
             {
               "type": "vocab",
               "front": "気",
-              "back": "き (spirit; energy; mood)",
+              "back": "Meaning: spirit; energy; mood\nOnyomi: キ, ケ\nKunyomi: —\nExample: 元気 (げんき) — healthy; energetic",
               "romaji": "ki"
             },
             {
               "type": "vocab",
               "front": "女",
-              "back": "じょ / おんな (woman; female)",
+              "back": "Meaning: woman; female\nOnyomi: ジョ, ニョ\nKunyomi: おんな, め\nExample: 女の人 (おんなのひと) — woman",
               "romaji": "jo / onna"
             },
             {
               "type": "vocab",
               "front": "男",
-              "back": "だん / おとこ (man; male)",
+              "back": "Meaning: man; male\nOnyomi: ダン, ナン\nKunyomi: おとこ\nExample: 男の人 (おとこのひと) — man",
               "romaji": "dan / otoko"
             },
             {
               "type": "vocab",
               "front": "田",
-              "back": "た / でん (rice field)",
+              "back": "Meaning: rice field\nOnyomi: デン\nKunyomi: た\nExample: 田中 (たなか) — Tanaka (surname)",
               "romaji": "ta / den"
             },
             {
               "type": "vocab",
               "front": "見",
-              "back": "けん / みる (to see; to look)",
+              "back": "Meaning: to see; to look\nOnyomi: ケン\nKunyomi: み-る, み-える\nExample: 見る (みる) — to see, watch",
               "romaji": "ken / miru"
             },
             {
               "type": "vocab",
               "front": "行",
-              "back": "こう / いく (to go)",
+              "back": "Meaning: to go; to conduct\nOnyomi: コウ, ギョウ\nKunyomi: い-く, おこな-う\nExample: 行く (いく) — to go",
               "romaji": "kou / iku"
             },
             {
               "type": "vocab",
               "front": "食",
-              "back": "しょく / たべる (to eat; food)",
+              "back": "Meaning: to eat; food\nOnyomi: ショク, ジキ\nKunyomi: た-べる, く-う\nExample: 食べる (たべる) — to eat",
               "romaji": "shoku / taberu"
             },
             {
               "type": "vocab",
               "front": "飲",
-              "back": "いん / のむ (to drink)",
+              "back": "Meaning: to drink\nOnyomi: イン\nKunyomi: の-む\nExample: 飲む (のむ) — to drink",
               "romaji": "in / nomu"
             },
             {
               "type": "vocab",
               "front": "事",
-              "back": "じ / こと (thing; matter)",
+              "back": "Meaning: thing; matter; affair\nOnyomi: ジ\nKunyomi: こと\nExample: 食事 (しょくじ) — a meal",
               "romaji": "ji / koto"
             },
             {
               "type": "vocab",
               "front": "会",
-              "back": "かい / あう (to meet; meeting)",
+              "back": "Meaning: to meet; meeting\nOnyomi: カイ, エ\nKunyomi: あ-う\nExample: 会社 (かいしゃ) — company",
               "romaji": "kai / au"
             },
             {
               "type": "vocab",
               "front": "字",
-              "back": "じ (character; letter)",
+              "back": "Meaning: character; letter\nOnyomi: ジ\nKunyomi: あざ\nExample: 漢字 (かんじ) — kanji",
               "romaji": "ji"
             },
             {
               "type": "vocab",
               "front": "形",
-              "back": "けい / かたち (shape; form)",
+              "back": "Meaning: shape; form\nOnyomi: ケイ, ギョウ\nKunyomi: かたち, かた\nExample: 象形 (しょうけい) — pictograph",
               "romaji": "kei / katachi"
             },
             {
               "type": "vocab",
               "front": "意",
-              "back": "い (meaning; intention)",
+              "back": "Meaning: meaning; intention; idea\nOnyomi: イ\nKunyomi: —\nExample: 意味 (いみ) — meaning",
               "romaji": "i"
             },
             {
               "type": "vocab",
               "front": "指",
-              "back": "し / ゆび (finger; to point)",
+              "back": "Meaning: finger; to point\nOnyomi: シ\nKunyomi: ゆび, さ-す\nExample: 指事 (しじ) — indicative (kanji)",
               "romaji": "shi / yubi"
             },
             {
               "type": "vocab",
               "front": "文",
-              "back": "ぶん / もん (sentence; writing)",
+              "back": "Meaning: sentence; writing; text\nOnyomi: ブン, モン\nKunyomi: ふみ\nExample: 文字 (もじ) — character; letter",
               "romaji": "bun / mon"
             },
             {
               "type": "vocab",
               "front": "象",
-              "back": "しょう / ぞう (elephant; image)",
+              "back": "Meaning: elephant; image; shape\nOnyomi: ショウ, ゾウ\nKunyomi: —\nExample: 象形文字 (しょうけいもじ) — pictographic character",
               "romaji": "shou / zou"
+            },
+            {
+              "type": "vocab",
+              "front": "百円",
+              "back": "Reading: ひゃくえん\nMeaning: 100 yen\nBreakdown: 百 (hundred) + 円 (yen)",
+              "romaji": "hyakuen"
+            },
+            {
+              "type": "vocab",
+              "front": "千円",
+              "back": "Reading: せんえん\nMeaning: 1,000 yen\nBreakdown: 千 (thousand) + 円 (yen)",
+              "romaji": "senen"
+            },
+            {
+              "type": "vocab",
+              "front": "一万",
+              "back": "Reading: いちまん\nMeaning: 10,000\nBreakdown: 一 (one) + 万 (ten thousand)",
+              "romaji": "ichiman"
+            },
+            {
+              "type": "vocab",
+              "front": "四時",
+              "back": "Reading: よじ\nMeaning: 4 o'clock\nBreakdown: 四 (four, irregular reading よ) + 時 (o'clock)",
+              "romaji": "yoji"
+            },
+            {
+              "type": "vocab",
+              "front": "六百",
+              "back": "Reading: ろっぴゃく\nMeaning: 600\nNote: sound change ろく+ひゃく → ろっぴゃく",
+              "romaji": "roppyaku"
+            },
+            {
+              "type": "vocab",
+              "front": "八百",
+              "back": "Reading: はっぴゃく\nMeaning: 800\nNote: sound change はち+ひゃく → はっぴゃく",
+              "romaji": "happyaku"
+            },
+            {
+              "type": "vocab",
+              "front": "三千",
+              "back": "Reading: さんぜん\nMeaning: 3,000\nNote: sound change さん+せん → さんぜん",
+              "romaji": "sanzen"
+            },
+            {
+              "type": "vocab",
+              "front": "八千",
+              "back": "Reading: はっせん\nMeaning: 8,000\nNote: sound change はち+せん → はっせん",
+              "romaji": "hassen"
             },
             {
               "type": "vocab",
@@ -2499,14 +2519,17 @@
       "id": "lesson-4",
       "title": "Lesson 4: The First Date",
       "meta": {
-        "notes": "Focuses on describing locations, giving directions, and using the particle に for destination. Also introduces adjective conjugation (い-adj vs な-adj). These two adjective types behave very differently — especially in past tense and negative forms.",
+        "notes": "Existence and location.\n\n**Two verbs for 'exist':**\n- **あります** for non-living things (books, buildings, events)\n- **います** for living things (people, animals — and by convention, anything that moves on its own like a moving car)\n\n**General form:** [Place] に [Thing] が あります/います. The particle に here marks the location where something exists — different from the に in lesson 3 that marked destination.\n\n**Direction words** (うえ, した, まえ, うしろ, みぎ, ひだり, となり, ちかく) plug into 'X の Y に' — 'テーブルの うえに ある' = 'on top of the table'.\n\n**Like/dislike with が:**\n- 〜が すきです = like ~\n- 〜が きらいです = dislike ~\n- だいすき (love a lot), だいきらい (hate a lot) intensify them\n- CRITICAL: use が, NOT を\n- The も-form extends too: パンも すき ('I like bread too')\n\n**Duration:** Duration expressions come with COUNTERS (いちじかん = 1 hour, にじかん = 2 hours), and like relative time words they take NO particle.\n\n**The と particle** has two meanings: links nouns ('and') AND means 'with' for companionship (ともだちと いきました = 'went with a friend').",
         "cheatSheet": [
-          "に (ni) = direction/destination marker: がっこうに行く = go to school",
-          "で (de) = location of action: としょかんで読む = read at the library",
-          "い-adj negative: たかい → たかくない (not expensive)",
-          "な-adj negative: しずかな → しずかじゃない (not quiet)",
-          "い-adj past: たかい → たかかった (was expensive)",
-          "Location words: 上 (ue), 下 (shita), 右 (migi), 左 (hidari), 中 (naka)"
+          "あります = exist (non-living); います = exist (living/animate)",
+          "General form: [Place] に [Thing] が あります/います",
+          "Direction words: うえ, した, まえ, うしろ, みぎ, ひだり, となり, ちかく, なか, そと",
+          "Plug form: [Reference] の [Direction] に — 'テーブルの うえに'",
+          "〜が すき / きらい = like / dislike. Use が, NOT を",
+          "だいすき = love a lot; だいきらい = hate a lot",
+          "と = 'and' (linking nouns) OR 'with' (companionship): ともだちと いく",
+          "Duration counters take no particle: さんじかん べんきょうしました",
+          "Negative: ありません / いません. Past: ありました / いました"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/F27okQQZ6J0",
         "difficulty": "intermediate",
@@ -2517,10 +2540,14 @@
           "past-tense"
         ],
         "tips": [
-          "い-adjectives conjugate directly; な-adjectives need な before nouns",
-          "Past tense of い-adj: drop い, add かった (e.g. たのしい→たのしかった)",
-          "Past tense of な-adj/nouns: でした instead of です",
-          "が here often expresses \"but\" as a soft connector between clauses"
+          "Mnemonic: あります for objects, います for things that 'I'm alive' — い starts both います and 'iru'",
+          "で (action location) vs に (existence/destination) trips everyone up — just memorize with common verbs",
+          "が (not を) with すき/きらい — 'りんごが すきです' = 'I like apples'",
+          "Duration (さんじかん) takes NO particle; specific time (さんじに) takes に",
+          "Adverbs like ぜんぜん and あまり REQUIRE a negative verb: あまり すきじゃない (not much)",
+          "Use となり for 'next to' things of the same category, よこ for physically beside",
+          "Animal Crossing / video games: どうぶつのもり — memorable reminder that どうぶつ = animals (using います)",
+          "と has two meanings but context always makes it clear: noun-and-noun vs verb-with-companion"
         ]
       },
       "subDecks": [
@@ -3035,104 +3062,104 @@
           "cards": [
             {
               "type": "vocab",
-              "front": "日本",
-              "back": "にほん (Japan)",
-              "romaji": "nihon"
-            },
-            {
-              "type": "vocab",
-              "front": "日曜日",
-              "back": "にちようび (Sunday)",
-              "romaji": "nichiyoubi"
-            },
-            {
-              "type": "vocab",
               "front": "本",
-              "back": "ほん (book)",
+              "back": "Meaning: book; origin; main\nOnyomi: ホン\nKunyomi: もと\nExample: 本 (ほん) — book",
               "romaji": "hon"
             },
             {
               "type": "vocab",
               "front": "人",
-              "back": "ひと (person) / じん (people)",
-              "romaji": "hito/jin"
+              "back": "Meaning: person\nOnyomi: ジン, ニン\nKunyomi: ひと\nExample: 一人 (ひとり) — one person",
+              "romaji": "hito / jin"
             },
             {
               "type": "vocab",
-              "front": "一人で",
-              "back": "ひとりで (alone)",
-              "romaji": "hitoride"
+              "front": "水",
+              "back": "Meaning: water\nOnyomi: スイ\nKunyomi: みず\nExample: 水曜日 (すいようび) — Wednesday",
+              "romaji": "mizu / sui"
+            },
+            {
+              "type": "vocab",
+              "front": "上",
+              "back": "Meaning: above; on; up\nOnyomi: ジョウ, ショウ\nKunyomi: うえ, あ-がる, のぼ-る\nExample: テーブルの上 (テーブルのうえ) — on the table",
+              "romaji": "ue / jou"
+            },
+            {
+              "type": "vocab",
+              "front": "下",
+              "back": "Meaning: below; under; down\nOnyomi: カ, ゲ\nKunyomi: した, さ-がる, くだ-る\nExample: 下 (した) — below; under",
+              "romaji": "shita / ka"
+            },
+            {
+              "type": "vocab",
+              "front": "中",
+              "back": "Meaning: inside; middle; center\nOnyomi: チュウ\nKunyomi: なか\nExample: 中 (なか) — inside",
+              "romaji": "naka / chuu"
+            },
+            {
+              "type": "vocab",
+              "front": "日本",
+              "back": "Reading: にほん\nMeaning: Japan\nBreakdown: 日 (sun) + 本 (origin) = 'origin of the sun'",
+              "romaji": "nihon"
+            },
+            {
+              "type": "vocab",
+              "front": "日曜日",
+              "back": "Reading: にちようび\nMeaning: Sunday\nBreakdown: 日 (sun) + 曜 (day of week) + 日 (day)",
+              "romaji": "nichiyoubi"
             },
             {
               "type": "vocab",
               "front": "月曜日",
-              "back": "げつようび (Monday)",
+              "back": "Reading: げつようび\nMeaning: Monday\nBreakdown: 月 (moon) + 曜 + 日",
               "romaji": "getsuyoubi"
             },
             {
               "type": "vocab",
-              "front": "一月",
-              "back": "いちがつ (January)",
-              "romaji": "ichigatsu"
-            },
-            {
-              "type": "vocab",
               "front": "火曜日",
-              "back": "かようび (Tuesday)",
+              "back": "Reading: かようび\nMeaning: Tuesday\nBreakdown: 火 (fire) + 曜 + 日",
               "romaji": "kayoubi"
             },
             {
               "type": "vocab",
               "front": "水曜日",
-              "back": "すいようび (Wednesday)",
+              "back": "Reading: すいようび\nMeaning: Wednesday\nBreakdown: 水 (water) + 曜 + 日",
               "romaji": "suiyoubi"
             },
             {
               "type": "vocab",
-              "front": "水",
-              "back": "みず (water)",
-              "romaji": "mizu"
-            },
-            {
-              "type": "vocab",
               "front": "木曜日",
-              "back": "もくようび (Thursday)",
+              "back": "Reading: もくようび\nMeaning: Thursday\nBreakdown: 木 (tree) + 曜 + 日",
               "romaji": "mokuyoubi"
             },
             {
               "type": "vocab",
               "front": "金曜日",
-              "back": "きんようび (Friday)",
+              "back": "Reading: きんようび\nMeaning: Friday\nBreakdown: 金 (gold) + 曜 + 日",
               "romaji": "kinyoubi"
             },
             {
               "type": "vocab",
               "front": "土曜日",
-              "back": "どようび (Saturday)",
+              "back": "Reading: どようび\nMeaning: Saturday\nBreakdown: 土 (earth) + 曜 + 日",
               "romaji": "doyoubi"
             },
             {
               "type": "vocab",
-              "front": "上",
-              "back": "うえ (above; on)",
-              "romaji": "ue"
+              "front": "一月",
+              "back": "Reading: いちがつ\nMeaning: January\nBreakdown: 一 (one) + 月 (month)",
+              "romaji": "ichigatsu"
             },
             {
               "type": "vocab",
-              "front": "下",
-              "back": "した (below; under)",
-              "romaji": "shita"
-            },
-            {
-              "type": "vocab",
-              "front": "中",
-              "back": "なか (inside; middle)",
-              "romaji": "naka"
+              "front": "一人で",
+              "back": "Reading: ひとりで\nMeaning: alone; by oneself\nBreakdown: 一人 (ひとり, one person) + で (particle)",
+              "romaji": "hitoride"
             },
             {
               "type": "vocab",
               "front": "三時半",
-              "back": "さんじはん (half past three)",
+              "back": "Reading: さんじはん\nMeaning: 3:30\nBreakdown: 三 (three) + 時 (o'clock) + 半 (half)",
               "romaji": "sanjihan"
             }
           ]
@@ -3165,14 +3192,17 @@
       "id": "lesson-5",
       "title": "Lesson 5: A Trip to Okinawa",
       "meta": {
-        "notes": "Covers past-tense verbs, adjective conjugation in past tense, and travel vocabulary. This lesson also introduces the て-form for connecting sequential actions (verb て verb). Focus on how plain past forms differ between verb groups.",
+        "notes": "Adjectives — and how they change for tense.\n\n**Two adjective types:**\n- **い-adjectives** (たのしい, おいしい, たかい) — end in い\n- **な-adjectives** (きれい(な), しずか(な), げんき(な), すき(な)) — behave like nouns\n\nThey look similar in present but diverge for past and negative.\n\n**い-adjective forms (drop い, add...):**\n- Present: たのしい → たのしいです\n- Negative: drop い + くない → たのしくない(です)\n- Past: drop い + かった → たのしかった(です)\n- Past negative: drop い + くなかった → たのしくなかった(です)\n\n**な-adjective forms (treat like nouns):**\n- Present: きれいです\n- Negative: きれいじゃない(です)\n- Past: きれいでした\n- Past negative: きれいじゃなかった(です)\n\n**IMPORTANT irregular:** いい (good) acts like よい when conjugated → よかった (was good), よくない (not good), よくなかった (wasn't good). Never conjugate from いい directly.\n\n**Modifying nouns:**\n- い-adj goes directly: たのしい えいが = 'a fun movie'\n- な-adj needs な between: きれいな けしき = 'beautiful scenery'\n\n**Likes/dislikes** (〜が すき) carry over from lesson 4 as な-adjectives.\n\n**Also in this lesson:**\n- ましょう invitations (lesson 3 review)\n- Counter 〜まい for flat objects (paper, plates, tickets): ちけっとを にまい ください = 'two tickets please'\n- People counters (irregular): ひとり (1), ふたり (2), さんにん (3)...",
         "cheatSheet": [
-          "Past tense (polite): 〜ました (affirmative), 〜ませんでした (negative)",
-          "い-adj past: おもしろい → おもしろかった (was interesting)",
-          "な-adj past: きれいな → きれいだった (was pretty)",
-          "〜てから = after doing ~: 食べてから行く = go after eating",
-          "〜たい = want to ~: 行きたい = want to go",
-          "もう = already, まだ = not yet, また = again"
+          "い-adj: present たのしい / neg たのしくない / past たのしかった / past neg たのしくなかった",
+          "な-adj: present きれいです / neg きれいじゃない / past きれいでした / past neg きれいじゃなかった",
+          "Irregular: いい → よかった (was good), よくない (not good)",
+          "Modify noun: い-adj direct (たのしい えいが); な-adj + な (きれいな けしき)",
+          "〜が すき / きらい / だいすき / だいきらい — all use が, all act as な-adj",
+          "Counter 〜まい for flat objects: いちまい, にまい, さんまい... (paper, plates, tickets)",
+          "People counter: ひとり, ふたり, さんにん, よにん, ごにん...",
+          "〜ましょう = 'let's ~'; 〜ませんか = 'won't you ~?'; いっしょに = 'together'",
+          "Past neg: verb ~ませんでした; な-adj/noun ~じゃなかった(です)"
         ],
         "youtubeUrl": "https://www.youtube.com/embed/AzAdOqnJ4nk",
         "difficulty": "intermediate",
@@ -3183,10 +3213,15 @@
           "te-form"
         ],
         "tips": [
-          "て-form is the Swiss Army knife of Japanese — it connects actions and forms many patterns",
-          "て+います can mean an ongoing action OR a state resulting from an action",
-          "Transport: で marks the means (バスで = by bus); に marks the destination",
-          "Okinawa dialect (うちなーぐち) differs significantly from standard Japanese"
+          "いい is the only common irregular adjective — conjugate from よい, never from いい",
+          "Test yourself: 'was not fun' = たのしくなかった(です). Drop い, add くなかった",
+          "な-adj past looks exactly like the noun past: きれいでした = きれい + でした (like です → でした)",
+          "Before a noun, い-adj keeps い (あたらしい くるま); な-adj adds な (しずかな まち)",
+          "すき/きらい always take が, even though English 'like/hate' feels like a transitive verb",
+          "だいすき is stronger than すき; use it for people/things you genuinely love",
+          "〜まい counts flat things — tickets, paper, plates, photos, SIM cards",
+          "'Shall we walk?' = あるきましょうか; 'yes, let's walk' = あるきましょう",
+          "Small-talk opener: 'どうだった?' (casual past of どう) = 'how was it?' — key for past-tense practice"
         ]
       },
       "subDecks": [
@@ -3830,91 +3865,91 @@
             {
               "type": "vocab",
               "front": "山",
-              "back": "やま (mountain)",
-              "romaji": "yama"
+              "back": "Meaning: mountain\nOnyomi: サン\nKunyomi: やま\nExample: 富士山 (ふじさん) — Mt. Fuji",
+              "romaji": "yama / san"
             },
             {
               "type": "vocab",
               "front": "川",
-              "back": "かわ (river)",
-              "romaji": "kawa"
-            },
-            {
-              "type": "vocab",
-              "front": "元気",
-              "back": "げんき (healthy; energetic)",
-              "romaji": "genki"
-            },
-            {
-              "type": "vocab",
-              "front": "天気",
-              "back": "てんき (weather)",
-              "romaji": "tenki"
+              "back": "Meaning: river\nOnyomi: セン\nKunyomi: かわ\nExample: 川 (かわ) — river",
+              "romaji": "kawa / sen"
             },
             {
               "type": "vocab",
               "front": "私",
-              "back": "わたし (I; me)",
-              "romaji": "watashi"
+              "back": "Meaning: I; me; private\nOnyomi: シ\nKunyomi: わたし, わたくし\nExample: 私 (わたし) — I; me",
+              "romaji": "watashi / shi"
             },
             {
               "type": "vocab",
               "front": "今",
-              "back": "いま (now)",
-              "romaji": "ima"
-            },
-            {
-              "type": "vocab",
-              "front": "今日",
-              "back": "きょう (today)",
-              "romaji": "kyou"
-            },
-            {
-              "type": "vocab",
-              "front": "女の人",
-              "back": "おんなのひと (woman)",
-              "romaji": "onnanohito"
-            },
-            {
-              "type": "vocab",
-              "front": "男の人",
-              "back": "おとこのひと (man)",
-              "romaji": "otokonohito"
+              "back": "Meaning: now\nOnyomi: コン, キン\nKunyomi: いま\nExample: 今 (いま) — now",
+              "romaji": "ima / kon"
             },
             {
               "type": "vocab",
               "front": "見る",
-              "back": "みる (to see; to watch)",
+              "back": "Reading: みる\nMeaning: to see; to watch; to look at\nKanji: 見 — Onyomi ケン / Kunyomi み-る",
               "romaji": "miru"
             },
             {
               "type": "vocab",
               "front": "行く",
-              "back": "いく (to go)",
+              "back": "Reading: いく\nMeaning: to go\nKanji: 行 — Onyomi コウ, ギョウ / Kunyomi い-く",
               "romaji": "iku"
             },
             {
               "type": "vocab",
               "front": "食べる",
-              "back": "たべる (to eat)",
+              "back": "Reading: たべる\nMeaning: to eat\nKanji: 食 — Onyomi ショク / Kunyomi た-べる",
               "romaji": "taberu"
             },
             {
               "type": "vocab",
               "front": "飲む",
-              "back": "のむ (to drink)",
+              "back": "Reading: のむ\nMeaning: to drink\nKanji: 飲 — Onyomi イン / Kunyomi の-む",
               "romaji": "nomu"
             },
             {
               "type": "vocab",
+              "front": "今日",
+              "back": "Reading: きょう\nMeaning: today\nBreakdown: 今 (now) + 日 (day). Irregular reading — memorize as a unit",
+              "romaji": "kyou"
+            },
+            {
+              "type": "vocab",
+              "front": "元気",
+              "back": "Reading: げんき\nMeaning: healthy; energetic; lively\nBreakdown: 元 (origin) + 気 (spirit)",
+              "romaji": "genki"
+            },
+            {
+              "type": "vocab",
+              "front": "天気",
+              "back": "Reading: てんき\nMeaning: weather\nBreakdown: 天 (sky) + 気 (mood/air)",
+              "romaji": "tenki"
+            },
+            {
+              "type": "vocab",
+              "front": "女の人",
+              "back": "Reading: おんなのひと\nMeaning: woman\nBreakdown: 女 (woman) + の + 人 (person)",
+              "romaji": "onnanohito"
+            },
+            {
+              "type": "vocab",
+              "front": "男の人",
+              "back": "Reading: おとこのひと\nMeaning: man\nBreakdown: 男 (man) + の + 人 (person)",
+              "romaji": "otokonohito"
+            },
+            {
+              "type": "vocab",
               "front": "田中さん",
-              "back": "たなかさん (Mr./Ms. Tanaka)",
+              "back": "Reading: たなかさん\nMeaning: Mr./Ms. Tanaka\nBreakdown: 田 (rice field) + 中 (middle) + さん — 'middle-of-rice-field' surname",
               "romaji": "tanakasan"
             },
             {
               "type": "vocab",
               "front": "山田さん",
-              "back": "やまださん (Mr./Ms. Yamada)",
+              "back": "Reading: やまださん\nMeaning: Mr./Ms. Yamada\nBreakdown: 山 (mountain) + 田 (rice field) + さん",
               "romaji": "yamadasan"
             }
           ]

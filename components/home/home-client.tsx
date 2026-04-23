@@ -210,18 +210,6 @@ type LearningModeCardConfig = {
 
 const LEARNING_MODE_CARDS: LearningModeCardConfig[] = [
   {
-    href: "/kana",
-    ariaLabel: "Start kana practice session",
-    title: "Kana Practice",
-    actionLabel: "Start Session",
-    badge: "FOUNDATION",
-    badgeClass: "bg-[#8ef4e4] text-[#2a9a8c]",
-    panelClass: "bg-[#eaeefd]",
-    glyph: "ひ",
-    glyphClass: "text-primary/20 italic",
-    summary: "Drill hiragana & katakana with instant feedback.",
-  },
-  {
     href: "/decks",
     ariaLabel: "Browse lesson decks",
     title: "Lesson Decks",
@@ -246,6 +234,30 @@ const LEARNING_MODE_CARDS: LearningModeCardConfig[] = [
     summary: "Sentences & paragraphs at three difficulty levels.",
   },
   {
+    href: "/reviewer",
+    ariaLabel: "Start reviewer test session",
+    title: "Reviewer",
+    actionLabel: "Start Reviewer",
+    badge: "TEST",
+    badgeClass: "bg-[#fce7f3] text-[#be185d]",
+    panelClass: "bg-gradient-to-br from-[#fce7f3]/60 to-[#db2777]/10",
+    glyph: "試",
+    glyphClass: "text-[#be185d]/20",
+    summary: "Translate & fill-in drills to test applied knowledge.",
+  },
+  {
+    href: "/kana",
+    ariaLabel: "Start kana practice session",
+    title: "Kana Practice",
+    actionLabel: "Start Session",
+    badge: "FOUNDATION",
+    badgeClass: "bg-[#8ef4e4] text-[#2a9a8c]",
+    panelClass: "bg-[#eaeefd]",
+    glyph: "ひ",
+    glyphClass: "text-primary/20 italic",
+    summary: "Drill hiragana & katakana with instant feedback.",
+  },
+  {
     href: "/path",
     ariaLabel: "View learning path",
     title: "Learning Path",
@@ -256,6 +268,18 @@ const LEARNING_MODE_CARDS: LearningModeCardConfig[] = [
     glyph: "道",
     glyphClass: "text-[#2a9a8c]/20",
     summary: "Follow a structured path from beginner to fluent.",
+  },
+  {
+    href: "/review",
+    ariaLabel: "Start daily review session",
+    title: "Daily Review",
+    actionLabel: "Start Review",
+    badge: "SRS",
+    badgeClass: "bg-[#d1fae5] text-[#047857]",
+    panelClass: "bg-gradient-to-br from-[#d1fae5]/60 to-[#10b981]/10",
+    glyph: "復",
+    glyphClass: "text-[#047857]/20",
+    summary: "Spaced-repetition queue across everything you've learned.",
   },
 ];
 

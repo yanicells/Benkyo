@@ -2,14 +2,13 @@ import { redirect } from "next/navigation";
 
 import lessonsData from "@/data/lessons.json";
 import { ReviewSessionRenderer } from "@/components/review/review-session-renderer";
-import type { FlipSetting, LessonsData, StudyMode } from "@/lib/types";
+import type { LessonsData, StudyMode } from "@/lib/types";
 
 type ReviewSessionPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 const validModes = new Set<StudyMode>(["flashcard", "multiple-choice"]);
-const validFlips = new Set<FlipSetting>(["jp-to-en", "en-to-jp"]);
 
 function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
@@ -20,14 +19,8 @@ export default async function ReviewSessionPage({
 }: ReviewSessionPageProps) {
   const query = await searchParams;
   const rawMode = firstParam(query.mode);
-  const rawFlip = firstParam(query.flip);
 
-  if (
-    !rawMode ||
-    !rawFlip ||
-    !validModes.has(rawMode as StudyMode) ||
-    !validFlips.has(rawFlip as FlipSetting)
-  ) {
+  if (!rawMode || !validModes.has(rawMode as StudyMode)) {
     redirect("/review");
   }
 
@@ -37,7 +30,6 @@ export default async function ReviewSessionPage({
     <ReviewSessionRenderer
       lessons={lessons}
       mode={rawMode as StudyMode}
-      flip={rawFlip as FlipSetting}
     />
   );
 }

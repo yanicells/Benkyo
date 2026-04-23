@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import type { LessonMeta } from "@/lib/types";
 
 type LessonPreStudyProps = {
@@ -103,9 +105,74 @@ export function LessonPreStudy({ meta }: LessonPreStudyProps) {
           title="Read this first"
           badge={readFirstBadge || undefined}
         >
-          <p className="text-sm leading-relaxed text-on-surface-variant">
-            {meta.notes}
-          </p>
+          <div className="prose-notes space-y-3 text-sm leading-relaxed text-on-surface-variant">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                p: ({ children }) => (
+                  <p className="text-on-surface-variant">{children}</p>
+                ),
+                strong: ({ children }) => (
+                  <strong className="font-semibold text-foreground">
+                    {children}
+                  </strong>
+                ),
+                em: ({ children }) => (
+                  <em className="italic">{children}</em>
+                ),
+                ul: ({ children }) => (
+                  <ul className="list-disc space-y-1 pl-5 marker:text-primary/60">
+                    {children}
+                  </ul>
+                ),
+                ol: ({ children }) => (
+                  <ol className="list-decimal space-y-1 pl-5 marker:text-primary/60">
+                    {children}
+                  </ol>
+                ),
+                li: ({ children }) => (
+                  <li className="text-on-surface-variant">{children}</li>
+                ),
+                h1: ({ children }) => (
+                  <h3 className="mt-2 text-base font-semibold text-foreground">
+                    {children}
+                  </h3>
+                ),
+                h2: ({ children }) => (
+                  <h3 className="mt-2 text-base font-semibold text-foreground">
+                    {children}
+                  </h3>
+                ),
+                h3: ({ children }) => (
+                  <h4 className="mt-2 text-sm font-semibold text-foreground">
+                    {children}
+                  </h4>
+                ),
+                code: ({ children }) => (
+                  <code className="rounded bg-surface-low px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
+                    {children}
+                  </code>
+                ),
+                blockquote: ({ children }) => (
+                  <blockquote className="border-l-2 border-primary/30 pl-3 italic">
+                    {children}
+                  </blockquote>
+                ),
+                a: ({ href, children }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline underline-offset-2"
+                  >
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {meta.notes}
+            </ReactMarkdown>
+          </div>
           {meta.tags && meta.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
               {meta.tags.map((tag) => (

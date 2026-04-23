@@ -14,7 +14,6 @@ import type {
   Card,
   CardFilter,
   CardType,
-  FlipSetting,
   LessonMeta,
   StudyMode,
 } from "@/lib/types";
@@ -31,6 +30,7 @@ type SubDeckStudyClientProps = {
   meta: LessonMeta | null;
   cards: Card[];
   progressCardRefs: { subDeckId: string; cardIndex: number }[];
+  basePath?: "/decks" | "/reviewer";
 };
 
 const modeOptions: {
@@ -48,11 +48,6 @@ const modeOptions: {
     label: "Multiple Choice",
     description: "Pick from randomized options.",
   },
-];
-
-const flipOptions: { value: FlipSetting; label: string }[] = [
-  { value: "jp-to-en", label: "Japanese → English" },
-  { value: "en-to-jp", label: "English → Japanese" },
 ];
 
 const typeLabels: Record<CardType, string> = {
@@ -128,8 +123,6 @@ function SettingsDialog({
   onClose,
   mode,
   setMode,
-  flip,
-  setFlip,
   cardFilter,
   setCardFilter,
   filterCounts,
@@ -142,8 +135,6 @@ function SettingsDialog({
   onClose: () => void;
   mode: StudyMode;
   setMode: (m: StudyMode) => void;
-  flip: FlipSetting;
-  setFlip: (f: FlipSetting) => void;
   cardFilter: CardFilter;
   setCardFilter: (f: CardFilter) => void;
   filterCounts: FilterCounts;
@@ -265,30 +256,6 @@ function SettingsDialog({
             </div>
           </div>
 
-          {/* Direction */}
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3">
-              Direction{" "}
-              <span className="text-on-surface-variant">(Select 1)</span>
-            </p>
-            <div className="grid gap-2 grid-cols-2">
-              {flipOptions.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => setFlip(opt.value)}
-                  className={`flex items-center justify-center gap-2 rounded-xl border-2 p-3 text-sm font-semibold transition-all ${
-                    flip === opt.value
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-primary/20 bg-surface-lowest text-foreground hover:border-primary/40 hover:bg-primary/5"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Card types filter */}
           {cardTypes.length > 1 && (
             <div>
@@ -347,6 +314,7 @@ export function SubDeckStudyClient({
   meta,
   cards,
   progressCardRefs,
+  basePath = "/decks",
 }: SubDeckStudyClientProps) {
   const router = useRouter();
   const dataRevision = useSyncExternalStore(
@@ -356,7 +324,6 @@ export function SubDeckStudyClient({
   );
   const [dialogOpen, setDialogOpen] = useState(false);
   const [mode, setMode] = useState<StudyMode>("flashcard");
-  const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
   const [cardFilter, setCardFilter] = useState<CardFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<Set<CardType>>(
@@ -410,12 +377,11 @@ export function SubDeckStudyClient({
   const handleStart = () => {
     const searchParams = new URLSearchParams({
       mode,
-      flip,
       types: [...selectedTypes].join(","),
       ...(cardFilter !== "all" && { filter: cardFilter }),
     });
     router.push(
-      `/decks/${lessonId}/${subDeckId}/session?${searchParams.toString()}`,
+      `${basePath}/${lessonId}/${subDeckId}/session?${searchParams.toString()}`,
     );
   };
 
@@ -473,7 +439,7 @@ export function SubDeckStudyClient({
       {/* Back button */}
       <div className="sticky top-14 lg:top-16 z-20 -mx-4 sm:-mx-8 mb-6 border-b border-outline-variant/10 bg-surface/95 px-4 py-3 backdrop-blur-md sm:px-8">
         <Link
-          href={backHref ?? `/decks/${lessonId}`}
+          href={backHref ?? `${basePath}/${lessonId}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-primary"
         >
           <svg
@@ -702,8 +668,6 @@ export function SubDeckStudyClient({
         onClose={() => setDialogOpen(false)}
         mode={mode}
         setMode={setMode}
-        flip={flip}
-        setFlip={setFlip}
         cardFilter={cardFilter}
         setCardFilter={setCardFilter}
         filterCounts={filterCounts}

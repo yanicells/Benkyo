@@ -21,15 +21,33 @@ const STUDY_DATA_KEYS = new Set([
   STREAK_KEY,
 ]);
 
-let studyDataRevision = 0;
-const studyDataSubscribers = new Set<() => void>();
-let storageListenerAttached = false;
+// Broadcast study-data changes via window-level state so all subscribers see
+// the same revision counter even if bundler/HMR produces multiple copies of
+// this module across route chunks.
+const STUDY_DATA_EVENT = "benkyou:study-data-changed";
+
+type StudyDataWindow = Window & {
+  __benkyouStudyDataRevision__?: number;
+};
+
+function getSharedRevision(): number {
+  if (typeof window === "undefined") return 0;
+  const w = window as StudyDataWindow;
+  return w.__benkyouStudyDataRevision__ ?? 0;
+}
+
+function bumpSharedRevision(): number {
+  if (typeof window === "undefined") return 0;
+  const w = window as StudyDataWindow;
+  const next = (w.__benkyouStudyDataRevision__ ?? 0) + 1;
+  w.__benkyouStudyDataRevision__ = next;
+  return next;
+}
 
 function notifyStudyDataChanged(): void {
-  studyDataRevision += 1;
-  for (const subscriber of studyDataSubscribers) {
-    subscriber();
-  }
+  if (typeof window === "undefined") return;
+  bumpSharedRevision();
+  window.dispatchEvent(new Event(STUDY_DATA_EVENT));
 }
 
 function onStorageEvent(event: StorageEvent): void {
@@ -38,36 +56,19 @@ function onStorageEvent(event: StorageEvent): void {
   }
 }
 
-function ensureStorageListener(): void {
-  if (typeof window === "undefined" || storageListenerAttached) return;
-  window.addEventListener("storage", onStorageEvent);
-  storageListenerAttached = true;
-}
-
-function cleanupStorageListener(): void {
-  if (
-    typeof window === "undefined" ||
-    !storageListenerAttached ||
-    studyDataSubscribers.size > 0
-  ) {
-    return;
-  }
-  window.removeEventListener("storage", onStorageEvent);
-  storageListenerAttached = false;
-}
-
 export function subscribeToStudyData(onStoreChange: () => void): () => void {
-  studyDataSubscribers.add(onStoreChange);
-  ensureStorageListener();
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener(STUDY_DATA_EVENT, onStoreChange);
+  window.addEventListener("storage", onStorageEvent);
 
   return () => {
-    studyDataSubscribers.delete(onStoreChange);
-    cleanupStorageListener();
+    window.removeEventListener(STUDY_DATA_EVENT, onStoreChange);
+    window.removeEventListener("storage", onStorageEvent);
   };
 }
 
 export function getStudyDataRevision(): number {
-  return studyDataRevision;
+  return getSharedRevision();
 }
 
 // --- Helpers ---

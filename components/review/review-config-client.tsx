@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import type { FlipSetting, Lesson, StudyMode } from "@/lib/types";
+import type { Lesson, StudyMode } from "@/lib/types";
 import { getDueCards } from "@/lib/srs";
 
 type ReviewConfigClientProps = {
@@ -16,9 +16,8 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
     return getDueCards(lessons).length;
   });
   const [mode, setMode] = useState<StudyMode>("flashcard");
-  const [flip, setFlip] = useState<FlipSetting>("jp-to-en");
 
-  const searchParams = new URLSearchParams({ mode, flip });
+  const searchParams = new URLSearchParams({ mode });
 
   return (
     <div className="space-y-6">
@@ -87,46 +86,6 @@ export function ReviewConfigClient({ lessons }: ReviewConfigClientProps) {
                   </span>
                   <span className="text-sm text-on-surface-variant">
                     {opt.desc}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </section>
-
-          <section className="rounded-lg bg-surface-lowest p-5 shadow-[0_12px_32px_rgba(0,36,70,0.06)]">
-            <p className="text-xs uppercase tracking-[0.22em] text-primary">
-              Direction
-            </p>
-            <div className="mt-4 grid gap-3 [@media(min-width:520px)]:grid-cols-2">
-              {(
-                [
-                  {
-                    value: "jp-to-en" as FlipSetting,
-                    label: "Japanese → English",
-                  },
-                  {
-                    value: "en-to-jp" as FlipSetting,
-                    label: "English → Japanese",
-                  },
-                ] as const
-              ).map((opt) => (
-                <label
-                  key={opt.value}
-                  className={`flex cursor-pointer items-center gap-2 rounded-lg border p-4 transition ${
-                    flip === opt.value
-                      ? "border-primary/20 bg-surface-low"
-                      : "border-outline-variant/20 bg-white hover:border-primary/30"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="flip"
-                    checked={flip === opt.value}
-                    onChange={() => setFlip(opt.value)}
-                    className="accent-primary"
-                  />
-                  <span className="font-semibold text-foreground">
-                    {opt.label}
                   </span>
                 </label>
               ))}

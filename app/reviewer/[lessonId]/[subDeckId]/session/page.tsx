@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import lessonsData from "@/data/lessons.json";
+import reviewerData from "@/data/reviewer.json";
 import { DeckSessionRenderer } from "@/components/session/deck-session-renderer";
 import type { CardFilter, CardType, LessonsData, StudyMode } from "@/lib/types";
 
@@ -15,7 +15,7 @@ function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
 }
 
-export default async function DeckSessionPage({
+export default async function ReviewerSessionPage({
   params,
   searchParams,
 }: DeckSessionPageProps) {
@@ -27,14 +27,14 @@ export default async function DeckSessionPage({
   const rawFilter = (firstParam(query.filter) ?? "all") as CardFilter;
 
   if (!rawMode || !validModes.has(rawMode as StudyMode)) {
-    redirect(`/decks/${lessonId}/${subDeckId}`);
+    redirect(`/reviewer/${lessonId}/${subDeckId}`);
   }
 
-  const lessons = (lessonsData as unknown as LessonsData).lessons;
+  const lessons = (reviewerData as unknown as LessonsData).lessons;
   const lesson = lessons.find((item) => item.id === lessonId);
 
   if (!lesson) {
-    redirect("/decks");
+    redirect("/reviewer");
   }
 
   const isStudyAll = subDeckId === "all";
@@ -43,26 +43,23 @@ export default async function DeckSessionPage({
     : lesson.subDecks.find((sd) => sd.id === subDeckId);
 
   if (!isStudyAll && !subDeck) {
-    redirect(`/decks/${lessonId}`);
+    redirect(`/reviewer/${lessonId}`);
   }
 
   let cards = isStudyAll
     ? lesson.subDecks.flatMap((sd) => sd.cards)
     : subDeck!.cards;
 
-  // Apply type filter
   if (rawTypes) {
     const allowedTypes = new Set(rawTypes.split(",") as CardType[]);
     const filtered = cards.filter((c) => allowedTypes.has(c.type));
     if (filtered.length > 0) cards = filtered;
   }
 
-  // Build a subDeckId → cards mapping for MC distractor generation
   const allSubDeckCards = isStudyAll
     ? lesson.subDecks.flatMap((sd) => sd.cards)
     : lesson.subDecks.find((sd) => sd.id === subDeckId)?.cards ?? cards;
 
-  // For SRS, we need to know the sub-deck IDs for each card
   const cardSubDeckIds: string[] = [];
   const cardIndexes: number[] = [];
 
@@ -99,6 +96,7 @@ export default async function DeckSessionPage({
       cardIndexes={cardIndexes}
       allLessonCards={allSubDeckCards}
       cardFilter={rawFilter}
+      basePath="/reviewer"
     />
   );
 }
