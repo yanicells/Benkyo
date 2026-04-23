@@ -627,24 +627,31 @@ export function SubDeckStudyClient({
           </p>
         ) : (
           <div className="space-y-2">
-            {filteredPreviewCards.map((card, i) => (
-              <div
-                key={`${card.front}-${card.back}-${i}`}
-                className="flex items-center gap-2 rounded-lg bg-surface-low px-3 py-2"
-              >
-                <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
-                  {previewTypeLabels[card.type]}
-                </span>
-                <div className="min-w-0">
-                  <p className="font-japanese text-xl font-medium text-foreground">
-                    {card.front}
-                  </p>
-                  <p className="mt-1 text-sm text-on-surface-variant">
-                    {card.back}
-                  </p>
+            {filteredPreviewCards.map((card, i) => {
+              const isKanji = subDeckId.includes("kanji");
+              return (
+                <div
+                  key={`${card.front}-${card.back}-${i}`}
+                  className={`flex gap-2 rounded-lg bg-surface-low px-3 py-2 ${isKanji ? "items-start" : "items-center"}`}
+                >
+                  <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center self-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+                    {previewTypeLabels[card.type]}
+                  </span>
+                  <div className="min-w-0">
+                    <p
+                      className={`font-japanese text-xl font-medium text-foreground ${isKanji ? "whitespace-pre-line" : ""}`}
+                    >
+                      {card.front}
+                    </p>
+                    <p
+                      className={`mt-1 text-sm text-on-surface-variant ${isKanji ? "whitespace-pre-line" : ""}`}
+                    >
+                      {card.back}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

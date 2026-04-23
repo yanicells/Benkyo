@@ -136,12 +136,12 @@ export function DeckResultsClient({
                 </span>
                 <div className="min-w-0">
                   <p
-                    className={`${getResultTextFontClass(card.front)} text-lg font-medium text-foreground`}
+                    className={`${getResultTextFontClass(card.front)} text-lg font-medium text-foreground whitespace-pre-line`}
                   >
                     {card.front}
                   </p>
                   <p
-                    className={`${getResultTextFontClass(card.back)} mt-1 text-sm text-on-surface-variant`}
+                    className={`${getResultTextFontClass(card.back)} mt-1 text-sm text-on-surface-variant whitespace-pre-line`}
                   >
                     {card.back}
                   </p>

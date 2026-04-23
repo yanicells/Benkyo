@@ -441,6 +441,7 @@ export function KanjiDeckGrid({ entries }: KanjiDeckGridProps) {
             cards={searchResults}
             title={`${searchResults.length} result${searchResults.length !== 1 ? "s" : ""}`}
             maxVisible={30}
+            preserveNewlines
           />
         ))}
 

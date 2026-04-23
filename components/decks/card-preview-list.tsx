@@ -16,12 +16,14 @@ type CardPreviewListProps = {
   cards: Card[];
   title?: string;
   maxVisible?: number;
+  preserveNewlines?: boolean;
 };
 
 export function CardPreviewList({
   cards,
   title = "Card preview",
   maxVisible = 20,
+  preserveNewlines = false,
 }: CardPreviewListProps) {
   const [showAll, setShowAll] = useState(false);
   const visibleCards = showAll ? cards : cards.slice(0, maxVisible);
@@ -39,16 +41,20 @@ export function CardPreviewList({
         {visibleCards.map((card, i) => (
           <div
             key={`${card.front}-${card.back}-${i}`}
-            className="flex items-center gap-2 rounded-lg bg-surface-low px-3 py-2"
+            className={`flex gap-2 rounded-lg bg-surface-low px-3 py-2 ${preserveNewlines ? "items-start" : "items-center"}`}
           >
-            <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+            <span className="inline-flex h-6 w-24 shrink-0 items-center justify-center self-center rounded-lg bg-surface-lowest px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
               {previewTypeLabels[card.type]}
             </span>
             <div className="min-w-0">
-              <p className="font-sans text-xl font-medium text-foreground">
+              <p
+                className={`font-sans text-xl font-medium text-foreground ${preserveNewlines ? "whitespace-pre-line" : ""}`}
+              >
                 {card.front}
               </p>
-              <p className="mt-1 text-sm text-on-surface-variant">
+              <p
+                className={`mt-1 text-sm text-on-surface-variant ${preserveNewlines ? "whitespace-pre-line" : ""}`}
+              >
                 {card.back}
               </p>
             </div>

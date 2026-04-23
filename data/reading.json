@@ -21,60 +21,111 @@
               "いってきます = I'm heading out (said when leaving home)",
               "こんにちは = hello / good afternoon"
             ],
-            "tags": ["greetings", "は/です", "daily expressions"],
+            "tags": [
+              "greetings",
+              "は/です",
+              "daily expressions"
+            ],
             "tips": [
               "は is written with the hiragana は but pronounced 'wa' when used as a particle",
               "いってきます literally means 'I will go and come back'"
             ],
-            "sourceLessons": ["greetings", "lesson-1"]
+            "sourceLessons": [
+              "greetings",
+              "lesson-1"
+            ]
           },
           "passages": [
             {
               "passage": "ゲイブは がくせいです。きょうは いいてんきです。",
               "translation": "Gabe is a student. Today is nice weather.",
               "vocabularyHighlights": [
-                { "word": "がくせい", "meaning": "student" },
-                { "word": "きょう", "meaning": "today" },
-                { "word": "てんき", "meaning": "weather" }
+                {
+                  "word": "がくせい",
+                  "meaning": "student"
+                },
+                {
+                  "word": "きょう",
+                  "meaning": "today"
+                },
+                {
+                  "word": "てんき",
+                  "meaning": "weather"
+                }
               ]
             },
             {
-              "passage": "「いってきます！」ゲイブは うちから でます。",
-              "translation": "'I'm heading out!' Gabe leaves from home.",
+              "passage": "**ゲイブ**: いってきます！\nゲイブは うちから でます。",
+              "translation": "**Gabe**: I'm heading out!\nGabe leaves from home.",
               "vocabularyHighlights": [
-                { "word": "いってきます", "meaning": "I'm heading out" },
-                { "word": "うち", "meaning": "home" }
+                {
+                  "word": "いってきます",
+                  "meaning": "I'm heading out"
+                },
+                {
+                  "word": "うち",
+                  "meaning": "home"
+                }
               ]
             },
             {
-              "passage": "「こんにちは！」たなかさんは ゲイブの ともだちです。「こんにちは、たなかさん！」",
-              "translation": "'Hello!' Tanaka is Gabe's friend. 'Hello, Tanaka!'",
+              "passage": "**たなか**: こんにちは！\n**ゲイブ**: こんにちは、たなかさん！\nたなかさんは ゲイブの ともだちです。",
+              "translation": "**Tanaka**: Hello!\n**Gabe**: Hello, Tanaka!\nTanaka is Gabe's friend.",
               "vocabularyHighlights": [
-                { "word": "こんにちは", "meaning": "hello" },
-                { "word": "ともだち", "meaning": "friend" },
-                { "word": "の", "meaning": "possessive particle ('s)" }
+                {
+                  "word": "こんにちは",
+                  "meaning": "hello"
+                },
+                {
+                  "word": "ともだち",
+                  "meaning": "friend"
+                },
+                {
+                  "word": "の",
+                  "meaning": "possessive particle ('s)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "What is Gabe?",
-              "options": ["A teacher", "A student", "A doctor", "A friend"],
+              "options": [
+                "A teacher",
+                "A student",
+                "A doctor",
+                "A friend"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does Gabe say when leaving home?",
-              "options": ["こんにちは", "ただいま", "いってきます", "さようなら"],
+              "options": [
+                "こんにちは",
+                "ただいま",
+                "いってきます",
+                "さようなら"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Who is Tanaka?",
-              "options": ["Gabe's teacher", "Gabe's friend", "Gabe's mother", "Gabe's classmate"],
+              "options": [
+                "Gabe's teacher",
+                "Gabe's friend",
+                "Gabe's mother",
+                "Gabe's classmate"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How is the weather?",
-              "options": ["Rainy", "Cold", "Nice", "Hot"],
+              "options": [
+                "Rainy",
+                "Cold",
+                "Nice",
+                "Hot"
+              ],
               "correctIndex": 2
             }
           ]
@@ -93,57 +144,111 @@
               "ください = please give me",
               "えん = yen (Japanese currency)"
             ],
-            "tags": ["shopping", "Ko-So-A-Do", "numbers"],
-            "sourceLessons": ["lesson-2", "numbers"]
+            "tags": [
+              "shopping",
+              "Ko-So-A-Do",
+              "numbers"
+            ],
+            "sourceLessons": [
+              "lesson-2",
+              "numbers"
+            ]
           },
           "passages": [
             {
-              "passage": "イズクは スーパーに いきます。「いらっしゃいませ！」",
-              "translation": "Izuku goes to the supermarket. 'Welcome!'",
+              "passage": "イズクは スーパーに いきます。\n**てんいん**: いらっしゃいませ！",
+              "translation": "Izuku goes to the supermarket.\n**Staff**: Welcome!",
               "vocabularyHighlights": [
-                { "word": "スーパー", "meaning": "supermarket" },
-                { "word": "いらっしゃいませ", "meaning": "welcome (to a store)" }
+                {
+                  "word": "スーパー",
+                  "meaning": "supermarket"
+                },
+                {
+                  "word": "いらっしゃいませ",
+                  "meaning": "welcome (to a store)"
+                }
               ]
             },
             {
-              "passage": "「すみません、これは いくらですか。」「それは さんびゃくえんです。」",
-              "translation": "'Excuse me, how much is this?' 'That is 300 yen.'",
+              "passage": "**イズク**: すみません、これは いくらですか。\n**てんいん**: それは さんびゃくえんです。",
+              "translation": "**Izuku**: Excuse me, how much is this?\n**Staff**: That is 300 yen.",
               "vocabularyHighlights": [
-                { "word": "これ", "meaning": "this" },
-                { "word": "いくら", "meaning": "how much" },
-                { "word": "それ", "meaning": "that" },
-                { "word": "さんびゃくえん", "meaning": "300 yen" }
+                {
+                  "word": "これ",
+                  "meaning": "this"
+                },
+                {
+                  "word": "いくら",
+                  "meaning": "how much"
+                },
+                {
+                  "word": "それ",
+                  "meaning": "that"
+                },
+                {
+                  "word": "さんびゃくえん",
+                  "meaning": "300 yen"
+                }
               ]
             },
             {
-              "passage": "「じゃあ、これを ください。」「はい、ありがとうございます！」",
-              "translation": "'Well then, this please.' 'Yes, thank you very much!'",
+              "passage": "**イズク**: じゃあ、これを ください。\n**てんいん**: はい、ありがとうございます！",
+              "translation": "**Izuku**: Well then, this please.\n**Staff**: Yes, thank you very much!",
               "vocabularyHighlights": [
-                { "word": "じゃあ", "meaning": "well then" },
-                { "word": "ください", "meaning": "please (give me)" },
-                { "word": "ありがとうございます", "meaning": "thank you (polite)" }
+                {
+                  "word": "じゃあ",
+                  "meaning": "well then"
+                },
+                {
+                  "word": "ください",
+                  "meaning": "please (give me)"
+                },
+                {
+                  "word": "ありがとうございます",
+                  "meaning": "thank you (polite)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "Where does Izuku go?",
-              "options": ["The library", "The supermarket", "The bank", "The school"],
+              "options": [
+                "The library",
+                "The supermarket",
+                "The bank",
+                "The school"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How much is the item?",
-              "options": ["100 yen", "200 yen", "300 yen", "500 yen"],
+              "options": [
+                "100 yen",
+                "200 yen",
+                "300 yen",
+                "500 yen"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does いくら mean?",
-              "options": ["What is this?", "Where is it?", "How much?", "Who are you?"],
+              "options": [
+                "What is this?",
+                "Where is it?",
+                "How much?",
+                "Who are you?"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Does Izuku buy the item?",
-              "options": ["Yes, he says ください", "No, it's too expensive", "No, he leaves", "He asks for a different one"],
+              "options": [
+                "Yes, he says ください",
+                "No, it's too expensive",
+                "No, he leaves",
+                "He asks for a different one"
+              ],
               "correctIndex": 0
             }
           ]
@@ -162,56 +267,107 @@
               "の connects two nouns: だいがくの がくせい = university student",
               "よろしくおねがいします = nice to meet you / please treat me well"
             ],
-            "tags": ["self-introduction", "か particle", "の particle"],
-            "sourceLessons": ["greetings", "lesson-1"]
+            "tags": [
+              "self-introduction",
+              "か particle",
+              "の particle"
+            ],
+            "sourceLessons": [
+              "greetings",
+              "lesson-1"
+            ]
           },
           "passages": [
             {
-              "passage": "「はじめまして。わたしは ゲイブです。アメリカじんです。」",
-              "translation": "'How do you do. I am Gabe. I am American.'",
+              "passage": "**ゲイブ**: はじめまして。わたしは ゲイブです。アメリカじんです。",
+              "translation": "**Gabe**: How do you do. I am Gabe. I am American.",
               "vocabularyHighlights": [
-                { "word": "はじめまして", "meaning": "how do you do" },
-                { "word": "アメリカじん", "meaning": "American person" }
+                {
+                  "word": "はじめまして",
+                  "meaning": "how do you do"
+                },
+                {
+                  "word": "アメリカじん",
+                  "meaning": "American person"
+                }
               ]
             },
             {
-              "passage": "「がくせいですか。」「はい、だいがくの がくせいです。せんこうは れきしです。」",
-              "translation": "'Are you a student?' 'Yes, I am a university student. My major is history.'",
+              "passage": "**ミナ**: がくせいですか。\n**ゲイブ**: はい、だいがくの がくせいです。せんこうは れきしです。",
+              "translation": "**Mina**: Are you a student?\n**Gabe**: Yes, I am a university student. My major is history.",
               "vocabularyHighlights": [
-                { "word": "がくせい", "meaning": "student" },
-                { "word": "だいがく", "meaning": "university" },
-                { "word": "せんこう", "meaning": "major" },
-                { "word": "れきし", "meaning": "history" }
+                {
+                  "word": "がくせい",
+                  "meaning": "student"
+                },
+                {
+                  "word": "だいがく",
+                  "meaning": "university"
+                },
+                {
+                  "word": "せんこう",
+                  "meaning": "major"
+                },
+                {
+                  "word": "れきし",
+                  "meaning": "history"
+                }
               ]
             },
             {
-              "passage": "「わたしは ミナです。にほんじんです。よろしくおねがいします！」「よろしくおねがいします！」",
-              "translation": "'I am Mina. I am Japanese. Nice to meet you!' 'Nice to meet you!'",
+              "passage": "**ミナ**: わたしは ミナです。にほんじんです。よろしくおねがいします！\n**ゲイブ**: よろしくおねがいします！",
+              "translation": "**Mina**: I am Mina. I am Japanese. Nice to meet you!\n**Gabe**: Nice to meet you!",
               "vocabularyHighlights": [
-                { "word": "にほんじん", "meaning": "Japanese person" },
-                { "word": "よろしくおねがいします", "meaning": "nice to meet you" }
+                {
+                  "word": "にほんじん",
+                  "meaning": "Japanese person"
+                },
+                {
+                  "word": "よろしくおねがいします",
+                  "meaning": "nice to meet you"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "Where is Gabe from?",
-              "options": ["Japan", "America", "England", "Korea"],
+              "options": [
+                "Japan",
+                "America",
+                "England",
+                "Korea"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What is Gabe's major?",
-              "options": ["Japanese", "Economics", "History", "Science"],
+              "options": [
+                "Japanese",
+                "Economics",
+                "History",
+                "Science"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What is Mina's nationality?",
-              "options": ["American", "Korean", "Chinese", "Japanese"],
+              "options": [
+                "American",
+                "Korean",
+                "Chinese",
+                "Japanese"
+              ],
               "correctIndex": 3
             },
             {
               "question": "What does か do in がくせいですか?",
-              "options": ["Makes it polite", "Makes it a question", "Makes it negative", "Makes it past tense"],
+              "options": [
+                "Makes it polite",
+                "Makes it a question",
+                "Makes it negative",
+                "Makes it past tense"
+              ],
               "correctIndex": 1
             }
           ]
@@ -230,52 +386,101 @@
               "おはよう(ございます) = good morning",
               "いただきます = said before eating"
             ],
-            "tags": ["time", "daily routine", "expressions"],
-            "sourceLessons": ["lesson-1", "greetings"]
+            "tags": [
+              "time",
+              "daily routine",
+              "expressions"
+            ],
+            "sourceLessons": [
+              "lesson-1",
+              "greetings"
+            ]
           },
           "passages": [
             {
-              "passage": "いま しちじです。「おはようございます！」ゲイブは おきます。",
-              "translation": "It is now 7 o'clock. 'Good morning!' Gabe wakes up.",
+              "passage": "いま しちじです。\n**ゲイブ**: おはようございます！\nゲイブは おきます。",
+              "translation": "It is now 7 o'clock.\n**Gabe**: Good morning!\nGabe wakes up.",
               "vocabularyHighlights": [
-                { "word": "いま", "meaning": "now" },
-                { "word": "しちじ", "meaning": "7 o'clock" },
-                { "word": "おはようございます", "meaning": "good morning (polite)" }
+                {
+                  "word": "いま",
+                  "meaning": "now"
+                },
+                {
+                  "word": "しちじ",
+                  "meaning": "7 o'clock"
+                },
+                {
+                  "word": "おはようございます",
+                  "meaning": "good morning (polite)"
+                }
               ]
             },
             {
-              "passage": "はちじです。「いただきます。」ゲイブは あさごはんを たべます。",
-              "translation": "It is 8 o'clock. 'Thank you for the food.' Gabe eats breakfast.",
+              "passage": "はちじです。\n**ゲイブ**: いただきます。\nゲイブは あさごはんを たべます。",
+              "translation": "It is 8 o'clock.\n**Gabe**: Thank you for the food.\nGabe eats breakfast.",
               "vocabularyHighlights": [
-                { "word": "はちじ", "meaning": "8 o'clock" },
-                { "word": "いただきます", "meaning": "said before eating" },
-                { "word": "あさごはん", "meaning": "breakfast" }
+                {
+                  "word": "はちじ",
+                  "meaning": "8 o'clock"
+                },
+                {
+                  "word": "いただきます",
+                  "meaning": "said before eating"
+                },
+                {
+                  "word": "あさごはん",
+                  "meaning": "breakfast"
+                }
               ]
             },
             {
-              "passage": "くじです。「いってきます！」ゲイブは がっこうに いきます。",
-              "translation": "It is 9 o'clock. 'I'm heading out!' Gabe goes to school.",
+              "passage": "くじです。\n**ゲイブ**: いってきます！\nゲイブは がっこうに いきます。",
+              "translation": "It is 9 o'clock.\n**Gabe**: I'm heading out!\nGabe goes to school.",
               "vocabularyHighlights": [
-                { "word": "くじ", "meaning": "9 o'clock" },
-                { "word": "いってきます", "meaning": "I'm heading out" },
-                { "word": "がっこう", "meaning": "school" }
+                {
+                  "word": "くじ",
+                  "meaning": "9 o'clock"
+                },
+                {
+                  "word": "いってきます",
+                  "meaning": "I'm heading out"
+                },
+                {
+                  "word": "がっこう",
+                  "meaning": "school"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "What time does Gabe wake up?",
-              "options": ["6 o'clock", "7 o'clock", "8 o'clock", "9 o'clock"],
+              "options": [
+                "6 o'clock",
+                "7 o'clock",
+                "8 o'clock",
+                "9 o'clock"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does Gabe say before eating?",
-              "options": ["ごちそうさま", "おはよう", "いただきます", "いってきます"],
+              "options": [
+                "ごちそうさま",
+                "おはよう",
+                "いただきます",
+                "いってきます"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What time does Gabe go to school?",
-              "options": ["7 o'clock", "8 o'clock", "9 o'clock", "10 o'clock"],
+              "options": [
+                "7 o'clock",
+                "8 o'clock",
+                "9 o'clock",
+                "10 o'clock"
+              ],
               "correctIndex": 2
             }
           ]
@@ -294,62 +499,119 @@
               "わたし / ぼく = I (feminine-neutral / masculine casual)",
               "せんこう = major (school)"
             ],
-            "tags": ["dialogue", "self-introduction", "greetings"],
+            "tags": [
+              "dialogue",
+              "self-introduction",
+              "greetings"
+            ],
             "tips": [
               "Notice how each line starts with the speaker's name and a colon — this is the clearest way to follow who is talking.",
               "よろしくおねがいします has no direct English equivalent — it's a set greeting you say right after meeting someone."
             ],
-            "sourceLessons": ["greetings", "lesson-1"]
+            "sourceLessons": [
+              "greetings",
+              "lesson-1"
+            ]
           },
           "passages": [
             {
-              "passage": "ゲイブ: あ、おはようございます！\nミナ: おはようございます！\nゲイブ: いま なんじですか。\nミナ: はちじはんです。",
-              "translation": "Gabe: Oh, good morning!\nMina: Good morning!\nGabe: What time is it now?\nMina: It's 8:30.",
+              "passage": "**ゲイブ**: あ、おはようございます！\n**ミナ**: おはようございます！\n**ゲイブ**: いま なんじですか。\n**ミナ**: はちじはんです。",
+              "translation": "**Gabe**: Oh, good morning!\n**Mina**: Good morning!\n**Gabe**: What time is it now?\n**Mina**: It's 8:30.",
               "vocabularyHighlights": [
-                { "word": "おはようございます", "meaning": "good morning (polite)" },
-                { "word": "なんじ", "meaning": "what time" },
-                { "word": "はちじはん", "meaning": "8:30" }
+                {
+                  "word": "おはようございます",
+                  "meaning": "good morning (polite)"
+                },
+                {
+                  "word": "なんじ",
+                  "meaning": "what time"
+                },
+                {
+                  "word": "はちじはん",
+                  "meaning": "8:30"
+                }
               ]
             },
             {
-              "passage": "ゲイブ: はじめまして。わたしは ゲイブです。アメリカじんです。\nミナ: はじめまして。ミナです。にほんじんです。\nゲイブ: だいがくの がくせいですか。\nミナ: はい、がくせいです。せんこうは にほんごです。ゲイブさんは？\nゲイブ: ぼくの せんこうも にほんごです！",
-              "translation": "Gabe: How do you do. I'm Gabe. I'm American.\nMina: How do you do. I'm Mina. I'm Japanese.\nGabe: Are you a university student?\nMina: Yes, I'm a student. My major is Japanese. And you, Gabe?\nGabe: My major is also Japanese!",
+              "passage": "**ゲイブ**: はじめまして。わたしは ゲイブです。アメリカじんです。\n**ミナ**: はじめまして。ミナです。にほんじんです。\n**ゲイブ**: だいがくの がくせいですか。\n**ミナ**: はい、がくせいです。せんこうは にほんごです。ゲイブさんは？\n**ゲイブ**: ぼくの せんこうも にほんごです！",
+              "translation": "**Gabe**: How do you do. I'm Gabe. I'm American.\n**Mina**: How do you do. I'm Mina. I'm Japanese.\n**Gabe**: Are you a university student?\n**Mina**: Yes, I'm a student. My major is Japanese. And you, Gabe?\n**Gabe**: My major is also Japanese!",
               "vocabularyHighlights": [
-                { "word": "はじめまして", "meaning": "how do you do" },
-                { "word": "だいがく", "meaning": "university" },
-                { "word": "せんこう", "meaning": "major" },
-                { "word": "も", "meaning": "also/too" }
+                {
+                  "word": "はじめまして",
+                  "meaning": "how do you do"
+                },
+                {
+                  "word": "だいがく",
+                  "meaning": "university"
+                },
+                {
+                  "word": "せんこう",
+                  "meaning": "major"
+                },
+                {
+                  "word": "も",
+                  "meaning": "also/too"
+                }
               ]
             },
             {
-              "passage": "ミナ: すごい！よろしくおねがいします。\nゲイブ: よろしくおねがいします！\nミナ: じゃあ、また あした。\nゲイブ: また あした！",
-              "translation": "Mina: Cool! Nice to meet you.\nGabe: Nice to meet you!\nMina: Well then, see you tomorrow.\nGabe: See you tomorrow!",
+              "passage": "**ミナ**: すごい！よろしくおねがいします。\n**ゲイブ**: よろしくおねがいします！\n**ミナ**: じゃあ、また あした。\n**ゲイブ**: また あした！",
+              "translation": "**Mina**: Cool! Nice to meet you.\n**Gabe**: Nice to meet you!\n**Mina**: Well then, see you tomorrow.\n**Gabe**: See you tomorrow!",
               "vocabularyHighlights": [
-                { "word": "すごい", "meaning": "cool/amazing" },
-                { "word": "よろしくおねがいします", "meaning": "nice to meet you" },
-                { "word": "また あした", "meaning": "see you tomorrow" }
+                {
+                  "word": "すごい",
+                  "meaning": "cool/amazing"
+                },
+                {
+                  "word": "よろしくおねがいします",
+                  "meaning": "nice to meet you"
+                },
+                {
+                  "word": "また あした",
+                  "meaning": "see you tomorrow"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "What time is it in the conversation?",
-              "options": ["7:30", "8:00", "8:30", "9:00"],
+              "options": [
+                "7:30",
+                "8:00",
+                "8:30",
+                "9:00"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What is Mina's major?",
-              "options": ["History", "English", "Japanese", "Economics"],
+              "options": [
+                "History",
+                "English",
+                "Japanese",
+                "Economics"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does も indicate in ぼくの せんこうも にほんごです?",
-              "options": ["Only", "Also", "But", "Not"],
+              "options": [
+                "Only",
+                "Also",
+                "But",
+                "Not"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How do they part?",
-              "options": ["さようなら", "おやすみ", "また あした", "いってきます"],
+              "options": [
+                "さようなら",
+                "おやすみ",
+                "また あした",
+                "いってきます"
+              ],
               "correctIndex": 2
             }
           ]
@@ -368,68 +630,134 @@
               "も = also/too (replaces は)",
               "ちがいます = that's wrong / it's different"
             ],
-            "tags": ["dialogue", "possessive の", "だれの", "classroom"],
+            "tags": [
+              "dialogue",
+              "possessive の",
+              "だれの",
+              "classroom"
+            ],
             "tips": [
               "ちがいます is a polite way to correct — softer than 'no' (いいえ)",
               "When asking 'whose is this?', Japanese flips to: これは だれの X ですか?"
             ],
-            "sourceLessons": ["lesson-1", "lesson-2"]
+            "sourceLessons": [
+              "lesson-1",
+              "lesson-2"
+            ]
           },
           "passages": [
             {
-              "passage": "せんせい: みなさん、これは だれの かさですか。\nゲイブ: ぼくの じゃないです。\nミナ: わたしの でも ないです。\nせんせい: たけしさん、たけしさんの かさですか。",
-              "translation": "Teacher: Everyone, whose umbrella is this?\nGabe: It's not mine.\nMina: It's not mine either.\nTeacher: Takeshi, is it your umbrella?",
+              "passage": "**せんせい**: みなさん、これは だれの かさですか。\n**ゲイブ**: ぼくの じゃないです。\n**ミナ**: わたしの でも ないです。\n**せんせい**: たけしさん、たけしさんの かさですか。",
+              "translation": "**Teacher**: Everyone, whose umbrella is this?\n**Gabe**: It's not mine.\n**Mina**: It's not mine either.\n**Teacher**: Takeshi, is it your umbrella?",
               "vocabularyHighlights": [
-                { "word": "みなさん", "meaning": "everyone" },
-                { "word": "だれの", "meaning": "whose" },
-                { "word": "かさ", "meaning": "umbrella" },
-                { "word": "ぼく", "meaning": "I (masculine casual)" }
+                {
+                  "word": "みなさん",
+                  "meaning": "everyone"
+                },
+                {
+                  "word": "だれの",
+                  "meaning": "whose"
+                },
+                {
+                  "word": "かさ",
+                  "meaning": "umbrella"
+                },
+                {
+                  "word": "ぼく",
+                  "meaning": "I (masculine casual)"
+                }
               ]
             },
             {
-              "passage": "たけし: ちがいます。ぼくの かさは くろいです。これは あかいです。\nせんせい: そうですか。あかい かさ...\nミナ: あ！ユキさんの かさかも しれません。\nゲイブ: ユキさんは どこですか。",
-              "translation": "Takeshi: It's not. My umbrella is black. This one is red.\nTeacher: I see. A red umbrella...\nMina: Ah! It might be Yuki's umbrella.\nGabe: Where is Yuki?",
+              "passage": "**たけし**: ちがいます。ぼくの かさは くろいです。これは あかいです。\n**せんせい**: そうですか。あかい かさ...\n**ミナ**: あ！ユキさんの かさかも しれません。\n**ゲイブ**: ユキさんは どこですか。",
+              "translation": "**Takeshi**: It's not. My umbrella is black. This one is red.\n**Teacher**: I see. A red umbrella...\n**Mina**: Ah! It might be Yuki's umbrella.\n**Gabe**: Where is Yuki?",
               "vocabularyHighlights": [
-                { "word": "ちがいます", "meaning": "that's not right / different" },
-                { "word": "くろい", "meaning": "black (い-adj)" },
-                { "word": "あかい", "meaning": "red (い-adj)" },
-                { "word": "かも しれません", "meaning": "might be / perhaps" }
+                {
+                  "word": "ちがいます",
+                  "meaning": "that's not right / different"
+                },
+                {
+                  "word": "くろい",
+                  "meaning": "black (い-adj)"
+                },
+                {
+                  "word": "あかい",
+                  "meaning": "red (い-adj)"
+                },
+                {
+                  "word": "かも しれません",
+                  "meaning": "might be / perhaps"
+                }
               ]
             },
             {
-              "passage": "ミナ: ユキさんは としょかんです。\nせんせい: じゃあ、あとで わたします。ありがとう、みなさん。\nゲイブ: はい、せんせい。\nたけし: また あした！",
-              "translation": "Mina: Yuki is in the library.\nTeacher: Well then, I'll hand it over later. Thank you, everyone.\nGabe: Yes, sensei.\nTakeshi: See you tomorrow!",
+              "passage": "**ミナ**: ユキさんは としょかんです。\n**せんせい**: じゃあ、あとで わたします。ありがとう、みなさん。\n**ゲイブ**: はい、せんせい。\n**たけし**: また あした！",
+              "translation": "**Mina**: Yuki is in the library.\n**Teacher**: Well then, I'll hand it over later. Thank you, everyone.\n**Gabe**: Yes, sensei.\n**Takeshi**: See you tomorrow!",
               "vocabularyHighlights": [
-                { "word": "としょかん", "meaning": "library" },
-                { "word": "あとで", "meaning": "later" },
-                { "word": "わたします", "meaning": "will hand over" }
+                {
+                  "word": "としょかん",
+                  "meaning": "library"
+                },
+                {
+                  "word": "あとで",
+                  "meaning": "later"
+                },
+                {
+                  "word": "わたします",
+                  "meaning": "will hand over"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "What color is the found umbrella?",
-              "options": ["Black", "Blue", "Red", "White"],
+              "options": [
+                "Black",
+                "Blue",
+                "Red",
+                "White"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What color is Takeshi's umbrella?",
-              "options": ["Black", "Red", "Yellow", "Green"],
+              "options": [
+                "Black",
+                "Red",
+                "Yellow",
+                "Green"
+              ],
               "correctIndex": 0
             },
             {
               "question": "Whose umbrella might it be?",
-              "options": ["Gabe's", "Mina's", "Yuki's", "The teacher's"],
+              "options": [
+                "Gabe's",
+                "Mina's",
+                "Yuki's",
+                "The teacher's"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Where is Yuki?",
-              "options": ["Home", "The cafe", "The library", "Class"],
+              "options": [
+                "Home",
+                "The cafe",
+                "The library",
+                "Class"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does ちがいます mean?",
-              "options": ["It's the same", "That's not right", "I don't know", "Thank you"],
+              "options": [
+                "It's the same",
+                "That's not right",
+                "I don't know",
+                "Thank you"
+              ],
               "correctIndex": 1
             }
           ]
@@ -448,59 +776,118 @@
               "どこ = where?",
               "コンビニ = convenience store"
             ],
-            "tags": ["locations", "も particle", "Ko-So-A-Do"],
-            "sourceLessons": ["lesson-2"]
+            "tags": [
+              "locations",
+              "も particle",
+              "Ko-So-A-Do"
+            ],
+            "sourceLessons": [
+              "lesson-2"
+            ]
           },
           "passages": [
             {
-              "passage": "「トイレは どこですか。」「コンビニは ここです。トイレは そこです。」",
-              "translation": "'Where is the restroom?' 'The convenience store is here. The restroom is there.'",
+              "passage": "**ゲイブ**: トイレは どこですか。\n**てんいん**: コンビニは ここです。トイレは そこです。",
+              "translation": "**Gabe**: Where is the restroom?\n**Staff**: The convenience store is here. The restroom is there.",
               "vocabularyHighlights": [
-                { "word": "トイレ", "meaning": "restroom" },
-                { "word": "どこ", "meaning": "where" },
-                { "word": "コンビニ", "meaning": "convenience store" },
-                { "word": "ここ", "meaning": "here" },
-                { "word": "そこ", "meaning": "there" }
+                {
+                  "word": "トイレ",
+                  "meaning": "restroom"
+                },
+                {
+                  "word": "どこ",
+                  "meaning": "where"
+                },
+                {
+                  "word": "コンビニ",
+                  "meaning": "convenience store"
+                },
+                {
+                  "word": "ここ",
+                  "meaning": "here"
+                },
+                {
+                  "word": "そこ",
+                  "meaning": "there"
+                }
               ]
             },
             {
               "passage": "ゲイブは おちゃを かいます。ミナも おちゃを かいます。",
               "translation": "Gabe buys green tea. Mina also buys green tea.",
               "vocabularyHighlights": [
-                { "word": "おちゃ", "meaning": "green tea" },
-                { "word": "かいます", "meaning": "buys" },
-                { "word": "も", "meaning": "also/too" }
+                {
+                  "word": "おちゃ",
+                  "meaning": "green tea"
+                },
+                {
+                  "word": "かいます",
+                  "meaning": "buys"
+                },
+                {
+                  "word": "も",
+                  "meaning": "also/too"
+                }
               ]
             },
             {
-              "passage": "「おちゃは いいですね！」「いいですよ！」",
-              "translation": "'Green tea is great, isn't it!' 'It sure is!'",
+              "passage": "**ゲイブ**: おちゃは いいですね！\n**ミナ**: いいですよ！",
+              "translation": "**Gabe**: Green tea is great, isn't it!\n**Mina**: It sure is!",
               "vocabularyHighlights": [
-                { "word": "いい", "meaning": "good/great" },
-                { "word": "ね", "meaning": "isn't it? (seeking agreement)" },
-                { "word": "よ", "meaning": "you know (asserting)" }
+                {
+                  "word": "いい",
+                  "meaning": "good/great"
+                },
+                {
+                  "word": "ね",
+                  "meaning": "isn't it? (seeking agreement)"
+                },
+                {
+                  "word": "よ",
+                  "meaning": "you know (asserting)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "Where is the restroom?",
-              "options": ["Here (ここ)", "There (そこ)", "Over there (あそこ)", "At the school"],
+              "options": [
+                "Here (ここ)",
+                "There (そこ)",
+                "Over there (あそこ)",
+                "At the school"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does Gabe buy?",
-              "options": ["Coffee", "Water", "Green tea", "Juice"],
+              "options": [
+                "Coffee",
+                "Water",
+                "Green tea",
+                "Juice"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does も mean in ミナも おちゃを かいます?",
-              "options": ["But", "And", "Also", "Only"],
+              "options": [
+                "But",
+                "And",
+                "Also",
+                "Only"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does ね express at the end of a sentence?",
-              "options": ["Surprise", "Agreement seeking", "Anger", "Past tense"],
+              "options": [
+                "Surprise",
+                "Agreement seeking",
+                "Anger",
+                "Past tense"
+              ],
               "correctIndex": 1
             }
           ]
@@ -527,66 +914,125 @@
               "で marks location of action: カフェで たべます = I eat at the cafe",
               "なにを のみますか = What will you drink?"
             ],
-            "tags": ["masu-form", "food/drink", "を particle", "で particle"],
+            "tags": [
+              "masu-form",
+              "food/drink",
+              "を particle",
+              "で particle"
+            ],
             "tips": [
               "を is written with the hiragana を but pronounced 'o'",
               "で marks where an action happens, different from に which marks where something exists"
             ],
-            "sourceLessons": ["lesson-3"]
+            "sourceLessons": [
+              "lesson-3"
+            ]
           },
           "passages": [
             {
-              "passage": "ゲイブと たけしさんは カフェに いきます。「なにを のみますか。」「コーヒーを のみます。」",
-              "translation": "Gabe and Takeshi go to a cafe. 'What will you drink?' 'I'll drink coffee.'",
+              "passage": "ゲイブと たけしさんは カフェに いきます。\n**たけし**: なにを のみますか。\n**ゲイブ**: コーヒーを のみます。",
+              "translation": "Gabe and Takeshi go to a cafe.\n**Takeshi**: What will you drink?\n**Gabe**: I'll drink coffee.",
               "vocabularyHighlights": [
-                { "word": "カフェ", "meaning": "cafe" },
-                { "word": "のみます", "meaning": "to drink (polite)" },
-                { "word": "コーヒー", "meaning": "coffee" }
+                {
+                  "word": "カフェ",
+                  "meaning": "cafe"
+                },
+                {
+                  "word": "のみます",
+                  "meaning": "to drink (polite)"
+                },
+                {
+                  "word": "コーヒー",
+                  "meaning": "coffee"
+                }
               ]
             },
             {
               "passage": "ゲイブは サンドイッチを たべます。たけしさんは ケーキを たべます。",
               "translation": "Gabe eats a sandwich. Takeshi eats cake.",
               "vocabularyHighlights": [
-                { "word": "たべます", "meaning": "to eat (polite)" },
-                { "word": "サンドイッチ", "meaning": "sandwich" },
-                { "word": "ケーキ", "meaning": "cake" }
+                {
+                  "word": "たべます",
+                  "meaning": "to eat (polite)"
+                },
+                {
+                  "word": "サンドイッチ",
+                  "meaning": "sandwich"
+                },
+                {
+                  "word": "ケーキ",
+                  "meaning": "cake"
+                }
               ]
             },
             {
-              "passage": "「おちゃも のみますか。」「いいえ、おちゃは のみません。みずを ください。」",
-              "translation": "'Will you also drink tea?' 'No, I won't drink tea. Water, please.'",
+              "passage": "**たけし**: おちゃも のみますか。\n**ゲイブ**: いいえ、おちゃは のみません。みずを ください。",
+              "translation": "**Takeshi**: Will you also drink tea?\n**Gabe**: No, I won't drink tea. Water, please.",
               "vocabularyHighlights": [
-                { "word": "おちゃ", "meaning": "green tea" },
-                { "word": "のみません", "meaning": "won't drink (negative)" },
-                { "word": "みず", "meaning": "water" }
+                {
+                  "word": "おちゃ",
+                  "meaning": "green tea"
+                },
+                {
+                  "word": "のみません",
+                  "meaning": "won't drink (negative)"
+                },
+                {
+                  "word": "みず",
+                  "meaning": "water"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "Where do Gabe and Takeshi go?",
-              "options": ["A restaurant", "A cafe", "A convenience store", "A park"],
+              "options": [
+                "A restaurant",
+                "A cafe",
+                "A convenience store",
+                "A park"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does Takeshi drink?",
-              "options": ["Tea", "Water", "Coffee", "Juice"],
+              "options": [
+                "Tea",
+                "Water",
+                "Coffee",
+                "Juice"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does Gabe eat?",
-              "options": ["Cake", "Rice", "A sandwich", "Fish"],
+              "options": [
+                "Cake",
+                "Rice",
+                "A sandwich",
+                "Fish"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Does Takeshi drink tea?",
-              "options": ["Yes, he loves tea", "No, he drinks water instead", "Yes, with cake", "The story doesn't say"],
+              "options": [
+                "Yes, he loves tea",
+                "No, he drinks water instead",
+                "Yes, with cake",
+                "The story doesn't say"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does のみません mean?",
-              "options": ["Will drink", "Is drinking", "Won't drink", "Drank"],
+              "options": [
+                "Will drink",
+                "Is drinking",
+                "Won't drink",
+                "Drank"
+              ],
               "correctIndex": 2
             }
           ]
@@ -605,65 +1051,132 @@
               "しゅうまつ = weekend, どようび = Saturday",
               "に marks specific time: どようびに = on Saturday"
             ],
-            "tags": ["invitations", "time expressions", "ませんか"],
-            "sourceLessons": ["lesson-3"]
+            "tags": [
+              "invitations",
+              "time expressions",
+              "ませんか"
+            ],
+            "sourceLessons": [
+              "lesson-3"
+            ]
           },
           "passages": [
             {
-              "passage": "「しゅうまつに なにを しますか。」「どようびに えいがを みます。」",
-              "translation": "'What will you do on the weekend?' 'I will watch a movie on Saturday.'",
+              "passage": "**ゲイブ**: しゅうまつに なにを しますか。\n**ミナ**: どようびに えいがを みます。",
+              "translation": "**Gabe**: What will you do on the weekend?\n**Mina**: I will watch a movie on Saturday.",
               "vocabularyHighlights": [
-                { "word": "しゅうまつ", "meaning": "weekend" },
-                { "word": "どようび", "meaning": "Saturday" },
-                { "word": "えいが", "meaning": "movie" },
-                { "word": "みます", "meaning": "will watch (polite)" }
+                {
+                  "word": "しゅうまつ",
+                  "meaning": "weekend"
+                },
+                {
+                  "word": "どようび",
+                  "meaning": "Saturday"
+                },
+                {
+                  "word": "えいが",
+                  "meaning": "movie"
+                },
+                {
+                  "word": "みます",
+                  "meaning": "will watch (polite)"
+                }
               ]
             },
             {
-              "passage": "「いっしょに いきませんか。」「いいですね！なんじに いきますか。」「にじに いきましょう。」",
-              "translation": "'Won't you go together?' 'That sounds good! What time shall we go?' 'Let's go at 2 o'clock.'",
+              "passage": "**ゲイブ**: いっしょに いきませんか。\n**ミナ**: いいですね！なんじに いきますか。\n**ゲイブ**: にじに いきましょう。",
+              "translation": "**Gabe**: Won't you go together?\n**Mina**: That sounds good! What time shall we go?\n**Gabe**: Let's go at 2 o'clock.",
               "vocabularyHighlights": [
-                { "word": "いっしょに", "meaning": "together" },
-                { "word": "いきませんか", "meaning": "won't you go? (invitation)" },
-                { "word": "なんじ", "meaning": "what time" },
-                { "word": "いきましょう", "meaning": "let's go" }
+                {
+                  "word": "いっしょに",
+                  "meaning": "together"
+                },
+                {
+                  "word": "いきませんか",
+                  "meaning": "won't you go? (invitation)"
+                },
+                {
+                  "word": "なんじ",
+                  "meaning": "what time"
+                },
+                {
+                  "word": "いきましょう",
+                  "meaning": "let's go"
+                }
               ]
             },
             {
-              "passage": "「えいがの あとで、ばんごはんを たべませんか。」「はい、たべましょう！」",
-              "translation": "'After the movie, won't you eat dinner?' 'Yes, let's eat!'",
+              "passage": "**ゲイブ**: えいがの あとで、ばんごはんを たべませんか。\n**ミナ**: はい、たべましょう！",
+              "translation": "**Gabe**: After the movie, won't you eat dinner?\n**Mina**: Yes, let's eat!",
               "vocabularyHighlights": [
-                { "word": "あとで", "meaning": "after" },
-                { "word": "ばんごはん", "meaning": "dinner" },
-                { "word": "たべませんか", "meaning": "won't you eat? (invitation)" },
-                { "word": "たべましょう", "meaning": "let's eat" }
+                {
+                  "word": "あとで",
+                  "meaning": "after"
+                },
+                {
+                  "word": "ばんごはん",
+                  "meaning": "dinner"
+                },
+                {
+                  "word": "たべませんか",
+                  "meaning": "won't you eat? (invitation)"
+                },
+                {
+                  "word": "たべましょう",
+                  "meaning": "let's eat"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "What will they do on Saturday?",
-              "options": ["Go shopping", "Watch a movie", "Study", "Play sports"],
+              "options": [
+                "Go shopping",
+                "Watch a movie",
+                "Study",
+                "Play sports"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What time will they go?",
-              "options": ["1 o'clock", "2 o'clock", "3 o'clock", "4 o'clock"],
+              "options": [
+                "1 o'clock",
+                "2 o'clock",
+                "3 o'clock",
+                "4 o'clock"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does ～ませんか express?",
-              "options": ["A command", "An invitation", "A refusal", "A question about the past"],
+              "options": [
+                "A command",
+                "An invitation",
+                "A refusal",
+                "A question about the past"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What will they do after the movie?",
-              "options": ["Go home", "Watch another movie", "Eat dinner", "Go to a cafe"],
+              "options": [
+                "Go home",
+                "Watch another movie",
+                "Eat dinner",
+                "Go to a cafe"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does いきましょう mean?",
-              "options": ["I will go", "Let's go", "Did you go?", "Don't go"],
+              "options": [
+                "I will go",
+                "Let's go",
+                "Did you go?",
+                "Don't go"
+              ],
               "correctIndex": 1
             }
           ]
@@ -682,68 +1195,132 @@
               "みぎ = right, ひだり = left, まえ = front, うしろ = behind",
               "Place に Thing が あります = Thing exists at Place"
             ],
-            "tags": ["location words", "あります/います", "directions"],
+            "tags": [
+              "location words",
+              "あります/います",
+              "directions"
+            ],
             "tips": [
               "あります is for objects/buildings, います is for people/animals",
               "Remember: に marks the location where something exists"
             ],
-            "sourceLessons": ["lesson-4"]
+            "sourceLessons": [
+              "lesson-4"
+            ]
           },
           "passages": [
             {
-              "passage": "「すみません、としょかんは どこですか。」「としょかんは ぎんこうの うしろに あります。」",
-              "translation": "'Excuse me, where is the library?' 'The library is behind the bank.'",
+              "passage": "**ゲイブ**: すみません、としょかんは どこですか。\n**じょせい**: としょかんは ぎんこうの うしろに あります。",
+              "translation": "**Gabe**: Excuse me, where is the library?\n**Woman**: The library is behind the bank.",
               "vocabularyHighlights": [
-                { "word": "としょかん", "meaning": "library" },
-                { "word": "ぎんこう", "meaning": "bank" },
-                { "word": "うしろ", "meaning": "behind" },
-                { "word": "あります", "meaning": "exists (non-living)" }
+                {
+                  "word": "としょかん",
+                  "meaning": "library"
+                },
+                {
+                  "word": "ぎんこう",
+                  "meaning": "bank"
+                },
+                {
+                  "word": "うしろ",
+                  "meaning": "behind"
+                },
+                {
+                  "word": "あります",
+                  "meaning": "exists (non-living)"
+                }
               ]
             },
             {
-              "passage": "「ゆうびんきょくの みぎですか。」「いいえ、ゆうびんきょくの ひだりです。」",
-              "translation": "'Is it to the right of the post office?' 'No, it is to the left of the post office.'",
+              "passage": "**ゲイブ**: ゆうびんきょくの みぎですか。\n**じょせい**: いいえ、ゆうびんきょくの ひだりです。",
+              "translation": "**Gabe**: Is it to the right of the post office?\n**Woman**: No, it is to the left of the post office.",
               "vocabularyHighlights": [
-                { "word": "ゆうびんきょく", "meaning": "post office" },
-                { "word": "みぎ", "meaning": "right" },
-                { "word": "ひだり", "meaning": "left" }
+                {
+                  "word": "ゆうびんきょく",
+                  "meaning": "post office"
+                },
+                {
+                  "word": "みぎ",
+                  "meaning": "right"
+                },
+                {
+                  "word": "ひだり",
+                  "meaning": "left"
+                }
               ]
             },
             {
-              "passage": "「ああ、あそこですね。としょかんの まえに ねこが いますよ！」「かわいいですね！」",
-              "translation": "'Ah, over there, right? There's a cat in front of the library!' 'How cute!'",
+              "passage": "**ゲイブ**: ああ、あそこですね。としょかんの まえに ねこが いますよ！\n**じょせい**: かわいいですね！",
+              "translation": "**Gabe**: Ah, over there, right? There's a cat in front of the library!\n**Woman**: How cute!",
               "vocabularyHighlights": [
-                { "word": "あそこ", "meaning": "over there" },
-                { "word": "まえ", "meaning": "in front of" },
-                { "word": "ねこ", "meaning": "cat" },
-                { "word": "います", "meaning": "exists (living)" }
+                {
+                  "word": "あそこ",
+                  "meaning": "over there"
+                },
+                {
+                  "word": "まえ",
+                  "meaning": "in front of"
+                },
+                {
+                  "word": "ねこ",
+                  "meaning": "cat"
+                },
+                {
+                  "word": "います",
+                  "meaning": "exists (living)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "Where is the library?",
-              "options": ["In front of the bank", "Behind the bank", "Next to the post office", "Inside the bank"],
+              "options": [
+                "In front of the bank",
+                "Behind the bank",
+                "Next to the post office",
+                "Inside the bank"
+              ],
               "correctIndex": 1
             },
             {
               "question": "Is the library to the right or left of the post office?",
-              "options": ["Right", "Left", "In front", "Behind"],
+              "options": [
+                "Right",
+                "Left",
+                "In front",
+                "Behind"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What is in front of the library?",
-              "options": ["A dog", "A person", "A cat", "A bicycle"],
+              "options": [
+                "A dog",
+                "A person",
+                "A cat",
+                "A bicycle"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Why do we use います instead of あります for the cat?",
-              "options": ["Because it's small", "Because it's a living thing", "Because it's outside", "Because it's cute"],
+              "options": [
+                "Because it's small",
+                "Because it's a living thing",
+                "Because it's outside",
+                "Because it's cute"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does うしろ mean?",
-              "options": ["In front of", "Next to", "Behind", "Above"],
+              "options": [
+                "In front of",
+                "Next to",
+                "Behind",
+                "Above"
+              ],
               "correctIndex": 2
             }
           ]
@@ -762,66 +1339,127 @@
               "Negative い-adj: おもしろい → おもしろくない",
               "Negative な-adj: しずかな → しずかじゃない"
             ],
-            "tags": ["い-adjectives", "な-adjectives", "descriptions"],
-            "sourceLessons": ["lesson-4", "lesson-5"]
+            "tags": [
+              "い-adjectives",
+              "な-adjectives",
+              "descriptions"
+            ],
+            "sourceLessons": [
+              "lesson-4",
+              "lesson-5"
+            ]
           },
           "passages": [
             {
               "passage": "どようびに ゲイブと ミナは えいがを みます。えいがかんは おおきいです。",
               "translation": "On Saturday, Gabe and Mina watch a movie. The movie theater is big.",
               "vocabularyHighlights": [
-                { "word": "えいが", "meaning": "movie" },
-                { "word": "おおきい", "meaning": "big (い-adjective)" }
+                {
+                  "word": "えいが",
+                  "meaning": "movie"
+                },
+                {
+                  "word": "おおきい",
+                  "meaning": "big (い-adjective)"
+                }
               ]
             },
             {
               "passage": "えいがは とても おもしろいです。でも、ちょっと ながいです。",
               "translation": "The movie is very interesting. But, it is a little long.",
               "vocabularyHighlights": [
-                { "word": "おもしろい", "meaning": "interesting (い-adjective)" },
-                { "word": "ながい", "meaning": "long (い-adjective)" },
-                { "word": "ちょっと", "meaning": "a little" }
+                {
+                  "word": "おもしろい",
+                  "meaning": "interesting (い-adjective)"
+                },
+                {
+                  "word": "ながい",
+                  "meaning": "long (い-adjective)"
+                },
+                {
+                  "word": "ちょっと",
+                  "meaning": "a little"
+                }
               ]
             },
             {
-              "passage": "「たのしかったですね！」「はい、とても たのしかったです！えいがかんは しずかで きれいでした。」",
-              "translation": "'It was fun, wasn't it!' 'Yes, it was very fun! The theater was quiet and beautiful.'",
+              "passage": "**ゲイブ**: たのしかったですね！\n**ミナ**: はい、とても たのしかったです！えいがかんは しずかで きれいでした。",
+              "translation": "**Gabe**: It was fun, wasn't it!\n**Mina**: Yes, it was very fun! The theater was quiet and beautiful.",
               "vocabularyHighlights": [
-                { "word": "たのしかった", "meaning": "was fun (past い-adj)" },
-                { "word": "しずか", "meaning": "quiet (な-adjective)" },
-                { "word": "きれい", "meaning": "beautiful (な-adjective)" }
+                {
+                  "word": "たのしかった",
+                  "meaning": "was fun (past い-adj)"
+                },
+                {
+                  "word": "しずか",
+                  "meaning": "quiet (な-adjective)"
+                },
+                {
+                  "word": "きれい",
+                  "meaning": "beautiful (な-adjective)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "When do Gabe and Mina watch the movie?",
-              "options": ["Sunday", "Friday", "Saturday", "Monday"],
+              "options": [
+                "Sunday",
+                "Friday",
+                "Saturday",
+                "Monday"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How is the movie theater described?",
-              "options": ["Small", "Big", "Old", "New"],
+              "options": [
+                "Small",
+                "Big",
+                "Old",
+                "New"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How is the movie?",
-              "options": ["Boring", "Scary", "Interesting", "Sad"],
+              "options": [
+                "Boring",
+                "Scary",
+                "Interesting",
+                "Sad"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What is the past tense of たのしい?",
-              "options": ["たのしくない", "たのしかった", "たのしいです", "たのしみ"],
+              "options": [
+                "たのしくない",
+                "たのしかった",
+                "たのしいです",
+                "たのしみ"
+              ],
               "correctIndex": 1
             },
             {
               "question": "Which is a な-adjective?",
-              "options": ["おおきい", "ながい", "おもしろい", "しずか"],
+              "options": [
+                "おおきい",
+                "ながい",
+                "おもしろい",
+                "しずか"
+              ],
               "correctIndex": 3
             },
             {
               "question": "How was the theater?",
-              "options": ["Noisy and dirty", "Quiet and beautiful", "Big and old", "Small and new"],
+              "options": [
+                "Noisy and dirty",
+                "Quiet and beautiful",
+                "Big and old",
+                "Small and new"
+              ],
               "correctIndex": 1
             }
           ]
@@ -840,84 +1478,171 @@
               "と lists nouns: ラーメンと ぎょうざ = ramen and gyoza",
               "～つ general counter: ひとつ, ふたつ, みっつ..."
             ],
-            "tags": ["dialogue", "restaurant", "ordering", "ください"],
+            "tags": [
+              "dialogue",
+              "restaurant",
+              "ordering",
+              "ください"
+            ],
             "tips": [
               "Staff will say いらっしゃいませ (welcome) — you don't reply to it; just nod.",
               "When ordering, stating the number BEFORE ください is natural: ビールを ふたつ ください."
             ],
-            "sourceLessons": ["lesson-2", "lesson-3", "numbers"]
+            "sourceLessons": [
+              "lesson-2",
+              "lesson-3",
+              "numbers"
+            ]
           },
           "passages": [
             {
-              "passage": "てんいん: いらっしゃいませ！なんめいさまですか。\nゲイブ: さんにんです。\nてんいん: こちらへ どうぞ。\nミナ: メニューを ください。\nてんいん: はい、どうぞ。",
-              "translation": "Staff: Welcome! How many people?\nGabe: Three people.\nStaff: This way please.\nMina: The menu, please.\nStaff: Here you go.",
+              "passage": "**てんいん**: いらっしゃいませ！なんめいさまですか。\n**ゲイブ**: さんにんです。\n**てんいん**: こちらへ どうぞ。\n**ミナ**: メニューを ください。\n**てんいん**: はい、どうぞ。",
+              "translation": "**Staff**: Welcome! How many people?\n**Gabe**: Three people.\n**Staff**: This way please.\n**Mina**: The menu, please.\n**Staff**: Here you go.",
               "vocabularyHighlights": [
-                { "word": "いらっしゃいませ", "meaning": "welcome (to a shop)" },
-                { "word": "なんめいさま", "meaning": "how many people (polite)" },
-                { "word": "さんにん", "meaning": "three people" },
-                { "word": "メニュー", "meaning": "menu" }
+                {
+                  "word": "いらっしゃいませ",
+                  "meaning": "welcome (to a shop)"
+                },
+                {
+                  "word": "なんめいさま",
+                  "meaning": "how many people (polite)"
+                },
+                {
+                  "word": "さんにん",
+                  "meaning": "three people"
+                },
+                {
+                  "word": "メニュー",
+                  "meaning": "menu"
+                }
               ]
             },
             {
-              "passage": "ゲイブ: ぼくは しょうゆラーメンに します。\nミナ: わたしは みそラーメンを たべます。\nたけし: ぼくも みそラーメン。おいしいですよ。\nミナ: ぎょうざも たべませんか。\nゲイブ: いいですね、たべましょう！",
-              "translation": "Gabe: I'll have the soy-sauce ramen.\nMina: I'll eat the miso ramen.\nTakeshi: Me too, miso ramen. It's delicious.\nMina: Shall we also eat gyoza?\nGabe: Sounds good, let's eat (some)!",
+              "passage": "**ゲイブ**: ぼくは しょうゆラーメンに します。\n**ミナ**: わたしは みそラーメンを たべます。\n**たけし**: ぼくも みそラーメン。おいしいですよ。\n**ミナ**: ぎょうざも たべませんか。\n**ゲイブ**: いいですね、たべましょう！",
+              "translation": "**Gabe**: I'll have the soy-sauce ramen.\n**Mina**: I'll eat the miso ramen.\n**Takeshi**: Me too, miso ramen. It's delicious.\n**Mina**: Shall we also eat gyoza?\n**Gabe**: Sounds good, let's eat (some)!",
               "vocabularyHighlights": [
-                { "word": "しょうゆラーメン", "meaning": "soy-sauce ramen" },
-                { "word": "みそラーメン", "meaning": "miso ramen" },
-                { "word": "ぎょうざ", "meaning": "gyoza (dumplings)" },
-                { "word": "たべませんか", "meaning": "won't you eat?" }
+                {
+                  "word": "しょうゆラーメン",
+                  "meaning": "soy-sauce ramen"
+                },
+                {
+                  "word": "みそラーメン",
+                  "meaning": "miso ramen"
+                },
+                {
+                  "word": "ぎょうざ",
+                  "meaning": "gyoza (dumplings)"
+                },
+                {
+                  "word": "たべませんか",
+                  "meaning": "won't you eat?"
+                }
               ]
             },
             {
-              "passage": "てんいん: ごちゅうもんは？\nゲイブ: しょうゆラーメンを ひとつ、みそラーメンを ふたつ、ぎょうざを みっつ ください。\nてんいん: のみものは？\nミナ: おちゃを さんつ おねがいします。\nてんいん: しょうしょう おまちください。",
-              "translation": "Staff: Your order?\nGabe: One soy-sauce ramen, two miso ramen, and three gyoza, please.\nStaff: Drinks?\nMina: Three teas please.\nStaff: One moment please.",
+              "passage": "**てんいん**: ごちゅうもんは？\n**ゲイブ**: しょうゆラーメンを ひとつ、みそラーメンを ふたつ、ぎょうざを みっつ ください。\n**てんいん**: のみものは？\n**ミナ**: おちゃを さんつ おねがいします。\n**てんいん**: しょうしょう おまちください。",
+              "translation": "**Staff**: Your order?\n**Gabe**: One soy-sauce ramen, two miso ramen, and three gyoza, please.\n**Staff**: Drinks?\n**Mina**: Three teas please.\n**Staff**: One moment please.",
               "vocabularyHighlights": [
-                { "word": "ごちゅうもん", "meaning": "order (polite)" },
-                { "word": "ひとつ / ふたつ / みっつ", "meaning": "one / two / three (general counter)" },
-                { "word": "のみもの", "meaning": "drinks" },
-                { "word": "しょうしょう おまちください", "meaning": "please wait a moment" }
+                {
+                  "word": "ごちゅうもん",
+                  "meaning": "order (polite)"
+                },
+                {
+                  "word": "ひとつ / ふたつ / みっつ",
+                  "meaning": "one / two / three (general counter)"
+                },
+                {
+                  "word": "のみもの",
+                  "meaning": "drinks"
+                },
+                {
+                  "word": "しょうしょう おまちください",
+                  "meaning": "please wait a moment"
+                }
               ]
             },
             {
-              "passage": "ミナ: いただきます！\nゲイブ: うん、おいしい！\nたけし: この みそラーメンは さいこうですね。\nミナ: らいしゅうも きましょう！\nゲイブ: ぜひ！",
-              "translation": "Mina: Let's eat!\nGabe: Mm, delicious!\nTakeshi: This miso ramen is the best, right?\nMina: Let's come next week too!\nGabe: Absolutely!",
+              "passage": "**ミナ**: いただきます！\n**ゲイブ**: うん、おいしい！\n**たけし**: この みそラーメンは さいこうですね。\n**ミナ**: らいしゅうも きましょう！\n**ゲイブ**: ぜひ！",
+              "translation": "**Mina**: Let's eat!\n**Gabe**: Mm, delicious!\n**Takeshi**: This miso ramen is the best, right?\n**Mina**: Let's come next week too!\n**Gabe**: Absolutely!",
               "vocabularyHighlights": [
-                { "word": "いただきます", "meaning": "said before eating" },
-                { "word": "さいこう", "meaning": "the best" },
-                { "word": "らいしゅう", "meaning": "next week" },
-                { "word": "ぜひ", "meaning": "by all means" }
+                {
+                  "word": "いただきます",
+                  "meaning": "said before eating"
+                },
+                {
+                  "word": "さいこう",
+                  "meaning": "the best"
+                },
+                {
+                  "word": "らいしゅう",
+                  "meaning": "next week"
+                },
+                {
+                  "word": "ぜひ",
+                  "meaning": "by all means"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "How many people are in the group?",
-              "options": ["Two", "Three", "Four", "Five"],
+              "options": [
+                "Two",
+                "Three",
+                "Four",
+                "Five"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does Gabe order for himself?",
-              "options": ["Miso ramen", "Soy-sauce ramen", "Tonkotsu ramen", "Gyoza only"],
+              "options": [
+                "Miso ramen",
+                "Soy-sauce ramen",
+                "Tonkotsu ramen",
+                "Gyoza only"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How many gyoza did they order?",
-              "options": ["One", "Two", "Three", "Four"],
+              "options": [
+                "One",
+                "Two",
+                "Three",
+                "Four"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does たべませんか express here?",
-              "options": ["A command", "A soft invitation", "Refusal", "Past tense"],
+              "options": [
+                "A command",
+                "A soft invitation",
+                "Refusal",
+                "Past tense"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does さいこう mean?",
-              "options": ["The worst", "The best", "So-so", "Expensive"],
+              "options": [
+                "The worst",
+                "The best",
+                "So-so",
+                "Expensive"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What do they plan to do next week?",
-              "options": ["Try a different restaurant", "Come back here", "Cook at home", "Eat sushi"],
+              "options": [
+                "Try a different restaurant",
+                "Come back here",
+                "Cook at home",
+                "Eat sushi"
+              ],
               "correctIndex": 1
             }
           ]
@@ -936,87 +1661,179 @@
               "で乗りかえます = transfer (trains)",
               "まっすぐ = straight ahead"
             ],
-            "tags": ["dialogue", "directions", "transportation", "で particle"],
+            "tags": [
+              "dialogue",
+              "directions",
+              "transportation",
+              "で particle"
+            ],
             "tips": [
               "すみません is both 'excuse me' and 'sorry' — the most-used word in Japan",
               "Japanese directions are usually given by landmarks + 'turn there', not by street names",
               "〜で乗りかえます (de norikaemasu) is the standard phrase for transferring lines"
             ],
-            "sourceLessons": ["lesson-3", "lesson-4"]
+            "sourceLessons": [
+              "lesson-3",
+              "lesson-4"
+            ]
           },
           "passages": [
             {
-              "passage": "ゲイブ: すみません、ちょっと いいですか。\nじょせい: はい、なんですか。\nゲイブ: しぶやえきまで どう いきますか。\nじょせい: ああ、しぶやですね。でんしゃが いちばん はやいですよ。",
-              "translation": "Gabe: Excuse me, do you have a moment?\nWoman: Yes, what is it?\nGabe: How do I get to Shibuya station?\nWoman: Ah, Shibuya huh. The train is the fastest.",
+              "passage": "**ゲイブ**: すみません、ちょっと いいですか。\n**じょせい**: はい、なんですか。\n**ゲイブ**: しぶやえきまで どう いきますか。\n**じょせい**: ああ、しぶやですね。でんしゃが いちばん はやいですよ。",
+              "translation": "**Gabe**: Excuse me, do you have a moment?\n**Woman**: Yes, what is it?\n**Gabe**: How do I get to Shibuya station?\n**Woman**: Ah, Shibuya huh. The train is the fastest.",
               "vocabularyHighlights": [
-                { "word": "ちょっと いいですか", "meaning": "do you have a moment?" },
-                { "word": "〜まで", "meaning": "up to / until" },
-                { "word": "どう", "meaning": "how" },
-                { "word": "いちばん", "meaning": "most / number one" }
+                {
+                  "word": "ちょっと いいですか",
+                  "meaning": "do you have a moment?"
+                },
+                {
+                  "word": "〜まで",
+                  "meaning": "up to / until"
+                },
+                {
+                  "word": "どう",
+                  "meaning": "how"
+                },
+                {
+                  "word": "いちばん",
+                  "meaning": "most / number one"
+                }
               ]
             },
             {
-              "passage": "ゲイブ: なんばんせんですか。\nじょせい: やまのてせんです。さんばんせんに のってください。\nゲイブ: さんばんせん... どこですか。\nじょせい: あそこの かいだんを おりてください。みぎがわです。",
-              "translation": "Gabe: Which platform?\nWoman: The Yamanote line. Please take platform 3.\nGabe: Platform 3... where is it?\nWoman: Please go down those stairs over there. It's on the right side.",
+              "passage": "**ゲイブ**: なんばんせんですか。\n**じょせい**: やまのてせんです。さんばんせんに のってください。\n**ゲイブ**: さんばんせん... どこですか。\n**じょせい**: あそこの かいだんを おりてください。みぎがわです。",
+              "translation": "**Gabe**: Which platform?\n**Woman**: The Yamanote line. Please take platform 3.\n**Gabe**: Platform 3... where is it?\n**Woman**: Please go down those stairs over there. It's on the right side.",
               "vocabularyHighlights": [
-                { "word": "なんばんせん", "meaning": "which platform (number)" },
-                { "word": "やまのてせん", "meaning": "Yamanote line" },
-                { "word": "のってください", "meaning": "please get on" },
-                { "word": "かいだん", "meaning": "stairs" },
-                { "word": "みぎがわ", "meaning": "right side" }
+                {
+                  "word": "なんばんせん",
+                  "meaning": "which platform (number)"
+                },
+                {
+                  "word": "やまのてせん",
+                  "meaning": "Yamanote line"
+                },
+                {
+                  "word": "のってください",
+                  "meaning": "please get on"
+                },
+                {
+                  "word": "かいだん",
+                  "meaning": "stairs"
+                },
+                {
+                  "word": "みぎがわ",
+                  "meaning": "right side"
+                }
               ]
             },
             {
-              "passage": "ゲイブ: じかんは どのぐらい かかりますか。\nじょせい: だいたい じゅうごふんぐらいです。\nゲイブ: のりかえは ありますか。\nじょせい: いいえ、のりかえは ないです。しぶやまで まっすぐです。",
-              "translation": "Gabe: How long does it take?\nWoman: About fifteen minutes.\nGabe: Are there any transfers?\nWoman: No, there are no transfers. It's direct to Shibuya.",
+              "passage": "**ゲイブ**: じかんは どのぐらい かかりますか。\n**じょせい**: だいたい じゅうごふんぐらいです。\n**ゲイブ**: のりかえは ありますか。\n**じょせい**: いいえ、のりかえは ないです。しぶやまで まっすぐです。",
+              "translation": "**Gabe**: How long does it take?\n**Woman**: About fifteen minutes.\n**Gabe**: Are there any transfers?\n**Woman**: No, there are no transfers. It's direct to Shibuya.",
               "vocabularyHighlights": [
-                { "word": "じかん", "meaning": "time" },
-                { "word": "どのぐらい", "meaning": "about how much" },
-                { "word": "だいたい", "meaning": "roughly / about" },
-                { "word": "のりかえ", "meaning": "transfer" },
-                { "word": "まっすぐ", "meaning": "straight" }
+                {
+                  "word": "じかん",
+                  "meaning": "time"
+                },
+                {
+                  "word": "どのぐらい",
+                  "meaning": "about how much"
+                },
+                {
+                  "word": "だいたい",
+                  "meaning": "roughly / about"
+                },
+                {
+                  "word": "のりかえ",
+                  "meaning": "transfer"
+                },
+                {
+                  "word": "まっすぐ",
+                  "meaning": "straight"
+                }
               ]
             },
             {
-              "passage": "ゲイブ: ほんとうに たすかりました。どうも ありがとうございます！\nじょせい: いいえ、どういたしまして。きを つけて。\nゲイブ: はい、しつれいします。",
-              "translation": "Gabe: You really saved me. Thank you so much!\nWoman: No, you're welcome. Take care.\nGabe: Yes, excuse me (leaving).",
+              "passage": "**ゲイブ**: ほんとうに たすかりました。どうも ありがとうございます！\n**じょせい**: いいえ、どういたしまして。きを つけて。\n**ゲイブ**: はい、しつれいします。",
+              "translation": "**Gabe**: You really saved me. Thank you so much!\n**Woman**: No, you're welcome. Take care.\n**Gabe**: Yes, excuse me (leaving).",
               "vocabularyHighlights": [
-                { "word": "たすかりました", "meaning": "you saved me / that helped" },
-                { "word": "どういたしまして", "meaning": "you're welcome" },
-                { "word": "きを つけて", "meaning": "take care" },
-                { "word": "しつれいします", "meaning": "excuse me (leaving)" }
+                {
+                  "word": "たすかりました",
+                  "meaning": "you saved me / that helped"
+                },
+                {
+                  "word": "どういたしまして",
+                  "meaning": "you're welcome"
+                },
+                {
+                  "word": "きを つけて",
+                  "meaning": "take care"
+                },
+                {
+                  "word": "しつれいします",
+                  "meaning": "excuse me (leaving)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "Where does Gabe want to go?",
-              "options": ["Shinjuku", "Shibuya", "Tokyo station", "Harajuku"],
+              "options": [
+                "Shinjuku",
+                "Shibuya",
+                "Tokyo station",
+                "Harajuku"
+              ],
               "correctIndex": 1
             },
             {
               "question": "Which line should Gabe take?",
-              "options": ["Chuo", "Yamanote", "Ginza", "Tozai"],
+              "options": [
+                "Chuo",
+                "Yamanote",
+                "Ginza",
+                "Tozai"
+              ],
               "correctIndex": 1
             },
             {
               "question": "Which platform number?",
-              "options": ["Platform 1", "Platform 2", "Platform 3", "Platform 4"],
+              "options": [
+                "Platform 1",
+                "Platform 2",
+                "Platform 3",
+                "Platform 4"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How long does the trip take?",
-              "options": ["5 minutes", "10 minutes", "15 minutes", "30 minutes"],
+              "options": [
+                "5 minutes",
+                "10 minutes",
+                "15 minutes",
+                "30 minutes"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Does Gabe need to transfer?",
-              "options": ["Yes, once", "Yes, twice", "No, it's direct", "The woman doesn't know"],
+              "options": [
+                "Yes, once",
+                "Yes, twice",
+                "No, it's direct",
+                "The woman doesn't know"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does きを つけて mean?",
-              "options": ["Watch out!", "Take care", "Hurry up", "Good luck"],
+              "options": [
+                "Watch out!",
+                "Take care",
+                "Hurry up",
+                "Good luck"
+              ],
               "correctIndex": 1
             }
           ]
@@ -1035,61 +1852,118 @@
               "い-adj + くない = negative: おいしくない = not delicious",
               "Verb ません = negative polite: たべません = won't eat"
             ],
-            "tags": ["cooking", "と particle", "verbs", "adjectives"],
-            "sourceLessons": ["lesson-3", "lesson-4"]
+            "tags": [
+              "cooking",
+              "と particle",
+              "verbs",
+              "adjectives"
+            ],
+            "sourceLessons": [
+              "lesson-3",
+              "lesson-4"
+            ]
           },
           "passages": [
             {
               "passage": "ミナは きょう うちで ばんごはんを つくります。にくと やさいを かいます。",
               "translation": "Mina cooks dinner at home today. She buys meat and vegetables.",
               "vocabularyHighlights": [
-                { "word": "つくります", "meaning": "to make/cook" },
-                { "word": "にく", "meaning": "meat" },
-                { "word": "やさい", "meaning": "vegetable" },
-                { "word": "と", "meaning": "and" }
+                {
+                  "word": "つくります",
+                  "meaning": "to make/cook"
+                },
+                {
+                  "word": "にく",
+                  "meaning": "meat"
+                },
+                {
+                  "word": "やさい",
+                  "meaning": "vegetable"
+                },
+                {
+                  "word": "と",
+                  "meaning": "and"
+                }
               ]
             },
             {
               "passage": "ミナは さかなも つくります。ゲイブは さかなが すきです。",
               "translation": "Mina also cooks fish. Gabe likes fish.",
               "vocabularyHighlights": [
-                { "word": "さかな", "meaning": "fish" },
-                { "word": "すき", "meaning": "like (な-adjective)" }
+                {
+                  "word": "さかな",
+                  "meaning": "fish"
+                },
+                {
+                  "word": "すき",
+                  "meaning": "like (な-adjective)"
+                }
               ]
             },
             {
-              "passage": "「いただきます！おいしいですね！」「ありがとう！やさいも たべてください。」「やさいは ちょっと...」",
-              "translation": "'Let's eat! It's delicious, isn't it!' 'Thank you! Please eat the vegetables too.' 'Vegetables are a bit...'",
+              "passage": "**ゲイブ**: いただきます！おいしいですね！\n**ミナ**: ありがとう！やさいも たべてください。\n**ゲイブ**: やさいは ちょっと...",
+              "translation": "**Gabe**: Let's eat! It's delicious, isn't it!\n**Mina**: Thank you! Please eat the vegetables too.\n**Gabe**: Vegetables are a bit...",
               "vocabularyHighlights": [
-                { "word": "おいしい", "meaning": "delicious" },
-                { "word": "たべてください", "meaning": "please eat" }
+                {
+                  "word": "おいしい",
+                  "meaning": "delicious"
+                },
+                {
+                  "word": "たべてください",
+                  "meaning": "please eat"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "What does Mina cook?",
-              "options": ["Only fish", "Meat, vegetables, and fish", "Just rice", "A sandwich"],
+              "options": [
+                "Only fish",
+                "Meat, vegetables, and fish",
+                "Just rice",
+                "A sandwich"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does と mean in にくと やさい?",
-              "options": ["Or", "But", "And", "With"],
+              "options": [
+                "Or",
+                "But",
+                "And",
+                "With"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does Gabe like?",
-              "options": ["Vegetables", "Meat", "Fish", "Rice"],
+              "options": [
+                "Vegetables",
+                "Meat",
+                "Fish",
+                "Rice"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How does Gabe feel about the vegetables?",
-              "options": ["He loves them", "He doesn't seem enthusiastic", "He hates them", "He already ate them"],
+              "options": [
+                "He loves them",
+                "He doesn't seem enthusiastic",
+                "He hates them",
+                "He already ate them"
+              ],
               "correctIndex": 1
             },
             {
               "question": "Where does Mina cook?",
-              "options": ["At a restaurant", "At school", "At home", "At a cafe"],
+              "options": [
+                "At a restaurant",
+                "At school",
+                "At home",
+                "At a cafe"
+              ],
               "correctIndex": 2
             }
           ]
@@ -1116,102 +1990,204 @@
               "Past な-adj: きれい → きれいでした (was beautiful)",
               "Past negative: ～ませんでした (didn't go = いきませんでした)"
             ],
-            "tags": ["past tense", "adjective conjugation", "travel"],
+            "tags": [
+              "past tense",
+              "adjective conjugation",
+              "travel"
+            ],
             "tips": [
               "Past tense of です is でした",
               "Past negative of い-adj: おいしい → おいしくなかったです"
             ],
-            "sourceLessons": ["lesson-5", "lesson-4", "lesson-3"]
+            "sourceLessons": [
+              "lesson-5",
+              "lesson-4",
+              "lesson-3"
+            ]
           },
           "passages": [
             {
               "passage": "せんしゅう、ゲイブは おきなわに いきました。ひこうきで にじかん かかりました。",
               "translation": "Last week, Gabe went to Okinawa. It took two hours by airplane.",
               "vocabularyHighlights": [
-                { "word": "せんしゅう", "meaning": "last week" },
-                { "word": "いきました", "meaning": "went (past)" },
-                { "word": "ひこうき", "meaning": "airplane" },
-                { "word": "にじかん", "meaning": "two hours" }
+                {
+                  "word": "せんしゅう",
+                  "meaning": "last week"
+                },
+                {
+                  "word": "いきました",
+                  "meaning": "went (past)"
+                },
+                {
+                  "word": "ひこうき",
+                  "meaning": "airplane"
+                },
+                {
+                  "word": "にじかん",
+                  "meaning": "two hours"
+                }
               ]
             },
             {
               "passage": "てんきは とても よかったです。うみは きれいで、みずは あたたかかったです。",
               "translation": "The weather was very good. The sea was beautiful, and the water was warm.",
               "vocabularyHighlights": [
-                { "word": "てんき", "meaning": "weather" },
-                { "word": "よかった", "meaning": "was good (past of いい)" },
-                { "word": "うみ", "meaning": "sea" },
-                { "word": "きれい", "meaning": "beautiful (な-adj)" },
-                { "word": "あたたかかった", "meaning": "was warm (past い-adj)" }
+                {
+                  "word": "てんき",
+                  "meaning": "weather"
+                },
+                {
+                  "word": "よかった",
+                  "meaning": "was good (past of いい)"
+                },
+                {
+                  "word": "うみ",
+                  "meaning": "sea"
+                },
+                {
+                  "word": "きれい",
+                  "meaning": "beautiful (な-adj)"
+                },
+                {
+                  "word": "あたたかかった",
+                  "meaning": "was warm (past い-adj)"
+                }
               ]
             },
             {
               "passage": "おきなわの たべものは おいしかったです。まいにち さかなを たべました。ゴーヤチャンプルーも たべました。",
               "translation": "Okinawan food was delicious. I ate fish every day. I also ate goya champuru.",
               "vocabularyHighlights": [
-                { "word": "たべもの", "meaning": "food" },
-                { "word": "おいしかった", "meaning": "was delicious (past)" },
-                { "word": "まいにち", "meaning": "every day" },
-                { "word": "たべました", "meaning": "ate (past)" }
+                {
+                  "word": "たべもの",
+                  "meaning": "food"
+                },
+                {
+                  "word": "おいしかった",
+                  "meaning": "was delicious (past)"
+                },
+                {
+                  "word": "まいにち",
+                  "meaning": "every day"
+                },
+                {
+                  "word": "たべました",
+                  "meaning": "ate (past)"
+                }
               ]
             },
             {
               "passage": "ホテルは しずかで、とても よかったです。でも、ちょっと たかかったです。",
               "translation": "The hotel was quiet and very nice. But, it was a little expensive.",
               "vocabularyHighlights": [
-                { "word": "しずか", "meaning": "quiet (な-adj)" },
-                { "word": "たかかった", "meaning": "was expensive (past)" }
+                {
+                  "word": "しずか",
+                  "meaning": "quiet (な-adj)"
+                },
+                {
+                  "word": "たかかった",
+                  "meaning": "was expensive (past)"
+                }
               ]
             },
             {
               "passage": "とても たのしい りょこうでした。また いきたいです！",
               "translation": "It was a very fun trip. I want to go again!",
               "vocabularyHighlights": [
-                { "word": "たのしい", "meaning": "fun" },
-                { "word": "りょこう", "meaning": "trip/travel" },
-                { "word": "でした", "meaning": "was (past of です)" }
+                {
+                  "word": "たのしい",
+                  "meaning": "fun"
+                },
+                {
+                  "word": "りょこう",
+                  "meaning": "trip/travel"
+                },
+                {
+                  "word": "でした",
+                  "meaning": "was (past of です)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "When did Gabe go to Okinawa?",
-              "options": ["Yesterday", "Last month", "Last week", "Last year"],
+              "options": [
+                "Yesterday",
+                "Last month",
+                "Last week",
+                "Last year"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How long was the flight?",
-              "options": ["One hour", "Two hours", "Three hours", "Four hours"],
+              "options": [
+                "One hour",
+                "Two hours",
+                "Three hours",
+                "Four hours"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How was the weather?",
-              "options": ["Cold", "Rainy", "Very good", "Cloudy"],
+              "options": [
+                "Cold",
+                "Rainy",
+                "Very good",
+                "Cloudy"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What is the past tense of いい (good)?",
-              "options": ["いかった", "よかった", "いいでした", "よいだった"],
+              "options": [
+                "いかった",
+                "よかった",
+                "いいでした",
+                "よいだった"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How was the food?",
-              "options": ["Expensive", "Not good", "Okay", "Delicious"],
+              "options": [
+                "Expensive",
+                "Not good",
+                "Okay",
+                "Delicious"
+              ],
               "correctIndex": 3
             },
             {
               "question": "What was the problem with the hotel?",
-              "options": ["It was noisy", "It was dirty", "It was expensive", "It was far away"],
+              "options": [
+                "It was noisy",
+                "It was dirty",
+                "It was expensive",
+                "It was far away"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does きれいでした mean?",
-              "options": ["Was clean", "Was beautiful (past な-adj)", "Will be beautiful", "Is not beautiful"],
+              "options": [
+                "Was clean",
+                "Was beautiful (past な-adj)",
+                "Will be beautiful",
+                "Is not beautiful"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How does Gabe feel about the trip overall?",
-              "options": ["He didn't enjoy it", "It was boring", "He wants to go again", "He regrets going"],
+              "options": [
+                "He didn't enjoy it",
+                "It was boring",
+                "He wants to go again",
+                "He regrets going"
+              ],
               "correctIndex": 2
             }
           ]
@@ -1230,97 +2206,207 @@
               "Past い-adj negative: いそがしくなかったです (wasn't busy)",
               "でも = but/however"
             ],
-            "tags": ["days of week", "past tense", "adjective conjugation", "time"],
-            "sourceLessons": ["lesson-5", "lesson-3", "lesson-4"]
+            "tags": [
+              "days of week",
+              "past tense",
+              "adjective conjugation",
+              "time"
+            ],
+            "sourceLessons": [
+              "lesson-5",
+              "lesson-3",
+              "lesson-4"
+            ]
           },
           "passages": [
             {
               "passage": "こんしゅうは とても いそがしかったです。げつようびから きんようびまで まいにち だいがくに いきました。",
               "translation": "This week was very busy. I went to university every day from Monday to Friday.",
               "vocabularyHighlights": [
-                { "word": "こんしゅう", "meaning": "this week" },
-                { "word": "いそがしかった", "meaning": "was busy (past)" },
-                { "word": "げつようび", "meaning": "Monday" },
-                { "word": "きんようび", "meaning": "Friday" },
-                { "word": "から...まで", "meaning": "from...to" }
+                {
+                  "word": "こんしゅう",
+                  "meaning": "this week"
+                },
+                {
+                  "word": "いそがしかった",
+                  "meaning": "was busy (past)"
+                },
+                {
+                  "word": "げつようび",
+                  "meaning": "Monday"
+                },
+                {
+                  "word": "きんようび",
+                  "meaning": "Friday"
+                },
+                {
+                  "word": "から...まで",
+                  "meaning": "from...to"
+                }
               ]
             },
             {
               "passage": "すいようびに テストが ありました。むずかしかったですが、がんばりました。",
               "translation": "On Wednesday there was a test. It was difficult, but I did my best.",
               "vocabularyHighlights": [
-                { "word": "すいようび", "meaning": "Wednesday" },
-                { "word": "テスト", "meaning": "test" },
-                { "word": "むずかしかった", "meaning": "was difficult (past)" },
-                { "word": "がんばりました", "meaning": "did my best (past)" }
+                {
+                  "word": "すいようび",
+                  "meaning": "Wednesday"
+                },
+                {
+                  "word": "テスト",
+                  "meaning": "test"
+                },
+                {
+                  "word": "むずかしかった",
+                  "meaning": "was difficult (past)"
+                },
+                {
+                  "word": "がんばりました",
+                  "meaning": "did my best (past)"
+                }
               ]
             },
             {
               "passage": "もくようびに としょかんで さんじかん べんきょうしました。つかれましたが、たのしかったです。",
               "translation": "On Thursday I studied at the library for three hours. I was tired, but it was fun.",
               "vocabularyHighlights": [
-                { "word": "もくようび", "meaning": "Thursday" },
-                { "word": "さんじかん", "meaning": "three hours" },
-                { "word": "べんきょうしました", "meaning": "studied (past)" },
-                { "word": "つかれました", "meaning": "got tired (past)" }
+                {
+                  "word": "もくようび",
+                  "meaning": "Thursday"
+                },
+                {
+                  "word": "さんじかん",
+                  "meaning": "three hours"
+                },
+                {
+                  "word": "べんきょうしました",
+                  "meaning": "studied (past)"
+                },
+                {
+                  "word": "つかれました",
+                  "meaning": "got tired (past)"
+                }
               ]
             },
             {
               "passage": "どようびは ともだちの うちで パーティーが ありました。おんがくを きいて、たくさん たべました。とても たのしかったです。",
               "translation": "On Saturday there was a party at a friend's house. We listened to music and ate a lot. It was very fun.",
               "vocabularyHighlights": [
-                { "word": "どようび", "meaning": "Saturday" },
-                { "word": "パーティー", "meaning": "party" },
-                { "word": "おんがく", "meaning": "music" },
-                { "word": "きいて", "meaning": "listened (te-form)" },
-                { "word": "たくさん", "meaning": "a lot" }
+                {
+                  "word": "どようび",
+                  "meaning": "Saturday"
+                },
+                {
+                  "word": "パーティー",
+                  "meaning": "party"
+                },
+                {
+                  "word": "おんがく",
+                  "meaning": "music"
+                },
+                {
+                  "word": "きいて",
+                  "meaning": "listened (te-form)"
+                },
+                {
+                  "word": "たくさん",
+                  "meaning": "a lot"
+                }
               ]
             },
             {
               "passage": "にちようびは なにも しませんでした。うちで ゆっくり やすみました。",
               "translation": "On Sunday I didn't do anything. I relaxed at home.",
               "vocabularyHighlights": [
-                { "word": "にちようび", "meaning": "Sunday" },
-                { "word": "なにも しませんでした", "meaning": "didn't do anything" },
-                { "word": "ゆっくり", "meaning": "slowly/leisurely" },
-                { "word": "やすみました", "meaning": "rested (past)" }
+                {
+                  "word": "にちようび",
+                  "meaning": "Sunday"
+                },
+                {
+                  "word": "なにも しませんでした",
+                  "meaning": "didn't do anything"
+                },
+                {
+                  "word": "ゆっくり",
+                  "meaning": "slowly/leisurely"
+                },
+                {
+                  "word": "やすみました",
+                  "meaning": "rested (past)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "How was the speaker's week?",
-              "options": ["Easy", "Boring", "Very busy", "Short"],
+              "options": [
+                "Easy",
+                "Boring",
+                "Very busy",
+                "Short"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What happened on Wednesday?",
-              "options": ["A party", "A test", "A trip", "A movie"],
+              "options": [
+                "A party",
+                "A test",
+                "A trip",
+                "A movie"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How long did the speaker study on Thursday?",
-              "options": ["One hour", "Two hours", "Three hours", "Four hours"],
+              "options": [
+                "One hour",
+                "Two hours",
+                "Three hours",
+                "Four hours"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does むずかしかった mean?",
-              "options": ["Was easy", "Was fun", "Was difficult", "Was boring"],
+              "options": [
+                "Was easy",
+                "Was fun",
+                "Was difficult",
+                "Was boring"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What happened on Saturday?",
-              "options": ["Studied", "Went shopping", "Had a party", "Watched a movie"],
+              "options": [
+                "Studied",
+                "Went shopping",
+                "Had a party",
+                "Watched a movie"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What did the speaker do on Sunday?",
-              "options": ["Went to the university", "Had a party", "Nothing / rested", "Studied at the library"],
+              "options": [
+                "Went to the university",
+                "Had a party",
+                "Nothing / rested",
+                "Studied at the library"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does なにも しませんでした mean?",
-              "options": ["Did everything", "Did something", "Didn't do anything", "Will do something"],
+              "options": [
+                "Did everything",
+                "Did something",
+                "Didn't do anything",
+                "Will do something"
+              ],
               "correctIndex": 2
             }
           ]
@@ -1339,96 +2425,193 @@
               "Past negative な-adj: しずか → しずかじゃなかったです",
               "～を あげます = to give (to someone)"
             ],
-            "tags": ["past tense", "counting", "adjectives", "giving"],
-            "sourceLessons": ["lesson-5", "lesson-4", "lesson-3"]
+            "tags": [
+              "past tense",
+              "counting",
+              "adjectives",
+              "giving"
+            ],
+            "sourceLessons": [
+              "lesson-5",
+              "lesson-4",
+              "lesson-3"
+            ]
           },
           "passages": [
             {
               "passage": "きのうは イズクの たんじょうびでした。ゲイブと ミナは パーティーの じゅんびを しました。",
               "translation": "Yesterday was Izuku's birthday. Gabe and Mina prepared for the party.",
               "vocabularyHighlights": [
-                { "word": "きのう", "meaning": "yesterday" },
-                { "word": "たんじょうび", "meaning": "birthday" },
-                { "word": "じゅんび", "meaning": "preparation" }
+                {
+                  "word": "きのう",
+                  "meaning": "yesterday"
+                },
+                {
+                  "word": "たんじょうび",
+                  "meaning": "birthday"
+                },
+                {
+                  "word": "じゅんび",
+                  "meaning": "preparation"
+                }
               ]
             },
             {
               "passage": "ケーキを つくりました。おおきくて、きれいな ケーキでした。チョコレートの ケーキです。",
               "translation": "They made a cake. It was a big, beautiful cake. It is a chocolate cake.",
               "vocabularyHighlights": [
-                { "word": "つくりました", "meaning": "made (past)" },
-                { "word": "おおきくて", "meaning": "big and (て-form of い-adj)" },
-                { "word": "きれいな", "meaning": "beautiful (な-adj before noun)" }
+                {
+                  "word": "つくりました",
+                  "meaning": "made (past)"
+                },
+                {
+                  "word": "おおきくて",
+                  "meaning": "big and (て-form of い-adj)"
+                },
+                {
+                  "word": "きれいな",
+                  "meaning": "beautiful (な-adj before noun)"
+                }
               ]
             },
             {
               "passage": "パーティーには じゅうにんの ともだちが きました。にぎやかで、とても たのしかったです。",
               "translation": "Ten friends came to the party. It was lively and very fun.",
               "vocabularyHighlights": [
-                { "word": "じゅうにん", "meaning": "ten people" },
-                { "word": "きました", "meaning": "came (past)" },
-                { "word": "にぎやか", "meaning": "lively (な-adj)" }
+                {
+                  "word": "じゅうにん",
+                  "meaning": "ten people"
+                },
+                {
+                  "word": "きました",
+                  "meaning": "came (past)"
+                },
+                {
+                  "word": "にぎやか",
+                  "meaning": "lively (な-adj)"
+                }
               ]
             },
             {
               "passage": "ゲイブは イズクに ほんを あげました。ミナは イズクに ぼうしを あげました。イズクは とても うれしかったです。",
               "translation": "Gabe gave Izuku a book. Mina gave Izuku a hat. Izuku was very happy.",
               "vocabularyHighlights": [
-                { "word": "ほん", "meaning": "book" },
-                { "word": "あげました", "meaning": "gave (past)" },
-                { "word": "ぼうし", "meaning": "hat" },
-                { "word": "うれしかった", "meaning": "was happy (past)" }
+                {
+                  "word": "ほん",
+                  "meaning": "book"
+                },
+                {
+                  "word": "あげました",
+                  "meaning": "gave (past)"
+                },
+                {
+                  "word": "ぼうし",
+                  "meaning": "hat"
+                },
+                {
+                  "word": "うれしかった",
+                  "meaning": "was happy (past)"
+                }
               ]
             },
             {
               "passage": "みんなで うたを うたいました。おいしい たべものを たくさん たべました。いい パーティーでした！",
               "translation": "Everyone sang songs together. We ate a lot of delicious food. It was a great party!",
               "vocabularyHighlights": [
-                { "word": "みんなで", "meaning": "everyone together" },
-                { "word": "うた", "meaning": "song" },
-                { "word": "うたいました", "meaning": "sang (past)" }
+                {
+                  "word": "みんなで",
+                  "meaning": "everyone together"
+                },
+                {
+                  "word": "うた",
+                  "meaning": "song"
+                },
+                {
+                  "word": "うたいました",
+                  "meaning": "sang (past)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "When was Izuku's birthday?",
-              "options": ["Today", "Yesterday", "Last week", "Last month"],
+              "options": [
+                "Today",
+                "Yesterday",
+                "Last week",
+                "Last month"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What kind of cake was it?",
-              "options": ["Strawberry", "Vanilla", "Chocolate", "Green tea"],
+              "options": [
+                "Strawberry",
+                "Vanilla",
+                "Chocolate",
+                "Green tea"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How many friends came to the party?",
-              "options": ["Five", "Eight", "Ten", "Twelve"],
+              "options": [
+                "Five",
+                "Eight",
+                "Ten",
+                "Twelve"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What did Gabe give Izuku?",
-              "options": ["A hat", "A book", "A wallet", "A pen"],
+              "options": [
+                "A hat",
+                "A book",
+                "A wallet",
+                "A pen"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What did Mina give Izuku?",
-              "options": ["A book", "Shoes", "A hat", "A bag"],
+              "options": [
+                "A book",
+                "Shoes",
+                "A hat",
+                "A bag"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How was the party atmosphere?",
-              "options": ["Quiet", "Boring", "Scary", "Lively"],
+              "options": [
+                "Quiet",
+                "Boring",
+                "Scary",
+                "Lively"
+              ],
               "correctIndex": 3
             },
             {
               "question": "What does おおきくて mean?",
-              "options": ["Not big", "Was big", "Big and (connecting)", "Will be big"],
+              "options": [
+                "Not big",
+                "Was big",
+                "Big and (connecting)",
+                "Will be big"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How did Izuku feel?",
-              "options": ["Sad", "Tired", "Very happy", "Surprised"],
+              "options": [
+                "Sad",
+                "Tired",
+                "Very happy",
+                "Surprised"
+              ],
               "correctIndex": 2
             }
           ]
@@ -1447,96 +2630,193 @@
               "Adjective + noun: おおきい たいかい = big event",
               "～も ～も = both ~ and ~"
             ],
-            "tags": ["mixed grammar", "past tense", "adjective + noun", "sequencing"],
-            "sourceLessons": ["lesson-5", "lesson-4", "lesson-3"]
+            "tags": [
+              "mixed grammar",
+              "past tense",
+              "adjective + noun",
+              "sequencing"
+            ],
+            "sourceLessons": [
+              "lesson-5",
+              "lesson-4",
+              "lesson-3"
+            ]
           },
           "passages": [
             {
               "passage": "せんしゅうの どようびに だいがくで がくえんさいが ありました。まいとし あきに あります。",
               "translation": "Last Saturday there was a school festival at the university. It happens every year in autumn.",
               "vocabularyHighlights": [
-                { "word": "がくえんさい", "meaning": "school festival" },
-                { "word": "まいとし", "meaning": "every year" },
-                { "word": "あき", "meaning": "autumn" }
+                {
+                  "word": "がくえんさい",
+                  "meaning": "school festival"
+                },
+                {
+                  "word": "まいとし",
+                  "meaning": "every year"
+                },
+                {
+                  "word": "あき",
+                  "meaning": "autumn"
+                }
               ]
             },
             {
               "passage": "たくさんの みせが ありました。にほんの たべものも がいこくの たべものも ありました。",
               "translation": "There were many shops. There was both Japanese food and foreign food.",
               "vocabularyHighlights": [
-                { "word": "みせ", "meaning": "shop/store" },
-                { "word": "がいこく", "meaning": "foreign country" },
-                { "word": "も...も", "meaning": "both...and" }
+                {
+                  "word": "みせ",
+                  "meaning": "shop/store"
+                },
+                {
+                  "word": "がいこく",
+                  "meaning": "foreign country"
+                },
+                {
+                  "word": "も...も",
+                  "meaning": "both...and"
+                }
               ]
             },
             {
               "passage": "ゲイブは たこやきを たべました。おいしかったですが、あつかったです。ミナは やきそばを たべました。",
               "translation": "Gabe ate takoyaki. It was delicious but hot. Mina ate yakisoba.",
               "vocabularyHighlights": [
-                { "word": "たこやき", "meaning": "takoyaki (octopus balls)" },
-                { "word": "あつかった", "meaning": "was hot (past い-adj)" },
-                { "word": "やきそば", "meaning": "yakisoba (fried noodles)" }
+                {
+                  "word": "たこやき",
+                  "meaning": "takoyaki (octopus balls)"
+                },
+                {
+                  "word": "あつかった",
+                  "meaning": "was hot (past い-adj)"
+                },
+                {
+                  "word": "やきそば",
+                  "meaning": "yakisoba (fried noodles)"
+                }
               ]
             },
             {
               "passage": "たべてから、おんがくの コンサートを ききました。にほんの おんがくは とても きれいでした。",
               "translation": "After eating, they listened to a music concert. Japanese music was very beautiful.",
               "vocabularyHighlights": [
-                { "word": "たべてから", "meaning": "after eating" },
-                { "word": "コンサート", "meaning": "concert" },
-                { "word": "ききました", "meaning": "listened (past)" }
+                {
+                  "word": "たべてから",
+                  "meaning": "after eating"
+                },
+                {
+                  "word": "コンサート",
+                  "meaning": "concert"
+                },
+                {
+                  "word": "ききました",
+                  "meaning": "listened (past)"
+                }
               ]
             },
             {
               "passage": "ごごから あめが ふりましたが、みんな たのしかったです。また らいねんも いきたいです。",
               "translation": "It rained from the afternoon, but everyone had fun. I want to go again next year too.",
               "vocabularyHighlights": [
-                { "word": "ごご", "meaning": "afternoon" },
-                { "word": "あめ", "meaning": "rain" },
-                { "word": "ふりました", "meaning": "fell/rained (past)" },
-                { "word": "らいねん", "meaning": "next year" }
+                {
+                  "word": "ごご",
+                  "meaning": "afternoon"
+                },
+                {
+                  "word": "あめ",
+                  "meaning": "rain"
+                },
+                {
+                  "word": "ふりました",
+                  "meaning": "fell/rained (past)"
+                },
+                {
+                  "word": "らいねん",
+                  "meaning": "next year"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "When was the school festival?",
-              "options": ["Last Sunday", "Last Saturday", "Last Friday", "Last Monday"],
+              "options": [
+                "Last Sunday",
+                "Last Saturday",
+                "Last Friday",
+                "Last Monday"
+              ],
               "correctIndex": 1
             },
             {
               "question": "When does the festival happen?",
-              "options": ["Every spring", "Every summer", "Every autumn", "Every winter"],
+              "options": [
+                "Every spring",
+                "Every summer",
+                "Every autumn",
+                "Every winter"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What did Gabe eat?",
-              "options": ["Yakisoba", "Sushi", "Takoyaki", "Ramen"],
+              "options": [
+                "Yakisoba",
+                "Sushi",
+                "Takoyaki",
+                "Ramen"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What was the takoyaki like?",
-              "options": ["Cold and bad", "Delicious but hot", "Not delicious", "Big and cheap"],
+              "options": [
+                "Cold and bad",
+                "Delicious but hot",
+                "Not delicious",
+                "Big and cheap"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What did they do after eating?",
-              "options": ["Went home", "Went shopping", "Listened to a concert", "Studied"],
+              "options": [
+                "Went home",
+                "Went shopping",
+                "Listened to a concert",
+                "Studied"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does たべてから mean?",
-              "options": ["Before eating", "While eating", "After eating", "Without eating"],
+              "options": [
+                "Before eating",
+                "While eating",
+                "After eating",
+                "Without eating"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What happened in the afternoon?",
-              "options": ["It got sunny", "It rained", "It snowed", "It got cold"],
+              "options": [
+                "It got sunny",
+                "It rained",
+                "It snowed",
+                "It got cold"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does も...も mean?",
-              "options": ["Neither...nor", "Both...and", "Either...or", "Not only...but"],
+              "options": [
+                "Neither...nor",
+                "Both...and",
+                "Either...or",
+                "Not only...but"
+              ],
               "correctIndex": 1
             }
           ]
@@ -1555,102 +2835,206 @@
               "Past negative verb: ～ませんでした",
               "よろしくおねがいします closes most formal interactions"
             ],
-            "tags": ["dialogue", "formal", "interview", "mixed tense"],
+            "tags": [
+              "dialogue",
+              "formal",
+              "interview",
+              "mixed tense"
+            ],
             "tips": [
               "In formal contexts, use フルネーム (full name) and mention your 学校 (school) when introducing yourself.",
               "Employers often ask なにようびに はたらけますか — answer with specific days and times."
             ],
-            "sourceLessons": ["lesson-1", "lesson-3", "lesson-4", "lesson-5"]
+            "sourceLessons": [
+              "lesson-1",
+              "lesson-3",
+              "lesson-4",
+              "lesson-5"
+            ]
           },
           "passages": [
             {
-              "passage": "てんちょう: はじめまして。てんちょうの さとうです。どうぞ すわってください。\nゲイブ: はじめまして。ゲイブ・スミスです。よろしくおねがいします。\nてんちょう: スミスさんは アメリカじんですか。\nゲイブ: はい、アメリカじんです。いま だいがくの にねんせいです。",
-              "translation": "Manager: Nice to meet you. I'm Sato, the manager. Please have a seat.\nGabe: Nice to meet you. I'm Gabe Smith. Thank you.\nManager: Mr. Smith, are you American?\nGabe: Yes, I'm American. I'm a second-year university student now.",
+              "passage": "**てんちょう**: はじめまして。てんちょうの さとうです。どうぞ すわってください。\n**ゲイブ**: はじめまして。ゲイブ・スミスです。よろしくおねがいします。\n**てんちょう**: スミスさんは アメリカじんですか。\n**ゲイブ**: はい、アメリカじんです。いま だいがくの にねんせいです。",
+              "translation": "**Manager**: Nice to meet you. I'm Sato, the manager. Please have a seat.\n**Gabe**: Nice to meet you. I'm Gabe Smith. Thank you.\n**Manager**: Mr. Smith, are you American?\n**Gabe**: Yes, I'm American. I'm a second-year university student now.",
               "vocabularyHighlights": [
-                { "word": "てんちょう", "meaning": "store manager" },
-                { "word": "すわってください", "meaning": "please sit down" },
-                { "word": "にねんせい", "meaning": "second-year student" }
+                {
+                  "word": "てんちょう",
+                  "meaning": "store manager"
+                },
+                {
+                  "word": "すわってください",
+                  "meaning": "please sit down"
+                },
+                {
+                  "word": "にねんせい",
+                  "meaning": "second-year student"
+                }
               ]
             },
             {
-              "passage": "てんちょう: にほんごは だいじょうぶですか。\nゲイブ: はい、まいにち べんきょうしています。まだ むずかしいですが、がんばります。\nてんちょう: そうですか。まえに アルバイトを しましたか。\nゲイブ: はい、アメリカで レストランで はたらきました。さんかげつ はたらきました。",
-              "translation": "Manager: Is Japanese okay (for you)?\nGabe: Yes, I study every day. It's still difficult, but I'll do my best.\nManager: I see. Have you worked part-time before?\nGabe: Yes, I worked at a restaurant in America. I worked for three months.",
+              "passage": "**てんちょう**: にほんごは だいじょうぶですか。\n**ゲイブ**: はい、まいにち べんきょうしています。まだ むずかしいですが、がんばります。\n**てんちょう**: そうですか。まえに アルバイトを しましたか。\n**ゲイブ**: はい、アメリカで レストランで はたらきました。さんかげつ はたらきました。",
+              "translation": "**Manager**: Is Japanese okay (for you)?\n**Gabe**: Yes, I study every day. It's still difficult, but I'll do my best.\n**Manager**: I see. Have you worked part-time before?\n**Gabe**: Yes, I worked at a restaurant in America. I worked for three months.",
               "vocabularyHighlights": [
-                { "word": "だいじょうぶ", "meaning": "okay / alright" },
-                { "word": "アルバイト", "meaning": "part-time job" },
-                { "word": "はたらきました", "meaning": "worked (past)" },
-                { "word": "さんかげつ", "meaning": "three months" }
+                {
+                  "word": "だいじょうぶ",
+                  "meaning": "okay / alright"
+                },
+                {
+                  "word": "アルバイト",
+                  "meaning": "part-time job"
+                },
+                {
+                  "word": "はたらきました",
+                  "meaning": "worked (past)"
+                },
+                {
+                  "word": "さんかげつ",
+                  "meaning": "three months"
+                }
               ]
             },
             {
-              "passage": "てんちょう: なにようびに はたらけますか。\nゲイブ: かようびと もくようびと どようびに はたらけます。\nてんちょう: なんじから なんじまで だいじょうぶですか。\nゲイブ: ごごよじから よるじゅうじまで だいじょうぶです。",
-              "translation": "Manager: Which days can you work?\nGabe: I can work on Tuesday, Thursday, and Saturday.\nManager: From what time to what time is okay?\nGabe: From 4 PM to 10 PM is fine.",
+              "passage": "**てんちょう**: なにようびに はたらけますか。\n**ゲイブ**: かようびと もくようびと どようびに はたらけます。\n**てんちょう**: なんじから なんじまで だいじょうぶですか。\n**ゲイブ**: ごごよじから よるじゅうじまで だいじょうぶです。",
+              "translation": "**Manager**: Which days can you work?\n**Gabe**: I can work on Tuesday, Thursday, and Saturday.\n**Manager**: From what time to what time is okay?\n**Gabe**: From 4 PM to 10 PM is fine.",
               "vocabularyHighlights": [
-                { "word": "なにようび", "meaning": "what day of the week" },
-                { "word": "はたらけます", "meaning": "can work (potential)" },
-                { "word": "から...まで", "meaning": "from... to..." },
-                { "word": "ごご", "meaning": "afternoon/PM" }
+                {
+                  "word": "なにようび",
+                  "meaning": "what day of the week"
+                },
+                {
+                  "word": "はたらけます",
+                  "meaning": "can work (potential)"
+                },
+                {
+                  "word": "から...まで",
+                  "meaning": "from... to..."
+                },
+                {
+                  "word": "ごご",
+                  "meaning": "afternoon/PM"
+                }
               ]
             },
             {
-              "passage": "てんちょう: いいですね。じきゅうは せんごひゃくえんです。\nゲイブ: はい、だいじょうぶです。\nてんちょう: しごとは たのしいですが、いそがしい ひも ありますよ。\nゲイブ: はい、がんばります！",
-              "translation": "Manager: That's good. The hourly wage is 1,500 yen.\nGabe: Yes, that's fine.\nManager: The job is fun, but there are busy days too.\nGabe: Yes, I'll do my best!",
+              "passage": "**てんちょう**: いいですね。じきゅうは せんごひゃくえんです。\n**ゲイブ**: はい、だいじょうぶです。\n**てんちょう**: しごとは たのしいですが、いそがしい ひも ありますよ。\n**ゲイブ**: はい、がんばります！",
+              "translation": "**Manager**: That's good. The hourly wage is 1,500 yen.\n**Gabe**: Yes, that's fine.\n**Manager**: The job is fun, but there are busy days too.\n**Gabe**: Yes, I'll do my best!",
               "vocabularyHighlights": [
-                { "word": "じきゅう", "meaning": "hourly wage" },
-                { "word": "せんごひゃくえん", "meaning": "1,500 yen" },
-                { "word": "しごと", "meaning": "work/job" },
-                { "word": "いそがしい", "meaning": "busy" }
+                {
+                  "word": "じきゅう",
+                  "meaning": "hourly wage"
+                },
+                {
+                  "word": "せんごひゃくえん",
+                  "meaning": "1,500 yen"
+                },
+                {
+                  "word": "しごと",
+                  "meaning": "work/job"
+                },
+                {
+                  "word": "いそがしい",
+                  "meaning": "busy"
+                }
               ]
             },
             {
-              "passage": "てんちょう: じゃあ、らいしゅうの かようびから おねがいします。\nゲイブ: はい、ありがとうございます！がんばります。\nてんちょう: よろしく おねがいします。\nゲイブ: しつれいします。",
-              "translation": "Manager: Well then, please start from next Tuesday.\nGabe: Yes, thank you! I'll do my best.\nManager: Thanks in advance.\nGabe: Excuse me (leaving).",
+              "passage": "**てんちょう**: じゃあ、らいしゅうの かようびから おねがいします。\n**ゲイブ**: はい、ありがとうございます！がんばります。\n**てんちょう**: よろしく おねがいします。\n**ゲイブ**: しつれいします。",
+              "translation": "**Manager**: Well then, please start from next Tuesday.\n**Gabe**: Yes, thank you! I'll do my best.\n**Manager**: Thanks in advance.\n**Gabe**: Excuse me (leaving).",
               "vocabularyHighlights": [
-                { "word": "らいしゅう", "meaning": "next week" },
-                { "word": "おねがいします", "meaning": "please (request)" },
-                { "word": "しつれいします", "meaning": "excuse me (leaving)" }
+                {
+                  "word": "らいしゅう",
+                  "meaning": "next week"
+                },
+                {
+                  "word": "おねがいします",
+                  "meaning": "please (request)"
+                },
+                {
+                  "word": "しつれいします",
+                  "meaning": "excuse me (leaving)"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "What is the manager's name?",
-              "options": ["Suzuki", "Sato", "Tanaka", "Yamada"],
+              "options": [
+                "Suzuki",
+                "Sato",
+                "Tanaka",
+                "Yamada"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What year of university is Gabe in?",
-              "options": ["First year", "Second year", "Third year", "Fourth year"],
+              "options": [
+                "First year",
+                "Second year",
+                "Third year",
+                "Fourth year"
+              ],
               "correctIndex": 1
             },
             {
               "question": "How long did Gabe work at the previous job?",
-              "options": ["One month", "Two months", "Three months", "Six months"],
+              "options": [
+                "One month",
+                "Two months",
+                "Three months",
+                "Six months"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Which days can Gabe work?",
-              "options": ["Mon/Wed/Fri", "Tue/Thu/Sat", "Wed/Fri/Sun", "Every day"],
+              "options": [
+                "Mon/Wed/Fri",
+                "Tue/Thu/Sat",
+                "Wed/Fri/Sun",
+                "Every day"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What hours can Gabe work?",
-              "options": ["9 AM to 5 PM", "10 AM to 6 PM", "4 PM to 10 PM", "6 PM to midnight"],
+              "options": [
+                "9 AM to 5 PM",
+                "10 AM to 6 PM",
+                "4 PM to 10 PM",
+                "6 PM to midnight"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What is the hourly wage?",
-              "options": ["1,000 yen", "1,200 yen", "1,500 yen", "2,000 yen"],
+              "options": [
+                "1,000 yen",
+                "1,200 yen",
+                "1,500 yen",
+                "2,000 yen"
+              ],
               "correctIndex": 2
             },
             {
               "question": "When does Gabe start?",
-              "options": ["Tomorrow", "Next Monday", "Next Tuesday", "Next month"],
+              "options": [
+                "Tomorrow",
+                "Next Monday",
+                "Next Tuesday",
+                "Next month"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does しつれいします mean when leaving?",
-              "options": ["Goodbye forever", "Excuse me / taking my leave", "Sorry, I'm late", "See you later"],
+              "options": [
+                "Goodbye forever",
+                "Excuse me / taking my leave",
+                "Sorry, I'm late",
+                "See you later"
+              ],
               "correctIndex": 1
             }
           ]
@@ -1669,102 +3053,208 @@
               "げんき = healthy/energetic (な-adj)",
               "Past + present mixed: describes both current life and recent events"
             ],
-            "tags": ["formal writing", "mixed tenses", "descriptions", "family"],
-            "sourceLessons": ["lesson-5", "lesson-4", "lesson-3", "lesson-1"]
+            "tags": [
+              "formal writing",
+              "mixed tenses",
+              "descriptions",
+              "family"
+            ],
+            "sourceLessons": [
+              "lesson-5",
+              "lesson-4",
+              "lesson-3",
+              "lesson-1"
+            ]
           },
           "passages": [
             {
               "passage": "おかあさん、おとうさん、おげんきですか。わたしは げんきです。にほんの せいかつは とても たのしいです。",
               "translation": "Mom, Dad, how are you? I am well. Life in Japan is very fun.",
               "vocabularyHighlights": [
-                { "word": "おかあさん", "meaning": "mother (polite)" },
-                { "word": "おとうさん", "meaning": "father (polite)" },
-                { "word": "げんき", "meaning": "healthy/well (な-adj)" },
-                { "word": "せいかつ", "meaning": "life/daily life" }
+                {
+                  "word": "おかあさん",
+                  "meaning": "mother (polite)"
+                },
+                {
+                  "word": "おとうさん",
+                  "meaning": "father (polite)"
+                },
+                {
+                  "word": "げんき",
+                  "meaning": "healthy/well (な-adj)"
+                },
+                {
+                  "word": "せいかつ",
+                  "meaning": "life/daily life"
+                }
               ]
             },
             {
               "passage": "まいにち だいがくで にほんごを べんきょうしています。せんせいは やさしくて、おもしろいです。",
               "translation": "I study Japanese at the university every day. The teacher is kind and interesting.",
               "vocabularyHighlights": [
-                { "word": "べんきょうしています", "meaning": "am studying (ongoing)" },
-                { "word": "やさしくて", "meaning": "kind and (て-form)" },
-                { "word": "おもしろい", "meaning": "interesting" }
+                {
+                  "word": "べんきょうしています",
+                  "meaning": "am studying (ongoing)"
+                },
+                {
+                  "word": "やさしくて",
+                  "meaning": "kind and (て-form)"
+                },
+                {
+                  "word": "おもしろい",
+                  "meaning": "interesting"
+                }
               ]
             },
             {
               "passage": "せんしゅう ともだちと おきなわに いきました。うみが きれいで、たべものが おいしかったです。",
               "translation": "Last week I went to Okinawa with friends. The sea was beautiful and the food was delicious.",
               "vocabularyHighlights": [
-                { "word": "ともだちと", "meaning": "with friends" },
-                { "word": "きれいで", "meaning": "beautiful and (て-form な-adj)" }
+                {
+                  "word": "ともだちと",
+                  "meaning": "with friends"
+                },
+                {
+                  "word": "きれいで",
+                  "meaning": "beautiful and (て-form な-adj)"
+                }
               ]
             },
             {
               "passage": "にほんの ともだちも たくさん できました。みんな とても やさしいです。にほんごは まだ むずかしいですが、まいにち がんばっています。",
               "translation": "I have made many Japanese friends too. Everyone is very kind. Japanese is still difficult, but I am doing my best every day.",
               "vocabularyHighlights": [
-                { "word": "できました", "meaning": "was able to make / made" },
-                { "word": "まだ", "meaning": "still" },
-                { "word": "がんばっています", "meaning": "am doing my best (ongoing)" }
+                {
+                  "word": "できました",
+                  "meaning": "was able to make / made"
+                },
+                {
+                  "word": "まだ",
+                  "meaning": "still"
+                },
+                {
+                  "word": "がんばっています",
+                  "meaning": "am doing my best (ongoing)"
+                }
               ]
             },
             {
               "passage": "らいげつ やすみに うちに かえります。おかあさんの りょうりが たべたいです。ではまた。",
               "translation": "Next month during break I will return home. I want to eat Mom's cooking. See you then.",
               "vocabularyHighlights": [
-                { "word": "らいげつ", "meaning": "next month" },
-                { "word": "やすみ", "meaning": "break/vacation" },
-                { "word": "かえります", "meaning": "will return" },
-                { "word": "りょうり", "meaning": "cooking/cuisine" },
-                { "word": "ではまた", "meaning": "see you then" }
+                {
+                  "word": "らいげつ",
+                  "meaning": "next month"
+                },
+                {
+                  "word": "やすみ",
+                  "meaning": "break/vacation"
+                },
+                {
+                  "word": "かえります",
+                  "meaning": "will return"
+                },
+                {
+                  "word": "りょうり",
+                  "meaning": "cooking/cuisine"
+                },
+                {
+                  "word": "ではまた",
+                  "meaning": "see you then"
+                }
               ]
             }
           ],
           "questions": [
             {
               "question": "Who is Gabe writing to?",
-              "options": ["His friends", "His teacher", "His parents", "His classmates"],
+              "options": [
+                "His friends",
+                "His teacher",
+                "His parents",
+                "His classmates"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How is Gabe's life in Japan?",
-              "options": ["Boring", "Difficult", "Very fun", "Lonely"],
+              "options": [
+                "Boring",
+                "Difficult",
+                "Very fun",
+                "Lonely"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does べんきょうしています express?",
-              "options": ["Studied once", "Will study", "Is studying (ongoing/habitual)", "Doesn't study"],
+              "options": [
+                "Studied once",
+                "Will study",
+                "Is studying (ongoing/habitual)",
+                "Doesn't study"
+              ],
               "correctIndex": 2
             },
             {
               "question": "How is the teacher described?",
-              "options": ["Strict and boring", "Kind and interesting", "Young and quiet", "Old and smart"],
+              "options": [
+                "Strict and boring",
+                "Kind and interesting",
+                "Young and quiet",
+                "Old and smart"
+              ],
               "correctIndex": 1
             },
             {
               "question": "Where did Gabe go last week?",
-              "options": ["Tokyo", "Osaka", "Okinawa", "Kyoto"],
+              "options": [
+                "Tokyo",
+                "Osaka",
+                "Okinawa",
+                "Kyoto"
+              ],
               "correctIndex": 2
             },
             {
               "question": "Is Japanese easy for Gabe?",
-              "options": ["Yes, very easy", "No, still difficult", "He doesn't say", "It used to be hard but now it's easy"],
+              "options": [
+                "Yes, very easy",
+                "No, still difficult",
+                "He doesn't say",
+                "It used to be hard but now it's easy"
+              ],
               "correctIndex": 1
             },
             {
               "question": "When will Gabe go home?",
-              "options": ["This week", "Next week", "Next month", "Next year"],
+              "options": [
+                "This week",
+                "Next week",
+                "Next month",
+                "Next year"
+              ],
               "correctIndex": 2
             },
             {
               "question": "What does やさしくて mean?",
-              "options": ["Easy and", "Kind and (connecting)", "Not kind", "Was kind"],
+              "options": [
+                "Easy and",
+                "Kind and (connecting)",
+                "Not kind",
+                "Was kind"
+              ],
               "correctIndex": 1
             },
             {
               "question": "What does Gabe want to eat at home?",
-              "options": ["Japanese food", "His mother's cooking", "Fish", "Okinawan food"],
+              "options": [
+                "Japanese food",
+                "His mother's cooking",
+                "Fish",
+                "Okinawan food"
+              ],
               "correctIndex": 1
             }
           ]

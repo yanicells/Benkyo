@@ -575,7 +575,7 @@ export function DeckSessionClient({
         }}
       >
         <div
-          className="font-sans text-center leading-tight text-foreground transition-all"
+          className="font-sans text-center leading-tight text-foreground transition-all whitespace-pre-line"
         >
           <span className={promptTypographyClass}>{prompt}</span>
         </div>
@@ -589,7 +589,7 @@ export function DeckSessionClient({
         {mode === "flashcard" && revealed && (
           <div className="animate-in fade-in slide-in-from-bottom-4 mt-4 w-full flex flex-col items-center">
             <div className="w-16 h-[2px] bg-outline-variant/30 my-4" />
-            <p className="font-japanese text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center">
+            <p className="font-japanese text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center whitespace-pre-line">
               {current.card.back}
             </p>
           </div>

@@ -92,7 +92,7 @@ function VocabularyModal({
   );
 }
 
-function FuriganaText({
+function FuriganaChunk({
   text,
   highlights,
 }: {
@@ -101,7 +101,7 @@ function FuriganaText({
 }) {
   const kanjiWithReading = highlights.filter((h) => h.reading);
   if (kanjiWithReading.length === 0) {
-    return <span>{text}</span>;
+    return <>{text}</>;
   }
 
   const parts: { text: string; reading?: string }[] = [];
@@ -148,6 +148,33 @@ function FuriganaText({
           <span key={i}>{part.text}</span>
         ),
       )}
+    </>
+  );
+}
+
+function FuriganaText({
+  text,
+  highlights,
+}: {
+  text: string;
+  highlights: ReadingStory["passages"][number]["vocabularyHighlights"];
+}) {
+  // Split on **bold** markers while preserving them.
+  const segments = text.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <>
+      {segments.map((seg, i) => {
+        if (!seg) return null;
+        const boldMatch = seg.match(/^\*\*([^*]+)\*\*$/);
+        if (boldMatch) {
+          return (
+            <strong key={i} className="font-bold text-primary">
+              <FuriganaChunk text={boldMatch[1]} highlights={highlights} />
+            </strong>
+          );
+        }
+        return <FuriganaChunk key={i} text={seg} highlights={highlights} />;
+      })}
     </>
   );
 }
@@ -360,7 +387,7 @@ export function ReadingSessionClient({ story }: Props) {
             className={`relative flex ${readCardSizeClass} flex-col items-center justify-center rounded-4xl border border-primary/35 bg-surface-lowest px-6 py-5 shadow-[0_4px_24px_rgba(0,14,33,0.04)] md:px-8 md:py-7 lg:px-10 lg:py-8`}
           >
             <p
-              className={`font-japanese text-center leading-relaxed text-foreground ${passageTypographyClass}`}
+              className={`font-japanese text-center leading-relaxed text-foreground whitespace-pre-line ${passageTypographyClass}`}
             >
               <FuriganaText
                 text={passage.passage}
@@ -371,8 +398,8 @@ export function ReadingSessionClient({ story }: Props) {
             {showTranslation && (
               <div className="animate-in fade-in slide-in-from-bottom-4 mt-4 w-full flex flex-col items-center">
                 <div className="my-4 h-0.5 w-16 bg-outline-variant/30" />
-                <p className="text-center text-sm text-on-surface-variant md:text-base">
-                  {passage.translation}
+                <p className="whitespace-pre-line text-center text-sm text-on-surface-variant md:text-base">
+                  <FuriganaText text={passage.translation} highlights={[]} />
                 </p>
               </div>
             )}
