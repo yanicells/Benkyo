@@ -84,6 +84,31 @@ const filterOptions: { value: CardFilter; label: string }[] = [
   { value: "mastered", label: "Mastered" },
 ];
 
+function getCompactReadFirst(notes?: string): string | null {
+  if (!notes) return null;
+
+  const blocks = notes
+    .replace(/\r\n/g, "\n")
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+
+  if (blocks.length === 0) return null;
+
+  // Keep whole markdown blocks to avoid malformed rendering from mid-sentence truncation.
+  const summaryBlocks: string[] = [];
+  let totalLength = 0;
+
+  for (const block of blocks) {
+    if (summaryBlocks.length >= 2) break;
+    summaryBlocks.push(block);
+    totalLength += block.length;
+    if (totalLength >= 260) break;
+  }
+
+  return summaryBlocks.join("\n\n");
+}
+
 function StudyModeIcon({ mode }: { mode: StudyMode }) {
   if (mode === "flashcard") {
     return (
@@ -387,14 +412,10 @@ export function SubDeckStudyClient({
     );
   };
 
-  // Get a short summary from meta
-  const quickNote = meta?.notes
-    ? meta.notes.length > 200
-      ? meta.notes.slice(0, 200) + "…"
-      : meta.notes
-    : null;
-
-  const keyPoints = meta?.cheatSheet?.slice(0, 3) ?? [];
+  const compactReadFirst = useMemo(
+    () => getCompactReadFirst(meta?.notes),
+    [meta?.notes],
+  );
 
   const progress = useMemo(() => {
     if (dataRevision < 0) {
@@ -474,8 +495,8 @@ export function SubDeckStudyClient({
         </p>
       </header>
 
-      {/* Read this block */}
-      {(quickNote || keyPoints.length > 0) && (
+      {/* Sub-decks only show a compact read-first note, not full lesson guidance. */}
+      {compactReadFirst && (
         <div className="mb-6 rounded-2xl border border-primary/10 bg-surface-lowest shadow-[0_8px_32px_rgba(0,36,70,0.06)] overflow-hidden sm:mb-8">
           <div className="flex items-center gap-3 px-6 py-4 border-b border-outline-variant/10 bg-primary/3">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
@@ -489,7 +510,7 @@ export function SubDeckStudyClient({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                 />
               </svg>
             </div>
@@ -497,79 +518,75 @@ export function SubDeckStudyClient({
               Read this first
             </p>
           </div>
-          <div className="px-6 py-5 space-y-4">
-            {quickNote && (
-              <div className="space-y-2 text-sm leading-relaxed text-on-surface-variant">
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    p: ({ children }) => (
-                      <p className="text-on-surface-variant">{children}</p>
-                    ),
-                    strong: ({ children }) => (
-                      <strong className="font-semibold text-foreground">
-                        {children}
-                      </strong>
-                    ),
-                    em: ({ children }) => <em className="italic">{children}</em>,
-                    ul: ({ children }) => (
-                      <ul className="list-disc space-y-1 pl-5 marker:text-primary/60">
-                        {children}
-                      </ul>
-                    ),
-                    ol: ({ children }) => (
-                      <ol className="list-decimal space-y-1 pl-5 marker:text-primary/60">
-                        {children}
-                      </ol>
-                    ),
-                    code: ({ children }) => (
-                      <code className="rounded bg-surface-low px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
-                        {children}
-                      </code>
-                    ),
-                  }}
-                >
-                  {quickNote}
-                </ReactMarkdown>
-              </div>
-            )}
-            {keyPoints.length > 0 && (
-              <ul className="space-y-2">
-                {keyPoints.map((point, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2.5 text-sm text-foreground leading-relaxed"
-                  >
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-[10px] font-bold text-primary">
-                      {i + 1}
-                    </span>
-                    <span className="min-w-0">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                          p: ({ children }) => <>{children}</>,
-                          strong: ({ children }) => (
-                            <strong className="font-semibold text-foreground">
-                              {children}
-                            </strong>
-                          ),
-                          em: ({ children }) => (
-                            <em className="italic">{children}</em>
-                          ),
-                          code: ({ children }) => (
-                            <code className="rounded bg-surface-low px-1 font-mono text-[0.85em]">
-                              {children}
-                            </code>
-                          ),
-                        }}
-                      >
-                        {point}
-                      </ReactMarkdown>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
+          <div className="px-6 py-5">
+            <div className="prose-notes space-y-3 text-sm leading-relaxed text-on-surface-variant">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  p: ({ children }) => (
+                    <p className="text-on-surface-variant">{children}</p>
+                  ),
+                  strong: ({ children }) => (
+                    <strong className="font-semibold text-foreground">
+                      {children}
+                    </strong>
+                  ),
+                  em: ({ children }) => (
+                    <em className="italic">{children}</em>
+                  ),
+                  ul: ({ children }) => (
+                    <ul className="list-disc space-y-1 pl-5 marker:text-primary/60">
+                      {children}
+                    </ul>
+                  ),
+                  ol: ({ children }) => (
+                    <ol className="list-decimal space-y-1 pl-5 marker:text-primary/60">
+                      {children}
+                    </ol>
+                  ),
+                  li: ({ children }) => (
+                    <li className="text-on-surface-variant">{children}</li>
+                  ),
+                  h1: ({ children }) => (
+                    <h3 className="mt-2 text-base font-semibold text-foreground">
+                      {children}
+                    </h3>
+                  ),
+                  h2: ({ children }) => (
+                    <h3 className="mt-2 text-base font-semibold text-foreground">
+                      {children}
+                    </h3>
+                  ),
+                  h3: ({ children }) => (
+                    <h4 className="mt-2 text-sm font-semibold text-foreground">
+                      {children}
+                    </h4>
+                  ),
+                  code: ({ children }) => (
+                    <code className="rounded bg-surface-low px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
+                      {children}
+                    </code>
+                  ),
+                  blockquote: ({ children }) => (
+                    <blockquote className="border-l-2 border-primary/30 pl-3 italic">
+                      {children}
+                    </blockquote>
+                  ),
+                  a: ({ href, children }) => (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary underline underline-offset-2"
+                    >
+                      {children}
+                    </a>
+                  ),
+                }}
+              >
+                {compactReadFirst}
+              </ReactMarkdown>
+            </div>
           </div>
         </div>
       )}
