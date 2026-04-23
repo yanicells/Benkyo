@@ -4,22 +4,19 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { getKanaRows } from "@/lib/kana";
-import { KanjiStudyTab } from "@/components/kana/kanji-study-tab";
 import type {
   KanaBatchSize,
   KanaEntry,
   KanaGroup,
   KanaRowKey,
   KanaScript,
-  Lesson,
 } from "@/lib/types";
 
-type TabValue = KanaScript | "kanji";
+type TabValue = KanaScript;
 
 type KanaConfigFormProps = {
   initialScript?: KanaScript;
   initialTab?: TabValue;
-  lessons?: Lesson[];
 };
 
 const groupOrder: KanaGroup[] = ["basic", "dakuten", "combo"];
@@ -320,7 +317,6 @@ function SessionOptionsModal({
 export function KanaConfigForm({
   initialScript = "hiragana",
   initialTab = "hiragana",
-  lessons = [],
 }: KanaConfigFormProps) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabValue>(initialTab);
@@ -420,7 +416,6 @@ export function KanaConfigForm({
           [
             { value: "hiragana" as TabValue, label: "Hiragana", icon: "あ" },
             { value: "katakana" as TabValue, label: "Katakana", icon: "ア" },
-            { value: "kanji" as TabValue, label: "Kanji", icon: "漢" },
           ] as const
         ).map((tab) => (
           <button
@@ -429,14 +424,12 @@ export function KanaConfigForm({
             aria-pressed={activeTab === tab.value}
             onClick={() => {
               setActiveTab(tab.value);
-              if (tab.value !== "kanji") {
-                setScript(tab.value);
-                setSelectedRows(
-                  getKanaRows(tab.value)
-                    .filter((row) => row.group === "basic")
-                    .map((row) => row.key),
-                );
-              }
+              setScript(tab.value);
+              setSelectedRows(
+                getKanaRows(tab.value)
+                  .filter((row) => row.group === "basic")
+                  .map((row) => row.key),
+              );
             }}
             className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg border py-3 text-sm font-bold transition-all ${
               activeTab === tab.value
@@ -452,15 +445,8 @@ export function KanaConfigForm({
         ))}
       </div>
 
-      {/* Kanji tab content */}
-      {activeTab === "kanji" && (
-        <div className="mt-6">
-          <KanjiStudyTab lessons={lessons} />
-        </div>
-      )}
-
       {/* Kana tab content */}
-      {activeTab !== "kanji" && (
+      {(
         <>
           <div className="mt-6 space-y-6 pb-32">
             {/* Group quick-select */}

@@ -475,7 +475,7 @@ export function KanjiDeckGrid({
             return (
               <Link
                 key={group.lessonId}
-                href={`/decks/${group.lessonId}`}
+                href={`/decks/${group.lessonId}?from=kanji`}
                 className="group rounded-lg bg-surface-lowest p-3.5 shadow-[0_12px_32px_rgba(0,36,70,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,36,70,0.12)] sm:p-4"
               >
                 <div className="flex items-start justify-between gap-2">

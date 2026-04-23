@@ -58,6 +58,16 @@ function isKanjiBack(back: string): boolean {
   return /^(Meaning|Reading):\s/.test(back.trim());
 }
 
+// For multiple-choice, strip lines that would reveal the kanji being asked
+// (Example shows the kanji inside the compound; Breakdown spells out the parts).
+function stripKanjiMCSpoilers(back: string): string {
+  if (!isKanjiBack(back)) return back;
+  return back
+    .split("\n")
+    .filter((line) => !/^(Example|Breakdown):/.test(line.trim()))
+    .join("\n");
+}
+
 function KanjiBack({ back }: { back: string }) {
   const rows = back
     .split(/\n+/)
@@ -354,7 +364,7 @@ export function DeckSessionClient({
     if (!current || mode !== "multiple-choice") return null;
 
     const isFillIn = current.card.type === "fill-in";
-    const correct = current.card.back;
+    const correct = stripKanjiMCSpoilers(current.card.back);
 
     let distractorPool: string[];
 
@@ -363,12 +373,12 @@ export function DeckSessionClient({
         .filter(
           (c) => c.type === "fill-in" && cardKey(c) !== cardKey(current.card),
         )
-        .map((c) => c.back)
+        .map((c) => stripKanjiMCSpoilers(c.back))
         .filter((v) => v !== correct);
     } else {
       distractorPool = allLessonCards
         .filter((card) => cardKey(card) !== cardKey(current.card))
-        .map((card) => card.back)
+        .map((card) => stripKanjiMCSpoilers(card.back))
         .filter((value) => value !== correct);
     }
 
@@ -708,7 +718,7 @@ export function DeckSessionClient({
                       }}
                       className={`${optionFontClass} group relative flex items-center w-full min-h-17 rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-lg md:text-xl font-medium transition-all duration-200 shadow-[0_4px_16px_rgba(0,0,0,0.04)] ${stateClass}`}
                     >
-                      <span className="flex-1 text-center leading-relaxed wrap-break-word">
+                      <span className="flex-1 text-center leading-relaxed wrap-break-word whitespace-pre-line">
                         {option}
                       </span>
                     </button>

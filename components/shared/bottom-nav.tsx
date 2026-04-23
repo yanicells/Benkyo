@@ -40,6 +40,13 @@ export function BottomNav() {
       ),
     },
     {
+      name: "Kanji",
+      href: "/decks/kanji",
+      icon: (
+        <span className="font-japanese-display text-lg leading-none">漢</span>
+      ),
+    },
+    {
       name: "Reading",
       href: "/reading",
       icon: (
@@ -92,9 +99,15 @@ export function BottomNav() {
     <nav className="fixed bottom-0 left-0 z-40 w-full border-t border-outline-variant/20 bg-surface-lowest pb-[env(safe-area-inset-bottom)]">
       <div className="flex h-16 justify-around">
         {items.map((item) => {
+          // Kanji lives under /decks/kanji; don't highlight Lessons when we're
+          // actually on the Kanji route.
           const isActive =
-            pathname === item.href ||
-            (item.href !== "/" && pathname.startsWith(item.href));
+            item.href === "/decks"
+              ? pathname === "/decks" ||
+                (pathname.startsWith("/decks/") &&
+                  !pathname.startsWith("/decks/kanji"))
+              : pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href));
 
           return (
             <Link

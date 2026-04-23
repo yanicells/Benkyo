@@ -10,12 +10,16 @@ import type { LessonsData } from "@/lib/types";
 
 type SubDeckListPageProps = {
   params: Promise<{ lessonId: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export default async function SubDeckListPage({
   params,
+  searchParams,
 }: SubDeckListPageProps) {
   const { lessonId } = await params;
+  const query = await searchParams;
+  const fromParam = Array.isArray(query.from) ? query.from[0] : query.from;
   const lessons = (lessonsData as unknown as LessonsData).lessons;
   const lesson = lessons.find((item) => item.id === lessonId);
 
@@ -28,15 +32,19 @@ export default async function SubDeckListPage({
     0,
   );
 
+  const fromKanji = fromParam === "kanji" || lessonId.startsWith("jlpt-");
+  const backHref = fromKanji ? "/decks/kanji" : "/decks";
+  const backLabel = fromKanji ? "Kanji Decks" : "All Lessons";
+
   return (
     <PageShell
-      eyebrow="Lesson"
+      eyebrow={fromKanji ? "Kanji" : "Lesson"}
       title={lesson.title}
       subtitle={`${lesson.subDecks.length} sub-decks · ${totalCards} cards total`}
       tightTop
       tightTopOnMobile
-      backHref="/decks"
-      backLabel="All Lessons"
+      backHref={backHref}
+      backLabel={backLabel}
     >
       {lesson.meta && <LessonPreStudy meta={lesson.meta} />}
       <LessonProgressOverview lesson={lesson} />

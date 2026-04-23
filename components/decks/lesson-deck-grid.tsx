@@ -316,13 +316,6 @@ export function LessonDeckGrid({
       {/* Lesson grid */}
       {showGrid && (
         <div className="grid grid-cols-1 gap-3 [@media(min-width:520px)]:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {basePath === "/decks" && (
-            <KanjiVirtualCard
-              lessons={lessons}
-              isHydrated={isHydrated}
-              dataRevision={dataRevision}
-            />
-          )}
           {lessons.map((lesson, index) => (
             <LessonCard
               key={lesson.id}

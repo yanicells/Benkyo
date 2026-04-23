@@ -16,7 +16,7 @@ export default async function SubDeckConfigPage({
   const { lessonId, subDeckId } = await params;
   const query = await searchParams;
   const fromParam = Array.isArray(query.from) ? query.from[0] : query.from;
-  const fromKanjiDeck = fromParam === "kanji";
+  const fromKanjiDeck = fromParam === "kanji" || lessonId.startsWith("jlpt-");
   const lessons = (lessonsData as unknown as LessonsData).lessons;
   const lesson = lessons.find((item) => item.id === lessonId);
 
@@ -51,8 +51,18 @@ export default async function SubDeckConfigPage({
 
   const title = isStudyAll ? `${lesson.title} — All Cards` : subDeck!.title;
   const cardTypes = [...new Set(cards.map((c) => c.type))];
-  const backHref = fromKanjiDeck ? "/decks/kanji" : `/decks/${lessonId}`;
-  const backLabel = fromKanjiDeck ? "Kanji Decks" : lesson.title;
+  // For JLPT lessons, back goes to the JLPT lesson page (which shows the parts)
+  // so users can pick another part. For other kanji decks, back to /decks/kanji.
+  const backHref = lessonId.startsWith("jlpt-")
+    ? `/decks/${lessonId}?from=kanji`
+    : fromKanjiDeck
+      ? "/decks/kanji"
+      : `/decks/${lessonId}`;
+  const backLabel = lessonId.startsWith("jlpt-")
+    ? lesson.title
+    : fromKanjiDeck
+      ? "Kanji Decks"
+      : lesson.title;
 
   return (
     <SubDeckStudyClient

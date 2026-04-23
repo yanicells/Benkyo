@@ -62,6 +62,16 @@ const navItems = [
     ),
   },
   {
+    href: "/decks/kanji",
+    label: "KANJI",
+    exact: false,
+    icon: (
+      <span className="font-japanese-display text-lg leading-none w-5 text-center shrink-0">
+        漢
+      </span>
+    ),
+  },
+  {
     href: "/reviewer",
     label: "REVIEWER",
     exact: false,
@@ -163,7 +173,12 @@ export function DesktopSidebar() {
         {navItems.map((item) => {
           const isActive = item.exact
             ? pathname === item.href
-            : pathname === item.href || pathname.startsWith(item.href + "/");
+            : item.href === "/decks"
+              ? pathname === "/decks" ||
+                (pathname.startsWith("/decks/") &&
+                  !pathname.startsWith("/decks/kanji"))
+              : pathname === item.href ||
+                pathname.startsWith(item.href + "/");
 
           return (
             <Link

@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   getAllSRS,
   makeCardId,
@@ -497,9 +499,39 @@ export function SubDeckStudyClient({
           </div>
           <div className="px-6 py-5 space-y-4">
             {quickNote && (
-              <p className="text-sm leading-relaxed text-on-surface-variant">
-                {quickNote}
-              </p>
+              <div className="space-y-2 text-sm leading-relaxed text-on-surface-variant">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    p: ({ children }) => (
+                      <p className="text-on-surface-variant">{children}</p>
+                    ),
+                    strong: ({ children }) => (
+                      <strong className="font-semibold text-foreground">
+                        {children}
+                      </strong>
+                    ),
+                    em: ({ children }) => <em className="italic">{children}</em>,
+                    ul: ({ children }) => (
+                      <ul className="list-disc space-y-1 pl-5 marker:text-primary/60">
+                        {children}
+                      </ul>
+                    ),
+                    ol: ({ children }) => (
+                      <ol className="list-decimal space-y-1 pl-5 marker:text-primary/60">
+                        {children}
+                      </ol>
+                    ),
+                    code: ({ children }) => (
+                      <code className="rounded bg-surface-low px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
+                        {children}
+                      </code>
+                    ),
+                  }}
+                >
+                  {quickNote}
+                </ReactMarkdown>
+              </div>
             )}
             {keyPoints.length > 0 && (
               <ul className="space-y-2">
@@ -511,7 +543,29 @@ export function SubDeckStudyClient({
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-[10px] font-bold text-primary">
                       {i + 1}
                     </span>
-                    <span>{point}</span>
+                    <span className="min-w-0">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          p: ({ children }) => <>{children}</>,
+                          strong: ({ children }) => (
+                            <strong className="font-semibold text-foreground">
+                              {children}
+                            </strong>
+                          ),
+                          em: ({ children }) => (
+                            <em className="italic">{children}</em>
+                          ),
+                          code: ({ children }) => (
+                            <code className="rounded bg-surface-low px-1 font-mono text-[0.85em]">
+                              {children}
+                            </code>
+                          ),
+                        }}
+                      >
+                        {point}
+                      </ReactMarkdown>
+                    </span>
                   </li>
                 ))}
               </ul>

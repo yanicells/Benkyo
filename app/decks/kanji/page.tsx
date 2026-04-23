@@ -19,9 +19,6 @@ export default function KanjiDeckPage() {
       eyebrow="Kanji"
       title="Kanji Decks"
       subtitle={`${totalDisplayItems} decks · ${totalCards} kanji cards`}
-      tightTop
-      backHref="/decks"
-      backLabel="All Lessons"
     >
       <KanjiDeckGrid
         entries={allEntries}

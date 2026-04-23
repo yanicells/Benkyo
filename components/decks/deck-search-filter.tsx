@@ -192,7 +192,9 @@ export function DeckSearchFilter({
       {!lesson?.id.startsWith("jlpt-") && (
       <div className={filterTabsClass}>
         <div className="mx-auto flex w-max gap-2">
-          {FILTER_TABS.map((tab) => (
+          {FILTER_TABS.filter(
+            (tab) => tab.value !== "kanji" || scope === "lesson",
+          ).map((tab) => (
             <button
               key={tab.value}
               type="button"
@@ -227,7 +229,7 @@ export function DeckSearchFilter({
             cards={searchResults.map((r) => r.card)}
             title={`${searchResults.length} result${searchResults.length !== 1 ? "s" : ""}`}
             maxVisible={30}
-            preserveNewlines={lesson?.id.startsWith("jlpt-")}
+            preserveNewlines
           />
         ))}
 
@@ -237,9 +239,7 @@ export function DeckSearchFilter({
           cards={filteredCards}
           title={`${FILTER_TABS.find((t) => t.value === activeFilter)?.label ?? ""} cards`}
           maxVisible={30}
-          preserveNewlines={
-            activeFilter === "kanji" || lesson?.id.startsWith("jlpt-")
-          }
+          preserveNewlines
         />
       )}
 
